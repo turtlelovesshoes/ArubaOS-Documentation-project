@@ -1,0 +1,806 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>ARM</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\ARM.fm" />
+ <meta name="keywords" content="arm profile, virtual ap, profile management, ap group, coverage index, air monitor, load balancing feature, local regulatory requirement">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 6</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Adaptive_Radio"></a><a name="XREF_90832_Adaptive_Radio"></a>Adaptive Radio Management (ARM)</p>
+ <p class="FM_Body"><a name="IX_basic_deployment"></a><a name="IX_ARM"></a>This document describes how to configure the ARM function to automatically select the best channel and transmission power settings for each AP on your WLAN. After completing the tasks described in the following pages, you can continue configuring your APs as described in the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> User Guide.</p>
+ <p class="FM_Body">This document includes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_99632_ARM_Overview"><span class="FM_PMS646">“ARM Overview”</span></a></p>
+  </li>
+  <li style="">
+    <p class="FM_Bullet1"><a href="#XREF_78704_ARM_Profiles"><span class="FM_PMS646">“ARM Profiles”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_84972_Assigning_a_New"><span class="FM_PMS646">“Assigning an ARM Profile to an AP Group”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_39839_Multi_Band_ARM_and"><span class="FM_PMS646">“Multi-Band ARM and 802.11a/802.11g Traffic” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_91329_Band_Steering"><span class="FM_PMS646">“Band Steering” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_71453_Traffic_Shaping"><span class="FM_PMS646">“Traffic Shaping” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_58309_Client_Load"><span class="FM_PMS646">“Spectrum Load Balancing”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_15856_RX_Sensitivity"><span class="FM_PMS646">“RX Sensitivity Tuning Based Channel Reuse”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_86730_Noise_Immunity"><span class="FM_PMS646">“Non-802.11 Noise Interference Immunity”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_67587_ARM_Metrics"><span class="FM_PMS646">“ARM Metrics” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_53157_ARM_Troubleshooting"><span class="FM_PMS646">“ARM Troubleshooting” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_ARM_Overview"></a><a name="XREF_99632_ARM_Overview"></a>ARM Overview</p>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>'s Adaptive Radio Management (ARM) technology maximizes WLAN performance even in the highest traffic networks by dynamically and intelligently choosing the best 802.11 channel and transmit power for each <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AP&#160;in its current RF environment. </p>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>’s ARM technology solves wireless networking challenges such as large deployments, dense deployments, and installations that must support VoIP or mobile users. Deployments with dozens of users per access point can cause network contention and interference, but ARM dynamically monitors and adjusts the network to ensure that all users are allowed ready access. ARM provides the best voice call quality with voice-aware spectrum scanning and call admission control. </p>
+ <p class="FM_Body">With earlier technologies, network administrators would have to perform a site survey at each location to discover areas of RF coverage and interference, and then manually configure each AP according to the results of this survey. Static site surveys can help you choose channel and power assignments for APs, but these surveys are often time-consuming and expensive, and only reflect the state of the network at a single point in time. ARM is more efficient than static calibration, and, unlike older technologies, it continually monitors and adjusts radio resources to provide optimal network performance. Automatic power control can adjust AP power settings if adjacent APs are added, removed, or moved to a new location within the network, minimizing interference with other WLAN networks. ARM adjusts only the affected APs, so the entire network does not require systemic changes.</p>
+ <p class="FM_2Heading"><a name="TOC_ARM_Support_for_802_11n"></a>ARM Support for 802.11n </p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;version 3.3.x or later supports APs with the 802.11n standard, ensuring seamless integration of 802.11n devices into your RF domain. An <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AP’s 5 Ghz band capacity simplifies the integration of new APs into your legacy network. You can also replace older APs with newer 802.11n-compliant APs while reusing your existing cabling and PoE infrastructure.</p>
+ <p class="FM_Body">A high-throughput (802.11n) AP can use a 40 MHz channel pair comprised of two adjacent 20 MHz channels available in the regulatory domain profile for your country. When ARM is configured for a dual-band AP, it will dynamically select the primary and secondary channels for these devices. It can, however, continue to scan all changes in the a+b/g bands to calculate interference and detect rogue APs.</p>
+ <p class="FM_2Heading"><a name="TOC_Monitoring_Your_Network"></a>Monitoring Your Network with ARM</p>
+ <p class="FM_Body">When ARM is enabled, an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AP will dynamically scan all 802.11 channels in its regulatory domain at regular intervals and will report everything it sees to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;on each channel it scans. (By default, 802.11n-capable APs scan channels in all regulatory domains.) This includes, but is not limited to, data regarding WLAN coverage, interference, and intrusion detection. You can retrieve this information from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to get a quick health check of your WLAN deployment without having to walk around every part of a building with a network analyzer. (For additional information on the individual matrix gathered on the AP’s current assigned RF channel, see <a href="#XREF_67587_ARM_Metrics"><span class="FM_PMS646">“ARM Metrics” </span></a>.)</p>
+ <p class="FM_3Heading"><a name="TOC_Noise_and_Error"></a>Noise and Error Monitoring</p>
+ <p class="FM_Body">An AP configured with ARM is aware of both 802.11 and non-802.11 noise, and will adjust to a better channel if it reaches a configured threshold for either noise, MAC errors or PHY errors. The ARM algorithm is based on what the individual AP hears, so each AP on your WLAN can effectively “self heal” by compensating for changing scenarios like a broken antenna or blocked signals from neighboring APs. Additionally, ARM periodically collects information about neighboring APs to help each AP better adapt to its own changing environment. </p>
+ <p class="FM_3Heading"><a name="TOC_Application_Awareness"></a>Application Awareness</p>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs keep a count of the number of data bytes transmitted and received by their radios to calculate the traffic load. When a WLAN gets very busy and traffic exceeds a predefined threshold, load-aware ARM dynamically adjusts scanning behavior to maintain uninterrupted data transfer on heavily loaded systems. ARM-enabled APs will resume their complete monitoring scans when the traffic has dropped to normal levels. You can also define a firewall policy that pauses ARM scanning when the AP detects critically important or latency-sensitive traffic from a specified host or network.</p>
+ <p class="FM_Body">ARM’s band steering feature encourages dual-band capable clients to stay on the 5GHz band on dual-band APs. This frees up resources on the 2.4GHz band for single band clients like VoIP phones. </p>
+ <p class="FM_Body">The ARM “Mode Aware” option is a useful feature for single radio, dual-band WLAN networks with high density AP deployments. If there is too much AP coverage, those APs can cause interference and negatively impact your network. Mode aware ARM can turn APs into Air Monitors if necessary, then turn those Air Monitors back into APs when they detect gaps in coverage. Note that an Air Monitor will not turn back into an AP if it detects client traffic (or client traffic increases), but will change to an AP only if it detects coverage holes.</p>
+ <p class="FM_1Heading"><a name="TOC_ARM_Profiles"></a><a name="XREF_78704_ARM_Profiles"></a>ARM Profiles</p>
+ <p class="FM_Body">You configure ARM by defining ARM <span style="font-style : italic; ">profiles</span>, a set of configuration parameters that you can apply as needed to an AP group or to individual APs. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;have one preconfigured ARM profile, called <span style="font-weight : bold; ">default</span>. Most network administrators will find that this one default ARM profile is sufficient to manage all the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> APs on their WLAN. Others may want to define multiple profiles to suit their APs’ varying needs.</p>
+ <p class="FM_Body">When managing ARM profiles, you should first consider whether or not all the APs on your WLAN operate in similar environments and manage similar traffic loads and client types.</p>
+ <p class="FM_Body">If your APs' environment and traffic loads are mostly the same, you can use the default ARM profile to manage all the APs on your WLAN. If you ever modify the default profile, all APs on the WLAN will be updated with the new settings. If, however, you have APs on your WLAN that are in different physical environments, or your APs each manage widely varying client loads or traffic types, you should consider defining additional ARM profiles for your AP groups. The following table describes different WLAN environments, and the type of ARM profiles appropriate for each.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.38pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 35 &#160;</span>ARM Profile Types<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 80.451pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">ARM Profiles</p>
+</th>
+  <th style="width : 386.928pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Example WLAN Description</p>
+</th>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 80.451pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span style="font-weight : bold; ">default</span>&#160;profile only</p>
+</td>
+  <td style="width : 386.928pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; ">
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">A warehouse where the physical environment is nearly the same for all APs, and each AP manages the same number of clients and traffic load.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">A training room, where the clients are evenly spaced throughout the room, have the same security requirements and are using the same amount of network resources. </p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 85.00pt;">
+  <td style="width : 80.451pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">multiple profiles</p>
+</td>
+  <td style="width : 386.928pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; ">
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Universities where APs are in different building types (open auditoriums, small brick classrooms), some APs must support VoIP or video streaming, and mobile clients are constantly moving from one AP coverage area to another.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Healthcare environments where some APs must balance the network demands of large digital radiology files, secure electronic patient record transfers, diagnostic videos, and collaborative VoIP sessions, while other APs (like those in a lobby or cafeteria) support only lower-priority traffic like Internet browsing.</p>
+</li>
+  </ul></td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You assign ARM profiles to AP groups by associating an ARM profile with that AP group’s 802.11a or 802.11g RF management profile. For details on associating an ARM profile with an AP group, see <a href="#XREF_84972_Assigning_a_New"><span class="FM_PMS646">“Assigning an ARM Profile to an AP Group”</span></a>.</p>
+ <p class="FM_Body">There are two ways to create a new ARM profile. You can make an entirely new profile with all default settings, or you can create a new profile based upon the settings of an existing profile by making a copy of that other profile. </p>
+ <p class="FM_2Heading"><a name="TOC_Creating_a_New_ARM"></a>Creating a New ARM Profile</p>
+ <p class="FM_Body">To create a new ARM profile with all default settings via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Configuration</span>&#160;&gt; <span style="font-weight : bold; ">All Profiles</span>. The <span style="font-weight : bold; ">All Profile Management</span> window opens.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">RF Management</span>&#160;to expand the <span style="font-weight : bold; ">RF Management</span> section.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Adaptive Radio Management (ARM) Profile</span>. Any currently defined ARM profiles appears in the right pane of the window. If you have not yet created any ARM profiles, this pane displays the <span style="font-weight : bold; ">default</span> profile only.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To create a new profile with all default settings, enter a name in the entry blank. The name must be 1–63 characters, and can be composed of alphanumeric characters, special characters and spaces. If your profile name includes a space, it must be enclosed within quotation marks.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_Body">To create a new ARM profile via the command-line interface, access the CLI in config mode and issue the following command.</p>
+ <p class="FM_CLIIndented">rf arm-profile &lt;profile&gt;</p>
+ <p class="FM_Body">where &lt;profile&gt; is a unique name for the new ARM profile. The name must be 1–63 characters, and can be composed of alphanumeric characters, special characters and spaces. If your profile name includes a space, it must be enclosed within quotation marks</p>
+ <p class="FM_2Heading"><a name="TOC_Copying_an_Existing"></a>Copying an Existing Profile</p>
+ <p class="FM_Body">To create a new ARM profile based upon the settings of another existing profile:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Follow steps 1–3 in the above procedure to access the <span style="font-weight : bold; ">Adaptive Radio Management (ARM) profile</span>&#160;window.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the list of profiles, select the profile with the settings you would like to copy.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Save As</span>. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name for the new profile in the entry blank. The name must be 1–63 characters, and can be composed of alphanumeric characters, special characters and spaces. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To create a copy of an existing ARM profile via the command-line interface, access the CLI in config mode and issue the following command.</p>
+ <p class="FM_CLIIndented">rf arm-profile &lt;newprofile&gt; clone &lt;profile&gt;</p>
+ <p class="FM_Body">where &lt;newprofile&gt; is a unique name for the new ARM profile, and &lt;profile&gt; is the name of the existing profile whose setting you want to copy. The name must be 1–63 characters, and can be composed of alphanumeric characters, special characters and spaces. If your profile name includes a space, it must be enclosed within quotation marks</p>
+ <p class="FM_2Heading"><a name="TOC_Deleting_a_Profile"></a>Deleting a Profile</p>
+ <p class="FM_Body">You can only delete unused ARM profiles; <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;will not let you delete an ARM profile that is currently assigned to an AP group. </p>
+ <p class="FM_Body">To delete an ARM profile In the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Configuration</span>&#160;&gt; <span style="font-weight : bold; ">All Profiles</span>. The <span style="font-weight : bold; ">All Profile Management</span> window opens.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">RF Management</span>&#160;to expand the <span style="font-weight : bold; ">RF Management</span> section.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Adaptive Radio Management (ARM) Profile</span>. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name of the profile you want to delete. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Delete</span>.</p>
+ <p class="FM_Body">To delete an ARM profile using the CLI, issue the command</p>
+ <p class="FM_CLI">no rf arm-profile &lt;profile&gt;</p>
+ <p class="FM_Body">where &lt;profile&gt; is the name of the ARM profile you wish to remove. </p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_ARM_Settings"></a><a name="XREF_66141_Configuring_ARM"></a>Configuring ARM Settings</p>
+ <p class="FM_Body">In most network environments, ARM does not need any adjustments from its factory-configured settings. However, if you are using VoIP or have unusually high security requirements you may want to manually adjust the ARM thresholds. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">If you plan on using Adaptive Radio Management on an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="60AP"  ?>AP-60<?rh-udv_end ?>&#160;or <?rh-udv_start name="61AP"  ?>AP-61<?rh-udv_end ?>in a network with both 802.11a and 802.11g traffic, <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;suggests that you enable the <span style="font-weight : bold; ">Mode aware ARM</span>&#160;feature in that AP’s ARM profile, and set the profile’s ARM assignment option to<span style="font-weight : bold; "> multi-band</span>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI33"></a>In the WebUI</p>
+ <p class="FM_Body">To change an ARM profile:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Configuration</span>&#160;&gt; <span style="font-weight : bold; ">All Profiles</span>. The <span style="font-weight : bold; ">All Profile Management</span> window opens.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">RF Management</span> to expand the<span style="font-weight : bold; "> RF Management</span> section.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Adaptive Radio Management (ARM) Profile</span>. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name of the profile you want to edit. The <span style="font-weight : bold; ">Adaptive Radio Management (ARM) profile</span>&#160;window opens.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Change any of the ARM settings described in the table below, then click <span style="font-weight : bold; ">Apply</span> to save your changes.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.88pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 36 &#160;</span><a name="XREF_79106_Table_4_ARM"></a>ARM Profile Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 71.698pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Setting</p>
+</th>
+  <th style="width : 396.181pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 123.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Assignment</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Activates one of four ARM channel/power assignment modes. </p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">disable: Disables ARM calibration and reverts APs back to default channel and power settings specified by the AP’s radio profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">maintain: APs maintain their current channel and power settings. This setting can be used to maintain AP channel and power levels after ARM has initially selected the best settings.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">multi-band: For single-radio APs, this value computes ARM assignments for both 5 GHZ (802.11a) and 2.4 GHZ (802.11b/g) frequency bands.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">single-band: For dual-radio APs, this value enables APs to change transmit power and channels within their same frequency band, and to adapt to changing channel conditions. </p>
+</li>
+  </ul>
+  <p class="FM_TableBody">Default: single-band</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allowed bands for 40MHz channels</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The specified setting allows ARM to determine if 40 MHz mode of operation is allowed on the 5 GHz or 2.4 GHz frequency band only, on both frequency bands, or on neither frequency band.</p>
+</td>
+</tr>
+  <tr style=" height : 87.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Client Aware</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If the <span style="font-weight : bold; ">Client Aware</span>&#160;option is enabled, the AP does not change channels if there is an active client associated to that AP. (Activity is defined by the <span style="font-weight : bold; ">sta-inactivity-time</span>&#160;parameter in the IDS general profile. By default, a client is considered active if it has sent or received traffic within the last 60 seconds.)</p>
+  <p class="FM_TableBody">If <span style="font-weight : bold; ">Client Aware</span>&#160;is disabled, the AP may change to a more optimal channel, but this change may also disrupt current client traffic.</p>
+  <p class="FM_TableBody">Default: enabled</p>
+</td>
+</tr>
+  <tr style=" height : 147.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Min Tx EIRP</p>
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Minimum effective isotropic radiated power (EIRP) from 3 to 33 dBm in 3 dBm increments. You may also specify a special value of 127 dBm for regulatory maximum to disable power adjustments for environments such as outdoor mesh links. Note that power settings will not change if the <span style="font-weight : bold; ">Assignment</span>&#160;option is set to <span style="font-weight : bold; ">disabled</span>&#160;or <span style="font-weight : bold; ">maintain</span>. Higher power level settings may be constrained by local regulatory requirements and AP capabilities. In the event that an AP is configured for a <span style="font-weight : bold; ">Min Tx EIRP</span>&#160;setting it cannot support, this value will be reduced to the highest supported power setting.</p>
+  <p class="FM_TableBody">Default: 9 dBm</p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>Consider configuring a <span style="font-weight : bold; ">Min Tx Power</span>&#160;setting higher than the default value if most of your APs are placed on the ceiling. APs on a ceiling often have good line of sight between them, which will cause ARM to decrease their power to prevent interference. However, if the wireless clients down on the floor do not have such a clear line back to the AP, you could end up with coverage gaps.</p>
+</td>
+</tr>
+  <tr style=" height : 87.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max Tx EIRP</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum effective isotropic radiated power (EIRP) from 3 to 33 dBm in 3 dBm increments. You may also specify a special value of 127 dBm for regulatory maximum. Higher power level settings may be constrained by local regulatory requirements and AP capabilities. In the event that an AP is configured for a <span style="font-weight : bold; ">Max Tx EIRP</span>&#160;setting it cannot support, this value will be reduced to the highest supported power setting.</p>
+  <p class="FM_TableBody">Default: 127 dBm</p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>Power settings will not change if the <span style="font-weight : bold; ">Assignment</span>&#160;option is set to <span style="font-weight : bold; ">disabled</span>&#160;or <span style="font-weight : bold; ">maintain</span>. </p>
+</td>
+</tr>
+  <tr style=" height : 77.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Multi Band Scan</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If enabled, single radio channel APs scans for rogue APs across multiple channels. This option requires that <span style="font-weight : bold; ">Scanning</span> is also enabled.</p>
+  <p class="FM_TableBody">(The <span style="font-weight : bold; ">Multi Band Scan</span>&#160;option does not apply to APs that have two radios, as these devices already scan across multiple channels. If one of these dual-radio devices are assigned an ARM profile with Multi Band enabled, that device will ignore this setting.)</p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 87.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rogue AP Aware</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If you have enabled both the <span style="font-weight : bold; ">Scanning</span>&#160;and <span style="font-weight : bold; ">Rogue AP options</span>, <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs may change channels to contain off-channel rogue APs with active clients. This security features allows APs to change channels even if the <span style="font-weight : bold; ">Client Aware</span> setting is disabled.</p>
+  <p class="FM_TableBody">This setting is disabled by default, and should only be enabled in high-security environments where security requirements are allowed to consume higher levels of network resources. You may prefer to receive Rogue AP alerts via SNMP traps or syslog events. </p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 109.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Scan Interval</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If <span style="font-weight : bold; ">Scanning</span>&#160;is enabled, the <span style="font-weight : bold; ">Scan Interval </span>defines how often the AP will leave its current channel to scan other channels in the band. </p>
+  <p class="FM_TableBody">Off-channel scanning can impact client performance. Typically, the shorter the scan interval, the higher the impact on performance. If you are deploying a large number of new APs on the network, you may want to lower the Scan Interval to help those APs find their optimal settings more quickly. Raise the Scan Interval back to its default setting after the APs are functioning as desired.</p>
+  <p class="FM_TableBody">The supported range for this setting is 0–2,147,483,647 seconds. </p>
+  <p class="FM_TableBody">Default: 10 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Active Scan</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">When the <span style="font-weight : bold; ">Active Scan </span>checkbox is selected, an AP initiates active scanning via probe request. This option elicits more information from nearby APs, but also creates additional management traffic on the network. <span style="font-weight : bold; ">Active Scan</span>&#160;is disabled by default, and should <span style="font-style : italic; ">not be enabled</span>&#160;except under the direct supervision of <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Support. </p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 115.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Scanning</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">Scanning</span>&#160;checkbox enables or disables AP scanning across multiple channels. Disabling this option also disables the following scanning features:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Multi Band Scan</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Rogue AP Aware</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Voip Aware Scan</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Power Save Scan</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">Do not disable Scanning unless you want to disable ARM and manually configure AP channel and transmission power.</p>
+  <p class="FM_TableBody">Default: enabled</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Scan Time</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The amount of time, in milliseconds, an AP will step out of the current channel to scan another channel. The supported range for this setting is 0–2,147,483,647 seconds. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends a scan time between 50–200 msec.</p>
+  <p class="FM_TableBody">Default: 110 msec</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VoIP Aware Scan</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>’s VoIP Call Admission Control (CAC) prevents any single AP from becoming congested with voice calls. When you enable CAC, you should also enable <span style="font-weight : bold; ">VoIP Aware Scan</span>&#160;in the ARM profile, so the AP will not attempt to scan a different channel if one of its clients has an active VoIP call. This option requires that <span style="font-weight : bold; ">Scanning</span> is also enabled.</p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Power Save Aware Scan</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If enabled, the AP will not scan a different channel if it has one or more clients that is in power save mode.</p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 67.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Video Aware Scan</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">As long as there is at least one video frame every 100&nbsp;mSec the AP will reject an ARM scanning request. Note that for each radio interface, video frames must be defined in one of two ways:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Classify the frame as video traffic via a session ACL.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Enable WMM on the WLAN’s SSID profile and define a specific DSCP value as a video stream. Next, create a session ACL to tag the video traffic with the that DSCP value.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 87.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Ideal Coverage Index</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;coverage index metric is a weighted calculation based on the RF coverage for all <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>APs and neighboring APs on a specified channel. The <span style="font-weight : bold; ">Ideal Coverage Index</span>&#160;specifies the ideal coverage that an AP should try to achieve on its channel. The denser the AP deployment, the lower this value should be. The range of possible values is 2–20.</p>
+  <p class="FM_TableBody">Default: 10 </p>
+  <p class="FM_TableBody">For additional information on how this the Coverage Index is calculated, see <a href="#XREF_67587_ARM_Metrics"><span class="FM_PMS646">“ARM Metrics”</span></a></p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Acceptable Coverage Index</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">For multi-band implementations, the <span style="font-weight : bold; ">Acceptable Coverage Index</span>&#160;specifies the minimal coverage an AP it should achieve on its channel. The denser the AP deployment, the lower this value should be. The range of possible values is 1–6.</p>
+  <p class="FM_TableBody">Default: 4</p>
+</td>
+</tr>
+  <tr style=" height : 119.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Free Channel Index</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Interference index metric measures interference for a specified channel and its surrounding channels. This value is calculated and weighted for all APs on those channels (including 3rd-party APs).</p>
+  <p class="FM_TableBody">An AP will only move to a new channel if the new channel has a lower interference index value than the current channel.<span style="font-weight : bold; ">&#160;Free Channel Index </span>specifies the required difference between the two interference index values before the AP moves to the new channel. The lower this value, the more likely it is that the AP will move to the new channel. The range of possible values is 10–40.</p>
+  <p class="FM_TableBody">Default: 25</p>
+  <p class="FM_TableBody">For additional information on how this the Channel Index is calculated, see <a href="#XREF_67587_ARM_Metrics"><span class="FM_PMS646">“ARM Metrics”</span></a></p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Backoff Time</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">After an AP changes channel or power settings, it waits for the backoff time interval before it asks for a new channel/power setting. The range of possible values is 120–3600 seconds. </p>
+  <p class="FM_TableBody">Default: 240 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Error Rate Threshold</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The minimum percentage of PHY errors and MAC errors in the channel that will trigger a channel change.</p>
+  <p class="FM_TableBody">Default: 50%</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Error Rate Wait Time</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Minimum time in seconds the error rate has to exceed the Error Rate Threshold before it triggers a channel change.</p>
+  <p class="FM_TableBody">Default: 30 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Noise Threshold</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum level of noise in channel that triggers a channel change. The range of possible 0–2,147,483,647 dBm.</p>
+  <p class="FM_TableBody">Default 75 dBm</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Noise Wait Time</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Minimum time in seconds the noise level has to exceed the Noise Threshold before it triggers a channel change. The range of possible values is 15–3600 seconds.</p>
+  <p class="FM_TableBody">Default: 120 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Minimum Scan Time</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Minimum number of times a channel must be scanned before it is considered for assignment. The supported range for this setting is 0–2,147,483,647 scans. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends a <span style="font-weight : bold; ">Minimum Scan Time</span>&#160;between 1–20 scans. </p>
+  <p class="FM_TableBody">Default: 8 scans</p>
+</td>
+</tr>
+  <tr style=" height : 77.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Load Aware Scan Threshold</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Load aware ARM preserves network resources during periods of high traffic by temporarily halting ARM scanning if the load for the AP gets too high. </p>
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">Load Aware Scan Threshold</span>&#160;is the traffic throughput level an AP must reach before it stops scanning. The supported range for this setting is 0–20000000 bytes/second. (Specify 0 to disable this feature.)</p>
+  <p class="FM_TableBody">Default: 1250000 Bps</p>
+</td>
+</tr>
+  <tr style=" height : 97.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mode Aware ARM</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If enabled, ARM will turn APs into Air Monitors (AMs) if it detects higher coverage levels than necessary. This helps avoid higher levels of interference on the WLAN. Although this setting is disabled by default, you may want to enable this feature if your APs are deployed in close proximity (e.g. less than 60 feet apart). </p>
+  <p class="FM_TableBody">Mode aware ARM turns Air Monitors back into APs when they detect gaps in coverage. Note that an Air Monitor will not turn back into an AP if it detects client traffic (or client traffic increases), but will change to an AP only if it detects coverage holes.</p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 71.698pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Scan Mode</p>
+</td>
+  <td style="width : 396.181pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">By default, 802.11n-capable APs scan channels within all regulatory domains. To limit the AP scans to just the regulatory domain for that AP, click the <span style="font-weight : bold; ">Scan Mode</span>&#160;drop-down list and select <span style="font-weight : bold; ">reg-domain</span>. </p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>This setting does not apply to APs that do not support 802.11n; these APs will scan their regulatory domain only.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI34"></a>In the CLI</p>
+ <p class="FM_Body">You must be in config mode to create, modify or delete an ARM profile using the CLI. Specify an existing ARM profile with the &lt;profile-name&gt; parameter to modify an existing ARM profile, or enter a new name to create an entirely new profile. </p>
+ <p class="FM_Body">Configuration details and any default values for each of these parameters are described in <a href="#XREF_79106_Table_4_ARM"><span class="FM_PMS646">Table 36</span></a>. If you do not specify a parameter for a new profile, that profile uses the default value for that parameter. Put the <span style="font-weight : bold; ">no</span>&#160;option before any parameter to remove the current value for that parameter and return it to its default setting. Enter <span class="FM_TypeThis" style="font-weight : bold; ">exit</span> to leave the ARM profile mode.</p>
+ <p class="FM_Body">Use the following command to create or modify an ARM profile:</p>
+ <p class="FM_CLI">rf arm-profile &lt;profile&gt;</p>
+ <p class="FM_CLIIndented">40MHz-<span class="FM_System">allowed-bands {All|None|a-only|g-only} </span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">acceptable-coverage-index &lt;number&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">active-scan (not intended for use)</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">assignment {disable|maintain|multi-band|single-band}</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">backoff-time &lt;seconds&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">client-aware</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">clone &lt;profile&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">error-rate-threshold &lt;percent&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">error-rate-wait-time &lt;seconds&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">free-channel-index &lt;number&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">ideal-coverage-index &lt;number&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">load-aware-scan-threshold &lt;Mbps&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">max-tx-power &lt;dBm&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">min-scan-time &lt;# of scans&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">min-tx-power &lt;dBm&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">mode-aware</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">multi-band-scan</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">no</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">noise-threshold &lt;number&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">noise-wait-time &lt;seconds&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">ps-aware-scan</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">rogue-ap-aware</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">scan-interval &lt;seconds&gt;</span></p>
+ <p class="FM_CLIIndented">scan mode all-reg-domain|reg-domain</p>
+ <p class="FM_CLIIndented"><span class="FM_System">scan-time &lt;milliseconds&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">scanning</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">voip-aware-scan</span></p>
+ <p class="FM_1Heading"><a name="TOC_Assigning_an_ARM_Profile"></a><a name="XREF_84972_Assigning_a_New"></a>Assigning an ARM Profile to an AP Group</p>
+ <p class="FM_Body">Once you have created a new ARM profile, you must assign it to a group of APs before those ARM settings go into effect. Each AP group has a separate set of configuration settings for its 802.11a radio profile and its 802.11g radio profile. You can assign the same ARM profile to each radio profile, or select different ARM profiles for each radio.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI34"></a>In the WebUI</p>
+ <p class="FM_Body">To assign an ARM profile to an AP group via the Web User Interface:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Configuration</span>&#160;&gt; <span style="font-weight : bold; ">AP Configuration</span>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If it is not already selected, click the <span style="font-weight : bold; ">AP Group</span>&#160;tab. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Edit</span> button beside the AP group to which you want to assign the new ARM profile.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Expand the<span style="font-weight : bold; ">&#160;RF Management </span>section in the left window pane.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select a radio profile for the new ARM profile.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet2">To assign a new profile to an AP group’s 802.11a radio profile, expand <span style="font-weight : bold; ">the 802.11a radio profile</span>&#160;section.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">To assign a new profile to an AP group’s 802.11g radio profile, expand the<span style="font-weight : bold; "> 802.11g radio profile</span>&#160;section.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Adaptive Radio management (ARM) Profile</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Adaptive Radio Management (ARM) Profile</span>&#160;drop-down list in the right window pane, and select a new ARM profile.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) repeat steps 6–8 to select an ARM profile for another profile.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your changes.</p>
+ <p class="FM_Body">You can also assign an ARM profile to an AP group by selecting a radio profile, identifying an AP group assigned to that radio profile, and then assigning an ARM profile to one of those groups.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Configuration &gt; All Profiles</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">RF Management</span>&#160;and then expand either the <span style="font-weight : bold; ">802.11a radio profile</span>&#160;or <span style="font-weight : bold; ">802.11b radio profile</span>. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select an individual radio profile name to expand that profile.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Adaptive Radio Management (ARM) Profile</span>, and then use the <span style="font-weight : bold; ">Adaptive Radio management (ARM) Profile</span> drop-down list in the right window pane to select a new ARM profile for that radio.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI35"></a>In the CLI</p>
+ <p class="FM_Body">To assign an ARM profile to an AP group via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">rf dot11a-radio-profile &lt;ap_profile&gt;</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>arm-profile &lt;arm_profile&gt;</p>
+ <p class="FM_Body">and</p>
+ <p class="FM_CLIIndented">rf dot11g-radio-profile &lt;ap_profile&gt;</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>arm-profile &lt;arm_profile&gt;</p>
+ <p class="FM_Body">Where &lt;ap_profile&gt; is the name of the AP group, and &lt;arm_profile&gt; is the name of the ARM profile you want to assign to that radio band.</p>
+ <p class="FM_1Heading"><a name="TOC_Multi_Band_ARM_and_802"></a><a name="XREF_39839_Multi_Band_ARM_and"></a>Multi-Band ARM and 802.11a/802.11g Traffic</p>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends using the <span style="font-weight : bold; ">multi-band</span>&#160;ARM assignment and <span style="font-weight : bold; ">Mode Aware</span>&#160;ARM feature for single-radio APs in networks with traffic in the 802.11a and 802.11g bands. This feature allows a single-radio AP to dynamically change its radio bands based on current coverage on the configured band. This feature is enabled via the AP's ARM profile. </p>
+ <p class="FM_Body">When you first provision a single-radio AP, it initially operates in the radio band specified in its AP system profile. If the AP finds adequate coverage on multiple channels in its current band of operation, the<span style="font-weight : bold; "> mode-aware</span>&#160;feature allows the AP to temporarily turn itself off and become an AP Air Monitor (APM). In AP Monitor mode, the AP scans all channels across both bands to verify that each channel meets or exceeds its required level of acceptable radio coverage (as defined by the &#160;in the ARM profile).</p>
+ <p class="FM_Body">If the AP Monitor detects that a channel on the 802.11g band does not have adequate radio coverage, it will convert back to an AP on that 802.11 channel. If the 802.11g band is adequately covered, the AP Monitor will next check the 802.11a band. If a channel on the 802.11a band lacks coverage, the AP Monitor will convert back to an AP on that 802.11a channel.</p>
+ <p class="FM_1Heading"><a name="TOC_Band_Steering"></a><a name="IX_band_steering"></a><a name="XREF_91329_Band_Steering"></a>Band Steering</p>
+ <p class="FM_Body">ARM’s band steering feature encourages dual-band capable clients to stay on the 5GHz band on dual-band APs. This frees up resources on the 2.4GHz band for single band clients like VoIP phones. </p>
+ <p class="FM_Body">Band steering reduces co-channel interference and increases available bandwidth for dual-band clients, because there are more channels on the 5GHz band than on the 2.4GHz band. Dual-band 802.11n-capable clients may see even greater bandwidth improvements, because the band steering feature will automatically select between 40MHz or 20MHz channels in 802.11n networks. This feature is disabled by default, and must be enabled in a Virtual AP profile.</p>
+ <p class="FM_Body">The band steering feature supports both campus APs and remote APs that have a virtual AP profile set to tunnel, split-tunnel or bridge forwarding mode. Note, however, that if a campus or remote AP has virtual AP profiles configured in bridge or split-tunnel forwarding mode <span style="font-style : italic; ">but no virtual AP in tunnel mode</span>, those APs will gather information about 5G-capable clients independently and will not exchange this information with other APs that also have bridge or split-tunnel virtual APs only. The band steering feature will not proactively disconnect clients that are already associated with a radio. All band steering occurs when a client is trying to associate to a new AP radio</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Best practices is to use either the Band Steering or the Spectrum Load Balancing feature to balance client load across channels, but not both at the same time. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"><span style="font-family : Times New Roman; font-size  : 12.0pt; ">.</span></p>
+ <p class="FM_2Heading"><a name="TOC_Steering_Modes"></a>Steering Modes</p>
+ <p class="FM_Body">Band steering supports the following three different band steering modes.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Prefer-5GHz</span>&#160;<span style="font-style : italic; ">(Default)</span>: If you configure the AP to use <span style="font-weight : bold; ">prefer-5GHz </span>band steering mode, the AP will not respond to 2.4 Ghz probe requests from a client if all the following conditions are met. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">The client has already probed the AP on the 5Ghz band and therefore is known to be capable of sending probes on the 5Ghz band.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">The client is not currently associated on the 2.4Ghz radio to this AP.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">The client has sent less than 8 probes requests/auth in the last 10 seconds. If the client has sent more than 8 probes in the last 10 seconds, the client will be able to connect using whatever band it prefers</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Force-5GHz</span>: When the AP is configured in <span style="font-weight : bold; ">force-5GHz</span>&#160;band steering mode, the AP will not respond to 2.4 Ghz probe requests from a client if all the following conditions are met. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">The client has already probed the AP on the 5Ghz band and therefore is known to be capable of sending probes on the 5Ghz band.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">The client is not currently associated on the 2.4Ghz radio of this AP.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Balance-bands</span>: In this band steering mode, the AP tries to balance the clients across the two radios in order to best utilize the available 2.4G bandwidth. This feature takes into account the fact that the 5Ghz band has more channels than the 2.4 Ghz band, and that the 5Ghz channels operate in 40MHz while the 2.4Ghz band operates in 20MHz.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 54.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">NOTE: The band steering feature in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;versions 3.3.2.x-3.4.2.x does not support multiple bandsteering modes. The band-steering feature in these versions of <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;functions the same way as the default <span style="font-weight : bold; ">prefer-5GHz</span>&#160;steering mode available in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.4.3.x and later.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Enabling_Band_Steering"></a>Enabling Band Steering </p>
+ <p class="FM_Body">Band steering is configured in a virtual AP profile. Use the following procedures to enable or disable Band Steering using the WebUI or command-line interfaces.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI35"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Configuration</span>&#160;&gt; <span style="font-weight : bold; ">All Profiles</span>. The <span style="font-weight : bold; ">All Profile Management</span> window opens.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Wireless LAN </span>to expand the<span style="font-weight : bold; "> Wireless LAN</span> section.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Virtual AP profile </span>to expand the <span style="font-weight : bold; ">Virtual AP Profile</span>&#160;section. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name of the Virtual AP profile for which you want to enable band steering. </p>
+ <p class="FM_BodyinBulletStep">(To create a new virtual AP profile, enter a name for a new profile in the <span style="font-weight : bold; ">Profile Details</span>&#160;window, then click <span style="font-weight : bold; ">Add</span>&#160;button. The new profile will appear in the <span style="font-weight : bold; ">Profiles</span>&#160;list. Select that profile to open the <span style="font-weight : bold; ">Profile Details</span> pane.)</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profile Details</span>&#160;pane, select <span style="font-weight : bold; ">Band Steering</span>. to enable this feature, or uncheck the <span style="font-weight : bold; ">Band Steering</span> checkbox to disable this feature.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Once band steering is enabled, click the <span style="font-weight : bold; ">steering mode</span>&#160;drop-down list and select the desired steering mode.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your changes.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI36"></a>In the CLI</p>
+ <p class="FM_Body">Use the following commands to enable band steering via the command-line interface. Access the CLI in config mode then specify an existing virtual AP with the &lt;name&gt; parameter to modify an existing profile, or enter a new name to create an entirely new virtual AP profile.</p>
+ <p class="FM_CLIIndented">wlan virtual-ap &lt;profile&gt; band-steering </p>
+ <p class="FM_CLIIndented">wlan virtual-ap &lt;profile&gt; steering-mode balance-bands|force-5ghz|prefer-5ghz</p>
+ <p class="FM_Body">To disable band steering, include the <span style="font-weight : bold; ">no</span>&#160;parameter </p>
+ <p class="FM_CLIIndented">wlan virtual-ap &lt;profile&gt; no band-steering</p>
+ <p class="FM_Body">You can also use the command-line interface to configure and apply multiple instances of virtual AP profiles to an AP group or to an individual AP. Use the following commands to apply a virtual AP profile to an AP group or an individual AP.</p>
+ <p class="FM_CLIIndented"><br />ap-group &lt;name&gt; virtual-ap &lt;profile&gt;</p>
+ <p class="FM_CLIIndented">ap-name &lt;name&gt; virtual-ap &lt;profile&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_Traffic_Shaping"></a><a name="IX_traffic_shaping"></a><a name="XREF_71453_Traffic_Shaping"></a>Traffic Shaping</p>
+ <p class="FM_Body">In a mixed-client network, it is possible for slower clients to bring down the performance of the whole network. To solve this problem and ensure fair access to all clients independent of their WLAN or IP stack capabilities, an AP can implement the traffic shaping feature. This feature has the following three options:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">default-access: </span>Traffic shaping is disabled, and client performance is dependent on MAC contention resolution. This is the default traffic shaping setting. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">fair-access:</span>&#160;Each client gets the same airtime, regardless of client capability and capacity. This option is useful in environments like a training facility or exam hall, where a mix of 802.11a/g, 802.11g and 802.11n clients need equal to network resources, regardless of their capabilities.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">preferred-access:</span>&#160;High-throughput (802.11n) clients do not get penalized because of slower 802.11a/g or 802.11b transmissions that take more air time due to lower rates. Similarly, faster 802.11a/g clients get more access than 802.11b clients </p>
+</li>
+ </ul>
+ <p class="FM_Body">With this feature, an AP keeps track of all BSSIDs active on a radio, all clients connected to the BSSID, and 802.11a/g, 802.11b, or 802.11n capabilities of each client. Every sampling period, airtime is allocated to each client, giving it opportunity to get and receive traffic. The specific amount of airtime given to an individual client is determined by the following factors:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Client capabilities (802.11a/g, 802.11b or 802.11n)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Amount of time the client spent receiving data during the last sampling period</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Number of active clients in the last sampling period</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Activity of the current client in the last sampling period</p>
+</li>
+ </ul>
+ <p class="FM_Body">The <span style="font-weight : bold; ">bw-alloc</span>&#160;parameter of a traffic management profile allows you to set a minimum bandwidth to be allocated to a virtual AP profile when there is congestion on the wireless network. You must set traffic shaping to <span style="font-weight : bold; ">fair-access</span> to use this bandwidth allocation value for an individual virtual AP.</p>
+ <p class="FM_2Heading"><a name="TOC_Enabling_Traffic_Shaping"></a>Enabling Traffic Shaping</p>
+ <p class="FM_Body">Traffic shaping is configured in an traffic management profile. </p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI36"></a>In the WebUI</p>
+ <p class="FM_Body">To configure traffic shaping via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Configuration</span>&#160;&gt; <span style="font-weight : bold; ">All Profiles</span>. The <span style="font-weight : bold; ">All Profile Management</span> window opens.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">QoS </span>to expand the <span style="font-weight : bold; ">QoS</span> section.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Traffic management profile</span>. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profiles</span>&#160;<span style="font-weight : bold; ">Details</span>&#160;window, select the name of the traffic management profile for which you want to configure traffic shaping. </p>
+ <p class="FM_BodyinBulletStep">(If you do not have any traffic management profiles configured, enter a name for a new profile in the <span style="font-weight : bold; ">Profile Details</span>&#160;pane, then click <span style="font-weight : bold; ">Add</span>. Select the new profile from the profiles list.)</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profile Details</span> pane, click the<span style="font-weight : bold; "> Station Shaping Policy</span>&#160;drop-down list and select either <span style="font-weight : bold; ">default-access</span>, <span style="font-weight : bold; ">fair-access </span>or <span style="font-weight : bold; ">preferred-access</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your changes.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI37"></a>In the CLI</p>
+ <p class="FM_Body">To enable and configure traffic shaping via the command-line interface, access the CLI in config mode and issue the following commands: </p>
+ <p class="FM_CLIIndented">wlan traffic-management-profile &lt;profile&gt; shaping-policy fair-access|preferred-access</p>
+ <p class="FM_Body">To disable traffic shaping, use the <span style="font-weight : bold; ">default-access</span>&#160;parameter: </p>
+ <p class="FM_CLIIndented">wlan traffic-management-profile &lt;profile&gt; shaping-policy default-access</p>
+ <p class="FM_Body">Use the following commands to apply an 802.11a or 802.11g traffic management profile to an AP group or an individual AP.</p>
+ <p class="FM_CLIIndented">ap-group &lt;name&gt; dot11a-traffic-mgmt-profile|dot11g-traffic-mgmt-profile &lt;profile&gt;</p>
+ <p class="FM_CLIIndented">ap-name &lt;name&gt; dot11a-traffic-mgmt-profile|dot11g-traffic-mgmt-profile &lt;profile&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_Spectrum_Load_Balancing"></a><a name="IX_spectrum_load_balancing"></a><a name="XREF_58309_Client_Load"></a>Spectrum Load Balancing</p>
+ <p class="FM_Body">The spectrum load balancing feature helps optimize network resources by balancing clients across channels, regardless of whether the AP or the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is responding to the wireless clients' probe requests. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;uses the ARM neighbor update messages that pass between APs and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to determine the distribution of clients connected to each AP's immediate (one-hop) neighbors. This feature also takes into account the number of APs visible to the clients in the RF neighborhood and can factor the client’s perspective on the network into its coverage calculations.</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;compares whether or not an AP has more clients than its neighboring APs on other channels. If an AP’s client load is at or over a predetermined threshold as compared to its immediate neighbors, or if a neighboring <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AP on another channel does not have any clients, load balancing will be enabled on that AP. </p>
+ <p class="FM_Body">When an AP has the spectrum load balancing feature enabled, the AP will send an association response with error code 17 to new clients trying to associate. If the client receiving the error code tries to associate to the AP a second time, it will be admitted. If a client is rejected by two APs in a row, it will be admitted by any AP on its third try. Note that the load balancing feature only affects the association of new clients; this feature does not reject or attempt to balance clients that are already associated to the AP.</p>
+ <p class="FM_Body">Spectrum load balancing is disabled by default, and can be enabled for 2.4G traffic through an 802.11g profile or for 5G traffic through an 802.11a RF management profile. The spectrum load balancing feature also requires that the 802.11a or 802.11g RF management profiles reference an ARM profile with ARM scanning enabled. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 67.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The spectrum load balancing feature available in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.4.x and later releases completely replaces the<br />AP load balancing feature available earlier versions of <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>. When you upgrade to <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;3.4.x or later, you must manually configure the spectrum load balancing settings, as the AP load balancing feature can no longer be used, and any previous AP load balancing settings will not be preserved.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">For details on modifying 802.11a or 802.11g RF management profiles, refer to <a href="ARM.htm#XREF_90832_Adaptive_Radio"><span class="FM_PMS646">“RF Management (802.11a and 802.11g) Profiles”</span></a></p>
+ <p class="FM_1Heading"><a name="TOC_RX_Sensitivity_Tuning"></a><a name="IX_channel_reuse"></a><a name="XREF_15856_RX_Sensitivity"></a>RX Sensitivity Tuning Based Channel Reuse</p>
+ <p class="FM_Body">In some dense deployments, it is possible for APs to hear other APs on the same channel. This creates co-channel interference and reduces the overall utilization of the channel in a given area. Channel reuse enables dynamic control over the receive (Rx) sensitivity in order to improve spatial reuse of the channel. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The channel reuse feature applies to non-DFS channels only. It is internally disabled for DFS channels and is does not affect DFS radar signature detection. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You can configure the channel reuse feature to operate in either of the following three modes; <span style="font-style : italic; ">static, dynamic or disable</span>. (This feature is disabled by default.)</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Static mode</span>: This mode of operation is a coverage-based adaptation of the Clear Channel Assessment (CCA) thresholds. In the static mode of operation, the CCA is adjusted according to the configured transmission power level on the AP, so as the AP transmit power decreases as the CCA threshold increases, and vice versa.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Dynamic mode</span>: In this mode, the Clear Channel Assessment (CCA) thresholds are based on channel loads, and take into account the location of the associated clients. When you set the Channel Reuse feature to dynamic mode, this feature is automatically enabled when the wireless medium around the AP is busy greater than half the time, and the CCA threshold adjusts to accommodate transmissions between the AP its most distant associated client. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Disable mode</span>: This mode does not support the tuning of the CCA Detect Threshold.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The channel reuse mode is configured through an 802.11a or 802.11g RF management profile. For details on modifying 802.11a or 802.11g RF management profiles, refer to <a href="ARM.htm#XREF_90832_Adaptive_Radio"><span class="FM_PMS646">“RF Management (802.11a and 802.11g) Profiles”</span></a>.</p>
+ <p class="FM_1Heading"><a name="TOC_Non_802_11_Noise"></a><a name="XREF_86730_Noise_Immunity"></a>Non-802.11 Noise Interference Immunity</p>
+ <p class="FM_Body">When an AP attempts to decode a non-802.11 signal, that attempt can momentarily interrupt its ability to receive traffic. The noise immunity feature can help improve network performance in environments with a high level of non-802.11 noise from devices such as Bluetooth headsets, video monitors and cordless phones.</p>
+ <p class="FM_Body">You can configure the noise immunity feature for any one of the following levels of noise sensitivity. Note that increasing the level makes the AP slightly “deaf” to its surroundings, causing the AP to lose a small amount of range.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Level 0: no ANI adaptation. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Level 1: Noise immunity only. This level enables power-based packet detection by controlling the amount of power increase that makes a radio aware that it has received a packet.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Level 2: Noise and spur immunity. This level also controls the detection of OFDM packets, and is the default setting for the Noise Immunity feature. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Level 3: Level 2 settings and weak OFDM immunity. This level minimizes false detects on the radio due to interference, but may also reduce radio sensitivity. This level is recommended for environments with a high-level of interference related to 2.4Ghz appliances such as cordless phones. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Level 4: Level 3 settings, and FIR immunity. At this level, the AP adjusts its sensitivity to in-band power, which can improve performance in environments with high and constant levels of noise interference.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Level 5: The AP completely disables PHY error reporting, improving performance by eliminating the time the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;would spend on PHY processing. </p>
+</li>
+ </ul>
+ <p class="FM_Body">You can manage Non-802.11 Noise Immunity settings through the 802.11g RF management profile. Do not raise the noise immunity feature’s default setting if the RX Sensitivity Tuning Based Channel Reuse feature is also enabled. A level-3 to level-5 Noise Immunity setting is not compatible with the Channel Reuse feature. For details refer to <a href="ARM.htm"><span class="FM_PMS646">“Mesh Radio Profiles” </span></a>.</p>
+ <p class="FM_1Heading"><a name="TOC_ARM_Metrics"></a><a name="IX_ARM_metrics"></a><a name="XREF_67587_ARM_Metrics"></a>ARM Metrics</p>
+ <p class="FM_Body">ARM computes coverage and interference metrics for each valid channel and chooses the best performing channel and transmit power settings for each AP’s RF environment. Each AP gathers other metrics on their ARM-assigned channel to provide a snapshot of the current RF health state.</p>
+ <p class="FM_Body">The following two metrics help the AP decide which channel and transmit power setting is best.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Coverage Index</span>: The AP uses this metric to measure RF coverage. The coverage index is calculated as x/y, where “x” is the AP’s weighted calculation of the Signal-to-Noise Ratio (SNR) on all valid APs on a specified 802.11 channel, and “y” is the weighted calculation of the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs SNR the neighboring APs see on that channel.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">To view these values for an AP in your current WLAN environment issue the CLI command <span style="font-weight : bold; ">show ap arm rf-summary ap-name &lt;ap-name&gt;</span>, where <span class="FM_TypeThis" style="font-style : italic; font-weight : bold; ">&lt;ap-name&gt; </span>is the name of an AP for which you want to view information.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Interference Index</span>: The AP uses this metric to measure co-channel and adjacent channel interference. The Interference Index is calculated as a/b//c/d, where:</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSubSteps">Metric value “a” is the channel interference the AP sees on its selected channel.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSubSteps">Metric value “b” is the interference the AP sees on the adjacent channel.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSubSteps">Metric value “c” is the channel interference the AP’s neighbors see on the selected channel.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSubSteps">Metric value “d” is the interference the AP’s neighbors see on the adjacent channel</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">To manually calculate the total Interference Index for a channel, issue the CLI command <span style="font-weight : bold; ">show ap arm rf-summary ap-name &lt;ap-name&gt;</span>,<span class="FM_TypeThis" style="font-weight : bold; ">&#160;</span>then add the values <span style="font-style : italic; ">a+b+c+d.</span></p>
+ <p class="FM_Body">Each AP also gathers the following additional metrics, which can provide a snapshot of the current RF health state. View these values for each AP using the CLI command <span class="FM_CLIBold">show ap arm rf-summary ip-addr &lt;ap ip address&gt;</span>.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Amount of Retry frames (measured in %)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Amount of Low-speed frames (measured in %)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Amount of Non-unicast frames (measured in %)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Amount of Fragmented frames (measured in %)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Amount of Bandwidth seen on the channel (measured in kbps)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Amount of PHY errors seen on the channel (measured in %)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Amount of MAC errors seen on the channel (measured in %)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Noise floor value for the specified AP</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_ARM_Troubleshooting"></a><a name="IX_troubleshooting"></a><a name="XREF_53157_ARM_Troubleshooting"></a>ARM Troubleshooting</p>
+ <p class="FM_Body">If the APs on your WLAN do not seem to be operating at an optimal channel or power setting, you should first verify that both the ARM feature and ARM scanning have been enabled. Optimal ARM performance requires that the APs have IP connectivity to their master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, as it is the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that gives each AP the global classification information required to keep accurate coverage index values. If ARM is enabled but does not seem to be working properly, try some of the following troubleshooting tips.</p>
+ <p class="FM_2Heading"><a name="TOC_Too_many_APs_on_the_Same"></a>Too many APs on the Same Channel</p>
+ <p class="FM_Body">If many APs are selecting the same RF channel, there may be excessive interference on the other valid 802.11 channels. Issue the CLI commands <span class="FM_CLI" style="font-weight : bold; ">show ap arm rf-summary ap-name &lt;ap-name&gt;</span><span class="FM_TypeThis">&#160;</span><span class="FM_TypeThis">or </span><span class="FM_CLIBold">show</span><span class="FM_TypeThis">&#160;</span><span class="FM_CLI">ap arm rf-summary ip-addr &lt;ap ip address&gt;</span><span class="FM_CLI">&#160;</span>and calculate the Interference index (<span class="FM_Variable" style="font-family : Times New Roman; font-style : italic; ">intf_idx</span>) for all the valid channels. </p>
+ <p class="FM_Body">An AP will only move to a new channel if the new channel has a lower interference index value than the current channel.<span style="font-weight : bold; ">&#160;</span>The ARM Free Channel Index parameter specifies the required difference between two interference index values. If this value is set too high, the AP will not switch channels, even if the interference is slightly lower on another channel. Lower the Free Channel Index to improve the likelihood that the AP will switch to a better channel.</p>
+ <p class="FM_2Heading"><a name="TOC_Wireless_Clients_Report"></a>Wireless Clients Report a Low Signal Level </p>
+ <p class="FM_Body">If APs detect strong signals from other APs on the same channel, they may decrease their power levels accordingly. Issue the CLI commands <span class="FM_CLI" style="font-weight : bold; ">show ap arm rf-summary ap-name &lt;ap-name&gt;</span><span class="FM_TypeThis">&#160;</span><span class="FM_TypeThis">or </span><span class="FM_CLIBold">show</span><span class="FM_TypeThis">&#160;</span><span class="FM_CLI">ap arm rf-summary ip-addr &lt;ap ip address&gt; </span>for all APs and check their current coverage index (<span class="FM_Variable" style="font-style : italic; ">cov-idx</span>). If the AP’s coverage index is at or higher than the configured coverage index value, then the APs have correctly chosen the transmit power setting. To manually increase the minimum power level for the APs using a specific ARM profile, define a higher minimum value with the command <br /><span class="FM_CLIBold">rf arm-profile &lt;profile&gt; min-tx-power &lt;dBm&gt;.</span></p>
+ <p class="FM_Body">If wireless clients still report that they see low signal levels for the APs, check that the AP’s antennas are correctly connected to the AP and correctly placed according to the manufacturer’s installation guide.</p>
+ <p class="FM_2Heading"><a name="TOC_Transmission_Power"></a>Transmission Power Levels Change Too Often</p>
+ <p class="FM_Body">Frequent changes in transmission power levels can indicate an unstable RF environment, but can also reflect incorrect ARM or AP settings. To slow down the frequency at which the APs change their transmit power, set the ARM Backoff Time to a higher value. If APs are using external antennas, check the <span style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt;&#160;AP Installation &gt; Provisioning </span>window<span style="font-weight : bold; ">&#160;</span>to make sure the APs are statically configured for the correct dBi gain, antenna type, and antenna number. If only one external antenna is connected to its radio, you must select either antenna number 1 or 2. </p>
+ <p class="FM_2Heading"><a name="TOC_APs_Detect_Errors_but_Do"></a>APs Detect Errors but Do Not Change Channels</p>
+ <p class="FM_Body">First, ensure that ARM error checking is not disabled. The ARM Error Rate Threshold should be set to a percentage higher than zero. The suggested configuration value for the ARM Error Rate Threshold is 30–50%.</p>
+ <p class="FM_2Heading"><a name="TOC_APs_Don_t_Change"></a>APs Don’t Change Channels Due to Channel Noise</p>
+ <p class="FM_Body">APs will only change channels due to interference if ARM noise checking is enabled. Check to verify that the ARM Noise Threshold is set to a value higher than 0 dBm. The suggested setting for this threshold is 75 dBm.</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

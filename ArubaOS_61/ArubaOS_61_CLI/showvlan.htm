@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>showvlan</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_1CmdHeading"><a name="XREF_43613_show_vlan"></a>show vlan</p>
+ <p class="FM_CLI" style="margin-top  : 0.000pt; margin-bottom : 0.000pt; font-family : Courier New;">show vlan &lt;id&gt;</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">This command shows a configured VLAN interface number, description and associated ports.</p>
+ <p class="FM_2Heading">Syntax</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 468.00pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 120.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 209.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+  <th style="width : 74.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Range</p>
+</th>
+  <th style="width : 63.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Default</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 120.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">&lt;id&gt;</p>
+</td>
+  <td style="width : 209.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Identification number for the VLAN.</p>
+</td>
+  <td style="width : 74.500pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">1-4094</p>
+</td>
+  <td style="width : 63.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">1</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Usage Guidelines</p>
+ <p class="FM_Body">Issue this command to show the selected VLAN configuration. The <span class="FM_bold">VLAN</span>&#160;column lists the VLAN ID. The <span class="FM_bold">Description</span>&#160;column provides the VLAN name or number and the <span class="FM_bold">Ports</span>&#160;column shows the VLAN’s associated ports. The <span style="font-weight : bold; ">AAA Profile column </span>shows if a wired AAA profile has been assigned to a VLAN, enabling role-based access for wired clients connected to an untrusted VLAN or port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <div align="left"><img alt="showvlan01449.jpg" id="image0" src="images/showvlan01449.jpg" />
+ </div>
+ 
+ <p class="FM_2Heading">Related Commands</p>
+ <p class="FM_CLI">(host) (config) #vlan</p>
+ <p class="FM_CLI">(host) (config) #vlan-name</p>
+ <p class="FM_2Heading">Command History</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 468.75pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 135.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Release</p>
+</th>
+  <th style="width : 333.751pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Modification</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.0</p>
+</td>
+  <td style="width : 333.751pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Command available.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;6.0</p>
+</td>
+  <td style="width : 333.751pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The output of this command was modified to include the <span style="font-weight : bold; ">AAA Profile</span> column.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 466.88pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 129.588pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platforms </p>
+</th>
+  <th style="width : 142.787pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 194.501pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 129.588pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">All platforms</p>
+</td>
+  <td style="width : 142.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 194.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable or config mode on master or local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_1CmdHeading">show vlan mapping</p>
+ <p class="FM_CLI" style="margin-top  : 0.000pt; margin-bottom : 0.000pt; font-family : Courier New;">show vlan mapping</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">This command shows a configured VLAN name, its pool status and the VLAN IDs assigned to the pool.</p>
+ <p class="FM_2Heading">Syntax</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 468.00pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 120.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 209.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+  <th style="width : 74.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Range</p>
+</th>
+  <th style="width : 63.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Default</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 120.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">&lt;id&gt;</p>
+</td>
+  <td style="width : 209.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Identification number for the VLAN.</p>
+</td>
+  <td style="width : 74.500pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">1-4094</p>
+</td>
+  <td style="width : 63.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">1</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Usage Guidelines</p>
+ <p class="FM_Body">Issue this command to show the selected VLAN configuration. The <span class="FM_bold">VLAN</span>&#160;<span style="font-weight : bold; ">Name</span>&#160;column displays the name of the VLAN pool. The <span style="font-weight : bold; ">Pool Status</span>&#160;column indicates if the pool is enabled or disabled. The <span style="font-weight : bold; ">VLAN IDs </span>column lists the VLANs that are part of the pool. .</p>
+ <div align="left"><img alt="showvlan01452.jpg" id="image1" src="images/showvlan01452.jpg" />
+ </div>
+ 
+ <p class="FM_2Heading">Related Commands</p>
+ <p class="FM_CLI">(host) (config) #vlan</p>
+ <p class="FM_CLI">(host) (config) #vlan-name</p>
+ <p class="FM_2Heading">Command History</p>
+ <p class="FM_2Heading" style="margin-top  : 12.000pt; margin-bottom : 5.000pt; font-family : ITC Century Std Book; font-weight : normal; font-size  : 10.0pt;">This command was introduced in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.0.</p>
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 466.88pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 129.588pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platforms </p>
+</th>
+  <th style="width : 142.787pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 194.501pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 129.588pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">All platforms</p>
+</td>
+  <td style="width : 142.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 194.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable or config mode on master or local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_1CmdHeading">show vlan status</p>
+ <p class="FM_CLI" style="margin-top  : 0.000pt; margin-bottom : 0.000pt; font-family : Courier New;">show vlan status &lt;id&gt;</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">This command shows the current status of all VLANs on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_2Heading">Syntax</p>
+ <p class="FM_Body">No parameters.</p>
+ <p class="FM_2Heading">Usage Guidelines</p>
+ <p class="FM_Body">Issue this command to show the status of VLANs on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.&#160;The <span class="FM_bold">VLAN</span>&#160;<span style="font-weight : bold; ">ID</span>&#160;column displays the VLAN ID name or number. The <span class="FM_bold">IP Address </span>column provides the VLAN’s IP address. The <span style="font-weight : bold; ">Adminstate</span>&#160;column indicates if the VLAN is enabled or disabled. The <span style="font-weight : bold; ">Operstate</span>&#160;column indicates if the VLAN is currently up and running. The <span style="font-weight : bold; ">PortCount</span>&#160;column shows how many ports are associated with the VLAN. The <span style="font-weight : bold; ">Nat Inside</span>&#160;column displays whether source Nat is enabled for the VLAN interface. If Nat is enabled, all the traffic passing through this VLAN interface is the source natted to the outgoing interface’s IP address..</p>
+ <div align="left"><img alt="showvlan01455.jpg" id="image2" src="images/showvlan01455.jpg" />
+ </div>
+ 
+ <p class="FM_2Heading">Related Commands</p>
+ <p class="FM_CLI">(host) (config) #vlan</p>
+ <p class="FM_CLI">(host) (config) #vlan-name</p>
+ <p class="FM_2Heading">Command History</p>
+ <p class="FM_2Heading" style="margin-top  : 12.000pt; margin-bottom : 5.000pt; font-family : ITC Century Std Book; font-weight : normal; font-size  : 10.0pt;">This command was introduced in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.0.</p>
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 466.88pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 129.588pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platforms </p>
+</th>
+  <th style="width : 142.787pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 194.501pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 129.588pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">All platforms</p>
+</td>
+  <td style="width : 142.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 194.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable or config mode on master or local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_1CmdHeading">show vlan summary</p>
+ <p class="FM_CLI" style="margin-top  : 0.000pt; margin-bottom : 0.000pt; font-family : Courier New;">show vlan summary</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">This command shows the number of existing VLANs.</p>
+ <p class="FM_2Heading">Syntax</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 467.00pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 194.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 273.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 194.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">Number of existing VLANs</p>
+</td>
+  <td style="width : 273.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The number of existing VLANs on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Usage Guidelines</p>
+ <p class="FM_Body">Issue this command to show the number of existing VLANs on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <div align="left"><img alt="showvlan01458.jpg" id="image3" src="images/showvlan01458.jpg" />
+ </div>
+ 
+ <p class="FM_2Heading">Related Commands</p>
+ <p class="FM_CLI">(host) (config) #vlan</p>
+ <p class="FM_CLI">(host) (config) #vlan-name</p>
+ <p class="FM_2Heading">Command History</p>
+ <p class="FM_2Heading" style="margin-top  : 12.000pt; margin-bottom : 5.000pt; font-family : ITC Century Std Book; font-weight : normal; font-size  : 10.0pt;">This command was introduced in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.0.</p>
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 466.88pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 129.588pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platforms </p>
+</th>
+  <th style="width : 142.787pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 194.501pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 129.588pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">All platforms</p>
+</td>
+  <td style="width : 142.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 194.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable or config mode on master or local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+
+ 
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
+

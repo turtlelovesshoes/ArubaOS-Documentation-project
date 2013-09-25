@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>showlacp</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+<link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_1CmdHeading"><a name="XREF_78712_show_lacp"></a>show lacp</p>
+ <p class="FM_CLI">show lacp &lt;group_number&gt; {counters | internal | neighbor} </p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">View the LACP configuration status.</p>
+ <p class="FM_2Heading">Syntax</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 468.88pt;" cellspacing="0">
+  <tr style=" height : 23.00pt;background : #548baf;">
+  <th style="width : 135.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading" style="font-size  : 9.0pt;">Parameter</p>
+</th>
+  <th style="width : 333.876pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading" style="font-size  : 9.0pt;">Description</p>
+</th>
+</tr>
+  <tr style=" height : 31.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">&lt;group_number&gt;</p>
+</td>
+  <td style="width : 333.876pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the Link aggregation group number.</p>
+  <p class="FM_TableBody">Range: 0-7</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">counters</p>
+</td>
+  <td style="width : 333.876pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">counters</span> to view the LACP traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">internal</p>
+</td>
+  <td style="width : 333.876pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">internal</span> to view the LACP internal information.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">neighbor</p>
+</td>
+  <td style="width : 333.876pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">neighbor</span> to view the LACP neighbor information.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Example</p>
+ <p class="FM_Body">The port uses the group number +1 as its “actor admin key”. By default, all the ports use the long timeout value (90 seconds).</p>
+ <div align="left"><img alt="showlacp01041.jpg" id="image0" src="images/showlacp01041.jpg" />
+ </div>
+ 
+ <p class="FM_Body" style="margin-top  : 12.000pt;">When a port, in a LAG, is misconnected (that is, the partner device is different than the other ports or the neighborship times&#160;out or can not exchange LACPDUs with the partner), the port status is displayed as “DOWN” (see the following example).</p>
+ <div align="left"><img alt="showlacp01044.jpg" id="image1" src="images/showlacp01044.jpg" />
+ </div>
+ <p class="FM_Body" style="margin-top  : 12.000pt;"></p>
+ <p class="FM_Body" style="margin-top  : 12.000pt;">The “counters” option allows you to view LACP received (Rx) traffic, transmitting (Tx) traffic, data units (DU) received and transmitted by port. </p>
+ <div align="left"><img alt="showlacp01047.jpg" id="image2" src="images/showlacp01047.jpg" />
+ </div>
+ <p class="FM_Body" style="margin-top  : 12.000pt;"></p>
+ <p class="FM_2Heading">Related Command </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 467.50pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 161.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 306.251pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 161.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="showlicense.htm#XREF_32656_show_license"><span class="FM_CLI" style="font-family : Courier New; font-size  : 9.0pt; ">lacp group</span></a></p>
+</td>
+  <td style="width : 306.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable LACP and configure on the interface</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 161.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="images/crypto00027.jpg"><span class="FM_CLI" style="font-family : Courier New; font-size  : 9.0pt; ">show interface port-channel</span></a></p>
+</td>
+  <td style="width : 306.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">View information on a specified port-channel interface </p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 161.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="#XREF_59406_show_lacp_sys_id"><span class="FM_CLI" style="font-family : Courier New; font-size  : 9.0pt; ">show lacp sys-id</span></a></p>
+</td>
+  <td style="width : 306.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">View the LACP system ID information</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Command History</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 467.50pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 161.280pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Release</p>
+</th>
+  <th style="width : 306.216pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Modification</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 161.280pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.4.1</p>
+</td>
+  <td style="width : 306.216pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Command introduced</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 467.62pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 113.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platform</p>
+</th>
+  <th style="width : 133.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 220.125pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 113.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">All Platforms </p>
+</td>
+  <td style="width : 133.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 220.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Configuration modes for Master and Local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_1CmdHeading"><a name="XREF_59406_show_lacp_sys_id"></a>show lacp sys-id</p>
+ <p class="FM_CLI">show lacp sys-id </p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">View the LACP system MAC address and port priority. </p>
+ <p class="FM_2Heading">Example</p>
+ <p class="FM_Body">This command returns the port priority and the MAC address (comma separated). In the example below, the port priority is the default value 32768 followed by the MAC address 00:0B:86:40:37:C0</p>
+ <div align="left"><img alt="showlacp01050.jpg" id="image3" src="images/showlacp01050.jpg" />
+ </div>
+ 
+ <p class="FM_2Heading">Related Command </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 467.60pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 163.220pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 304.376pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 163.220pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="showlicense.htm#XREF_32656_show_license"><span class="FM_CLI" style="font-family : Courier New; font-size  : 9.0pt; ">lacp group</span></a></p>
+</td>
+  <td style="width : 304.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable LACP and configure on the interface</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 163.220pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="LACP.htm#XREF_32376_lacp_group"><span class="FM_CLI" style="font-family : Courier New; font-size  : 9.0pt; ">lacp port-priority</span></a></p>
+</td>
+  <td style="width : 304.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configure the LACP port priority</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 163.220pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="#XREF_78712_show_lacp"><span class="FM_PMS646" style="color   : #548baf; ">show lacp</span></a></p>
+</td>
+  <td style="width : 304.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">View the LACP configuration status</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 163.220pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="images/crypto00027.jpg"><span class="FM_CLI" style="font-family : Courier New; font-size  : 9.0pt; ">show interface port-channel</span></a></p>
+</td>
+  <td style="width : 304.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">View information on a specified port channel interface</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Command History</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 467.60pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 163.224pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Release</p>
+</th>
+  <th style="width : 304.376pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Modification</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 163.224pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.4.1</p>
+</td>
+  <td style="width : 304.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Command introduced</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 467.62pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 127.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platform</p>
+</th>
+  <th style="width : 148.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 191.375pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 127.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">All Platforms </p>
+</td>
+  <td style="width : 148.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 191.375pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Configuration modes (config) for Master and Local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ 
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
+

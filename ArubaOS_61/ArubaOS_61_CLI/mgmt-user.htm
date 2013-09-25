@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>mgmt-user</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4_perforce1666_LAURAR-T410S\depot\techpub\ArubaOS\6.1\CLI\mgmt-user.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_1CmdHeading"><a name="XREF_54031_mgmt_user"></a>mgmt-user</p>
+ <p class="FM_CLI">mgmt-user &lt;username&gt; &lt;role&gt; &lt;password&gt;</p>
+ <p class="FM_CLI">mgmt-user localauth-disable </p>
+ <p class="FM_CLI">mgmt-user ssh-pubkey client-cert &lt;certificate&gt; &lt;username&gt; &lt;role&gt;</p>
+ <p class="FM_CLI">mgmt-user webui-cacert &lt;certificate_name&gt; serial &lt;number&gt; &lt;username&gt; &lt;role&gt;</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">This command configures an administrative user.</p>
+ <p class="FM_2Heading">Syntax</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 468.38pt;" cellspacing="0">
+  <tr style=" height : 23.00pt;background : #548baf;">
+  <th style="width : 131.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading" style="font-size  : 9.0pt;">Parameter</p>
+</th>
+  <th style="width : 276.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading" style="font-size  : 9.0pt;">Description</p>
+</th>
+  <th style="width : 60.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading" style="font-size  : 9.0pt;">Default</p>
+</th>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="font-size  : 10.0pt;">&lt;username&gt;</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Name of the user.</p>
+  <p class="FM_TableBody">You can create a maximum of 10 management users.</p>
+  <p class="FM_TableNote"><span class="FM_Navigation">NOTE: </span>If you configure a root management user, you can use special characters except for double-byte characters.</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 159.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;role&gt;</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Role assigned to the user. Predefined roles include:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">guest-provisioning: Allows the user to create guest accounts on a special WebUI page.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">location-api-mgmt: Permits access to location API information. You can log into the CLI; however, you cannot use any CLI commands.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">network-operations: Permits access to Monitoring, Reports, and Events pages in the WebUI. You can log into the CLI; however, you can only use a subset of CLI commands to monitor the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">read-only: Permits access to CLI show commands or WebUI monitoring pages only.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">root: Permits access to all management functions on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  </ul></td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 99.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;password&gt;</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableNote"><span class="FM_Navigation">NOTE: </span>You are prompted for the &lt;password&gt; for this user after you type in &lt;role&gt; and press Enter.</p>
+  <p class="FM_TableBody">The password must have a minimum of six characters.</p>
+  <p class="FM_TableBody">You can use special characters in the management user password. The restrictions are as follows:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">You cannot use double-byte characters</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">You cannot use the question mark (?)</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">You cannot use white space &lt;space &gt;</p>
+</li>
+  </ul></td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 85.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="font-size  : 10.0pt;">localauth-disable</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Disables authentication of management users based on the results returned by the authentication server. </p>
+  <p class="FM_TableBody">To cancel this setting, use the no form of the command: <br /><span style="font-weight : bold; ">no mgmt-user localauth-disable</span></p>
+  <p class="FM_TableBody">To verify if authentication of local management user accounts is enabled or disabled, use the following command:</p>
+  <p class="FM_TableBody" style="font-weight : bold;">show mgmt-user local-authentication-mode</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Univers LT Std 53 Extended; font-size  : 8.0pt;">Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="font-size  : 10.0pt;">ssh-pubkey</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configures certificate authentication of administrative users using the CLI through SSH.</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">client-cert</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Name of the X.509 client certificate for authenticating administrative users using SSH.</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;username&gt;</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Name of the user.</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;role&gt;</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Role assigned to the authenticated user.</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="font-size  : 10.0pt;">webui-cacert</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The client certificate for authenticating administrative users using the WebUI.</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;certificate_name&gt;</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The CA certificate. If configured, certificate authentication and authorization are automatically completed using an authentication server. </p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">serial</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Serial number of the client certificate.&#160;</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;username&gt;</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Name of the user.</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 131.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;role&gt;</p>
+</td>
+  <td style="width : 276.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Role assigned to the authenticated user.</p>
+</td>
+  <td style="width : 60.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Usage Guidelines</p>
+ <p class="FM_Body">You can configure client certificate authentication of WebUI or SSH management users (by default, only username/password is used). To configure certificate authentication for the WebUI or SSH, use the web-server mgmt-auth certificate or ssh mgmt-auth public-key commands, respectively.</p>
+ <p class="FM_Body">Use <span class="FM_bold">webui-cacert &lt;certificate name&gt; </span>command if you want an external authentication server to derive the management user role. This is helpful if there are a large number of users who need to be authenticated.</p>
+ <p class="FM_Body">Or, use the if the&#160;<span style="font-weight : bold; ">mgmt-user webui-cacert &lt;certificate_name&gt; serial &lt;number&gt; &lt;username&gt; &lt;role&gt; </span>if you want the authentication process to use previously configured certificate name and serial number to derive the user role.</p>
+ <p class="FM_2Heading">Example</p>
+ <p class="FM_Body">See the web-server and ssh command descriptions for examples of certificate and public key authentication. The following command configures a management user and role:</p>
+ <p class="FM_CLI">(host) (config) #mgmt-user zach_jennings root</p>
+ <p class="FM_CLI">Password: *****</p>
+ <p class="FM_CLI">Re-Type password: *****</p>
+ <p class="FM_2Heading">Command History</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 466.88pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 91.875pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Release</p>
+</th>
+  <th style="width : 375.001pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Modification</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 91.875pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.0</p>
+</td>
+  <td style="width : 375.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Command introduced</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 91.875pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.1</p>
+</td>
+  <td style="width : 375.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">ssh-pubkey</span>&#160;and <span style="font-weight : bold; ">webui-cacert </span>parameters were introduced.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 91.875pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.2</p>
+</td>
+  <td style="width : 375.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">network-operations</span> role was introduced.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 91.875pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.3</p>
+</td>
+  <td style="width : 375.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The l<span style="font-weight : bold; ">ocation-api-mgmt </span>role and <span style="font-weight : bold; ">localauth-disable</span> parameters were introduced.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 91.875pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.4</p>
+</td>
+  <td style="width : 375.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span class="FM_bold">webui-cacert &lt;certificate name&gt; </span>parameter had additional functionality introduced.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 468.87pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 135.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platforms </p>
+</th>
+  <th style="width : 148.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 185.125pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">All platforms</p>
+</td>
+  <td style="width : 148.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 185.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Config mode on master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
+

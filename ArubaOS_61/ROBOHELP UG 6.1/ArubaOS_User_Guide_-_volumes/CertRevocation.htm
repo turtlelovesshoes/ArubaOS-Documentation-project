@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>CertRevocation</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\CertRevocation.fm" />
+ <meta name="keywords" content="revocation checkpoint, ocsp signer certificate, ocsp responder">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 11</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Certificate_Revocation"></a>Certificate Revocation<a name="XREF_98100_Title_of_Chapter"></a></p>
+ <p class="FM_Body">The Certificate Revocation feature enables the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to perform real-time certificate revocation checks using the Online Certificate Status Protocol (OCSP) or traditional certificate validation using the Certificate Revocation List (CRL) client.</p>
+ <p class="FM_1Heading"><a name="TOC_About_OCSP_and_CRL"></a>About OCSP and CRL</p>
+ <p class="FM_Body">OCSP (RFC 2560) is a standard protocol that consists of an OCSP client and an OCSP responder. This protocol determines revocation status of a given digital public-key certificate without having to download the entire CRL. </p>
+ <p class="FM_Body">CRL is the traditional method of checking certificate validity. A CRL provides a list of certificate serial numbers that have been revoked or are no longer valid. CRLs let the verifier check the revocation status of the presented certificate while verifying it. CRLs are limited to 512 entries.</p>
+ <p class="FM_2Heading"><a name="TOC_Controller_as_OCSP_and"></a><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> as OCSP and CRL Clients</p>
+ <p class="FM_Body">The <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can act as an OCSP client and issues OCSP queries to remote OCSP responders located on the intranet or Internet. As many applications in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;(such as IKE), use digital certificates, a protocol such as OCSP needs to be implemented for revocation.</p>
+ <p class="FM_Body">An entity that relies on the content of a certificate (a relying party) needs to do the checking before accepting the certificate as being valid. One check verifies that the certificate has not been revoked. The OCSP client retrieves certificate revocation status from an OCSP responder. The responder may be the CA (Certificate Authority) that has issued the certificate in question or it may be some other designated entity which provides the service on behalf of the CA. A <span style="font-style : italic; ">revocation checkpoint</span>&#160;is a logical profile that is tied to each CA certificate that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has (trusted or intermediate). Also, the user can specify revocation preferences within each profile.</p>
+ <p class="FM_Body">The OCSP request is not signed by the Aruba OCSP client at this time. However, the OCSP response is always signed by the responder. </p>
+ <p class="FM_Body">Both OCSP and CRL configuration and administration is usually performed by the administrator who manages the web access policy for an organization.</p>
+ <p class="FM_Body">In small networks where there are is no Internet connection or connection to an OCSP responder, CRL is better option than OCSP.</p>
+ <p class="FM_Body"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> as OCSP Responder</p>
+ <p class="FM_Body">The <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can be configured to act as an OCSP responder (server) and respond to OCSP queries from clients that are trying to obtain revocation status of certificates. </p>
+ <p class="FM_Body">The OCSP responder on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is accessible over HTTP port 8084. This port is not configurable by the administrator. Although the OCSP responder accepts signed OCSP requests, it does not attempt to verify the signature before processing the request. Therefore, even unsigned OCSP requests are supported.</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as an OCSP responder provides revocation status information to <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;applications that are using CRLs. This is useful in small disconnected networks where clients cannot reach outside OCSP server to validate certificates. Typical scenarios include client to client or client to other server communication situations where the certificates of either party need to be validated.</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the3"></a>Configuring the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> as an OCSP Client</p>
+ <p class="FM_Body">When OCSP is used as the revocation method, you need to configure the OCSP responder certificate and the OCSP URL.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI57"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt;&#160;Certificates &gt; Upload page</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name in the <span style="font-weight : bold; ">Certificate Name</span> field. This name identifies the certificate you are uploading.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the certificate file name in the <span style="font-weight : bold; ">Certificate Filename</span>&#160;field. Use the <span style="font-weight : bold; ">Browse</span>&#160;button to enter the full pathname.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the certificate format from the <span style="font-weight : bold; ">Certificate Format</span> drop-down menu.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">OCSP Responder Cert</span>&#160;from the <span style="font-weight : bold; ">Certificate Type</span>&#160;drop-down menu. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">A revocation check method (OCSP or CRL) can be chosen independently for every revocation checkpoint. In this example, we are only describing the OCSP check method.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_BodyinBulletStep">Once this certificate is uploaded it is maintained in the certificate store for OCSP responder certificates. These certificates are used for signature verification.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 48 &#160;</span>Upload a certificate</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="certrevocation1.jpg" id="image0" src="images/certrevocation1.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Upload</span>. The certificate appears in the Certificate Lists pane.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For detailed information about an uploaded certificate, click <span style="font-weight : bold; ">View</span> next to the certificate.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 49 &#160;</span>View certificate details</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="certrevocation2.jpg" id="image1" src="images/certrevocation2.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Revocation Checkpoint</span> tab.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Revocation Checkpoint</span>&#160;pane, click Edit next to the revocation checkpoint that you want to configure. The <span style="font-weight : bold; ">Revocation Checkpoint </span>pane displays.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the <span style="font-weight : bold; ">Revocation Check</span>&#160;field, select <span style="font-weight : bold; ">ocsp</span>&#160;from the Method 1 drop-down list as the primary check method.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the <span style="font-weight : bold; ">OCSP URL</span> field, enter the URL of the OCSP responder.</p>
+ <p class="FM_StepNext">12.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the <span style="font-weight : bold; ">OCSP Responder Cert</span> field, select the OCSP certificate you want to configure from the drop-down menu.</p>
+ <p class="FM_StepNext">13.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI59"></a>In the CLI</p>
+ <p class="FM_Body">This example configures an OCSP client with the revocation check method as OCSP for revocation check point CAroot.</p>
+ <p class="FM_Body">The OCSP responder certificate is configured as RootCA-Ocsp_responder. The corresponding OCSP responder service is available at http://10.4.46.202/ocsp. The check method is OCSP for revocation check point CARoot.</p>
+ <p class="FM_CLI">(host) (config) #crypto-local pki rcp CARoot</p>
+ <p class="FM_CLIIndented">(host) (RCP-CARoot) #ocsp-responder-cert RootCA-Ocsp_responder</p>
+ <p class="FM_CLIIndented">(host) (RCP-CARoot) #ocsp-url http://10.4.46.202/ocsp</p>
+ <p class="FM_CLIIndented">(host) (RCP-CARoot) #revocation-check ocsp </p>
+ <p class="FM_Body">The<span style="font-style : italic; ">&#160;show crypto-local pki OCSPResponderCert </span>CLI command lists the contents of the OCSP Responder Certificate store. </p>
+ <p class="FM_Body">The <span style="font-style : italic; ">show crypto-local pki revocation checkpoint rcp_name </span>CLI command shows the entire configuration for a given revocation checkpoint. </p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the4"></a>Configuring the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> as a CRL Client</p>
+ <p class="FM_Body">CRL is the traditional method of checking certificate validity. When you want to check certificate validity using a CRL, you need to import the CRL. CRLs can only be imported using the WebUI.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI58"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt;&#160;Certificates &gt; Upload page</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name in the <span style="font-weight : bold; ">Certificate Name</span> field. This name identifies the CRL certificate you are uploading.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the certificate file name in the <span style="font-weight : bold; ">Certificate Filename</span>&#160;field. Use the <span style="font-weight : bold; ">Browse</span>&#160;button to enter the full pathname.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the certificate format from the <span style="font-weight : bold; ">Certificate Format</span> drop-down menu.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">CRL </span>from the <span style="font-weight : bold; ">Certificate Type</span> drop-down menu.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">A revocation check method (OCSP or CRL) can be chosen independently for every revocation checkpoint. In this example, we are only describing the CRL check method.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_BodyinBulletStep">Once this CRL is uploaded it is maintained in the store for CRLs. These CRLs are used for signature verification.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Upload</span>. The CRL appears in the Certificate Lists pane. Select <span style="font-weight : bold; ">CRL</span>&#160;from the <span style="font-weight : bold; ">Group</span>&#160;drop-down list if you want to display only CRLs.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For detailed information about an uploaded CRL, click <span style="font-weight : bold; ">View</span> next to the CRL.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Revocation Checkpoint</span> tab.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Revocation Checkpoint</span>&#160;pane, click Edit next to the revocation checkpoint that you want to configure. The <span style="font-weight : bold; ">Revocation Checkpoint </span>pane displays.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the <span style="font-weight : bold; ">Revocation Check</span>&#160;field, select <span style="font-weight : bold; ">crl</span> from the Method 1 drop-down list.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the<span style="font-weight : bold; ">&#160;CRL Location </span>field, enter the CRL you want used for this revocation checkpoint. The CRLs listed are files that have already been imported onto the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">12.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI60"></a>In the CLI</p>
+ <p class="FM_Body">This example configures an OCSP responder with the check method as CRL for revocation check point ROOTCa-ssh-webui. The CRL location is crl1 and the revocation check method is crl.</p>
+ <p class="FM_CLI">(host) (config) #crypto-local pki rcp ROOTCa-ssh-webui</p>
+ <p class="FM_CLIIndented">(host) (RCP-CARoot) #crl-location file crl1</p>
+ <p class="FM_CLIIndented">(host) (RCP-CARoot) #revocation-check crl</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the5"></a>Configuring the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;as a OCSP Responder </p>
+ <p class="FM_Body">When configured as an OCSP responder, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;provides revocation status information to <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;applications that are using CRLs. </p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI59"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt;&#160;Certificates &gt; Upload page</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name in the <span style="font-weight : bold; ">Certificate Name</span>&#160;field. This name identifies the OCSP signer certificate you are uploading.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the certificate file name in the <span style="font-weight : bold; ">Certificate Filename</span>&#160;field. Use the <span style="font-weight : bold; ">Browse</span>&#160;button to enter the full pathname.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the certificate format from the <span style="font-weight : bold; ">Certificate Format</span> drop-down menu.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">OCSP signer cert </span>from the <span style="font-weight : bold; ">Certificate Type</span>&#160;drop-down menu. Once this certificate is uploaded it is maintained in the certificate store for OCSP signer certificates. These certificates are used for signature verification.</p>
+ <p class="FM_BodyinBulletStep">The OCSP signer cert is used to sign OCSP responses for this revocation check point. The OCSP signer cert can be the same trusted CA as the check point, a designated OCSP signer certificate issued by the same CA as the check point or some other local trusted authority. </p>
+ <p class="FM_BodyinBulletStep">If you do not specify an OCSP signer cert, OCSP responses are signed using the global OCSP signer certificate. If that is not present, than an error message is sent out to clients.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The OCSP signer certificate takes precedence over the global OCSP signer certificate as this is check point specific</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_BodyinBulletStep"></p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Upload</span>. The certificate appears in the Certificate Lists pane. Select <span style="font-weight : bold; ">OCSP signer cert </span>from the <span style="font-weight : bold; ">Group</span> drop-down list if you want to display only those certificates which are OCSP signer certificates.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For detailed information about an uploaded certificate, click <span style="font-weight : bold; ">View</span> next to the certificate.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Revocation Checkpoint</span> tab.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Enable</span>&#160;next to <span style="font-weight : bold; ">Enable OCSP Responder</span>. </p>
+ <p class="FM_BodyinBulletStep">Enable OCSP Responder is a global knob that turns the OCSP responder service on or off on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The default is disabled (off). Enabling this knob automatically adds the OCSP responder port (TCP 8084) to the permit list in the CP firewall so this can be accessed from outside the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Select the <span style="font-weight : bold; ">OCSP signer cert</span>&#160;from the <span style="font-weight : bold; ">OCSP Certificates</span>&#160;drop-down menu to be used to sign OCSP responses for this revocation check point.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the <span style="font-weight : bold; ">Revocation Checkpoint</span>&#160;pane, click Edit next to the revocation checkpoint that you want to configure. The <span style="font-weight : bold; ">Revocation Checkpoint </span>pane displays.</p>
+ <p class="FM_StepNext">12.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the <span style="font-weight : bold; ">Revocation Check</span>&#160;field, optionally select a check method from the Method 1 drop-down list. Optionally, select a backup check method from the Method2 drop-down list.</p>
+ <p class="FM_StepNext">13.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Select <span style="font-weight : bold; ">Enable</span>&#160;next to <span style="font-weight : bold; ">Enable OCSP Responder</span>.</p>
+ <p class="FM_StepNext">14.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Select the OCSP signer cert from the <span style="font-weight : bold; ">OCSP Signer Cert</span> drop-down menu.</p>
+ <p class="FM_StepNext">15.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>IN the<span style="font-weight : bold; ">&#160;CRL Location </span>field, enter the CRL you want used for this revocation checkpoint. The CRLs listed are files that have already been imported onto the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">16.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI61"></a>In the CLI</p>
+ <p class="FM_Body">This example configures the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as an OCSP responder. The OCSP responder service is enabled, the revocation check point is CAroot, the OCSP signer cert is “oscap_CA1,” the CRL file location is “Sec1-WIN-05PRGNGEKAO-CA-unrevoked.crl.”</p>
+ <p class="FM_CLI">(host) (config) #crypto-local pki service-ocsp-responder</p>
+ <p class="FM_CLI">(host) (config) #crypto-local pki rcp CAroot</p>
+ <p class="FM_CLIIndented">(host) (CAroot) #ocsp-signer-cert oscsp_CA1</p>
+ <p class="FM_CLIIndented">(host) (CAroot) #crl-location file Sec1-WIN-05PRGNGEKAO-CA-unrevoked.crl</p>
+ <p class="FM_CLIIndented">(host) (CAroot) #enable-ocsp-responder</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

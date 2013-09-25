@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>dir</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4_perforce1666_LAURAR-T410S\depot\techpub\ArubaOS\6.1\CLI\dir.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_1CmdHeading"><a name="XREF_79254_dir"></a>dir</p>
+ <p class="FM_CLI"><a name="XREF_94981_dir"></a>dir</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">This command displays a list of files stored in the flash file system.</p>
+ <p class="FM_2Heading">Syntax</p>
+ <p class="FM_Body">No parameters.</p>
+ <p class="FM_2Heading">Usage Guidelines</p>
+ <p class="FM_Body">Use this command to view the system files associated with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">Output from this command includes the following:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The first column contains ten place holders that display the file permissions.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">First place holder: Displays <span class="FM_System" style="font-family : Courier New; ">-</span>&#160;for a file or <span class="FM_System" style="font-family : Courier New; ">d</span> for directory.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Next three place holders: Display file owner permissions: <span class="FM_System" style="font-family : Courier New; ">r</span>&#160;for read access, <span class="FM_System" style="font-family : Courier New; ">w</span>&#160;for write access permissions, <span class="FM_System" style="font-family : Courier New; ">x</span> for executable.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Following three place holders: Display member permissions: <span class="FM_System" style="font-family : Courier New; ">r</span>&#160;for read access or <span class="FM_System" style="font-family : Courier New; ">x</span> for executable.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Last three place holders: Display non-member permissions: <span class="FM_System" style="font-family : Courier New; ">r</span>&#160;for read access or <span class="FM_System" style="font-family : Courier New; ">x</span> for executable.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The second column displays the number of links the file has to other files or directories.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The third column displays the file owner.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The fourth column displays group/member information.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The remaining columns display the file size, date and time the file was either created or last modified, and the file name.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading">Example</p>
+ <p class="FM_Body">The following command displays the files currently residing on the system flash:</p>
+ <p class="FM_CLI">(host) #dir</p>
+ <p class="FM_Body">The following is sample output from this command:</p>
+ <p class="FM_CLI">-rw-r--r-- &#160;&#160;&#160;1 root &#160;&#160;&#160;&#160;root &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;9338 Nov 20 10:33 class_ap.csv</p>
+ <p class="FM_CLI">-rw-r--r-- &#160;&#160;&#160;1 root &#160;&#160;&#160;&#160;root &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1457 Nov 20 10:33 class_sta.csv</p>
+ <p class="FM_CLI">-rw-r--r-- &#160;&#160;&#160;1 root &#160;&#160;&#160;&#160;root &#160;&#160;&#160;&#160;&#160;&#160;&#160;16182 Nov 14 09:39 config-backup.cfg</p>
+ <p class="FM_CLI">-rw-r--r-- &#160;&#160;&#160;1 root &#160;&#160;&#160;&#160;root &#160;&#160;&#160;&#160;&#160;&#160;&#160;14174 Nov &#160;9 &#160;2005 default-backup-11-8-05.cfg</p>
+ <p class="FM_CLI">-rw-r--r-- &#160;&#160;&#160;1 root &#160;&#160;&#160;&#160;root &#160;&#160;&#160;&#160;&#160;&#160;&#160;16283 Nov &#160;9 12:25 default.cfg</p>
+ <p class="FM_CLI">-rw-r--r-- &#160;&#160;&#160;1 root &#160;&#160;&#160;&#160;root &#160;&#160;&#160;&#160;&#160;&#160;&#160;22927 Oct 25 12:21 default.cfg.2006-10-25_20-21-38</p>
+ <p class="FM_CLI">-rw-r--r-- &#160;&#160;&#160;2 root &#160;&#160;&#160;&#160;root &#160;&#160;&#160;&#160;&#160;&#160;&#160;19869 Nov &#160;9 12:20 default.cfg.2006-11-09_12-20-22</p>
+ <p class="FM_2Heading">Command History</p>
+ <p class="FM_Body">Introduced in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 1.0</p>
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 467.38pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 158.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platform</p>
+</th>
+  <th style="width : 169.125pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">License</p>
+</th>
+  <th style="width : 140.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 158.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Available on all platforms</p>
+</td>
+  <td style="width : 169.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Available in the base operating system</p>
+</td>
+  <td style="width : 140.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config modes on local or master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
+

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>shownetworkstorage</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_1CmdHeading"><a name="XREF_95580_show_banner"></a>show network-storage</p>
+ <p class="FM_CLI">show network-storage [ files opened | </p>
+ <p class="FM_CLIIndented">shares {&lt;file-system-path&gt; | disk | </p>
+ <p class="FM_CLIIndented">status |</p>
+ <p class="FM_CLIIndented">users {disk &lt;disk-name&gt;} ]</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">Displays details about the USB storage device connect to a <?rh-udv_start name="600_Series_controller"  ?>600 Series<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+ <p class="FM_2Heading">Syntax</p>
+<?rh-align_start align="right"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignright;  width: 468.13pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 73.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 394.376pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 73.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">files opened</p>
+</td>
+  <td style="width : 394.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Displays the list of opened files in the USB storage device connected to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 77.00pt;">
+  <td style="width : 73.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">shares</p>
+</td>
+  <td style="width : 394.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Displays the list of shares that are created in the USB storage device. This option provides the following details:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">name of the share</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">name of the disk by alias.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">the folder associated with the share, </p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">the access mode</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 73.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">status </p>
+</td>
+  <td style="width : 394.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Displays the status of the storage service on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 73.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">users</p>
+</td>
+  <td style="width : 394.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Displays the list of users by IP address, connected share name and connection time.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Example</p>
+ <p class="FM_Body">The output of this command shows the status of all printers connected to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <div align="left"><img alt="shownetworkstorage01158.jpg" id="image0" src="images/shownetworkstorage01158.jpg" />
+ </div>
+ 
+ <p class="FM_2Heading">Command History</p>
+ <p class="FM_Body">This command was available in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.4</p>
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 467.62pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 135.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platforms </p>
+</th>
+  <th style="width : 148.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 183.875pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="600_Series_controller"  ?>600 Series<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 148.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 183.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable mode</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
+

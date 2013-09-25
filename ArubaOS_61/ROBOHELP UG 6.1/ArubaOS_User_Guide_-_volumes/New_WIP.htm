@@ -1,0 +1,1879 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>New_WIP</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="rogue ap, standard setting, mac address, new WIP, Rogue AP classification techniques other than AP classification rules,Wireless Intrusion Prevention, hotspot service provider"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\New_WIP.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 29</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Wireless_Intrusion"></a>Wireless Intrusion Prevention</p>
+ <p class="FM_Body">The <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;Wireless Intrusion Prevention (WIP) features and configurations are discussed in this chapter. WIP offers a wide selection of intrusion detection and protection features to protect the network against wireless threats. Like most other security-related features of the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;network, the WIP configuration is done on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the network. </p>
+ <p class="FM_Body">To use most of the features described in this chapter, you must install a Wireless Intrusion Protection (RFprotect) license on all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;in your network. If you install a RFprotect license on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;only, an AP or AM terminated on a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> will not provide the WIP features.</p>
+ <p class="FM_Body">These features do not require an RFprotect license:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Rogue AP classification techniques other than AP classification rules</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Rogue containment</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Wired containment </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Wireless containment without Tarpit</p>
+</li>
+ </ul>
+ <p class="FM_Body">For details on commands see the <span style="font-style : italic; "><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> Command Line Interface Reference</span> document.</p>
+ <p class="FM_Body">This chapter contains the following sections: </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_79748_Reusable_Wizard"><span class="FM_PMS646">“Reusable Wizard” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_57637_Monitoring"><span class="FM_PMS646">“Monitoring Dashboard” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_82876_Licensing"><span class="FM_PMS646">“Rogue AP Detection” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_60618_Licensing"><span class="FM_PMS646">“Intrusion Detection” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_84892_Intrusion"><span class="FM_PMS646">“Intrusion Protection” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_99695_WLAN_Management"><span class="FM_PMS646">“WLAN Management System” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_54583_Client_Blacklisting"><span class="FM_PMS646">“Client Blacklisting” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Reusable_Wizard"></a><a name="XREF_79748_Reusable_Wizard"></a>Reusable Wizard </p>
+ <p class="FM_Body">The WebUI’s reusable, intuitive, user-friendly Wizard provides steps to enable, define, or change: </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Integrated vs Overlay WLAN/WIP options</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Rules-based rogue classification</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Detection features for attacks against infrastructure</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Detection features for attacks against WLAN clients</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Protection features for attacks against infrastructure</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Protection features for WLAN clients</p>
+</li>
+ </ul>
+ <p class="FM_Body"><a href="#XREF_78685_Figure_1_WIP_Wizard"><span class="FM_PMS646">Figure 112</span></a>&#160;displays the WIP Wizard layout. Highlighting one of the previously configured rules reveals drop down menus for changing values. Note that the reusable wizard includes robust online Help.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 112 &#160;</span><a name="XREF_78685_Figure_1_WIP_Wizard"></a>WIP Wizard</p>
+ <div align="left"><img alt="WIPS_Wizard.jpg" id="image0" src="images/WIPS_Wizard.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_2Heading"><a name="TOC_Wizard_Intrusion"></a>Wizard Intrusion Detection</p>
+ <p class="FM_Body">Apply the intrusion detection mechanisms for detecting attacks against your infrastructure and clients (see <a href="#XREF_89518_Figure_111_WIP"><span class="FM_PMS646">Figure 113</span></a>). You can either set the detection level to automatically enable the appropriate detection mechanisms or customize the settings for infrastructure and client attacks. Use the slider to select one of the detection levels for the infrastructure and clients:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">High—Enables all the detection mechanisms applicable to your infrastructure including all the options of low and medium level settings.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Medium (Default)—Enables some important detection mechanisms for your infrastructure. This includes all the options of the low level settings.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Low—Enables only the most critical detection mechanisms for your infrastructure.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Off—Disables all the detection mechanisms.</p>
+</li>
+ </ul>
+ <p class="FM_Body">To enable custom settings, click the <span style="font-style : italic; ">Allow custom settings</span>&#160;link to manually enable or disable the detection mechanisms for your clients. To revert to the standard settings from the custom settings mode, click the <span style="font-style : italic; ">Revert to standard settings</span> link.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 113 &#160;</span><a name="XREF_89518_Figure_111_WIP"></a>WIP Wizard’s Intrusion Detection </p>
+ <div align="left"><img alt="WIPS_Wizard_Det.jpg" id="image1" src="images/WIPS_Wizard_Det.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_2Heading"><a name="TOC_Wizard_Intrusion1"></a>Wizard Intrusion Protection</p>
+ <p class="FM_Body">Apply the intrusion protection mechanisms for your infrastructure and clients (see <a href="#XREF_94369_Figure_112_WIP"><span class="FM_PMS646">Figure 114</span></a>). You can set the protection level to automatically enable the appropriate protection mechanisms or customize the settings for your infrastructure and clients. </p>
+ <p class="FM_3Heading"><a name="TOC_Protection_for"></a>Protection for Infrastructure</p>
+ <p class="FM_Body">Use the slider to select one of the protection levels for the infrastructure:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">High—Enables all the protection mechanisms applicable to your infrastructure including all the options of low and medium level settings.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Medium—Enables some important protection mechanisms for your infrastructure including all the options of the low level settings.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Low—Enables only the most critical protection mechanisms for your infrastructure.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Off (Default)—Disables all the protection mechanisms.</p>
+</li>
+ </ul>
+ <p class="FM_Body">To enable custom settings, click the <span style="font-style : italic; ">Allow custom settings</span>&#160;link. You can manually enable or disable the protection mechanisms for your infrastructure. To revert to the standard settings from custom settings mode, click the <span style="font-style : italic; ">Revert to standard settings</span> link.</p>
+ <p class="FM_3Heading"><a name="TOC_Protection_for_Clients"></a>Protection for Clients</p>
+ <p class="FM_Body">Use the slider (see <a href="#XREF_94369_Figure_112_WIP"><span class="FM_PMS646">Figure 114</span></a>) to select one of the following preset protection levels for your clients:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">High—Enables all the protection mechanisms applicable to your clients including all the options of the low level settings.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Low—Enables only the most critical protection mechanisms for your clients.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Off (Default)—Disables all the protection mechanisms.</p>
+</li>
+ </ul>
+ <p class="FM_Body">To enable custom settings, click the <span style="font-style : italic; ">Allow custom settings</span>&#160;link to manually enable or disable the protection mechanisms for your clients. To revert to the standard settings from custom settings mode, click the <span style="font-style : italic; ">Revert to standard settings</span> link.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 114 &#160;</span><a name="XREF_94369_Figure_112_WIP"></a>WIP Wizard Intrusion Protection </p>
+ <div align="left"><img alt="WIPS_Wizard_Prot.jpg" id="image2" src="images/WIPS_Wizard_Prot.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_1Heading"><a name="TOC_Monitoring_Dashboard"></a><a name="XREF_57637_Monitoring"></a>Monitoring Dashboard</p>
+ <p class="FM_Body">The Security Summary dashboard, in the Monitoring section of the WebUI, allows you to monitor the detection and protection of wireless intrusions in your network. </p>
+ <p class="FM_Body">The dashboard’s two top tables—Discovered APs &amp; Clients and Events—contain data as links. When these links are selected they arrange, filter, and display the appropriate information in the lower table. For example, if you select the number 10 under the Active APs column (highlighted in yellow in <a href="#XREF_44544_Figure_2_WIPS"><span class="FM_PMS646">Figure 115</span></a>) then the bottom table will filter and arrange information about the ten classified Rogue APs. Use the scroll bar at the right to view all ten Rogue APs. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The term <span style="font-style : italic; ">events</span>&#160;in this document is meant to include security threats, vulnerabilities, attacks (intrusion or Denial of Service) and other similarly related events.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The Event table contains data links. Selecting these data links will display information, in the bottom table, related to the Event you selected. Again, remember to use the scroll bar at the right to view all the Events.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 115 &#160;</span><a name="XREF_44544_Figure_2_WIPS"></a>WIP Monitoring Dashboard</p>
+ <div align="left"><img alt="WIPS_Monitor.jpg" id="image3" src="images/WIPS_Monitor.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_1Heading"><a name="TOC_Rogue_AP_Detection"></a><a name="XREF_82876_Licensing"></a><a name="XREF_40213_Rogue_AP_Detection"></a>Rogue AP Detection</p>
+ <p class="FM_Body">The most important WIP functionality is the ability to classify an AP as a potential security threat. An AP is considered to be a rogue AP if it is both unauthorized and plugged into the wired side of the network. An AP is considered to be an interfering AP if it is seen in the RF environment but is not connected to the wired network. </p>
+ <p class="FM_Body">While the interfering AP can potentially cause RF interference, it is not considered a direct security threat since it is not connected to the wired network. However, an interfering AP may be reclassified as a rogue AP.</p>
+ <p class="FM_2Heading"><a name="TOC_Classification"></a>Classification Terminology</p>
+ <p class="FM_Body">APs and clients are discovered during scanning of the wireless medium, and they are classified into various groups. The AP and client classification definitions are in <a href="#XREF_96561_Table_1_Terminology"><span class="FM_PMS646">Table 105</span></a>&#160;and <a href="#XREF_76904_Table_93_Client"><span class="FM_PMS646">Table 106</span></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.05pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 105 &#160;</span><a name="XREF_96561_Table_1_Terminology"></a> AP Classification Definition<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 108.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Classification</p>
+</th>
+  <th style="width : 359.296pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 108.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Valid AP</p>
+</td>
+  <td style="width : 359.296pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">An AP that is part of the enterprise providing WLAN service. </p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 108.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Interfering AP </p>
+</td>
+  <td style="width : 359.296pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">An AP that is seen in the RF environment but is not connected to the wired network. An interfering AP is not considered a direct security threat since it is not connected to the wired network. For example, an interfering AP can be an AP that belongs to a neighboring office’s WLAN but is not part of your WLAN network.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 108.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Neighbor AP</p>
+</td>
+  <td style="width : 359.296pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A neighboring AP is when the BSSIDs are known. Once classified, a neighboring AP does not change its state.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 108.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rogue AP </p>
+</td>
+  <td style="width : 359.296pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">An unauthorized AP that is plugged into the wired side of the network. </p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 108.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Suspected-Rogue AP</p>
+</td>
+  <td style="width : 359.296pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A suspected rogue AP is an unauthorized AP that may be plugged into the wired side of the network. </p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 108.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Manually-contained AP</p>
+</td>
+  <td style="width : 359.296pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">An AP for which DoS is enabled manually.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.51pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 106 &#160;</span><a name="XREF_76904_Table_93_Client"></a> Client Classification Definitions<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 117.322pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Classification</p>
+</th>
+  <th style="width : 350.189pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 117.322pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Valid Client</p>
+</td>
+  <td style="width : 350.189pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Any client that successfully authenticates with a valid AP and passes encrypted traffic is classified as a valid client. </p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 117.322pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Manually-contained Client</p>
+</td>
+  <td style="width : 350.189pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Any clients for which DoS is enabled manually.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 117.322pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Interfering Client </p>
+</td>
+  <td style="width : 350.189pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A client associated to any AP and is not valid.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_2Heading"><a name="TOC_Classification1"></a>Classification Methodology</p>
+ <p class="FM_Body">A discovered AP is classified as a rogue or a suspected rogue by the following methods:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Internal heuristics</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">AP classification rules</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Manually by the user</p>
+</li>
+ </ul>
+ <p class="FM_Body">The internal heuristics works by checking if the discovered AP is communicating with a wired device on the customer network. This is done by matching the MAC address of devices that are on the discovered AP’s network with that of the user’s wired network. The MAC of the device on the discovered AP’s network is known as the <span style="font-style : italic; ">Match MAC</span>. The ways in which the matching of wired MACs occurs is detailed in the sections <a href="#XREF_48928_Match_MAC"><span class="FM_PMS646">Match Methods</span></a>&#160;and <a href="#XREF_29104_Match_Types"><span class="FM_PMS646">Match Types</span></a>.</p>
+ <p class="FM_3Heading"><a name="TOC_Match_Methods"></a><a name="XREF_48928_Match_MAC"></a>Match Methods</p>
+ <p class="FM_Body">The match methods are:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Plus One—The match MAC matches a device whose MAC address’ last bit was one more than that of the Match MAC.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Minus One—The match MAC matches a device whose MAC address’ last bit was one less than that of the Match MAC.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Equal—The match was against the same MAC address.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">OUI—The match was against the manufacturer’s OUI of the wired device.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The classification details are available in the ‘Discovered AP table’ section of the ‘Security Summary’ page of the WebUI. The information can be obtained by clicking on the details icon for a selected discovered AP. The information is also available in the command <span style="font-weight : bold; ">show wms rogue-ap</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Match_Types"></a><a name="XREF_29104_Match_Types"></a>Match Types</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Eth-Wired-MAC—The MAC addresses of wired devices learned by an AP on its Ethernet interface.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">GW-Wired-MAC—The collection of Gateway MACs of all APs across the master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">AP-Wired-MAC—The MAC addresses of wired devices learned by monitoring traffic out of other valid and rogue APs.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Config-Wired-MAC—The MAC addresses that are configured by the user typically that of well known servers in the network.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Manual—User triggered classification.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">External-Wired-MAC—The MAC address matched a set of known wired devices that are maintained in an external database.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Mobility-Manager—The classification was determined by the mobility manager, AMP.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Classification-off—AP is classified as rogue because classification has been disabled causing all non-authorized APs to be classified as a rogue.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Propagated-Wired-MAC—The MAC addresses of wired devices learned by a different AP than the one that uses it for classifying a rogue.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Base-BSSID-Override—The classification was derived from another BSSID which belongs to the same AP that supports multiple BSSIDs on the radio interface.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">AP-Rule—A user defined AP classification rule has matched.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">System-Wired-MAC—The MAC addresses of wired devices learned at the controller.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">System-Gateway-MAC—The Gateway MAC addresses learned at the controller.</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_Suspected_Rogue"></a>Suspected Rogue Confidence Level</p>
+ <p class="FM_Body">A suspected rogue AP is an AP that is potentially a threat to the WLAN infrastructure. A suspected rogue AP has a confidence level associated with it. An AP can be marked as a suspected rogue if it is determined to be a potentially threat on the wired network, or if it matches a user defined classification rule.</p>
+ <p class="FM_Body">The suspected-rogue classification mechanism are: </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Each mechanism that causes a suspected-rogue classification is assigned a confidence level increment of 20%.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">AP classification rules have a configured confidence level.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">When a mechanism matches a previously unmatched mechanism, the confidence level increment associated with that mechanism is added to the current confidence level (the confident level starts at zero). </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The confidence level is capped at 100%.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">If your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;reboots, your suspected-rogue APs are not checked against any new rules that were configured after the reboot. Without this restriction, all the mechanisms that classified your APs as suspected-rogue may trigger again causing the confidence level to surpass their cap of 100%. You can explicitly mark an AP as “interfering” to trigger all new rules to match against it.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_AP_Classification_Rules"></a>AP Classification Rules </p>
+ <p class="FM_Body">AP classification rule configuration is performed only on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If AMP is enabled via the mobility-manager command, then processing of the AP classification rules is disabled on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. A rule is identified by its ASCII character string name (32 characters maximum). The AP classification rules have one of the following specifications:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">SSID of the AP<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">SNR of the AP</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Discovered-AP-Count or the number of APs that can see the AP</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_SSID_specification"></a>SSID specification</p>
+ <p class="FM_Body">Each rule can have up to 6 SSID parameters. If one or more SSIDs are specified in a rule, an option of whether to match any of the SSIDs, or to not match all of the SSIDs can be specified. The default is to check for a match operation. </p>
+ <p class="FM_3Heading"><a name="TOC_SNR_specification"></a>SNR specification</p>
+ <p class="FM_Body">Each rule can have only one specification of the SNR. A minimum and/or maximum can be specified in each rule and the specification is in SNR (db). </p>
+ <p class="FM_3Heading"><a name="TOC_Discovered_AP_Count"></a>Discovered-AP-Count specification</p>
+ <p class="FM_Body">Each rule can have only one specification of the Discovered-AP-Count. Each rule can specify a minimum or maximum of the Discovered-AP-count. The minimum or maximum operation must be specified if the Discovered-AP-count is specified. The default setting is to check for the minimum discovered-AP-count. </p>
+ <p class="FM_3Heading"><a name="TOC_Example_Rules"></a>Example Rules</p>
+ <p class="FM_BodyinBulletStep">If SSID equals xyz AND SNR &gt; 40 then classify AP as suspected-rogue with conf-level-increment of 20</p>
+ <p class="FM_BodyinBulletStep">If SNR &gt;&#160;60 and DISCOVERING_APS &gt; 2, then classify AP as suspected-rogue with conf-level increment of 35</p>
+ <p class="FM_BodyinBulletStep">If SSID equals ‘XYZ’, then classify AP as known-neighbor</p>
+ <p class="FM_2Heading"><a name="TOC_Rule_Matching"></a>Rule Matching</p>
+ <p class="FM_Body">A rule must be enabled before it is matched. A maximum of 32 rules can be created with a maximum of 16 rules active simultaneously. If a rule matches, an AP is classified to:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Suspected-Rogue—an associated confidence-level is provided (minimum is 5%)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Neighbor </p>
+</li>
+ </ul>
+ <p class="FM_Body">The following mechanism is used for rule matching.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">When <span style="font-style : italic; ">all</span> the conditions specified in the rule evaluate to true, the rule matches.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">If multiple rules match causing the AP to be classified as a Suspected-Rogue, the confidence level of each rule is aggregated to determine the confidence level of the classification.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">When multiple rules match and any one of those matching rules cause the AP to be classified as a Neighbor, then the AP is classified as Neighbor.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">APs classified as either Neighbor or Suspected-Rogue will attempted to match any configured AP rule.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Once a rule matches an AP, the same rule will not be checked for the AP.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">When the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;reboots, no attempt to match a previously matched AP is made. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">If a rule is disabled or modified, all APs that were previously classified based on that rule will continue to be in the newly classified state. </p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Intrusion_Detection"></a><a name="XREF_60618_Licensing"></a>Intrusion Detection</p>
+ <p class="FM_Body">This section covers Infrastructure and Client Intrusion Detections. </p>
+ <p class="FM_2Heading"><a name="TOC_Infrastructure_Intrusion"></a>Infrastructure Intrusion Detection</p>
+ <p class="FM_Body">Detecting attacks against the infrastructure is critical in avoiding attacks that may lead to a large-scale Denial of Service (DOS) attack or a security breach. This group of features detects attacks against the WLAN infrastructure, which consists of authorized APs, the RF medium, and the wired network. An authorized or valid-AP is defined as an AP that belongs to the WLAN infrastructure. The AP is either an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AP or a third party AP. <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;automatically learns authorized <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs. </p>
+ <p class="FM_Body"><a href="#XREF_68997_Table_93"><span class="FM_PMS646">Table 107</span></a>&#160;presents a summary of the Intrusion infrastructure detection features with their related commands, traps, and syslog identification. Feature details follow the table. </p>
+<?rh-align_start align="right"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignright;margin-bottom: 12.00pt; width: 540.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="right"><span class="FM_zTitleNo">Table 107 &#160;</span><a name="XREF_68997_Table_93"></a>Infrastructure Detection Summary<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 108.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Feature</p>
+</th>
+  <th style="width : 180.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 162.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Trap</p>
+</th>
+  <th style="width : 90.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Syslog ID</p>
+</th>
+</tr>
+  <tr style=" height : 57.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_18853_Detect_802_11n"><span class="FM_PMS646">Detect 802.11n 40MHz Intolerance Setting</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile </p>
+  <p class="FM_CLI">detect-ht-40mhz-intolerance</p>
+  <p class="FM_CLI">client-ht-40mhz-intol-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxHT40MHzIntoleranceAP</p>
+  <p class="FM_TableBody">wlsxHT40MHzIntoleranceSta</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126052, 126053, 127052, 127053</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_60092_Detect_Active_802"><span class="FM_PMS646">Detect Active 802.11n Greenfield Mode</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">detect-ht-greenfield</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxHtGreenfieldSupported</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126054, 127054</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_16379_Detect_Ad_hoc"><span class="FM_PMS646">Detect Ad hoc Networks</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">detect-adhoc-network</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxNAdhocNetwork</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126033, 127033</p>
+</td>
+</tr>
+  <tr style=" height : 57.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_76319_Detect_Ad_hoc"><span class="FM_PMS646">Detect Ad hoc Network Using Valid SSID</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">detect-adhoc-using-valid-ssid</p>
+  <p class="FM_CLI">adhoc-using-valid-ssid-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAdhocUsingValidSSID</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126068, 127068</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_66817_Detect_AP_Flood"><span class="FM_PMS646">Detect AP Flood Attack</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile </p>
+  <p class="FM_CLI">detect-ap-flood</p>
+  <p class="FM_CLI">ap-flood-threshold</p>
+  <p class="FM_CLI">ap-flood-inc-time</p>
+  <p class="FM_CLI">ap-flood-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxApFloodAttack</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126034, 127034</p>
+</td>
+</tr>
+  <tr style=" height : 59.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_97080_Detect_AP"><span class="FM_PMS646">Detect AP Impersonation</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids impersonation-profile </p>
+  <p class="FM_CLI">detect-ap-impersonation</p>
+  <p class="FM_CLI">beacon-diff-threshold</p>
+  <p class="FM_CLI">beacon-inc-wait-time<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPImpersonation</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126006, 127006</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_66751_Detect_AP_Spoofing"><span class="FM_PMS646">Detect AP Spoofing</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids impersonation-profile </p>
+  <p class="FM_CLI">detect-ap-spoofing</p>
+  <p class="FM_CLI">ap-spoofing-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPSpoofingDetected</p>
+  <p class="FM_TableBody">wlsxClientAssociatingOn</p>
+  <p class="FM_TableBody">WrongChannel</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126069, 126070, 127069, 127070</p>
+</td>
+</tr>
+  <tr style=" height : 59.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_13439_Detect_Bad_WEP"><span class="FM_PMS646">Detect Bad WEP</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">detect-bad-wep</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxRepeatWEPIVViolation</p>
+  <p class="FM_TableBody">wlsxStaRepeatWEPIVViolation</p>
+  <p class="FM_TableBody">wlsxWeakWEPIVViolation</p>
+  <p class="FM_TableBody">wlsxStaWeakWEPIVViolation</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126014, 126015, 126016, 126017, 127014, 127015, 127016, 127017</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_97138_Detect_Beacon"><span class="FM_PMS646">Detect Beacon Wrong Channel</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids impersonation-profile </p>
+  <p class="FM_CLI">detect-beacon-wrong-channel</p>
+  <p class="FM_CLI">beacon-wrong-channel-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxMalformedFrameWrongChannel<br />Detected<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126086, 127086</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_92208_Detect_Client"><span class="FM_PMS646">Detect Client Flood Attack</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile </p>
+  <p class="FM_CLI">detect-client-flood</p>
+  <p class="FM_CLI">client-flood-threshold </p>
+  <p class="FM_CLI">client-flood-inc-time </p>
+  <p class="FM_CLI">client-flood-quiet-time<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxClientFloodAttack</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126064, 127064</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_96533_Detect_CTS_Rate"><span class="FM_PMS646">Detect CTS Rate Anomaly</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile </p>
+  <p class="FM_CLI">detect-cts-rate-anomaly</p>
+  <p class="FM_CLI">cts-rate-threshold </p>
+  <p class="FM_CLI">cts-rate-time-interval </p>
+  <p class="FM_CLI">cts-rate-quiet-time </p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxCtsRateAnomaly</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126073, 127073 </p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_81859_Detect_Devices"><span class="FM_PMS646">Detect Devices with an Invalid MAC OUI</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">detect-invalid-mac-oui</p>
+  <p class="FM_CLI">mac-oui-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxInvalidMacOUIAP</p>
+  <p class="FM_TableBody">wlsxInvalidMacOUISta<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126029, 126030, 127029, 127030</p>
+</td>
+</tr>
+  <tr style=" height : 67.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_69835_Detect_Invalid"><span class="FM_PMS646">Detect Invalid Address Combination</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile</p>
+  <p class="FM_CLI">detect-invalid-address-combination</p>
+  <p class="FM_CLI">invalid-address-combination-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxInvalidAddressCombination</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126079, 127079</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_63048_Detect_Overflow"><span class="FM_PMS646">Detect Overflow EAPOL Key</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile</p>
+  <p class="FM_CLI">detect-overflow-eapol-key</p>
+  <p class="FM_CLI">overflow-eapol-key-quiet-time<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxMalformedOverflowEAPOLKey<br />Detected</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126082, 127082</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_15333_Detect_Overflow_IE"><span class="FM_PMS646">Detect Overflow IE</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile</p>
+  <p class="FM_CLI">detect-overflow-ie</p>
+  <p class="FM_CLI">overflow-ie-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxOverflowIEDetected</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126084, 127084</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_73392_Detect_Malformed"><span class="FM_PMS646">Detect Malformed Frame-Assoc Request</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile</p>
+  <p class="FM_CLI">detect-malformed-assoc-req</p>
+  <p class="FM_CLI">malformed-assoc-req-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxMalformedAssocReqDetected<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126080, 127080</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_28170_Detect_Malformed"><span class="FM_PMS646">Detect Malformed Frame-Auth</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile</p>
+  <p class="FM_CLI">detect-malformed-frame-auth</p>
+  <p class="FM_CLI">malformed-auth-frame-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxMalformedAuthFrameDetected</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126083, 127083</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_76166_Detect_Malformed"><span class="FM_PMS646">Detect Malformed Frame-HT IE</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile</p>
+  <p class="FM_CLI">detect-malformed-htie</p>
+  <p class="FM_CLI">malformed-htie-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxMalformedHTIEDetected</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126081, 127081</p>
+</td>
+</tr>
+  <tr style=" height : 57.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_29224_Detect_Malformed"><span class="FM_PMS646">Detect Malformed Frame-Large Duration</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids-dos-profile</p>
+  <p class="FM_CLI">detect-malformed-large-duration</p>
+  <p class="FM_CLI">malformed-large-duration-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxMalformedFrameLargeDuration</p>
+  <p class="FM_TableBody">Detected<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126085, 127085</p>
+</td>
+</tr>
+  <tr style=" height : 107.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_43236_Detect"><span class="FM_PMS646">Detect Misconfigured AP</span></a></p>
+  <p class="FM_TableBody"><span class="FM_PMS646">(WEP, WPA, SSID, Channel, OUI)</span></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">detect-misconfigured-ap</p>
+  <p class="FM_CLI">privacy</p>
+  <p class="FM_CLI">require-wpa</p>
+  <p class="FM_CLI">valid-and-protected-ssid</p>
+  <p class="FM_CLI">cfg-valid-11g-channel</p>
+  <p class="FM_CLI">cfg-valid-11a-channel</p>
+  <p class="FM_CLI">valid-oui</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxWEPMisconfiguration</p>
+  <p class="FM_TableBody">wlsxWPAMisconfiguration</p>
+  <p class="FM_TableBody">wlsxSSIDMisconfiguration</p>
+  <p class="FM_TableBody">wlsxChannelMisconfiguration</p>
+  <p class="FM_TableBody">wlsxOUIMisconfiguration</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126011, 126028, 126010, 126008, 126009, 127011, 127028, 127010, 127008, 127009</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_25222_Detect_RTS_Rate"><span class="FM_PMS646">Detect RTS Rate Anomaly</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile </p>
+  <p class="FM_CLI">detect-rts-rate-anomaly</p>
+  <p class="FM_CLI">rts-rate-threshold</p>
+  <p class="FM_CLI">rts-rate-time-interval</p>
+  <p class="FM_CLI">rts-rate-quiet-time </p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxRtsRateAnomaly</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126074, 127074</p>
+</td>
+</tr>
+  <tr style=" height : 81.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_41822_Detect_Windows"><span class="FM_PMS646">Detect Windows Bridge</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile</p>
+  <p class="FM_CLI">detect-windows-bridge</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxWindowsBridgeDetectedAP</p>
+  <p class="FM_TableBody">wlsxWindowsBridgeDetectedSta</p>
+  <p class="FM_TableBody">wlsxNAdhocNetworkBridgeDetected</p>
+  <p class="FM_TableBody">AP </p>
+  <p class="FM_TableBody">wlsxNAdhocNetworkBridgeDetected<br />Sta</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126039, 126040, 126041, 126042, 127039, 127040, 127041, 127042</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_99878_Detect_Wireless"><span class="FM_PMS646">Detect Wireless Bridge</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile</p>
+  <p class="FM_CLI">detect-wireless-bridge</p>
+  <p class="FM_CLI">wireless-bridge-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxWirelessBridge</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126036, 127036</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_81194_Detect"><span class="FM_PMS646">Detect Broadcast Deauthentication</span></a>t</p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids signature-matching-profile </p>
+  <p class="FM_CLI">signature deauth-Broadcast</p>
+  <p class="FM_CLI">&nbsp;</p>
+  <p class="FM_CLI">ids general-profile</p>
+  <p class="FM_CLI">signature-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxNSignatureMatchDeauthBcast</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126047, 127047</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_53386_Detect_Broadcast"><span class="FM_PMS646">Detect Broadcast Disassociation</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids signature-matching-profile </p>
+  <p class="FM_CLI">signature disassoc-Broadcast</p>
+  <p class="FM_CLI">&nbsp;</p>
+  <p class="FM_CLI">ids general-profile</p>
+  <p class="FM_CLI">signature-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxNSignatureMatchDisassocBcast</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126066, 127066</p>
+</td>
+</tr>
+  <tr style=" height : 93.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_90801_Detect_Netstumbler"><span class="FM_PMS646">Detect Netstumbler</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids signature-matching-profile </p>
+  <p class="FM_CLI">signature ‘Netstumbler Generic’</p>
+  <p class="FM_CLI">signature ‘Netstumbler Version 3.3.0.x’</p>
+  <p class="FM_CLI">&nbsp;</p>
+  <p class="FM_CLI">ids general-profile</p>
+  <p class="FM_CLI">signature-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxNSignatureMatchNetstumbler<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126043, 127043</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_27408_Detect_Valid_SSID"><span class="FM_PMS646">Detect Valid SSID Misuse</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids-unauthorized-device-profile</p>
+  <p class="FM_CLI">detect-valid-ssid-misuse </p>
+  <p class="FM_CLI">valid-and-protected-ssid</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxValidSSIDViolation</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126007, 127007</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_22435_Detect_Wellenreiter"><span class="FM_PMS646">Detect Wellenreiter</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids signature-matching-profile </p>
+  <p class="FM_CLI">signature Wellenreiter</p>
+  <p class="FM_CLI">&nbsp;</p>
+  <p class="FM_CLI">ids general-profile</p>
+  <p class="FM_CLI">signature-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxNSignatureMatchWellenreiter<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126067, 127067</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Detect_802_11n_40MHz"></a><a name="XREF_18853_Detect_802_11n"></a>Detect 802.11n 40MHz Intolerance Setting</p>
+ <p class="FM_Body">When a client sets the HT capability “<span style="font-weight : bold; ">intolerant</span>&#160;bit” to indicate that it is unable to participate in a 40MHz BSS, the AP must use lower data rates with all of its clients. Network administrators often want to know if there are devices that are advertising 40MHz intolerance, as this can impact the performance of the network.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Active_802_11n"></a><a name="XREF_60092_Detect_Active_802"></a>Detect Active 802.11n Greenfield Mode</p>
+ <p class="FM_Body">When 802.11 devices use the HT operating mode, they can not share the same channel as 802.11a/b/g stations. Not only can they not communicate with legacy devices, the way they use the transmission medium is different, which would cause collisions, errors and retransmissions.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Ad_hoc_Networks"></a><a name="XREF_16379_Detect_Ad_hoc"></a>Detect Ad hoc Networks</p>
+ <p class="FM_Body">An ad hoc network is a collection of wireless clients that form a network amongst themselves without the use of an AP. As far as network administrators are concerned, ad hoc wireless networks are uncontrolled. If they do not use encryption, they may expose sensitive data to outside eavesdroppers. If a device is connected to a wired network and has bridging enabled, an ad-hoc network may also function like a rogue AP. Additionally, ad-hoc networks can expose client devices to viruses and other security vulnerabilities. For these reasons, many administrators choose to prohibit ad-hoc networks. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Ad_hoc_Network"></a><a name="XREF_76319_Detect_Ad_hoc"></a>Detect Ad hoc Network Using Valid SSID</p>
+ <p class="FM_Body">If an unauthorized ad hoc network is using the same SSID as an authorized network, a valid client may be tricked into connecting to the wrong network. If a client connects to a malicious ad hoc network, security breaches or attacks can occur. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_AP_Flood_Attack"></a><a name="XREF_66817_Detect_AP_Flood"></a>Detect AP Flood Attack</p>
+ <p class="FM_Body">Fake AP is a tool that was originally created to thwart wardrivers by flooding beacon frames containing hundreds of different addresses. This would appear to a wardriver as though there were hundreds of APs in the area, thus concealing the real AP. An attacker can use this tool to flood an enterprise or public hotspots with fake AP beacons to confuse legitimate users and to increase the amount of processing need on client operating systems.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_AP_Impersonation"></a><a name="XREF_97080_Detect_AP"></a>Detect AP Impersonation</p>
+ <p class="FM_Body">In AP impersonation attacks, the attacker sets up an AP that assumes the BSSID and ESSID of a valid AP. AP impersonation attacks can be done for man-in-the-middle attacks, a rogue AP attempting to bypass detection, or a honeypot attack.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_AP_Spoofing"></a><a name="XREF_66751_Detect_AP_Spoofing"></a>Detect AP Spoofing</p>
+ <p class="FM_Body">An AP Spoofing attack involves an intruder sending forged frames that are made to look like they are from a legitimate AP. It is trivial for an attacker to do this, since tools are readily available to inject wireless frames with any MAC address that the user desires. Spoofing frames from a legitimate AP is the foundation of many wireless attacks.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Bad_WEP"></a><a name="XREF_13439_Detect_Bad_WEP"></a>Detect Bad WEP</p>
+ <p class="FM_Body">This is the detection of WEP initialization vectors that are known to be weak. A primary means of cracking WEP keys is to capture 802.11 frames over an extended period of time and searching for such weak implementations that are still used by many legacy devices. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Beacon_Wrong"></a><a name="XREF_97138_Detect_Beacon"></a>Detect Beacon Wrong Channel</p>
+ <p class="FM_Body">In this type of attack, an intruder spoofs a beacon packet on a channel that is different from that advertised in the beacon frame of the AP.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Client_Flood"></a><a name="XREF_92208_Detect_Client"></a>Detect Client Flood Attack</p>
+ <p class="FM_Body">There are fake AP tools that can be used to attack wireless intrusion detection itself by generating a large number of fake clients that fill internal tables with fake information. If successful, it overwhelms the wireless intrusion system, resulting in a DoS.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_CTS_Rate_Anomaly"></a><a name="XREF_96533_Detect_CTS_Rate"></a>Detect CTS Rate Anomaly</p>
+ <p class="FM_Body">and </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_RTS_Rate_Anomaly"></a><a name="XREF_25222_Detect_RTS_Rate"></a>Detect RTS Rate Anomaly</p>
+ <p class="FM_Body">The RF medium can be reserved via Virtual Carrier Sensing using an CTS/RTS transaction. The transmitter station sends a Request To Send (RTS) frame to the receiver station. The receiver station responds with a Clear To Send (CTS) frame. All other stations that receive these RTS and/or CTS frames will refrain from transmitting over the wireless medium for an amount of time specified in the <span style="font-style : italic; ">duration</span>&#160;fields of these frames.</p>
+ <p class="FM_Body">Attackers can exploit the Virtual Carrier Sensing mechanism to launch a DoS attack on the WLAN by transmitting numerous RTS and/or CTS frames. This causes other stations in the WLAN to defer transmission to the wireless medium. The attacker can essentially block the authorized stations in the WLAN with this attack.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Devices_with_an"></a><a name="XREF_81859_Detect_Devices"></a>Detect Devices with an Invalid MAC OUI</p>
+ <p class="FM_Body">The first three bytes of a MAC address, known as the MAC organizationally unique identifier (OUI), is assigned by the IEEE to known manufacturers. Often clients using a spoofed MAC address do not use a valid OUI and instead use a randomly generated MAC address.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Invalid_Address"></a><a name="XREF_69835_Detect_Invalid"></a>Detect Invalid Address Combination </p>
+ <p class="FM_Body">In this attack, an intruder can cause an AP to transmit deauthentication and disassociation frames to all of its clients. Triggers that can cause this condition include the use of broadcast or multicast MAC address in the source address field.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Overflow_EAPOL_Key"></a><a name="XREF_63048_Detect_Overflow"></a>Detect Overflow EAPOL Key</p>
+ <p class="FM_Body">Some wireless drivers used in access points do not correctly validate the EAPOL key fields. A malicious EAPOL-Key packet with an invalid advertised length can trigger a DoS or possible code execution. This can only be achieved after a successful 802.11 association exchange.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Overflow_IE"></a><a name="XREF_15333_Detect_Overflow_IE"></a>Detect Overflow IE</p>
+ <p class="FM_Body">Some wireless drivers used in access points do not correctly parse the vendor-specific IE tags. A malicious association request sent to the AP containing an IE with an inappropriate length (too long) can cause a DoS and potentially lead to code execution. The association request must be sent after a successful 802.11 authentication exchange.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Malformed_Frame"></a><a name="XREF_73392_Detect_Malformed"></a>Detect Malformed Frame-Assoc Request</p>
+ <p class="FM_Body">Some wireless drivers used in access points do not correctly parse the SSID information element tag contained in association request frames. A malicious association request with a null SSID (that is, zero length SSID) can trigger a DoS or potential code execution condition on the targeted device. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Malformed_Frame1"></a><a name="XREF_28170_Detect_Malformed"></a>Detect Malformed Frame-Auth</p>
+ <p class="FM_Body">Malformed 802.11 authentication frames that do not conform to the specification can expose vulnerabilities in some drivers that have not implemented proper error checking. This feature checks for unexpected values in a Authentication frame.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Malformed_Frame2"></a><a name="XREF_76166_Detect_Malformed"></a>Detect Malformed Frame-HT IE</p>
+ <p class="FM_Body">The IEEE 802.11n HT (High Throughput) IE is used to convey information about the 802.11n network. A 802.11 management frame containing a malformed HT IE can crash some client implementations; potentially representing an exploitable condition when transmitted by a malicious attacker. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Malformed_Frame3"></a><a name="XREF_29224_Detect_Malformed"></a>Detect Malformed Frame-Large Duration</p>
+ <p class="FM_Body">The virtual carrier-sense attack is implemented by modifying the 802.11 MAC layer implementation to allow random duration values to be sent periodically. This attack can be carried out on the ACK, data, RTS, and CTS frame types by using large duration values. This attack can prevent channel access to legitimate users. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Misconfigured_AP"></a><a name="XREF_43236_Detect"></a>Detect Misconfigured AP</p>
+ <p class="FM_Body">A list of parameters can be configured that defines the characteristics of a valid AP. This feature is primarily used when non-<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs are used in the network since the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> cannot configure the third-party APs. These parameters include WEP, WPA, OUI of valid MAC addresses, valid channels, and valid SSIDs. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Windows_Bridge"></a><a name="XREF_41822_Detect_Windows"></a>Detect Windows Bridge</p>
+ <p class="FM_Body">A Windows Bridge occurs when a client that is associated to an AP is also connected to the wired network, and has enabled bridging between these two interfaces. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Wireless_Bridge"></a><a name="XREF_99878_Detect_Wireless"></a>Detect Wireless Bridge</p>
+ <p class="FM_Body">Wireless bridges are normally used to connect multiple buildings together. However, an attacker could place (or have an authorized person place) a wireless bridge inside the network that would extend the corporate network somewhere outside the building. Wireless bridges are somewhat different from rogue APs in that they do not use beacons and have no concept of association. Most networks do not use bridges – in these networks, the presence of a bridge is a signal that a security problem exists.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Broadcast"></a><a name="XREF_81194_Detect"></a>Detect Broadcast Deauthentication </p>
+ <p class="FM_Body">A deauthentication broadcast attempts to disconnect all stations in range. Rather than sending a spoofed deauth to a specific MAC address, this attack sends the frame to a broadcast address.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Broadcast1"></a><a name="XREF_53386_Detect_Broadcast"></a>Detect Broadcast Disassociation </p>
+ <p class="FM_Body">By sending disassociation frames to the broadcast address (FF:FF:FF:FF:FF:FF), an attacker can disconnect all stations on a network for a widespread DoS. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Netstumbler"></a><a name="XREF_90801_Detect_Netstumbler"></a>Detect Netstumbler</p>
+ <p class="FM_Body">NetStumbler is a popular wardriving application used to locate 802.11 networks. When used with certain NICs, NetStumbler generates a characteristic frame that can be detected. Version 3.3.0 of NetStumbler changed the characteristic frame slightly. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Valid_SSID_Misuse"></a><a name="XREF_27408_Detect_Valid_SSID"></a>Detect Valid SSID Misuse</p>
+ <p class="FM_Body">If an unauthorized AP (neighbor or interfering) is using the same SSID as an authorized network, a valid client may be tricked into connecting to the wrong network. If a client connects to a malicious network, security breaches or attacks can occur.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Wellenreiter"></a><a name="XREF_22435_Detect_Wellenreiter"></a>Detect Wellenreiter</p>
+ <p class="FM_Body">Wellenreiter is a passive wireless network discovery tool that is used to compile a list of APs along with their MAC address, SSID, channel, security setting in the vicinity. It passively sniffs wireless traffic and with certain version (versions 1.4, 1.5, and 1.6) sends active probes that target known default SSIDs. </p>
+ <p class="FM_2Heading"><a name="TOC_Client_Intrusion"></a><a name="XREF_92263_Client_Detection"></a>Client Intrusion Detection</p>
+ <p class="FM_Body">Generally, clients are more vulnerable to attacks than APs. Clients are more apt to associate with a malignant AP due to the client’s driver behavior or to a mis-configured client. It is important to monitor authorized clients to track their associations and to track any attacks raised against the client.</p>
+ <p class="FM_Body">Client attack detection is categorized as:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Detecting attacks against <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs clients—An attacker can perform an active DOS attack against an associated client, or perform a replay attack to obtain the keys of transmission which could lead to more serious attacks. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Monitoring Authorized clients—Since clients are easily tricked into associating with unauthorized APs, tracking all mis-associations of authorized clients is very important. </p>
+</li>
+ </ul>
+ <p class="FM_Body">An authorized client is a client authorized to use the WLAN network. In <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>, an authorized client is called a <span style="font-style : italic; ">valid-client</span>. <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;automatically learns a valid client. A client is determined to be valid if it is associated to an authorized or valid AP using encryption; either Layer 2 or IPSEC. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Detection of attacks is limited to valid clients and clients associated to valid APs. Clients that are associated as guests using unencrypted association are included in the attack detection. However, clients on neighboring (interfering) APs are not tracked for attack detection unless they are specified as valid.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body"><a href="#XREF_71213_Table_94_Client"><span class="FM_PMS646">Table 108</span></a>&#160;presents a summary of the client intrusion detection features with their related commands, traps, and syslog identification. Details of each feature follow the table. </p>
+<?rh-align_start align="right"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignright;margin-bottom: 12.00pt; width: 540.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="right"><span class="FM_zTitleNo">Table 108 &#160;</span><a name="XREF_71213_Table_94_Client"></a>Client Detection Summary<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 108.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Feature</p>
+</th>
+  <th style="width : 180.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 162.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Trap</p>
+</th>
+  <th style="width : 90.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Syslog ID</p>
+</th>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_48713_Detect_Block_ACK"><span class="FM_PMS646">Detect Block ACK DoS</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids-dos-profile</p>
+  <p class="FM_CLI">detect-block-ack-attack</p>
+  <p class="FM_CLI">block-ack-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxBlockAckAttackDetected</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126087, 127087</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_45104_Detect_ChopChop"><span class="FM_PMS646">Detect ChopChop Attack</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids-dos-profile</p>
+  <p class="FM_CLI">detect-chopchop-attack</p>
+  <p class="FM_CLI">chopchop-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxChopChopAttackDetected</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126078, 127078</p>
+</td>
+</tr>
+  <tr style=" height : 91.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_70080_Detect_Disconnect"><span class="FM_PMS646">Detect Disconnect Station Attack</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile &lt;name&gt;</p>
+  <p class="FM_CLI">detect-disconnect-sta</p>
+  <p class="FM_CLI">disconnect-sta-quiet-time</p>
+  <p class="FM_CLI">disconnect-sta-assoc-resp-threshold</p>
+  <p class="FM_CLI">disconnect-deauth-disassoc-threshold</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxNDisconnectStationAttack</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126035, 127035</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_23800_Detect_EAP_Rate"><span class="FM_PMS646">Detect EAP Rate Anomaly</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids-dos-profile</p>
+  <p class="FM_CLI">detect-eap-rate-anomaly</p>
+  <p class="FM_CLI">eap-rate-threshold</p>
+  <p class="FM_CLI">eap-rate-time-interval</p>
+  <p class="FM_CLI">eap-rate-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxEAPRateAnomaly</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126032, 127032</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_41560_Detect_FATA_Jack"><span class="FM_PMS646">Detect FATA-Jack Attack Structure</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile</p>
+  <p class="FM_CLI">detect-fatajack-attack</p>
+  <p class="FM_CLI">fatajack-attack-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxFataJackAttackDetected</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126072, 127072</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_68162_Detect_Hotspotter"><span class="FM_PMS646">Detect Hotspotter Attack</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids impersonation-profile </p>
+  <p class="FM_CLI">detect-hotspotter-attack</p>
+  <p class="FM_CLI">hotspotter-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxHotspotterAttackDetected</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126088, 127088</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_62561_Detect_Meiners"><span class="FM_PMS646">Detect Meiners Power Save DoS Attack</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile</p>
+  <p class="FM_CLI">detect-power-save-dos-attack</p>
+  <p class="FM_CLI">power-save-dos-min-frames</p>
+  <p class="FM_CLI">power-save-dos-quiet-time</p>
+  <p class="FM_CLI">power-save-dos-threshold</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxPowerSaveDoSAttack</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126109, 127109</p>
+</td>
+</tr>
+  <tr style=" height : 59.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_85597_Detect_Omerta"><span class="FM_PMS646">Detect Omerta Attack</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile </p>
+  <p class="FM_CLI">detect-omerta-attack</p>
+  <p class="FM_CLI">omerta-attack-threshold</p>
+  <p class="FM_CLI">omerta-attack-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxOmertaAttack<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126071, 127071</p>
+</td>
+</tr>
+  <tr style=" height : 119.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_53397_Detect_Rate"><span class="FM_PMS646">Detect Rate Anomalies</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile</p>
+  <p class="FM_CLI">detect-rate-anomalies</p>
+  <p class="FM_CLI">&nbsp;</p>
+  <p class="FM_CLI">assoc-rate-thresholds</p>
+  <p class="FM_CLI">disassoc-rate-thresholds</p>
+  <p class="FM_CLI">deauth-rate-thresholds</p>
+  <p class="FM_CLI">probe-request-rate-thresholds</p>
+  <p class="FM_CLI">probe-response-rate-thresholds</p>
+  <p class="FM_CLI">auth-rate-thresholds</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxChannelRateAnomaly</p>
+  <p class="FM_TableBody">wlsxNodeRateAnomalyAP</p>
+  <p class="FM_TableBody">wlsxNodeRateAnomalySta</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126061, 126062, 126063, 127061, 127062, 127063</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_47389_Detect_TRIP_Replay"><span class="FM_PMS646">Detect TKIP Replay Attack</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids dos-profile </p>
+  <p class="FM_CLI">detect-tkip-replay-attack</p>
+  <p class="FM_CLI">tkip-replay-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxTkipReplayAttackDetected</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126077, 127077</p>
+</td>
+</tr>
+  <tr style=" height : 57.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_64581_Detect_Unencrypted"><span class="FM_PMS646">Detect Unencrypted Valid Clients</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile</p>
+  <p class="FM_CLI">detect-unencrypted-valid-client</p>
+  <p class="FM_CLI">unencrypted-valid-client-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxValidClientNotUsingEncryption</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126065, 127065</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_89097_Detect_Valid"><span class="FM_PMS646">Detect Valid Client Misassociation</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile</p>
+  <p class="FM_CLI">detect-valid-client-misassociation</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxValidClientMisassociation</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126075, 127075</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_19833_Detect_AirJack"><span class="FM_PMS646">Detect AirJack</span></a><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids signature-matching-profile </p>
+  <p class="FM_CLI">signature AirJack</p>
+  <p class="FM_CLI">&nbsp;</p>
+  <p class="FM_CLI">ids general-profile</p>
+  <p class="FM_CLI">signature-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxNSignatureMatchAirjack</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126046, 127046</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_34936_Detect_ASLEAP"><span class="FM_PMS646">Detect ASLEAP</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids signature-matching-profile </p>
+  <p class="FM_CLI">signature ASLEAP</p>
+  <p class="FM_CLI">&nbsp;</p>
+  <p class="FM_CLI">ids general-profile</p>
+  <p class="FM_CLI">signature-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxNSignatureMatchAsleap</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126044, 127044</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_10648_Detect_Null_Probe"><span class="FM_PMS646">Detect Null Probe Response</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids signature-matching-profile </p>
+  <p class="FM_CLI">signature Null Probe Response</p>
+  <p class="FM_CLI">&nbsp;</p>
+  <p class="FM_CLI">ids general-profile</p>
+  <p class="FM_CLI">signature-quiet-time</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxNSignatureMatchNullProbeResp</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">126045, 127045</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Block_ACK_DoS"></a><a name="XREF_48713_Detect_Block_ACK"></a>Detect Block ACK DoS</p>
+ <p class="FM_Body">The Block ACK mechanism that was introduced in 802.11e, and enhanced in 802.11nD3.0, has a built-in DoS vulnerability. The Bock ACK mechanism allows for a sender to use the ADDBA request frame to specify the sequence number window that the receiver should expect. The receiver will only accept frames in this window. </p>
+ <p class="FM_Body">An attacker can spoof the ADDBA request frame causing the receiver to reset its sequence number window and thereby drop frames that do not fall in that range.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_ChopChop_Attack"></a><a name="XREF_45104_Detect_ChopChop"></a>Detect ChopChop Attack</p>
+ <p class="FM_Body">ChopChop is a plaintext recovery attack against WEP encrypted networks. It works by forcing the plaintext, one byte at a time, by truncating a captured frame and then trying all 256 possible values for the last byte with a corrected CRC. The correct guess causes the AP to retransmit the frame. When that happens, the frame is truncated again. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Disconnect"></a><a name="XREF_70080_Detect_Disconnect"></a>Detect Disconnect Station Attack </p>
+ <p class="FM_Body">A disconnect attack can be launched in many ways; the end result is that the client is effectively and repeatedly disconnected from the AP. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_EAP_Rate_Anomaly"></a><a name="XREF_23800_Detect_EAP_Rate"></a>Detect EAP Rate Anomaly</p>
+ <p class="FM_Body">To authenticate wireless clients, WLANs may use 802.1x, which is based on a framework called Extensible Authentication Protocol (EAP). After an EAP packet exchange and the user is successfully authenticated, the EAP-Success is sent from the AP to the client. If the user fails to authenticate, an EAP-Failure is sent. In this attack, EAP-Failure or EAP-Success frames are spoofed from the access point to the client to disrupting the authentication state on the client. This confuses the client’s state causing it to drop the AP connection. By continuously sending EAP Success or Failure messages, an attacker can effectively prevent the client from authenticating with the APs in the WLAN.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_FATA_Jack_Attack"></a><a name="XREF_41560_Detect_FATA_Jack"></a>Detect FATA-Jack Attack Structure</p>
+ <p class="FM_Body">FATA-Jack is an 802.11 client DoS tool that tries to disconnect targeted stations using spoofed authentication frames that contain an invalid authentication algorithm number.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Hotspotter_Attack"></a><a name="XREF_68162_Detect_Hotspotter"></a>Detect Hotspotter Attack</p>
+ <p class="FM_Body">The Hotspotter attack is an evil-twin attack which attempts to lure a client to a malicious AP. Many enterprise employees use their laptop in Wi-Fi area hotspots at airports, cafes, malls etc. They have SSIDs of their hotspot service providers configured on their laptops. The SSIDs used by different hotspot service providers are well known. This enables the attackers to set up APs with hotspot SSIDs in close proximity of the enterprise premises. When the enterprise laptop Client probes for hotspot SSID, these malicious APs respond and invite the client to connect to them. When the client connects to a malicious AP, a number of security attacks can be launched on the client. A popular hacking tool used to launch these attacks is Airsnarf.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Meiners_Power"></a><a name="XREF_62561_Detect_Meiners"></a>Detect Meiners Power Save DoS Attack</p>
+ <p class="FM_Body">To save on power, wireless clients will &quot;sleep&quot; periodically, during which they cannot transmit or receive. A client indicates its intention to sleep by sending frames to the AP with the Power Management bit ON. The AP then begins buffering traffic bound for that client until it indicates that it is awake. An intruder could exploit this mechanism by sending (spoofed) frames to the AP on behalf of the client to trick the AP into believing the client is asleep. This will cause the AP to buffer most, if not all, frames destined for the client.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Omerta_Attack"></a><a name="XREF_29572_Detect_Meiners_DoS"></a><a name="XREF_85597_Detect_Omerta"></a>Detect Omerta Attack</p>
+ <p class="FM_Body">Omerta is an 802.11 DoS tool that sends disassociation frames to all stations on a channel in response to data frames. The Omerta attack is characterized by disassociation frames with a reason code of 0x01. This reason code is “unspecified” and is not be used under normal circumstances. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Rate_Anomalies"></a><a name="XREF_53397_Detect_Rate"></a>Detect Rate Anomalies</p>
+ <p class="FM_Body">Many DoS attacks flood an AP or multiple APs with 802.11 management frames. These can include authenticate/associate frames which are designed to fill up the association table of an AP. Other management frame floods, such as probe request floods, can consume excess processing power on the AP. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_TKIP_Replay_Attack"></a><a name="XREF_47389_Detect_TRIP_Replay"></a>Detect TKIP Replay Attack</p>
+ <p class="FM_Body">TKIP is vulnerable to replay (via WMM/QoS) and plaintext discovery (via ChopChop). This affects all WPA-TKIP usage. By replaying a captured TKIP data frame on other QoS queues, an attacker can manipulate the RC4 data and checksum to derive the plaintext at a rate of one byte per minute. </p>
+ <p class="FM_Body">By targeting an ARP frame and guessing the known payload, an attacker can extract the complete plaintext and MIC checksum. With the extracted MIC checksum, an attacker can reverse the MIC AP to Station key and sign future messages as MIC compliant, opening the door for more advanced attacks. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Unencrypted_Valid"></a><a name="XREF_64581_Detect_Unencrypted"></a>Detect Unencrypted Valid Clients</p>
+ <p class="FM_Body">An authorized (valid) client that is passing traffic in unencrypted mode is a security risk. An intruder can sniff unencrypted traffic (also known as <span style="font-style : italic; ">packet capture</span>) with software tools known as sniffers. These packets are then reassembled to produce the original message. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Valid_Client"></a><a name="XREF_89097_Detect_Valid"></a>Detect Valid Client Misassociation</p>
+ <p class="FM_Body">This feature does not detect attacks, but rather it monitors authorized (valid) wireless clients and their association within the network. Valid client misassociation is potentially dangerous to network security. The four types of misassociation that we monitor are: </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Authorized Client associated to Rogue—A valid client that is associated to a rogue AP</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authorized Client associated to External AP—An external AP, in this context, is any AP that is not valid and not a rogue</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authorized Client associated to Honeypot AP—A honeypot is an AP that is not <span style="font-style : italic; ">valid</span>&#160;but is using an SSID that has been designated as valid/protected</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authorized Client in ad hoc connection mode—A valid client that has joined an ad hoc network</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_Detect_AirJack"></a><a name="XREF_19833_Detect_AirJack"></a>Detect AirJack</p>
+ <p class="FM_Body">AirJack is a suite of device drivers for 802.11(a/b/g) raw frame injection and reception. It was intended to be used as a development tool for all 802.11 applications that need to access the raw protocol, however one of the tools included allowed users to force off all users on an AP. </p>
+ <p class="FM_3Heading"><a name="TOC_Detect_ASLEAP"></a><a name="XREF_34936_Detect_ASLEAP"></a>Detect ASLEAP</p>
+ <p class="FM_Body">ASLEAP is a tool created for Linux systems which is used to attack Cisco LEAP authentication protocol.</p>
+ <p class="FM_3Heading"><a name="TOC_Detect_Null_Probe"></a><a name="XREF_10648_Detect_Null_Probe"></a>Detect Null Probe Response</p>
+ <p class="FM_Body">A null probe response attack has the potential to crash or lock up the firmware of many 802.11 NICs. In this attack, a client probe-request frame will be answered by a probe response containing a null SSID. A number of popular NIC cards will lock up upon receiving such a probe response.</p>
+ <p class="FM_1Heading"><a name="TOC_Intrusion_Protection"></a><a name="XREF_84892_Intrusion"></a>Intrusion Protection</p>
+ <p class="FM_Body">Intrusion protection features support containment of an AP or a client. In the case of an AP, we will attempt to disconnect all client that are connected or attempting to connect to the AP. In the case of a client, the client's association to an AP is targeted. The following containment mechanisms are supported:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Deauthentication containment: An AP or client is contained by disrupting its association on the wireless interface. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Tarpit containment: An AP is contained by luring clients that are attempting to associate with it to a tarpit. The tarpit can be on the same channel as the AP being contained, or on a different channel (see <a href="New_WIP_ Advanced.htm#XREF_92271_Tarpit_Shielding"><span class="FM_PMS646">“Tarpit Shielding” </span></a>). </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Wired containment: An AP or client is contained by disrupting its connection on the wired interface. </p>
+</li>
+ </ul>
+ <p class="FM_Body">The WIP feature supports separate enforcement policies that use the underlying containment mechanisms to contain an AP or a client that do not conform to the policy. These policies are discussed in the sections that follow.</p>
+ <p class="FM_2Heading"><a name="TOC_Infrastructure_Intrusion1"></a>Infrastructure Intrusion Protection</p>
+ <p class="FM_Body"><a href="#XREF_41885_Table_97"><span class="FM_PMS646">Table 109</span></a>&#160;presents a summary of the infrastructure intrusion protection features with their related commands, traps, and syslog identifications. Details of each feature follow the table. </p>
+<?rh-align_start align="right"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignright;margin-bottom: 12.00pt; width: 540.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="right"><span class="FM_zTitleNo">Table 109 &#160;</span><a name="XREF_41885_Table_97"></a>Infrastructure Protection Summary<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 108.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Feature</p>
+</th>
+  <th style="width : 180.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 162.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Trap</p>
+</th>
+  <th style="width : 90.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Syslog ID</p>
+</th>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_63014_Protect_40MHz_802"><span class="FM_PMS646">Protect 40MHz 802.11 High Throughput Devices</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile</p>
+  <p class="FM_CLI">protect-ht-40mhz</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_74201_Protect_802_11n"><span class="FM_PMS646">Protect 802.11n High Throughput Devices</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile</p>
+  <p class="FM_CLI">protect-high-throughput</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+  <tr style=" height : 63.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_16431_Protect_from_Adhoc"><span class="FM_PMS646">Protect from Adhoc Networks</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">protect-adhoc-network</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 126012, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_17696_Protect_From_AP"><span class="FM_PMS646">Protect From AP Impersonation</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids impersonation-profile</p>
+  <p class="FM_CLI">protect-ap-impersonation</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_56962_Protect"><span class="FM_PMS646">Protect Misconfigured AP</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile</p>
+  <p class="FM_CLI">protect-misconfigured-ap</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment </p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_31355_Protect_SSID"><span class="FM_PMS646">Protect SSID</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile</p>
+  <p class="FM_CLI">protect-ssid</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment </p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_55851_Rogue_Containment"><span class="FM_PMS646">Rogue Containment</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">rogue-containment</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment </p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+  <tr style=" height : 63.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_41378_Suspected_Rogue"><span class="FM_PMS646">Suspected Rogue Containment</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">suspect-rogue-containment</p>
+  <p class="FM_CLI">suspect-rogue-conf-level</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 106010, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body">&#160;</p>
+ <p class="FM_3Heading"><a name="TOC_Protect_40MHz_802_11"></a><a name="XREF_63014_Protect_40MHz_802"></a>Protect 40MHz 802.11 High Throughput Devices</p>
+ <p class="FM_Body">Protection from AP(s) that support 40MHz HT involves containing the AP such that clients can not connect.</p>
+ <p class="FM_3Heading"><a name="TOC_Protect_802_11n_High"></a><a name="XREF_74201_Protect_802_11n"></a>Protect 802.11n High Throughput Devices</p>
+ <p class="FM_Body">Protection from AP(s) that support HT involves containing the AP such that clients can not connect.</p>
+ <p class="FM_3Heading"><a name="TOC_Protect_from_Adhoc"></a><a name="XREF_16431_Protect_from_Adhoc"></a>Protect from Adhoc Networks</p>
+ <p class="FM_Body">Protection from an Ad hoc Network involves containing the ad hoc network so that clients can not connect to it.</p>
+ <p class="FM_3Heading"><a name="TOC_Protect_From_AP"></a><a name="XREF_17696_Protect_From_AP"></a>Protect From AP Impersonation </p>
+ <p class="FM_Body">Protection from AP impersonation involves containing both the legitimate and impersonating AP so that clients can not connect to either AP.</p>
+ <p class="FM_3Heading"><a name="TOC_Protect_Misconfigured_AP"></a><a name="XREF_56962_Protect"></a>Protect Misconfigured AP</p>
+ <p class="FM_Body">Protect Misconfigured AP enforces that valid APs are configured properly. An offending AP is contained by preventing clients from associating to it.</p>
+ <p class="FM_3Heading"><a name="TOC_Protect_SSID"></a><a name="XREF_31355_Protect_SSID"></a>Protect SSID</p>
+ <p class="FM_Body">Protect SSID enforces that valid/protected SSIDs are used only by valid APs. An offending AP is contained by preventing clients from associating to it.</p>
+ <p class="FM_3Heading"><a name="TOC_Rogue_Containment"></a><a name="XREF_55851_Rogue_Containment"></a>Rogue Containment</p>
+ <p class="FM_Body">By default, rogue APs are not automatically disabled. Rogue containment automatically disables a rogue AP by preventing clients from associating to it.</p>
+ <p class="FM_3Heading"><a name="TOC_Suspected_Rogue1"></a><a name="XREF_41378_Suspected_Rogue"></a>Suspected Rogue Containment</p>
+ <p class="FM_Body">By default, suspected rogue APs are not automatically contained. In combination with the suspected rogue containment confidence level, suspected rogue containment automatically disables a suspect rogue by preventing clients from associating to it.</p>
+ <p class="FM_2Heading"><a name="TOC_Client_Intrusion1"></a><a name="XREF_59195_Client_Protection"></a>Client Intrusion Protection</p>
+ <p class="FM_Body"><a href="#XREF_42740_Table_98_Client"><span class="FM_PMS646">Table 110</span></a>&#160;list the client intrusion protection features with their related commands, traps, and syslog identifications. Details of each feature follow the table.</p>
+<?rh-align_start align="right"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignright;margin-bottom: 12.00pt; width: 540.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="right"><span class="FM_zTitleNo">Table 110 &#160;</span><a name="XREF_42740_Table_98_Client"></a>Client Protection Summary<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 108.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Feature</p>
+</th>
+  <th style="width : 180.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 162.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Trap</p>
+</th>
+  <th style="width : 90.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Syslog ID</p>
+</th>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_57584_Protect_Valid"><span class="FM_PMS646">Protect Valid Stations</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">protect-valid-sta<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 108.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><a href="#XREF_14086_Protect_Windows"><span class="FM_PMS646">Protect Windows Bridge</span></a></p>
+</td>
+  <td style="width : 180.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ids unauthorized-device-profile </p>
+  <p class="FM_CLI">protect-windows-bridge</p>
+</td>
+  <td style="width : 162.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">wlsxAPDeauthContainment</p>
+  <p class="FM_TableBody">wlsxClientDeauthContainment</p>
+  <p class="FM_TableBody">wlsxTarpitContainment</p>
+</td>
+  <td style="width : 90.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">106005, 106006, 126102, 126103, 126108, 127102, 127103, 127108</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Protect_Valid_Stations"></a><a name="XREF_57584_Protect_Valid"></a>Protect Valid Stations</p>
+ <p class="FM_Body">Protecting a valid client involves disconnecting that client if it is associated to a non-valid AP.</p>
+ <p class="FM_3Heading"><a name="TOC_Protect_Windows_Bridge"></a><a name="XREF_14086_Protect_Windows"></a>Protect Windows Bridge</p>
+ <p class="FM_Body">Protecting from a Windows Bridge involves containing the client that is forming the bridge so that it can not connect to the AP.</p>
+ <p class="FM_1Heading"><a name="TOC_WLAN_Management_System"></a><a name="XREF_99695_WLAN_Management"></a>WLAN Management System</p>
+ <p class="FM_Body">The WLAN management system (WMS) on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;monitors wireless traffic to detect any new AP or wireless client station that tries to connect to the network. When an AP or wireless client is detected, it is classified and its classification is used to determine the security policies which should be enforced on the AP or client.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_WMS_via_the"></a>Configuring WMS via the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; Wireless</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the parameters, as described in <a href="#XREF_14662_Table17_10_WLAN"><span class="FM_PMS646">Table 111</span></a>. Then click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.72pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 111 &#160;</span><a name="XREF_14662_Table17_10_WLAN"></a>WMS Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 182.339pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 284.381pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Adhoc AP Ageout</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The amount of time, in minutes, that an adhoc (IBSS) AP unseen by any problems before it is deleted from the database. Enter 0 to disable ageout. </p>
+  <p class="FM_TableBody">Default: 30 minutes</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP Ageout Interval</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The amount of time, in minutes, that an AP is unseen by any probes before it is deleted from the database. Enter 0 to disable ageout.</p>
+  <p class="FM_TableBody">Default: 30 minutes</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AM Poll Interval</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Interval, in milliseconds, for communication between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AMs. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;contacts the AM at this interval to download AP to STA associations, update policy configuration changes, and download AP and STA statistics.</p>
+  <p class="FM_TableBody">Default: 60000 milliseconds (1 minute)</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of AM Poll Retries</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum number of failed polling attempts before the polled AM is considered to be down.</p>
+  <p class="FM_TableBody">Default: 3</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Station Ageout Interval</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The amount of time, in minutes, that a client is unseen by any probes before it is deleted from the database. Enter 0 to disable ageout.</p>
+  <p class="FM_TableBody">Default: 30 minutes</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable Statistics Update in DB</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables or disables statistics update in the database.</p>
+  <p class="FM_TableBody">Default: enabled</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Collect Stat</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables collection of statistics (up to 25,000 entries) on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for monitored APs and clients. This only applies when <?rh-udv_start name="MMS"  ?>MMS<?rh-udv_end ?>&#160;is not configured. </p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Learn System Wired Mac</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable or disable “learning” of wired MACs at the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Propogate Wired Mac</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables the propagation of the gateway wired MAC information.</p>
+  <p class="FM_TableBody">Default: enabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mark Neighbor APs as Persistent Neighbor APs</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables or disables APs that are marked as neighbor from being aged out.</p>
+  <p class="FM_TableBody">Default: enabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 182.339pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Learn APs</p>
+</td>
+  <td style="width : 284.381pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables or disables AP learning. Learning affects the way APs are classified.</p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_WMS_via_the1"></a>Configuring WMS via the CLI</p>
+ <p class="FM_Body">Use the following commands to configure WMS via the CLI. The parameters in this command are described in detail in <a href="#XREF_14662_Table17_10_WLAN"><span class="FM_PMS646">Table 111</span></a>.</p>
+ <p class="FM_CLI">wms general </p>
+ <p class="FM_CLIIndented">adhoc-ap-ageout-interval &lt;minutes&gt; <span style="font-size  : 10.0pt; ">| </span>ap-ageout-interval &lt;minutes&gt; | collect-stats {disable|enable} | learn-ap {enable|disable} | learn-system-wired-macs | <br />persistent-neighbor {enable|disable} | poll-interval &lt;milliseconds&gt; | <br />poll-retries &lt;number&gt; | propagate-wired-macs {enable|disable} | sta-ageout-interval &lt;minutes&gt; | stat-update {enable|disable} </p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_Local_WMS"></a>Configuring Local WMS Settings</p>
+ <p class="FM_Body">You can also use the CLI to define local WMS system settings for the maximum number of APs and client stations.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Use this command with caution. Increasing the limit will cause an increase in usage in the memory by WMS. In general, each entry will consume about 500 bytes of memory. If the setting is bumped up by 2000, then it will cause an increase in WMS memory usage by 1MB</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_CLIIndented">(host) (config) #wms-local system max-threshold &lt;max-threshold&gt;</p>
+ <p class="FM_3Heading"><a name="TOC_Managing_the_WMS_Database"></a>Managing the WMS Database</p>
+ <p class="FM_Body">The WMS process interacts with all the air monitor (AM) processes in the network. When WMS receives an event message from an AM, the WMS process will save the event information along with the BSSID of the AP that generated the event in the WMS database. Use the following commands in <span style="font-weight : bold; ">Enable</span>&#160;mode to manage the WMS database.</p>
+ <p class="FM_Body">The <span style="font-weight : bold; ">wms export-db</span> command exports the specified file as an ASCII text file into the WMS database.</p>
+ <p class="FM_CLIIndented">(host) #wms export-db database &lt;file&gt;</p>
+ <p class="FM_Body">The <span style="font-weight : bold; ">wms import-db</span> command imports the specified file into the WMS database:</p>
+ <p class="FM_CLIIndented">(host) #wms import-db database &lt;file&gt;</p>
+ <p class="FM_Body">The <span style="font-weight : bold; ">wms reint-db</span>&#160;command reinitializes the WMS database. Note that this command does not make an automatic backup of the current database.</p>
+ <p class="FM_CLIIndented">(host) #wms renit-db</p>
+ <p class="FM_1Heading"><a name="TOC_Client_Blacklisting"></a><a name="XREF_54583_Client_Blacklisting"></a>Client Blacklisting</p>
+ <p class="FM_Body"><a name="IX_blacklisting_clients"></a><a name="IX_client_blacklisting"></a>When a client is blacklisted in the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;system, the client is not allowed to associate with any AP in the network for a specified amount of time. If a client is connected to the network when it is blacklisted, a deauthentication message is sent to force the client to disconnect. While blacklisted, the client cannot associate with another SSID in the network.</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;retains the client blacklist in the user database, so the information is not lost if the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;reboots. When you import or export the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s user database, the client blacklist will be exported or imported as well.</p>
+ <p class="FM_2Heading"><a name="TOC_Methods_of_Blacklisting"></a>Methods of Blacklisting</p>
+ <p class="FM_Body">There are several ways in which a client can be blacklisted in the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> system:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">You can manually blacklist a specific client. See <a href="#XREF_29785_Manual_Blacklisting"><span class="FM_PMS646">“Manual Blacklisting” </span></a> for more information.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">A client fails to successfully authenticate for a configured number of times for a specified authentication method. The client is automatically blacklisted. See <a href="#XREF_31725_Authentication"><span class="FM_PMS646">“Authentication Failure Blacklisting” </span></a>&#160;for more information.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">A DoS or man in the middle (MITM) attack has been launched in the network. Detection of these attacks can cause the immediate blacklisting of a client. See <a href="#XREF_25034_Attack_Blacklisting"><span class="FM_PMS646">“Attack Blacklisting” </span></a>&#160;for more information.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">An external application or appliance that provides network services, such as virus protection or intrusion detection, can blacklist a client and send the blacklisting information to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;via an XML API server. When the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;receives the client blacklist request from the server, it blacklists the client, logs an event, and sends an SNMP trap.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">See <a href="ESI.htm#XREF_38330_External_Services"><span class="FM_PMS646">Chapter 38, “External Services Interface”</span></a> for more information.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The External Services Interface feature require the Policy Enforcement Firewall Next Generation (PEFNG) license installed in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_BodyinBulletStep"></p>
+ <p class="FM_2Heading"><a name="TOC_Manual_Blacklisting"></a><a name="XREF_29785_Manual_Blacklisting"></a>Manual Blacklisting</p>
+ <p class="FM_Body">There are several reasons why you may choose to blacklist a client. For example, you can enable different <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;intrusion detection system (IDS) features that detect suspicious activities, such as MAC address spoofing or DoS attacks. When these activities are detected, an event is logged and an SNMP trap is sent with the client information. To blacklist a client, you need to know its MAC address.</p>
+ <p class="FM_Body">To manually blacklist a client via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Clients</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the client to be blacklisted and click the <span style="font-weight : bold; ">Blacklist</span> button.</p>
+ <p class="FM_Body">To clear the entire client blacklist using the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Clients</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Remove All from Blacklist</span>.</p>
+ <p class="FM_Body">To manually blacklist a client via the command-line interface, access the CLI in config mode and issue the following command:</p>
+ <p class="FM_CLIIndented">stm add-blacklist-client &lt;<span style="font-style : italic; ">macaddr&gt;</span></p>
+ <p class="FM_Body">To clear the entire client blacklist using the command-line interface, access the CLI in config mode and issue the following command:</p>
+ <p class="FM_CLIIndented">stm purge-blacklist-client</p>
+ <p class="FM_2Heading"><a name="TOC_Authentication_Failure"></a><a name="XREF_31725_Authentication"></a>Authentication Failure Blacklisting</p>
+ <p class="FM_Body">You can configure a maximum authentication failure threshold for each of the following authentication methods:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">802.1x</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">MAC</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Captive portal</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">VPN</p>
+</li>
+ </ul>
+ <p class="FM_Body">When a client exceeds the configured threshold for one of the above methods, the client is automatically blacklisted by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, an event is logged, and an SNMP trap is sent. By default, the maximum authentication failure threshold is set to 0 for the above authentication methods, which means that there is no limit to the number of times a client can attempt to authenticate.</p>
+ <p class="FM_Body">With 802.1x authentication, you can also configure blacklisting of clients who fail machine authentication.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">When clients are blacklisted because they exceed the authentication failure threshold, they are blacklisted indefinitely by default. You can configure the duration of the blacklisting; see <a href="#XREF_94090_Blacklist_Duration"><span class="FM_PMS646">“Blacklist Duration” </span></a><span style="font-family : ITC Century Std Book; font-size  : 10.0pt; color   : #000000; ">.</span></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">To set the authentication failure threshold via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Profiles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profiles</span> list, select the appropriate authentication profile, then select the profile instance.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a value in the<span style="font-weight : bold; "> Max Authentication failures</span> field.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To set the authentication failure threshold via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">aaa authentication {captive-portal|dot1x|mac|vpn} &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;max-authentication-failures &lt;<span style="font-style : italic; ">number&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Attack_Blacklisting"></a><a name="XREF_25034_Attack_Blacklisting"></a>Attack Blacklisting</p>
+ <p class="FM_Body">There are two type of automatic client blacklisting that can be enabled: blacklisting due to spoofed deauthentication, or blacklisting due to other types of DoS attacks.</p>
+ <p class="FM_Body">Automatic blacklisting for DoS attacks other than spoofed deauthentication is enabled by default. You can disable this blacklisting on a per-SSID basis in the virtual AP profile.</p>
+ <p class="FM_Body">Man in the middle (MITM) attacks begin with an intruder impersonating a valid enterprise AP. If an AP needs to reboot, it sends deauthentication packets to connected clients to enable them to disconnect and reassociate with another AP. An intruder or attacker can spoof deauthentication packets, forcing clients to disconnect from the network and reassociate with the attacker’s AP. A valid enterprise client associates to the intruder’s AP, while the intruder then associates to the enterprise AP. Communication between the network and the client flows through the intruder (the man in the middle), thus allowing the intruder the ability to add, delete, or modify data. When this type of attack is identified by the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;system, the client can be blacklisted, blocking the MITM attack.&#160;Enable this blacklisting ability in the IDS DoS profile (this is disabled by default).</p>
+ <p class="FM_Body">To enable spoofed deauth detection and blacklisting via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select either <span style="font-weight : bold; ">AP Group </span>or <span style="font-weight : bold; ">AP Specific</span>&#160;tab. Click <span style="font-weight : bold; ">Edit</span> for the AP group or AP name.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Profiles list, expand the <span style="font-weight : bold; ">IDS </span>menu, then select <span style="font-weight : bold; ">IDS profile</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">IDS DOS profile</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select (check) <span style="font-weight : bold; ">Spoofed Deauth Blacklist</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To enabled spoofed deauth detection and blacklisting via the command-line interface, access the CLI in config mode, and issue the following commands:</p>
+ <p class="FM_CLIIndented">ids dos-profile &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;spoofed-deauth-blacklist</p>
+ <p class="FM_2Heading"><a name="TOC_Blacklist_Duration"></a><a name="XREF_94090_Blacklist_Duration"></a>Blacklist Duration</p>
+ <p class="FM_Body">You can configure the duration that clients are blacklisted on a per-SSID basis via the virtual AP profile. There are two different blacklist duration settings:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">For clients that are blacklisted due to authentication failure. By default, this is set to 0 (the client is blacklisted indefinitely).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For clients that are blacklisted due to other reasons, including manual blacklisting. By default, this is set to 3600 seconds (one hour). You can set this to 0 to blacklist clients indefinitely.</p>
+</li>
+ </ul>
+ <p class="FM_Body">To configure the blacklist duration via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select either AP Group or AP Specific tab. Click <span style="font-weight : bold; ">Edit</span> for the AP group or AP name.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Profiles list, select <span style="font-weight : bold; ">Wireless LAN</span>, then <span style="font-weight : bold; ">Virtual AP</span>. Select the virtual AP instance.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet2">To set a blacklist duration for authentication failure, enter a value for <span style="font-weight : bold; ">Authentication Failure Blacklist Time</span>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">To set a blacklist duration for other reasons, enter a value for <span style="font-weight : bold; ">Blacklist Time</span>.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To configure the blacklist duration via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">wlan virtual-ap &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;auth-failure-blacklist-time &lt;<span style="font-style : italic; ">seconds&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;blacklist-time &lt;<span style="font-style : italic; ">seconds&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Removing_a_Client_from"></a>Removing a Client from Blacklisting</p>
+ <p class="FM_Body">You can manually remove a client from blacklisting using either the WebUI or CLI:</p>
+ <p class="FM_Body">To remove a client from blacklisting via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Blacklist Clients</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the client that you want to remove from the blacklist, then click <span style="font-weight : bold; ">Remove from Blacklist</span>.</p>
+ <p class="FM_Body">To remove a client from blacklisting via the command-line interface, access the CLI in enable mode and issue the following command:</p>
+ <p class="FM_CLIIndented">stm remove-blacklist-client &lt;<span style="font-style : italic; ">macaddr&gt;</span></p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

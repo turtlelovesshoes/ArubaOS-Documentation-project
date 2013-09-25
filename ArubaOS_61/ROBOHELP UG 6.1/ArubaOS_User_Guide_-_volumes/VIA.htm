@@ -1,0 +1,1114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>VIA</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="via connection, profile, content security service, policy enforcement firewal virtual private network, connection profile, via client, web authentication,Virtual Intranet Access"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\VIA.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 18</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Virtual_Intranet_Access"></a><a name="XREF_83760_Chapter_Title_max"></a>Virtual Intranet Access</p>
+ <p class="FM_Body">Virtual Intranet Access (VIA) is part of the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;remote networks solution targeted for teleworkers and mobile users. VIA detects the users network environment (trusted and un-trusted) and automatically connects the user to their enterprise network. Trusted networks typically refers to a protected office network that allows users to directly access corporate intranet. Un-trusted networks are public Wi-Fi hotspots like airports, cafes, or home network. The VIA solution comes in two parts—VIA connection manager and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> configuration.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">VIA connection manager—Teleworkers and mobile users can easily install a light weight application on their Microsoft Windows or Apple MacBook computers to connect to their enterprise network from remote locations (see <a href="#XREF_29755_Aruba_VIA_Windows"><span class="FM_PMS646">“VIA Connection Manager” </span></a>).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;configuration—To set up virtual intranet access for remote users, you must configure your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to include setting up user roles, authentication, and connection profiles. You can use either WebUI or CLI to configure your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;(see <a href="#XREF_10378_Installation"><span class="FM_PMS646">“Configuring the VIA Controller” </span></a>).</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 40.00pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">VIA requires the PEFV license and is supported on the <?rh-udv_start name="M3"  ?>M3<?rh-udv_end ?>, <?rh-udv_start name="3000MC_Series"  ?>3000 Series<?rh-udv_end ?>, and <?rh-udv_start name="600_Series_controller"  ?>600 Series<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_Body">Topics in this Document</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_29755_Aruba_VIA_Windows"><span class="FM_PMS646">“VIA Connection Manager”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_80578_Installing_the_VIA"><span class="FM_PMS646">“Installing the VIA Connection Manager”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_23066_Upgrade_Workflow"><span class="FM_PMS646">“Upgrade Workflow” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_11519_VIA_Compatibility"><span class="FM_PMS646">“VIA Compatibility” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_27402_Supported"><span class="FM_PMS646">“Supported Authentication Mechanisms” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_19113_Suite_B"><span class="FM_PMS646">“Suite B Cryptography Support”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_10378_Installation"><span class="FM_PMS646">“Configuring the VIA Controller” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_VIA_Connection_Manager"></a><a name="XREF_29755_Aruba_VIA_Windows"></a>VIA Connection Manager</p>
+ <p class="FM_Body">If a user is connected from a remote location that is outside of the enterprise network, VIA automatically detects the environment as un-trusted and creates a secure IPSec connection between the user and the enterprise network. When the user moves into the trusted network, VIA detects the network type and moves to idle state.</p>
+ <p class="FM_2Heading"><a name="TOC_How_it_Works"></a>How it Works</p>
+ <p class="FM_Body">VIA provides a seamless connectivity experience to users when accessing an enterprise network resource from an un-trusted or trusted network environment. You can securely connect to your enterprise network from an un-trusted network environment. By default VIA will auto-launch at system start and establish a remote connection. The following table explains the typical behavior:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The sequence of events described in <a href="#XREF_52826_Table_109_Aruba"><span class="FM_PMS646">Table 72</span></a>&#160;does not necessarily mean that the events always happen in the order shown in the table.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+<?rh-align_start align="right"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignright;margin-bottom: 12.00pt; width: 468.64pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="right"><span class="FM_zTitleNo">Table 72 &#160;</span><a name="XREF_52826_Table_109_Aruba"></a>VIA Connectivity Behavior<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 222.976pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">User action / environment</p>
+</th>
+  <th style="width : 245.662pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">VIA’s behavior</p>
+</th>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 222.976pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The client / user moves from a trusted to un-trusted environment. <span class="FM_Emphasis">Example: From office to a public hot-spot.</span></p>
+</td>
+  <td style="width : 245.662pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Auto-launches and establishes connection to remote network.</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 222.976pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The client moves from an un-trusted to a trusted environment.</p>
+</td>
+  <td style="width : 245.662pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Auto-launch and stay idle. VIA does not establish remote connection. You can, however, manually connect to a network by selecting an appropriate connection profile from the <span class="FM_Emphasis">Settings</span> tab.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 222.976pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">While in an un-trusted environment, user disconnects the remote connection.</p>
+</td>
+  <td style="width : 245.662pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Disconnects gracefully.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 222.976pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">User moves to a trusted environment.</p>
+</td>
+  <td style="width : 245.662pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stays idle and does not connect.</p>
+</td>
+</tr>
+  <tr style=" height : 107.00pt;">
+  <td style="width : 222.976pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">User moves to an un-trusted environment<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 245.662pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stays idle and does not connect. This usually happens, if the user has in a previous occasion disconnected a secure connection by clicking the <span class="FM_Navigation">Disconnect</span>&#160;button in VIA. Users can manually connect by one of the following methods:</p>
+  <p class="FM_TableStep1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Right click on the VIA icon in the system tray and select the <span class="FM_Navigation">Restore</span>&#160;option and then select the <span class="FM_Navigation">Connect</span>&#160;option to connect using the default connection profile.</p>
+  <p class="FM_TableStepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Right click on the VIA icon in the system tray and select the <span class="FM_Navigation">Connect</span> option.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 222.976pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">User clicks the <span class="FM_Navigation">Reconnect </span>button.</p>
+</td>
+  <td style="width : 245.662pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Establishes remote connection.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 222.976pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">In an un-trusted environment, user restarts the system.<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 245.662pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Auto-launches and establishes remote connection.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 222.976pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">In an un-trusted environment, user shuts down the system. Moves to a trusted environment and restarts system.</p>
+</td>
+  <td style="width : 245.662pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Auto-launches and stays idle.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Installing_the_VIA"></a><a name="XREF_80578_Installing_the_VIA"></a>Installing the VIA Connection Manager</p>
+ <p class="FM_Body">Users can download VIA from a URL provided to them by their IT department and install it on their computers.</p>
+ <p class="FM_3Heading"><a name="TOC_On_Microsoft_Windows"></a>On Microsoft Windows Computers</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Download the installer (<span class="FM_Emphasis">ansetup.msi or ansetup64.msi</span>) from the URL provided by the IT department.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Double click the installer file and follow the default prompts. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>After the installation is complete, the user will be prompted to enter the following:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Remote server URL—This should be provided by the IT department. The administrator can also provision the URL on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. In such cases, the user is required to specify only the username and password.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Username—The users domain user name.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Password—The users domain password.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Connect</span>&#160;button to initiate a secure VIA connection. VIA will minimized to system tray after establishing the secure connection.</p>
+ <p class="FM_3Heading"><a name="TOC_On_Apple_MacBooks"></a>On Apple MacBooks</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Download the installer (<span class="FM_Emphasis">ansetup.dmg</span>) from the URL provided by the IT department.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Double click the installer file and follow the default prompts. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>After the installation is complete, the user will be prompted to enter the following:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Remote server URL—This should be provided by the IT department.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Username—The users domain user name.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Password—The users domain password.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Go to <span class="FM_Navigation">System Preferences</span>&#160;<span class="FM_Navigation">&gt;&#160;Other &gt;</span>&#160;select <span class="FM_Navigation">VIA</span> to view VIA connection details.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Go to <span class="FM_Navigation">System Preferences &gt; Network</span>, in the list of network connections select <span class="FM_Navigation">VIA</span>&#160;to modify login details and remote server address.</p>
+ <p class="FM_2Heading"><a name="TOC_Upgrade_Workflow"></a><a name="XREF_23066_Upgrade_Workflow"></a>Upgrade Workflow</p>
+ <p class="FM_Body">VIA checks for upgrade requirements during the login phase. There are two types of upgrade process: Minimal Upgrade and Complete Upgrade.</p>
+ <p class="FM_3Heading"><a name="TOC_Minimal_Upgrade"></a>Minimal Upgrade</p>
+ <p class="FM_Body">This type of upgrade is initiated for bug fixes and some minor enhancements which requires only some components of the client to be upgraded. When a VPN session is active the upgrade binary is downloaded by VIA from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. After the active VIA connection is terminated, the upgrade process is started and the client is upgraded. This type of upgrade does not require a system reboot.</p>
+ <p class="FM_3Heading"><a name="TOC_Complete_Upgrade"></a><a name="XREF_17536_Complete_Upgrade"></a>Complete Upgrade</p>
+ <p class="FM_Body">This requires an upgrade to VIA and its underlying network drivers. This type of upgrade requires a system reboot. VIA downloads the upgrade binary from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and displays a message about upgrade process after the connection is terminated for that upgrade. The user can choose to proceed or cancel the upgrade process. If the user chooses to upgrade, a system reboot is automatically executed. If the user cancels the upgrade, VIA will prompt the user for an upgrade every time the user terminates a VIA session.</p>
+ <p class="FM_4Heading">Content Security Services</p>
+ <p class="FM_Body">When you upgrade from <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;5.0 to <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;6.0 the content security service will not be functional for the <span class="FM_Emphasis" style="font-weight : bold; ">first</span>&#160;VIA connection. Subsequent VIA connection will be verified by the content security service provider. </p>
+ <p class="FM_Body">Before an upgrade, the VIA client (on the end-users computer) downloads a new configuration but does not parse all configuration settings. When the first VIA connection is established, VIA client downloads and upgrades to the new version. The upgrade process downloads the new configuration that enables CSS for all non-corporate connections. See <a href="CSS.htm#XREF_57957_Content_Security"><span class="FM_PMS646">Chapter 40, “Content Security Service”</span></a>&#160;for more details about <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> content security service.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote"><span style="color   : #000000; ">See </span><a href="VIA-EndUserInstructions.htm#XREF_83760_Chapter_Title_max"><span class="FM_PMS646">Appendix G, “VIA: End User Instructions”</span></a><span style="color   : #000000; "> for information about using the desktop application.</span></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_VIA_Compatibility"></a><a name="XREF_11519_VIA_Compatibility"></a>VIA Compatibility</p>
+ <p class="FM_Body">The following table shows the compatibility of different versions of VIA with <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 73 &#160;</span>VIA Compatibility Matrix<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 52.00pt;background : #548baf;">
+  <th style="width : 96.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;Version / Operating System</p>
+</th>
+  <th style="width : 116.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Microsoft Windows (32-bit)</p>
+  <p class="FM_TableHeading">[ XP, Vista, Windows 7]</p>
+</th>
+  <th style="width : 103.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Microsoft Windows (64-bit)</p>
+  <p class="FM_TableHeading">[Vista, Windows 7]</p>
+</th>
+  <th style="width : 54.251pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Mac OS</p>
+  <p class="FM_TableHeading">10.5, 10.6</p>
+</th>
+  <th style="width : 44.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Apple iOS 4.2</p>
+</th>
+  <th style="width : 52.999pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Android 2.2</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 96.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 5.0.X</p>
+</td>
+  <td style="width : 116.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1.0, 1.1, 1.2</p>
+</td>
+  <td style="width : 103.500pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+  <td style="width : 54.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+  <td style="width : 44.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+  <td style="width : 52.999pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 96.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 6.0.x</p>
+</td>
+  <td style="width : 116.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1.0, 1.1, 1.2</p>
+</td>
+  <td style="width : 103.500pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1.2</p>
+</td>
+  <td style="width : 54.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+  <td style="width : 44.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+  <td style="width : 52.999pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 96.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 6.1.x</p>
+</td>
+  <td style="width : 116.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1.1, 1.2, 2.0</p>
+</td>
+  <td style="width : 103.500pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1.2</p>
+</td>
+  <td style="width : 54.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1.0</p>
+</td>
+  <td style="width : 44.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+  <td style="width : 52.999pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the_VIA"></a><a name="XREF_10378_Installation"></a>Configuring the VIA <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">VIA configuration requires that you first configure VPN settings and then configure VIA settings. See <a href="VPNs.htm#XREF_12383_Virtual_Private"><span class="FM_PMS646">“Virtual Private Networks” </span></a>&#160;for information on configuring VPN settings on your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_2Heading"><a name="TOC_Before_you_Begin2"></a>Before you Begin</p>
+ <p class="FM_Body">The following ports must be enabled before configuring the VIA <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">TCP 443</span>—During the initializing phase, VIA uses HTTPS connections to perform trusted network and captive portal checks against the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. It is mandatory that you enable port 443 on your network to allow VIA to perform these checks.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">UDP 4500</span>—Required for IPSec transport</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">UDP 500</span>—Required for VIA 1.0 on Mac OS</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Supported_Authentication"></a><a name="XREF_27402_Supported"></a>Supported Authentication Mechanisms</p>
+ <p class="FM_Body">VIA 1.x and VIA 2.x support different authentication mechanisms:</p>
+ <p class="FM_3Heading"><a name="TOC_Authentication1"></a>Authentication mechanisms supported in VIA 1.x</p>
+ <p class="FM_Body">Authentication is performed using IKEv1 only. &#160;Phase 0 authentication, which authenticates the VPN client, can be performed using either a pre-shared key or an X.509 certificate (the X.509 certificate must appear in the operating system’s “user” certificate store.). If certificates are used for IKE phase 0 authentication, it must be followed by username/password authentication. </p>
+ <p class="FM_Body">The second authentication phase is performed using xAuth, which requires a username and password. &#160;The username and password is authenticated against the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database, a RADIUS server, or an LDAP server. If a RADIUS server is used, it must support the PAP protocol.</p>
+ <p class="FM_Body">Support for two-factor authentication such as token cards is provided in VIA 1.x. &#160;Token product like RSA tokens and other token cards are also supported. This includes support for new-pin and next-pin.</p>
+ <p class="FM_Body">Authentication mechanisms supported in VIA 2.x</p>
+ <p class="FM_Body">In addition to the authentication methods supported by VIA 1.x, VIA 2.x adds support for IKEv2. &#160;IKEv2 is an updated version that is faster and supports a wider variety of authentication mechanisms. &#160;IKEv2 does not have two phases of authentication, only a single phase. VIA supports the following with IKEv2:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Username/password</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">X.509 certificate. <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>&#160;running <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;6.1 or greater support OCSP for the purpose of validating that a certificate has not been revoked.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">EAP (Extensible Authentication Protocol) including EAP-TLS and EAP-MSCHAPv2.</p>
+</li>
+ </ul>
+ <p class="FM_4Heading">Other authentication methods:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Certificates based authentication.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Smart cards that support a Smart Card Cryptographic Provider (SCCP) API within the operating system. &#160;VIA will look for an X.509 certificate in the operating system’s certificate store. &#160;A smart card supporting a SCCP will cause the certificate embedded within the smart card to automatically appear in the operating system’s certificate store.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Suite_B_Cryptography"></a><a name="XREF_19113_Suite_B"></a>Suite B Cryptography Support</p>
+ <p class="FM_Body">Suite B is a new set of cryptographic algorithms that are approved by the US Government for use in classified communication. &#160;Suite B provides the highest levels of security available today in public, commercial algorithms. &#160;Specifically, VIA provides support for:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">RFC 4869—Suite B Cryptographic Suites for IPsec</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">AES-GCM 128/256 for bulk data transfer</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">ECDSA for digital signatures, including support for X.509v3 certificates using ECDSA keys with p256/p384 curves</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">ECDH for key agreement using p256/p384 curves</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">SHA-256 and SHA-384 for message digests</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">Suite B support requires a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;running <?rh-udv_start name="Doc_Title"  ?>ArubaOS 6.1<?rh-udv_end ?>&#160;or greater with the Advanced Cryptography License installed. See <a href="Internal_Captive_Portal.htm#XREF_98100_Title_of_Chapter"><span class="FM_PMS646">“Software Licenses” </span></a>for more information on licenses.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_VIA_Settings"></a>Configuring VIA Settings</p>
+ <p class="FM_Body">The following steps are required to configure your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for VIA. These steps are described in detail in the subsections that follow.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="#XREF_82914_Enable_VPN_Server"><span class="FM_PMS646"> Enable VPN Server Module</span></a>—<?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;allows you to connect to the VIA <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the default user roles. However, to configure and assign specific user roles you must install the Policy Enforcement Firewall Virtual Private Network (PEFV) license.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="#XREF_95137_Create_VIA_User"><span class="FM_PMS646"> Create VIA User Roles</span></a>—VIA user roles contain access control policies for users connecting to your network using VIA. You can configure different VIA roles or use the default VIA role—<span class="FM_CLI">default-via-role</span></p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a name="XREF_51218_3_Create_VIA"></a><a href="#XREF_28072_Create_VIA"><span class="FM_PMS646"> Create VIA Authentication Profile</span></a>—A VIA authentication profile contains a server group for authenticating VIA users. &#160;The server group contains the list of authentication servers and server rules to derive user roles based on the user authentication. &#160;You can configure multiple VIA authentication profiles and / or use the default VIA authentication profile created with <span class="FM_Emphasis">Internal</span> server group.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="#XREF_89093_Create_VIA"><span class="FM_PMS646"> Create VIA Connection Profile</span></a>— A VIA connection profile contains settings required by VIA to establish a secure connection to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can configure multiple VIA connection profiles. &#160;A VIA connection profile is always associated to a user role and all users belonging to that role will use the configured settings. If you do not assign a VIA connection profile to a user role, the default connection profile is used.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="#XREF_84726_Configure_VIA_Web"><span class="FM_PMS646"> Configure VIA Web Authentication</span></a>—A VIA web authentication profile contains an ordered list of VIA authentication profiles. The web authentication profile is used by end users to login to the VIA download page (<span class="FM_Emphasis">https://&lt;server-IP-address&gt;/via</span>) for downloading the VIA client. Only one VIA web authentication profile is available. If more than one VIA authentication profile (<a href="#XREF_51218_3_Create_VIA"><span class="FM_PMS646">step&#160;3 </span></a>) is configured, users can view this list and select one during the client login.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="#XREF_25448_Associate_VIA"><span class="FM_PMS646"> Associate VIA Connection Profile to User Role</span></a>—A VIA connection profile has to be associated to a user role. &#160;Users will login by authenticating against the server group specified in the VIA authentication profile and are put into that user role. The VIA configuration settings are derived from the VIA connection profile attached to that user role. Default connection profile is used.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="#XREF_42897_Configure_VIA"><span class="FM_PMS646"> Configure VIA Client WLAN Profiles</span></a>—You can push WLAN profiles to end-user computers that use the Microsoft Windows Wireless Zero Config (WZC) service to configure and maintain their wireless networks. &#160;After the WLAN profiles are pushed to end-user computers, they are automatically displayed as an ordered list in the preferred networks. The VIA client WLAN profiles provisioned on the client can be selected from the VIA connection profile described in Step 6.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="#XREF_67867_Rebranding_Aruba"><span class="FM_PMS646"> Re-branding VIA and Downloading the Installer</span></a>—You can use a custom logo on the VIA client and on the VIA download web page.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="#XREF_15627_Download_VIA"><span class="FM_PMS646"> Download VIA Installer and Version File</span></a></p>
+ <p class="FM_2Heading"><a name="TOC_Using_the_WebUI_to6"></a><a name="XREF_74029_Using_WebUI"></a>Using the WebUI to Configure VIA</p>
+ <p class="FM_Body">The following steps illustrate configuring your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for VIA using the WebUI.</p>
+ <p class="FM_3Heading"><a name="TOC_Enable_VPN_Server_Module"></a><a name="XREF_82914_Enable_VPN_Server"></a>Enable VPN Server Module</p>
+ <p class="FM_Body">You must install the PEFV license to configure and assign user roles. See <a href="Internal_Captive_Portal.htm#XREF_98100_Title_of_Chapter"><span class="FM_PMS646">“Software Licenses” </span></a>&#160;for licensing requirements. </p>
+ <p class="FM_Body">To install a license:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Network</span>&#160;&gt; <span style="font-weight : bold; "><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>&#160;and select the <span class="FM_Navigation">Licenses</span>&#160;tab on the right hand side. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Paste the license key in the <span class="FM_Navigation">Add New License key</span>&#160;text box and click the <span class="FM_Navigation">Add</span> button.</p>
+ <p class="FM_3Heading"><a name="TOC_Create_VIA_User_Roles"></a><a name="XREF_95137_Create_VIA_User"></a>Create VIA User Roles</p>
+ <p class="FM_Body">To create VIA users roles: </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Security</span>&#160;&gt; <span class="FM_Navigation">Access Control</span>&#160;&gt; <span class="FM_Navigation">User Roles</span>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Navigation">Add</span>&#160;to create new policies. Click <span class="FM_Navigation">Done</span>&#160;after creating the user role and apply to save it to the configuration.</p>
+ <p class="FM_3Heading"><a name="TOC_Create_VIA"></a><a name="XREF_28072_Create_VIA"></a>Create VIA Authentication Profile</p>
+ <p class="FM_Body">This following steps illustrate the procedure to create an authentication profile to authenticate users against a server group. </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Security</span>&#160;&gt; <span class="FM_Navigation">Authentication</span>&#160;&gt; <span class="FM_Navigation">L3 Authentication</span>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the <span class="FM_Emphasis">Profiles</span> section, expand the VIA<span class="FM_Navigation"> Authentication Profile</span>&#160;option. You can configure the following parameters for the authentication profile:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 469.41pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 74 &#160;</span>VIA - Authentication Profile Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 131.344pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 338.064pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 131.344pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Default Role</p>
+</td>
+  <td style="width : 338.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This role that will be assigned to the authenticated users.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 131.344pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max Authentication Failures</p>
+</td>
+  <td style="width : 338.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the maximum authentication failures allowed. The default is 0 (zero).</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 131.344pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Description</p>
+</td>
+  <td style="width : 338.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A user friendly name or description for the authentication profile.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To create a new authentication profile:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name for the new authentication profile under the VIA<span class="FM_Emphasis"> Authentication Profiles</span>&#160;section and click the <span class="FM_Navigation">Add</span>&#160;button. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Expand the VIA<span class="FM_Navigation"> Authentication Profiles</span>&#160;option and select the new profile name. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To modify an authentication profile, select the profile name to configure the default role</p>
+ <p class="FM_BodyinBulletStep">The following screenshot uses the default authentication profile.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 60 &#160;</span>VIA - Associate User Role to VIA Authentication Profile</p>
+ <div align="left"><img alt="via_associate-user-role-to-via-auth-profile.jpg" id="image0" src="images/via_associate-user-role-to-via-auth-profile.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To use a different server group, Click <span class="FM_Emphasis">Server Group</span>&#160;under VIA Authentication Profile and select <span class="FM_Navigation">New</span>&#160;to create a new server group.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 61 &#160;</span>VIA - Creating a new server group for VIA authentication profile</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="via_add-new-via-authentication-server-group.jpg" id="image1" src="images/via_add-new-via-authentication-server-group.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name for the server group.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 62 &#160;</span>VIA - Enter a name for the server group</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="via_create-via-authentication-server-group-1.jpg" id="image2" src="images/via_create-via-authentication-server-group-1.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Create_VIA_Connection"></a><a name="XREF_89093_Create_VIA"></a>Create VIA Connection Profile</p>
+ <p class="FM_Body">To create VIA connection profile:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Security</span>&#160;&gt; <span class="FM_Navigation">Authentication</span>&#160;&gt; <span class="FM_Navigation">L3 Authentication</span> tab. Click the VIA<span class="FM_Emphasis">&#160;Connection Profile</span>&#160;option and enter a name for the connection profile. </p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 63 &#160;</span>VIA - Create VIA Connection Profile</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="via_add-via-connection-profile.jpg" id="image3" src="images/via_add-via-connection-profile.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click on the new VIA connection profile to configure the connection settings. You can configure the following options for a VIA connection profile. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.66pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 75 &#160;</span><a name="XREF_83618_Table_78_VIA"></a>VIA - Connection Profile Options<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 123.844pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Configuration Option</p>
+</th>
+  <th style="width : 344.814pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 123.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enter the following information about the VIA <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_Emphasis"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Hostname/IP Address</span>: This is the public IP address or the DNS hostname of the VIA <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Users will connect to remote server using this IP address or the hostname.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;Internal IP Address: This is the IP address of any of the VLAN interface IP addresses belongs to this <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;Description: This is a human-readable description of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">Click the <span class="FM_Navigation">Add</span>&#160;button after you have entered all the details. If you have more than one VIA <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;you order them by clicking the <span class="FM_Emphasis">Up</span>&#160;and <span class="FM_Emphasis">Down</span> arrows.</p>
+  <p class="FM_TableBody">To delete a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from your list, select a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and click the <span class="FM_Navigation">Delete</span> button.</p>
+</td>
+</tr>
+  <tr style=" height : 89.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA Authentication Profiles to provision</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is the list of VIA authentication profiles that will be displayed to users in the VIA client. See <a href="#XREF_28072_Create_VIA"><span class="FM_PMS646">“Create VIA Authentication Profile” </span></a>. </p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Select an authentication profile and click the Add button to add to the authentication profiles list.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">You can change the order of the list by clicking the <span class="FM_Emphasis">Up</span>&#160;and <span class="FM_Emphasis">Down</span>&#160;arrows. </p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">To delete an authentication profile, select a profile name and click the <span class="FM_Navigation">Delete</span>&#160;button.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 77.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA tunneled networks</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A list of network destination (IP address and netmask) that the VIA client will tunnel through the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. All other network destinations will be reachable directly by the VIA client.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Enter an IP address &amp; network mask and click the <span class="FM_Navigation">Add</span>&#160;button to add to the tunneled networks list.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">To delete a network entry, select the IP address and click the <span class="FM_Navigation">Delete</span> button.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 79.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA Client WLAN profiles</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A list of VIA client WLAN profiles that needs to be pushed to the client machines that use Windows Zero Config (WZC) to configure or manage their wireless networks.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Select a WLAN profile and click the <span class="FM_Navigation">Add</span>&#160;button to add to the client WLAN profiles list.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">To delete an entry, select the profile name and click the <span class="FM_Navigation">Delete</span> button.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">See <a href="#XREF_42897_Configure_VIA"><span class="FM_PMS646">“Configure VIA Client WLAN Profiles” </span></a> for more information.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA IKE V2 Policy</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">List of available IKEv2 policies.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA IKE Policy</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">List of IKE policies that the VIA Client has to use to connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. &#160;These IKE policies are configured under <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Advanced Services</span>&#160;&gt; <span class="FM_Navigation">VPN Services</span>&#160;&gt; <span class="FM_Navigation">IPSEC</span>&#160;&gt; <span class="FM_Navigation">IKE Policies</span>. </p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use Windows Credentials</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable or disable the use of the Windows credentials to login to VIA. &#160;If enabled, the SSO (Single Sign-on) feature can be utilized by remote users to connect to internal resources. </p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable IKEv2</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select this option to enable or disable the use of IKEv2 policies for VIA.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use Suite B Cryptography</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select this option to use Suite B cryptography methods. You must install the Advanced Cryptography license to use the Suite B cryptography. <a href="New_Licenses.htm#XREF_53372_Functional_License">See <span class="FM_PMS646">“Licenses” </span></a> for more information.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IKEv2 Authentication method.</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">List of all IKEv2 authentication methods.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA IPSec V2 Crypto Map</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">List of all IPSec V2 that the VIA client uses to connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA IPSec Crypto Map</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">List of IPSec Crypto Map that the VIA client uses to connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. &#160;These IPSec Crypto Maps are configured in CLI using the <span class="FM_CLI">crypto-local ipsec-map &lt;ipsec-map-name&gt;</span> command.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA Client Network Mask</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The network mask that has to be set on the client after the VPN connection is established.</p>
+  <p class="FM_TableBody">Default: 255.255.255.255</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA Client DNS Suffix List</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The DNS suffix list (comma separated) that has be set on the client once the VPN connection is established. </p>
+  <p class="FM_TableBody">Default: None.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA Support E-mail Address</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The support e-mail address to which VIA users will send client logs. &#160;</p>
+  <p class="FM_TableBody">Default: None.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA external download URL</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">End users will use this URL to download VIA on their computers.</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Content Security Gateway URL</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If the split-tunnel is enabled, access to external (non-corporate) web sites will be verified by the specified content security service provider. See <a href="CSS.htm#XREF_57957_Content_Security"><span class="FM_PMS646"> “Content Security Service”</span></a>&#160;for details about Aruba Networks, Inc. content security service.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable Content Security Services</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select this checkbox to enable content security service. You must install the Content Security Services licenses to use this option. <a href="New_Licenses.htm#XREF_53372_Functional_License">See <span class="FM_PMS646">“Licenses”</span></a>&#160;for more information.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Client Auto-Login</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable or disable VIA client to auto login and establish a secure connection to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allow client to auto-upgrade</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable or disable VIA client to automatically upgrade when an updated version of the client is available on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 69.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable split-tunneling</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable or disable split tunneling.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">If enabled, all traffic to the VIA tunneled networks (Step 3 in this table) will go through the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and the rest is just bridged directly on the client.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">If disabled, all traffic will flow through the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">Default: off</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allow client-side logging</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable or disable client side logging. If enabled, VIA client will collect logs that can be sent to the support email-address for troubleshooting.</p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allow user to save passwords</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable or disable users to save passwords entered in VIA.</p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Validate Server Certificate</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable or disable VIA from validating the server certificate presented by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA max session timeout</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The maximum time (minutes) allowed before the VIA session is disconnected.</p>
+  <p class="FM_TableBody">Default: 1440 min</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA Logon Script</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specify the name of the logon script that must be executed after VIA establishes a secure connection. The logon script must reside in the client computer.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VIA Logoff Script</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specify the name of the log-off script that must be executed after the VIA connection is disconnected. The logoff script must reside in the client computer.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum reconnection attempts</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The maximum number of re-connection attempts by the VIA client due to authentication failures. </p>
+  <p class="FM_TableBody">Default: 3</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allow user to disconnect VIA</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable or disable users to disconnect their VIA sessions.</p>
+  <p class="FM_TableBody">Default: on</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Comma separated list of HTTP ports to be inspected (apart from default port 80)</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Traffic from the specified ports will be verified by the content security service provider.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 123.844pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Keep VIA window minimized</p>
+</td>
+  <td style="width : 344.814pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable this option to minimize the VIA client to system tray during the connection phase. Applicable to VIA client installed in computers running Microsoft Windows operating system.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_Configure_VIA_Web"></a><a name="XREF_84726_Configure_VIA_Web"></a>Configure VIA Web Authentication</p>
+ <p class="FM_Body">To configure VIA web authentication profile:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Security</span>&#160;&gt; <span class="FM_Navigation">Authentication</span>&#160;&gt; <span class="FM_Navigation">L3 Authentication</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Expand VIA Web Authentication and click on <span class="FM_Emphasis">default</span>&#160;profile. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You can have only one profile (<span class="FM_CLI" style="font-style : italic; ">default</span>) for VIA web authentication. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select a profile from VIA<span class="FM_Navigation"> Authentication Profile</span>&#160;drop-down list box and click the <span class="FM_Navigation">Add</span>&#160;button. </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">To re-order profiles, click the <span class="FM_Emphasis">Up</span>&#160;and <span class="FM_Emphasis">Down</span> button.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">To delete a profile, select a profile and click the <span class="FM_Navigation">Delete</span> button.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If a profile is not selected, the <span class="FM_Emphasis">default</span> VIA authentication profile is used.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 64 &#160;</span>VIA - Select VIA Authentication Profile</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="via_add-web-authentication-profile.jpg" id="image4" src="images/via_add-web-authentication-profile.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Associate_VIA_Connection"></a><a name="XREF_25448_Associate_VIA"></a>Associate VIA Connection Profile to User Role</p>
+ <p class="FM_Body">To associate a VIA connection profile to a user role:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Security</span>&#160;&gt; <span class="FM_Navigation">Access Control</span>&#160;&gt; <span class="FM_Navigation">User Roles</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the VIA user role (See <a href="#XREF_95137_Create_VIA_User"><span class="FM_PMS646">“Create VIA User Roles”</span></a>) and click the <span class="FM_Navigation">Edit</span> button.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Emphasis">Edit Role</span>&#160;page, navigate to VIA Connection Profile and select the connection profile from the drop-down list box and click the <span class="FM_Navigation">Change</span> button.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to save the changes to the configuration.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 65 &#160;</span>VIA - Associate VIA Connection Profile to User Role</p>
+ <div align="left"><img alt="via_associate-via-connection-profile-1.jpg" id="image5" src="images/via_associate-via-connection-profile-1.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Configure_VIA_Client"></a><a name="XREF_42897_Configure_VIA"></a>Configure VIA Client WLAN Profiles</p>
+ <p class="FM_Body">To configure a VIA client WLAN profile:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Advanced Services</span>&#160;&gt; <span class="FM_Navigation">All Profiles</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Expand <span class="FM_Emphasis"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;Profiles </span>and select VIA<span class="FM_Navigation"> Client WLAN Profile.</span></p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Profile Details, enter a name for the WLAN profile and click the <span class="FM_Navigation">Add</span> button.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 66 &#160;</span>VIA - Create VIA Client WLAN Profile</p>
+ <div align="left"><img alt="via_add-wlan-profile.jpg" id="image6" src="images/via_add-wlan-profile.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Expand the new WLAN profile and click SSID Profile. In the profile details page, select <span class="FM_Navigation">New</span>&#160;from the SSDI Profile drop-down box and enter a name for the SSID profile.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Basic tab, enter the network name (SSID) and select 802.11 security settings. Click the <span class="FM_Navigation">Apply</span>&#160;button to continue.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 67 &#160;</span>VIA - Configure the SSID Profile</p>
+ <div align="left"><img alt="via_create-wlan-profile.jpg" id="image7" src="images/via_create-wlan-profile.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>You can now configure the SSID profile by select the SSID profile under VIA Client WLAN Profile option.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 68 &#160;</span>VIA - Configure VIA Client WLAN Profile</p>
+ <div align="left"><img alt="via_configure-wlan-profile.jpg" id="image8" src="images/via_configure-wlan-profile.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_BodyinBulletStep">The VIA client WLAN profile are similar to the authentication settings used to set up a wireless network in Microsoft Windows. The following table shows the Microsoft Windows equivalent settings:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.47pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 76 &#160;</span>Configure VIA client WLAN profile<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 100.406pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Option</p>
+</th>
+  <th style="width : 368.064pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 103.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">EAP-PEAP options</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select the following options, if the EAP type is PEAP (Protected EAP):</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">validate-server-certificate: Select this option to validate server certificates.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">enable-fast-reconnect: Select this option to allow fast reconnect.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">enable-quarantine-checks: Select this option to perform quarantine checks.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">disconnect-if-no-cryptobinding-tlv: Select this option to disconnect if server does not present cryptobinding TLV.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">dont-allow-user-authorization: Select this to disable prompts to user for authorizing new servers or trusted certification authorities.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">EAP Type</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select an EAP type used by client to connect to wireless network.</p>
+  <p class="FM_TableBody">Default: EAP-PEAP</p>
+</td>
+</tr>
+  <tr style=" height : 83.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">EAP-Certificate Options</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If you select EAP type as certificate, you can select one of the following options:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">mschapv2-use-windows-credentials</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">use-smartcard</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">simple-certificate-selection</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">use-different-name</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">validate-server-certificate</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Inner EAP Type</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select the inner EAP type.</p>
+  <p class="FM_TableBody">Default: EAP-MSCHAPv2</p>
+</td>
+</tr>
+  <tr style=" height : 101.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Inner EAP Authentication options:</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; ">
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">mschapv2-use-windows-credentials: Automatically use the Windows logon name and password (and domain if any)</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">use-smartcard: Use a smart card</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">simple-certificate-selection: Use a certificate on the users computer or use a simple certificate selection method (recommended)</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">validate-server-certificate: Validate the server certificate</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">use-different-name: Use a different user name for the connection (and not the CN on the certificate)</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Automatically connect when this WLAN is in range</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select this option if you want VIA client to connect when this network (SSID) is available.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">EAP-PEAP: Connect only to these servers</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Comma separated list of servers.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable IEEE 802.1x authentication for this network</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select this option to enable 802.1x authentication for this network.</p>
+  <p class="FM_TableBody">Default: Enabled.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">EAP-Certificate: Connect only to these certificates</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Comma separated list of servers.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Inner EAP-Certificate: Connect only to these servers</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Comma separated list of servers.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 100.406pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Connect even if this WLAN is not broadcasting</p>
+</td>
+  <td style="width : 368.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_BodyinBulletStep"></p>
+ <p class="FM_3Heading"><a name="TOC_Re_branding_VIA_and"></a><a name="XREF_67867_Rebranding_Aruba"></a>Re-branding VIA and Downloading the Installer</p>
+ <p class="FM_Body">You can re-brand the VIA client and the VIA download page with your custom logo and HTML page.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 69 &#160;</span>VIA - Customize VIA logo, Landing Page, and download VIA Installer</p>
+ <div align="left"><img alt="via_customize-logo-html-installer.jpg" id="image9" src="images/via_customize-logo-html-installer.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_4Heading"><a name="XREF_15627_Download_VIA"></a>Download VIA Installer and Version File</p>
+ <p class="FM_Body">To download the VIA installer and version file:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Advanced Services</span>&#160;&gt; <span class="FM_Navigation">VPN Services</span>&#160;&gt; VIA tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under VIA installers for various platforms section, click <span class="FM_CLIBold">ansetup.msi</span> to download the installation file.<a name="XREF_49202_Using_CLI"></a></p>
+ <p class="FM_4Heading">Customize VIA Logo</p>
+ <p class="FM_Body">To use a custom logo on the VIA download page and the VIA client:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Advanced Services</span>&#160;&gt; <span class="FM_Navigation">VPN Services</span>&#160;&gt; VIA tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under <span class="FM_Emphasis">Customize Logo</span>&#160;section, browse and select a logo from your computer. Click the <span class="FM_Navigation">Upload</span>&#160;button to upload the image to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">To use the default <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;logo, click the <span class="FM_Navigation">Reset</span> button.</p>
+</li>
+ </ul>
+ <p class="FM_4Heading">Customize the Landing Page for Web-based Login</p>
+ <p class="FM_Body">To use a custom landing page for VIA web login:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Advanced Services</span>&#160;&gt; <span class="FM_Navigation">VPN Services</span>&#160;&gt; VIA tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Customize Welcome HTML section, browse and select the HTML file from your computer. Click the <span class="FM_Navigation">Upload</span>&#160;button to upload the image to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The following variables are used in the custom HTML file:</p>
+ <p class="FM_BodyinBulletStep">All variables in the custom HTML file have the following notation</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps"><span class="FM_CLI">&lt;% user %&gt;</span>: this will display the username.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span class="FM_CLI">&lt;% ip %&gt;</span>: this will display the IP address of the user.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span class="FM_CLI">&lt;% role %&gt;</span>: this will be display the user role.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span class="FM_CLI">&lt;% logo %&gt;</span>: this is the custom logo (Example: <span class="FM_CLI">&lt;img src=&quot;&lt;% logo %&gt;&quot;&gt;</span>)</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span class="FM_CLI">&lt;% logout %&gt;</span>: the logout link (Example: <span class="FM_CLI">&lt;a href=&quot;&lt;% logout %&gt;&quot;&gt;VIA Web Logout&lt;/a&gt;</span>)</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span class="FM_CLI">&lt;% download %&gt;</span>: the installer download link (Example: <span class="FM_CLI">&lt;a href=&quot;&lt;% download %&gt;&quot;&gt;Click here to download VIA&lt;/a&gt;</span>)</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">To use the default welcome page, click the <span class="FM_Navigation">Reset</span> button.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to continue.</p>
+ <p class="FM_2Heading"><a name="TOC_Using_the_CLI_to4"></a>Using the CLI to Configure VIA</p>
+ <p class="FM_Body">The following steps illustrate configuring VIA Using the CLI. Install your Policy Enforcement Firewall Virtual Private Network (PEFV) license key. For detailed information on the VIA command line options, see the <span class="FM_Emphasis"><?rh-udv_start name="Doc_Title"  ?>ArubaOS 6.1<?rh-udv_end ?> Command Reference Guide</span>.</p>
+ <p class="FM_CLI">(host) (config)# license add &lt;key&gt;</p>
+ <p class="FM_3Heading"><a name="TOC_Create_VIA_roles"></a>Create VIA roles</p>
+ <p class="FM_CLI">(host) (config) #user-role example-via-role</p>
+ <p class="FM_CLI">(host) (config-role) #access-list session &quot;allowall&quot; position 1</p>
+ <p class="FM_CLI">(host) (config-role) #ipv6 session-acl &quot;v6-allowall&quot; position 2</p>
+ <p class="FM_3Heading"><a name="TOC_Create_VIA1"></a>Create VIA authentication profiles</p>
+ <p class="FM_CLI">(host) (config) #aaa server-group &quot;via-server-group&quot;</p>
+ <p class="FM_CLI">(host) (Server Group &quot;via-server-group&quot;) #auth-server &quot;Internal&quot; position 1</p>
+ <p class="FM_CLI">(host) (Server Group &quot;via-server-group&quot;) #aaa authentication via auth-profile default</p>
+ <p class="FM_CLI">(host) (VIA Authentication Profile &quot;default&quot;) #default-role example-via-role</p>
+ <p class="FM_CLI">(host) (VIA Authentication Profile &quot;default&quot;) #desc &quot;Default VIA Authentication Profile&quot;</p>
+ <p class="FM_CLI">(host) (VIA Authentication Profile &quot;default&quot;) #server-group &quot;via-server-group&quot;</p>
+ <p class="FM_3Heading"><a name="TOC_Create_VIA_connection1"></a>Create VIA connection profiles</p>
+ <p class="FM_CLI">(host) (config) #aaa authentication via connection-profile &quot;via&quot;</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #server addr 202.100.10.100 internal-ip 10.11.12.13 desc &quot;VIA Primary Controller&quot; position 0</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #auth-profile &quot;default&quot; position 0</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #tunnel address 10.0.0.0 netmask 255.255.255.0</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #split-tunneling</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #windows-credentials</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #client-netmask 255.0.0.0</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #dns-suffix-list example.com</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #support-email via-support@example.com</p>
+ <p class="FM_BodyLeadin">To enable content security services (CSS), do the following. CSS is available only if you have installed the content security services license. <a href="New_Licenses.htm#XREF_53372_Functional_License">See <span class="FM_PMS646">“Licenses” </span></a> for more information.</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #enable-csec</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #csec-gateway-url https://css.example.com</p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #csec-http-ports 8080,4343</p>
+ <p class="FM_Body">Enter the following command after you create the client WLAN profile. See <a href="#XREF_42897_Configure_VIA"><span class="FM_PMS646">“Configure VIA Client WLAN Profiles” </span></a></p>
+ <p class="FM_CLI">(host) (VIA Connection Profile &quot;via&quot;) #client-wlan-profile &quot;via_corporate_wpa2&quot; position 0</p>
+ <p class="FM_3Heading"><a name="TOC_Configure_VIA_web1"></a>Configure VIA web authentication</p>
+ <p class="FM_CLI">(host) (config) #aaa authentication via web-auth default</p>
+ <p class="FM_CLI">(host) (VIA Web Authentication &quot;default&quot;) #auth-profile default position 0</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You can have only one profile (<span class="FM_CLI" style="font-style : italic; ">default</span>) for VIA web authentication. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_CLI"></p>
+ <p class="FM_3Heading"><a name="TOC_Associate_VIA_connection1"></a>Associate VIA connection profile to user role</p>
+ <p class="FM_CLI">(host) (config) #user-role &quot;example-via-role&quot;</p>
+ <p class="FM_CLI">(host) (config-role) #via &quot;via&quot;</p>
+ <p class="FM_3Heading"><a name="TOC_Configure_VIA_client1"></a>Configure VIA client WLAN profiles</p>
+ <p class="FM_CLI">(host) (config) #wlan ssid-profile &quot;via_corporate_wpa2&quot;</p>
+ <p class="FM_CLI">(host) (SSID Profile &quot;via_corporate_wpa2&quot;) #essid corporate_wpa2</p>
+ <p class="FM_CLI">(host) (SSID Profile &quot;via_corporate_wpa2&quot;) #opmode wpa2-aes</p>
+ <p class="FM_CLI">(host) (SSID Profile &quot;via_corporate_wpa2&quot;) #wlan client-wlan-profile &quot;via_corporate_wpa2&quot;</p>
+ <p class="FM_CLI">(host) (VIA Client WLAN Profile &quot;via_corporate_wpa2&quot;) #ssid-profile &quot;via_corporate_ssid&quot;</p>
+ <p class="FM_Body">For detailed configuration parameter information, see “<span class="FM_Emphasis">wlan client-wlan-profile” command </span>in the<span class="FM_Emphasis">&#160;<?rh-udv_start name="Doc_Title"  ?>ArubaOS 6.1<?rh-udv_end ?> Command Reference Guide</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Customize_VIA_logo"></a>Customize VIA logo, landing page and downloading installer</p>
+ <p class="FM_Body">This step can only be performed using the WebUI. <a href="#XREF_67867_Rebranding_Aruba">See <span class="FM_PMS646">“Re-branding VIA and Downloading the Installer”</span></a>.</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

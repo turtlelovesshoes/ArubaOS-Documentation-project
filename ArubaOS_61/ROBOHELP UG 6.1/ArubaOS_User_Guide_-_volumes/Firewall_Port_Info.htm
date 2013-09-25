@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Firewall_Port_Info</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Firewall_Port_Info.fm" />
+ <meta name="keywords" content="permanent papi connection,remote ap,">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_AppendixNumber" style="color   : #000000;">Appendix B</p>
+ <p class="FM_ChapterTitle"><a name="TOC_External_Firewall"></a><a name="IX_external_firewall"></a><span style="color   : #000000; ">External Firewall Configuration<a name="XREF_98100_Title_of_Chapter"></a></span></p>
+ <p class="FM_Body"><a name="IX_firewall_configuration"></a>In many deployment scenarios, an external firewall is situated between <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;devices. This appendix describes the network ports that need to be configured on the external firewall to allow proper operation of the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;network. You can also use this information to configure session ACLs to apply to physical ports on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for enhanced security. Note, however, that this appendix does not describe requirements for allowing specific types of user traffic on the network.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">A <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;uses both its loopback address and VLAN addresses for communications with other network elements. If the firewall uses host-specific ACLS, those ACLs must specify all IP addresses used on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">This appendix includes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="Management_Utilities.htm#XREF_47606_Creating_Guest"><span class="FM_PMS646">“Communication Between Aruba Devices”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_86754_Network_Management"><span class="FM_PMS646">“Network Management Access” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_73987_Virtual_Internet"><span class="FM_PMS646">“Virtual Internet Access (VIA)” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_87732_Other"><span class="FM_PMS646">“Other Communications”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Communication_Between"></a><a name="XREF_87554_Basic_System"></a>Communication Between <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> Devices</p>
+ <p class="FM_Body">This section describes the network ports that need to be configured on the firewall to allow proper operation of the network.</p>
+ <p class="FM_Body">Between any two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">IPSec (UDP ports 500 and 4500) and ESP (protocol 50). PAPI between a master and a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is encapsulated in IPSec.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">IP-IP (protocol 94) and UDP port 443 if Layer-3 mobility is enabled.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">GRE (protocol 47) if tunneling guest traffic over GRE to DMZ <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">IKE (UDP 500).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">ESP (protocol 50).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAT-T (UDP 4500).</p>
+</li>
+ </ul>
+ <p class="FM_Body">Between an AP and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">PAPI (UDP port 8211). If the AP uses DNS to discover the LMS <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the AP first attempts to connect to the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. (Also allow DNS (UDP port 53) traffic from the AP to the DNS server.)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">PAPI (UDP port 8211). All APs running as Air Monitors (AMs) require a permanent PAPI connection to the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">FTP (TCP port 21).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">TFTP (UDP port 69) all APs, if there is no local image on the AP (for example, a new AP) the AP will use TFTP to retrieve the initial image.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NTP (UDP port 123).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">SYSLOG (UDP port 514).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">PAPI (UDP port 8211).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">GRE (protocol 47).</p>
+</li>
+ </ul>
+ <p class="FM_Body">Between a Remote AP (IPSec) and a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">NAT-T (UDP port 4500).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">TFTP (UDP port 69) </p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">TFTP is not needed for normal operation. If the remote AP loses its local image for any reason, it will use TFTP to download the latest image.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1">.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Network_Management_Access"></a><a name="IX_management_access"></a><a name="XREF_86754_Network_Management"></a>Network Management Access</p>
+ <p class="FM_Body">This section describes the network ports that need to be configured on the firewall to manage the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;network.</p>
+ <p class="FM_Body">For WebUI access between the network administrator’s computer (running a Web browser) and a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">HTTP (TCP ports 80 and 8888) or HTTPS (TCP ports 443 and 4343).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">SSH (TCP port 22) or TELNET (TCP port 23).</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Virtual_Internet_Access"></a><a name="XREF_73987_Virtual_Internet"></a>Virtual Internet Access (VIA)</p>
+ <p class="FM_Body">The following ports are used with <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> VIA.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">For the reachability/trusted network check use port 443</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For the IPSec connection use port 4500</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">To allow ISAKMP use port 500 </p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Other_Communications"></a><a name="XREF_87732_Other"></a>Other Communications</p>
+ <p class="FM_Body">This section describes the network ports that need to be configured on the firewall to allow other types of traffic in the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> network. You should only allow traffic as needed from these ports.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">For logging: SYSLOG (UDP port 514) between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and syslog servers.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For software upgrade or retrieving system logs: TFTP (UDP port 69) or FTP (TCP ports 21 and 22) between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and a software distribution server.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is a PPTP VPN server, allow PPTP (UDP port 1723) and GRE (protocol 47) to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is an L2TP VPN server, allow NAT-T (UDP port 4500), ISAKMP (UDP port 500) and ESP (protocol 50) to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">If a third-party network management system is used, allow SNMP (UDP ports 161 and 162) between the network management system and all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For authentication with a RADIUS server: RADIUS (typically, UDP ports 1812 and 813, or 1645 and 1646) between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and the RADIUS server.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For authentication with an LDAP server: LDAP (UDP port 389) or LDAPS (UDP port 636) between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and the LDAP server.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For authentication with a TACACS+ server: TACACS (TCP port 49) between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the TACACS+ server.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For NTP clock setting: NTP (UDP port 123) between all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> and NTP server.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For packet captures: UDP port 5555 from an AP to an Ethereal packet-capture station; UDP port 5000 from an AP to a Wildpackets packet-capture station.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For telnet access: Telnet (TCP port 23) from the network administrator's computer to any AP, if “telnet enable” is present in the “ap location 0.0.0&quot; section of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> configuration.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For External Services Interface (ESI): ICMP (protocol 1) and syslog (UDP port 514) between a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and any ESI servers.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For XML API: HTTP (TCP port 80) or HTTPS (TCP port 443) between a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and an XML-API client.</p>
+</li>
+ </ul>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

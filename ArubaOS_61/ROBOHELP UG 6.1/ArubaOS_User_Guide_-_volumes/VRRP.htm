@@ -1,0 +1,578 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>VRRP</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="controller, admin state, virtual ip address, lms ip, ap group, vrrp instance, global configuration command, vrrp master, rf plan datum, Redundancy Parameters, "/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\VRRP.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_Anchor"><a name="XREF_98100_Title_of_Chapter"></a>&nbsp;</p>
+ <p class="FM_ChapterNumber"><a name="TOC_Chapter_24"></a>Chapter 24</p>
+ <p class="FM_ChapterTitle"><a name="TOC_VRRP"></a><a name="XREF_41232_Configuring"></a>VRRP</p>
+ <p class="FM_Body"><a name="IX_configuring_38"></a>The underlying mechanism for the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;redundancy solution is the Virtual Router Redundancy Protocol (VRRP). VRRP is used to create various redundancy solutions, including:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Pairs of local <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> acting in an active-active mode or a hot-standby mode</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">A master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;backing up a set of local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">A pair of <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;acting as a redundant pair of master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> in a hot-standby mode</p>
+</li>
+ </ul>
+ <p class="FM_Body">VRRP eliminates a single point of failure by providing an election mechanism, among the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, to elect a VRRP “master<span style="font-style : italic; ">”</span>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> election is:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">If VRRP preemption is disabled (the default setting) and all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;share the same priority, the first <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> that comes up becomes the master.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">or </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">If VRRP preemption is enabled and all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;share the same priority, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;with the highest IP address becomes the master.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The master<span style="font-style : italic; ">&#160;</span><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;owns the configured virtual IP address for the VRRP instance. When the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;becomes unavailable, a backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;steps in as the master and takes ownership of the virtual IP address. All network elements (APs and other <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>) can be configured to access the virtual IP address, thereby providing a transparent redundant solution to your network.</p>
+ <p class="FM_1Heading"><a name="TOC_Redundancy_Parameters"></a><a name="XREF_74350_Redundancy"></a>Redundancy Parameters</p>
+ <p class="FM_Body">Depending on your redundancy solution, you configure the VRRP parameters listed in <a href="#XREF_90805_Table3_1_VRRP"><span class="FM_PMS646">Table 96</span></a>&#160;on your master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.79pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 96 &#160;</span><a name="XREF_90805_Table3_1_VRRP"></a>VRRP Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>&#160;
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 122.580pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 344.212pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Button">Virtual Router ID</span></p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This uniquely identifies this VRRP instance. For ease in administration, you should configure this with the same value as the VLAN ID.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Button">Advertisement Interval</span></p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is the interval, in seconds, between successive VRRP advertisements sent by the current <span style="font-style : italic; ">master</span>. The default interval time is recommended.</p>
+  <p class="FM_TableBody">Default: 1 second</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Button">Authentication Password</span></p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is an optional password, of up to eight characters, that can be used to authenticate VRRP peers in their advertisements. If this is not configured, there is no authentication password set.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Button">Description</span></p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is an optional text description to describe the VRRP instance.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Button">IP Address</span></p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is the virtual IP address that will be owned by the elected VRRP <span style="font-style : italic; ">master.</span></p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Button">Enable Router Pre-emption</span></p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Selecting this option means that a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can take over the role of <span style="font-style : italic; ">master</span>&#160;if it detects a lower priority <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;currently acting as <span style="font-style : italic; ">master.</span></p>
+</td>
+</tr>
+  <tr style=" height : 95.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Delay</p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifying a value enables the delay timer. The timer is triggered when the VRRP state moves out of backup or init state to become a master. This is applicable only if router pre-emption is enabled.</p>
+  <p class="FM_TableBody">When the timer is triggered, it forces VRRP to wait for a specified period of time, so that all the applications are ready before coming up. This prevents the APs from connecting to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;before it can receive them. In the mean time, if there is an advertisement from another VRRP, the VRRP stops the timer and does not transition to master.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Button">Priority</span></p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Priority level of the VRRP instance for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This value is used in the election mechanism for the <span style="font-style : italic; ">master.</span></p>
+</td>
+</tr>
+  <tr style=" height : 225.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Tracking</p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Configures a tracking mechanism that modifies a specified <span style="font-style : italic; ">value</span>&#160;to the priority after a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has been the master for the VRRP instance. This mechanism is used to avoid failing over to a backup Master for transient failures.</p>
+  <p class="FM_TableBody">Tracking can be based on one of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Master Up Time: how long the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has been the master. The value of <span style="font-style : italic; ">duration</span>&#160;is the length of time that the administrator expects will be long enough that the database gathered in the time is too important to be lost. This will obviously vary from instance to instance.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">VRRP Master State Priority: the master state of another VRRP.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">Tracking can also be based on the interface states of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">VLAN and Interface: prevents asymmetric routing by tracking multiple VRRP instances. The priority of the VRRP interface determined by the <span class="FM_Emphasis">sub</span>&#160;value can increase or decrease based on the operational and transitional states of the specified <span style="font-size  : 8.0pt; ">VLAN or </span>Fast Ethernet/Gigabit Ethernet port. When the VLAN or interface comes up again, the value is restored to the previous priority level. You can track a combined maximum of 16 interfaces and VLANs. </p>
+</li>
+  </ul>
+  <p class="FM_TableBody">For example, you can track an interface that connects to a default gateway. In this situation, configure the VRRP priority to decrease and trigger a VRRP master re-election if the interface goes down. This not only prevents network traffic from being forwarded, but reduces VRRP processing.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Button">Admin State</span></p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Administrative state of the VRRP instance. To start the VRRP instance, change the admin state to UP in the WebUI.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 122.580pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Button">VLAN</span></p>
+</td>
+  <td style="width : 344.212pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VLAN on which the VRRP protocol will run.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_Local1"></a>Configuring the Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> for Redundancy</p>
+ <p class="FM_Body">In an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;network, the APs are controlled by a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The APs tunnel all data to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;which processes the data, including encryption/decryption, bridging/forwarding, etc.</p>
+ <p class="FM_Body">Local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;redundancy refers to providing redundancy for a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;such that the APs <span style="font-style : italic; ">“</span>fail over<span style="font-style : italic; ">” </span>to a <span style="font-style : italic; ">backup</span>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;if a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;becomes unavailable. Local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;redundancy is provided by running VRRP between a pair of <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;need to be connected on the same broadcast domain (or Layer-2 connected) for VRRP operation. The two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;should be of the same class (for example, and both <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;should be running the same version of <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The APs are then configured to connect to the <span style="font-style : italic; ">“</span>virtual-IP<span style="font-style : italic; ">”</span> configured for the VRRP instance.</p>
+ <p class="FM_Body">Collect the following information needed to configure local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> redundancy:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">VLAN ID </span>on the two local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;that are on the same Layer-2 network and is used to configure VRRP.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Virtual IP address </span>to be used for the VRRP instance.</p>
+</li>
+ </ul>
+ <p class="FM_Body">You can use either the WebUI or CLI to configure VRRP on the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. For this topology, it is recommended to use the default priority value.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI85"></a>In the WebUI </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; Redundancy</span>&#160;page on the WebUI for each of the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Virtual Router Table, click <span class="FM_Bold" style="font-weight : bold; ">Add</span> to create a VRRP instance.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the IP Address for the virtual router. Select the VLAN on which VRRP will run. Set the Admin State to Up.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> to apply the configuration and add the VRRP instance.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI85"></a>In the CLI </p>
+ <p class="FM_CLIIndented">vrrp &lt;<span style="font-style : italic; ">id&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ip address &lt;<span style="font-style : italic; ">ipaddr</span>&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;vlan &lt;vlan&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;no shutdown</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_LMS_IP"></a>Configuring the LMS IP</p>
+ <p class="FM_Body">Configure the APs to terminate their tunnels on the virtual-IP address. To specify the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to which an AP or AP group tunnels client traffic, you configure the LMS IP in the AP system profile on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. For information on how to configure the LMS IP in the AP system profile, see <a href="Adding_Local_Switches.htm#XREF_68224_Configuring_APs"><span class="FM_PMS646">“Configuring APs” .</span></a></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">This configuration needs to be executed on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>; the APs obtain their configuration from the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI86"></a>In the WebUI </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration </span>page on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">If you select AP Group, click Edit for the AP group name for which you want to configure the LMS IP.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">If you select AP Specific, select the name of the AP for which you want to configure the LMS IP.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the Profiles section, select AP to display the AP profiles.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the AP system profile you want to modify.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IP address in the LMS IP field.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI86"></a>In the CLI </p>
+ <p class="FM_Body">On the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <p class="FM_CLIIndented">ap system-profile &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;lms-ip &lt;<span style="font-style : italic; ">ipaddr&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">ap-group &lt;<span style="font-style : italic; ">group&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ap-system-profile <span style="font-style : italic; ">&lt;profile&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">ap-name &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ap-system-profile &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_Master"></a>Configuring the Master <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> for Redundancy</p>
+ <p class="FM_Body">The master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;user-centric network acts as a single point of configuration for global policies such as firewall policies, authentication parameters, RF configuration to ease the configuration and maintenance of a wireless network. It also maintains a database related to the wireless network that is used to make any adjustments (automated as well as manual) in reaction to events that cause a change in the environment (such as an AP becoming unavailable). </p>
+ <p class="FM_Body">The master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is also responsible for providing the configuration for any AP to complete its boot process. If the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;becomes unavailable, the network continues to run without any interruption. However, any change in the network topology or configuration will require the availability of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">To maintain a highly redundant network, the administrator can use a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to act as a hot standby for the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The underlying protocol used is the same as in local redundancy, that is, VRRP.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Collect the following data before configuring master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> redundancy.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">VLAN ID on the two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;that are on the same layer 2 network and will be used to configure VRRP.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">Virtual IP address </span>that has been reserved to be used for the VRRP instance</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">You can use either the WebUI or CLI to configure VRRP on the master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;(see <a href="#XREF_90805_Table3_1_VRRP"><span class="FM_PMS646">Table 96</span></a>). For this topology, the following are recommended values:</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">For priority: Set the master to 110; set the backup to 100 (the default value)</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Enable preemption</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Configure master up time or master state tracking with an add value of 20.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The following is a configuration example for the <span style="font-style : italic; ">“initially-preferred master”.</span>&#160;</p>
+ <p class="FM_CLIIndented">vrrp 22</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;vlan 22</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ip address 10.200.22.254</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;priority 110</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;preempt</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;authentication password</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;description Preferred-Master</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;tracking master-up-time 30 add 20</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;no shutdown</p>
+ <p class="FM_Body">The following configuration is the corresponding VRRP configuration for the peer <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_CLIIndented">vrrp 22</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;vlan 22</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ip address 10.200.22.254</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;priority 100</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;preempt</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;authentication password</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;description Backup-Master</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;tracking master-up-time 30 add 20</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;no shutdown</p>
+ <p class="FM_Body">Use the following commands to associate the VRRP instance with master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> redundancy.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.74pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 97 &#160;</span>VRRP Commands<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 173.978pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 292.761pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Explanation</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 173.978pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">master-redundancy</p>
+</td>
+  <td style="width : 292.761pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enter the master-redundancy context.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 173.978pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">&nbsp;&nbsp;&nbsp;master-vrrp <span class="FM_Emphasis">&lt;id&gt;</span></p>
+</td>
+  <td style="width : 292.761pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Associates a VRRP instance with master redundancy. Enter the virtual router ID of the VRRP instance.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 173.978pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">&nbsp;&nbsp;&nbsp;peer-ip-address &lt;<span class="FM_Emphasis">ipaddr&gt; </span>ipsec <span class="FM_Emphasis">&lt;key&gt;</span></p>
+</td>
+  <td style="width : 292.761pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Loopback IP address of the peer <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for master redundancy. </p>
+  <p class="FM_TableBody">The pre-shared key secures communication between the master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. Specify a key of up to 64 characters.</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 173.978pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">masterip <span class="FM_Emphasis">&lt;ipaddr&gt; </span>ipsec <span class="FM_Emphasis">&lt;key&gt;</span></p>
+</td>
+  <td style="width : 292.761pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Configures the master IP address and pre-shared key on a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for communication with the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+  <p class="FM_TableBody">Configure this to be the virtual IP address of the VRRP instance used for master redundancy.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">All the APs and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;in the network should be configured with the virtual IP address as the master IP address. The master IP address can be configured for local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;during the Initial Setup. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will require a reboot after changing the master IP on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body">If DNS resolution is the chosen mechanism for the APs to discover their master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, ensure that the name <span style="font-style : italic; ">“aruba-master”</span>&#160;resolves to the same virtual IP address configured as a part of the master redundancy.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Database"></a>Configuring Database Synchronization</p>
+ <p class="FM_Body">In a redundant master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;scenario, you can configure a redundant pair to synchronize their WMS and local user databases. In addition, you can also synchronize RF Plan data between the pair of <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. You can either manually or automatically synchronize the databases. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">When synchronizing the databases, <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> recommends that you also synchronize RF plan data.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">When manually synchronizing the database, the active VRRP master synchronizes its database with the standby. The command takes effect immediately. </p>
+ <p class="FM_Body">When configuring automatic synchronization, you set how often the two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;synchronize their databases. To ensure successful synchronization of database events, you should set periodic synchronization to a minimum period of 20 minutes. </p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI87"></a>In the WebUI </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; Redundancy</span>&#160;page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Database Synchronization Parameters, do the following:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span class="FM_Bold" style="font-weight : bold; ">Enable periodic database synchronization</span>&#160;check box. This enables database synchronization.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the frequency of synchronizing the databases. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends a minimum value of 20 minutes.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>By default, RF Plan data is also synchronized. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends that you always enable this option. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI87"></a>In the CLI </p>
+ <p class="FM_Body">Use the following commands to configure database synchronization. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 98 &#160;</span>Database synchronization commands<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 223.092pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 244.911pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 223.092pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI"><span class="FM_System">database synchronize</span></p>
+</td>
+  <td style="width : 244.911pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This enable mode command manually synchronizes the databases and takes effect immediately. </p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 223.092pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI"><span class="FM_System">database synchronize rf-plan-data</span></p>
+</td>
+  <td style="width : 244.911pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This config mode command includes RF plan data when synchronizing databases. This data is included by default.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 223.092pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI"><span class="FM_System">database synchronize period &lt;minutes&gt;</span></p>
+</td>
+  <td style="width : 244.911pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This config mode command defines the scheduled interval for synchronizing the databases.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">To view the database synchronization settings on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, use the following command:</p>
+ <p class="FM_CLIIndented">show database synchronize</p>
+ <p class="FM_2Heading"><a name="TOC_Incremental"></a><a name="IX_Incremental"></a>Incremental Configuration Synchronization</p>
+ <p class="FM_Body">Typically when the master and the local is synchronized, the complete configuration is sent to the local. You can, now send only the incremental updates to the local by using the following CLI commands</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI88"></a>In the CLI</p>
+ <p class="FM_Body">Use the following commands for incremental configuration synchronization:</p>
+<?rh-align_start align="right"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignright;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="right"><span class="FM_zTitleNo">Table 99 &#160;</span>Incremental Configuration Synchronization Commands<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 238.774pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 229.229pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 238.774pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_System">cfgm set sync-type &lt;complete&gt;</span></p>
+</td>
+  <td style="width : 229.229pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The master sends full configuration file to the local.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 238.774pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI"><span class="FM_System">cfgm set sync-type &lt;snapshot&gt;</span></p>
+</td>
+  <td style="width : 229.229pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The master sends only the incremental configuration to the local.</p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>By default, this configuration is enabled.</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 238.774pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI"><span class="FM_System">cfgm set sync-command-block &lt;number&gt;</span></p>
+</td>
+  <td style="width : 229.229pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">To configure the number of command-list blocks. Each block contains a list of global configuration commands for each write-mem operation. By default, the number is 3.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 238.774pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">show master-configpending</p>
+</td>
+  <td style="width : 229.229pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">To show a list of global commands, which are not saved but are sent to the local.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 238.774pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">clear master-local-session &lt;A.B.C.D&gt; </p>
+</td>
+  <td style="width : 229.229pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">To manually push the full configuration to the local.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Master_Local"></a>Configuring Master-Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Redundancy</p>
+ <p class="FM_Body">This section outlines the concepts behind a redundancy solution where a master can act as a backup for one or more local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and shows how to configure the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;for such a redundant solution. In this solution, the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;act as the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for the APs. When any one of the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;becomes unavailable, the master takes over the APs controlled by that local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for the time that the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;remains unavailable. It is configured such that when the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;comes back again, it can take control over the APs once more.</p>
+ <p class="FM_Body">This type of redundant solution is illustrated by the following topology diagram. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">This solution requires that the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;have Layer-2 connectivity to all the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 80 &#160;</span><a name="XREF_51827_Master_Local"></a></p>
+ <div align="left"><img alt="RED_redundant_topology.jpg" id="image0" src="images/RED_redundant_topology.jpg" />
+ </div>
+ <p class="FM_FigureTitle">Redundant Topology: Master-Local Redundancy</p>
+ <p class="FM_Body">The network in <a href="#XREF_51827_Master_Local"><span class="FM_PMS646">Figure 80</span></a>, the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is connected to the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;on VLANs 1 through <span style="font-style : italic; ">n</span>&#160;through a Layer-2 network. To configure redundancy as described in the conceptual overview for master-local redundancy, configure VRRP instances on each of the VLANs between the master and the respective local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The VRRP instance on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is configured with a higher priority to ensure that when available, the APs always choose the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to terminate their tunnels.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Configure the interface on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to be a trunk port with 1, 2… <span style="font-style : italic; ">n</span> being member VLANs.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a name="XREF_49830_2_Collect_the"></a>Collect the following data before configuring master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> redundancy.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">VLAN IDs on the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> corresponding to the VLANs 1, 2…<span style="font-style : italic; ">n</span> shown in the topology above.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">Virtual IP addresses </span>that has been reserved to be used for the VRRP instances.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">You can use either the WebUI or CLI to configure VRRP on the master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;(see <a href="#XREF_90805_Table3_1_VRRP"><span class="FM_PMS646">Table 96</span></a>). For this topology, the following are recommended values:</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">For priority: Set the local to 110; set the master to 100 (the default value)</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Enable preemption</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">The master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is configured for a number of VRRP instances (equal to the number of local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;the master is backing up).</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_BulletinSteps"></p>
+</li>
+ </ul>
+ <p class="FM_Body">The following example configuration of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in such a topology for one of the VLANs (in this case VLAN 22).</p>
+ <p class="FM_CLIIndented">vrrp 22</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;vlan 22</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ip address 10.200.22.254</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;priority 100</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;preempt</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;authentication password</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;description Master-acting-as-backup-to-local</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;tracking master-up-time 30 add 20</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;no shutdown</p>
+ <p class="FM_Body">The following example configuration on the corresponding local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_CLIIndented">vrrp 22</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;vlan 22</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ip address 10.200.22.254</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;priority 110</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;preempt</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;authentication password</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;description local-backed-by-master</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;no shutdown</p>
+ <p class="FM_Body">To configure APs, configure the appropriate virtual IP address (depending on which <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is expected to control the APs) for the LMS IP address parameter in the AP system profile for an AP group or specified AP. </p>
+ <p class="FM_Body">As an example, the administrator can configure APs in the AP group “floor1” to be controlled by local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;1, APs in the AP group “floor2” to be controlled by local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;2 and so on. All the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;are backed up by the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. In the AP system profile for the AP group “floor1”, enter the virtual IP address (10.200.22.154 in the example configuration) for the LMS IP address on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You configure APs on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">Configuration changes take effect only after you reboot the affected APs; this allows them to reassociate with the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. After rebooting, these APs appear to the new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> as local APs.</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

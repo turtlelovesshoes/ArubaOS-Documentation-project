@@ -1,0 +1,730 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Network_Parameters</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="ip address, gre tunnel, vlan interface, configure vlan interface address, loopback interface address, network parameters, active-standby topology"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Network_Parameters.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 2</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Network_Parameters"></a><a name="XREF_83760_Chapter_Title_max"></a>Network Parameters</p>
+ <p class="FM_Body">This chapter describes some basic network configuration on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_31238_Configuring_VLANs"><span class="FM_PMS646">“Configuring VLANs”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_39336_Configuring_Ports"><span class="FM_PMS646">“Configuring Ports”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_56535_VLAN_Assignment"><span class="FM_PMS646">“About VLAN Assignments” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_50308_Configuring_Static"><span class="FM_PMS646">“Configuring Static Routes” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_81366_Configuring_the"><span class="FM_PMS646">“Configuring the Loopback IP Address” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_24875_Configuring_the"><span class="FM_PMS646">“Configuring the Controller IP Address” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_17198_Management_User"><span class="FM_PMS646">“Configuring GRE Tunnels” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Configuring_VLANs"></a><a name="XREF_31238_Configuring_VLANs"></a>Configuring VLANs</p>
+ <p class="FM_Body"><a name="IX_configuring"></a>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;operates as a layer-2 switch that uses a VLAN as a broadcast domain. As a layer-2 switch, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;requires an external router to route traffic between VLANs. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can also operate as a layer-3 switch that can route traffic between VLANs defined on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">You can configure one or more physical ports on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to be members of a VLAN. Additionally, each wireless client association constitutes a connection to a <span class="FM_Emphasis">virtual port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></span>, with membership in a specified VLAN. You can place all authenticated wireless users into a single VLAN or into different VLANs, depending upon your network. VLANs can exist only inside the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or they can extend outside the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> through 802.1q VLAN tagging.</p>
+ <p class="FM_Body">You can optionally configure an IP address and netmask for a VLAN on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The IP address is <span class="FM_Emphasis">up</span>&#160;when at least one physical port in the VLAN is up. The VLAN IP address can be used as a gateway by external devices; packets directed to a VLAN IP address that are not destined for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;are forwarded according to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP routing table.</p>
+ <p class="FM_2Heading"><a name="TOC_Creating_and_Updating"></a><a name="XREF_54310_Creating_and"></a>Creating and Updating VLANs</p>
+ <p class="FM_Body">You can create and update a single VLAN or bulk VLANs.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI3"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; VLANs</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;<span style="font-weight : bold; ">a VLAN</span>&#160;to create a new VLAN. (To edit an existing VLAN click <span class="FM_Bold" style="font-weight : bold; ">Edit</span>&#160;for the VLAN entry.) See <a href="#XREF_22680_Using_the_WebUI_to"><span class="FM_PMS646">“Create Bulk VLANs In the WebUI” </span></a> to create a range of VLANs.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">VLAN ID </span>field, enter a valid VLAN ID. (Valid values are from 1 to 4094, inclusive).</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add physical ports to the VLAN, select <span style="font-weight : bold; ">Port</span>. To associate the VLAN with specific port-channels, select <span style="font-weight : bold; ">Port-Channel.</span></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) Click the <span style="font-weight : bold; ">Wired AAA Profile </span>drop-down list to assign an AAA profile to a VLAN. This wired AAA profile enables role-based access for wired clients connected to an untrusted VLAN or port on the controller.</p>
+ <p class="FM_BodyinBulletStep">Note that this profile will only take effect if the VLAN or port on the controller is untrusted. If you do not assign an wired AAA profile to the VLAN, the global wired AAA profile applies to traffic from untrusted wired ports.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If you selected <span style="font-weight : bold; ">Port</span>&#160;in step 4, select the ports you want to associate with the VLAN from the <span style="font-weight : bold; ">Port Selection</span>&#160;window. </p>
+ <p class="FM_BodyinBulletStep">-or-</p>
+ <p class="FM_BodyinBulletStep">If you selected <span style="font-weight : bold; ">Port-Channel </span>in step 4, click the <span style="font-weight : bold; ">Port-Channel ID</span>&#160;drop-down list, select the specific channel number you want to associate with the VLAN, then select the ports from the <span style="font-weight : bold; ">Port Selection </span>window.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI3"></a>In the CLI</p>
+ <p class="FM_CLI">(host) (config) #vlan &lt;id&gt; </p>
+ <p class="FM_CLI">(host) (config) #interface fastethernet|gigabitethernet &lt;slot&gt;/&lt;port&gt;</p>
+ <p class="FM_CLI">(host) (config-if) #switchport access vlan &lt;id&gt;</p>
+ <p class="FM_3Heading"><a name="TOC_Create_Bulk_VLANs_In_the"></a><a name="XREF_22680_Using_the_WebUI_to"></a>Create Bulk VLANs In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add multiple VLANs at one time, click <span style="font-weight : bold; ">Add Bulk VLANs</span>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">VLAN Range </span>pop-up window, enter a range of VLANs you want to create at once. For example, to add VLAN IDs numbered 200-300 and 302-350, enter 200-300, 302-350.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add physical ports to a VLAN, click <span style="font-weight : bold; ">Edit</span>&#160;next to the VLAN you want to configure and click the port in the <span style="font-weight : bold; ">Port Selection</span> section.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply.</span></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI4"></a>In the CLI</p>
+ <p class="FM_CLI">(host) (config) #vlan</p>
+ <p class="FM_CLI">(host) (config) #vlan range 200-300,302-350</p>
+ <p class="FM_2Heading"><a name="TOC_Creating_Updating_and1"></a><a name="XREF_24204_Creating_Updating"></a>Creating, Updating and Deleting VLAN Pools</p>
+ <p class="FM_Body">You can create, update and delete a VLAN pool.</p>
+ <p class="FM_3Heading"><a name="TOC_Creating_a_VLAN_Pool"></a>Creating a VLAN Pool Using the WebUI</p>
+ <p class="FM_Body">The following configurations create a VLAN Pool named <span style="font-weight : bold; ">mygroup</span>. VLAN IDs 2, 4 and 12 are then assigned to the VLAN pool mygroup.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; VLAN</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span class="FM_Bold" style="font-weight : bold; ">VLAN Pool </span>tab to open the <span class="FM_Bold" style="font-weight : bold; ">VLAN Pool</span> window.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">VLAN Name</span>&#160;field, enter a name that identifies this VLAN pool. Names must be between 1 and 32 characters; spaces are not allowed. The VLAN name can not be modified; choose the name carefully. </p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">List of VLAN IDs</span>&#160;field, enter the VLAN IDs you want to add to this pool. If you know the ID, enter each ID separated by a comma. Or, click the drop-down list to view the IDs then click the &lt;-- arrow to add the ID to the pool.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconCaution"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">VLAN pooling should <span style="font-style : italic; ">not</span> be used with static IP addresses.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext">.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>You must add two or more VLAN IDs to create a pool.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>When you finish adding all the IDs, click <span class="FM_Bold" style="font-weight : bold; ">Add</span>. </p>
+ <p class="FM_BodyinBulletStep">The VLAN pool along with its assigned IDs appears on the VLAN Pool window. If the pool is valid (it has two or more IDs assigned to it), its status is enabled. If you create a VLAN pool and add only one or no VLAN IDs, its status appears as disabled.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>. </p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>At the top of the window, click <span style="font-weight : bold; ">Save Configuration</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Updating_a_VLAN_Pool"></a>Updating a VLAN Pool</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On the <span class="FM_Bold" style="font-weight : bold; ">VLAN Pool </span>window, click <span class="FM_Bold" style="font-weight : bold; ">Modify</span> next to the VLAN name you want to edit.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Modify the list of VLAN IDs. Note that you can not modify the VLAN name.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Update</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>At the top of the window, click <span style="font-weight : bold; ">Save Configuration</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Deleting_a_VLAN_Pool"></a>Deleting a VLAN Pool</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On the <span class="FM_Bold" style="font-weight : bold; ">VLAN Pool </span>window, click <span class="FM_Bold" style="font-weight : bold; ">Delete</span> next to the VLAN name you want to delete. A prompt appears.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>At the top of the window, click <span style="font-weight : bold; ">Save Configuration</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Create_a_VLAN_Pool_Using"></a>Create a VLAN Pool Using the CLI</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconCaution"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">VLAN pooling should <span style="font-style : italic; ">not</span> be used with static IP addresses.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_3Heading"></p>
+ <p class="FM_Body">The pool option allows you to create a VLAN pool consisting of two more VLAN IDs.</p>
+ <p class="FM_CLIIndented">(host) #configure terminal &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLIIndented">Enter Configuration commands, one per line. End with CNTL/Z</p>
+ <p class="FM_CLIIndented">(host) (config) #vlan-name <span class="FM_Emphasis">mygroup </span>pool</p>
+ <p class="FM_CLIIndented">(host) (config) #</p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_existing_VLAN"></a>Viewing existing VLAN IDs Using the CLI</p>
+ <p class="FM_CLIIndented">(host) #configure terminal &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLIIndented">Enter Configuration commands, one per line. End with CNTL/Z</p>
+ <p class="FM_CLIIndented">(host) (config) #show vlan</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">VLAN CONFIGURATION</p>
+ <p class="FM_CLIIndented">------------------</p>
+ <p class="FM_CLIIndented">VLAN &#160;&#160;Description &#160;Ports</p>
+ <p class="FM_CLIIndented">---- &#160;&#160;----------- &#160;-----</p>
+ <p class="FM_CLIIndented">1 &#160;&#160;&#160;&#160;&#160;Default &#160;&#160;&#160;&#160;&#160;FE1/0-3 FE1/6 GE1/8</p>
+ <p class="FM_CLIIndented">2 &#160;&#160;&#160;&#160;&#160;VLAN0002</p>
+ <p class="FM_CLIIndented">4 &#160;&#160;&#160;&#160;&#160;VLAN0004</p>
+ <p class="FM_CLIIndented">12 &#160;&#160;&#160;&#160;VLAN0012</p>
+ <p class="FM_CLIIndented">210 &#160;&#160;&#160;VLAN0210</p>
+ <p class="FM_CLIIndented">212 &#160;&#160;&#160;VLAN0212 &#160;&#160;&#160;&#160;FE1/5</p>
+ <p class="FM_CLIIndented">213 &#160;&#160;&#160;VLAN0213 &#160;&#160;&#160;&#160;FE1/4</p>
+ <p class="FM_CLIIndented">1170 &#160;&#160;VLAN1170 &#160;&#160;&#160;&#160;FE1/7</p>
+ <p class="FM_CLIIndented">1170 &#160;&#160;VLAN1170 &#160;&#160;&#160;&#160;FE1/7</p>
+ <p class="FM_3Heading"><a name="TOC_Adding_Existing_VLAN_IDs1"></a>Adding Existing VLAN IDs Using the CLI</p>
+ <p class="FM_Body">The following example illustrates adding existing VLAN IDs to a VLAN pool:</p>
+ <p class="FM_CLIIndented">(host) #configure terminal </p>
+ <p class="FM_CLIIndented">Enter Configuration commands, one per line. End with CNTL/Z</p>
+ <p class="FM_CLIIndented">(host) (config) #vlan-name mygroup pool</p>
+ <p class="FM_CLIIndented">(host) (config) #vlan mygroup 2,4,12</p>
+ <p class="FM_CLIIndented">(host) (config) #</p>
+ <p class="FM_Body">To confirm the VLAN pool status and mappings assignments, use the <span class="FM_Bold" style="font-weight : bold; ">show vlan mapping </span>command:</p>
+ <p class="FM_CLIIndented">(host) (config) #show vlan mapping</p>
+ <p class="FM_CLIIndented">VLAN Name &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Pool Status &#160;VLAN IDs</p>
+ <p class="FM_CLIIndented">--------- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;----------- &#160;--------</p>
+ <p class="FM_CLIIndented">mygroup &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span> Enabled &#160;&#160;&#160;&#160;&#160;2,4,12</p>
+ <p class="FM_CLIIndented">group123 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_2Heading"><a name="TOC_Add_a_Bandwidth_Contract"></a>Add a Bandwidth Contract to the VLAN</p>
+ <p class="FM_Body">Bandwidth contracts on a VLAN can limit broadcast and multicast traffic. <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;includes an internal exception list to allow broadcast and multicast traffic using the VRRP, LACP, OSPF, PVST and STP protocols. To remove per-VLAN bandwidth contract limits on an additional broadcast or multicast protocol, add the MAC address for that broadcast/multicast protocol to the VLAN Bandwidth Contracts MAC Exception List.</p>
+ <p class="FM_Body">The command in the example below adds the MAC address for CDP (Cisco Discovery Protocol) and VTP (Virtual Trunking Protocol to the list of protocols that are not limited by VLAN bandwidth contracts.</p>
+ <p class="FM_CLI">(host) (config) #vlan-bwcontract-explist mac 01:00:0C:CC:CC:CC</p>
+ <p class="FM_Body">To show entries in the VLAN bandwidth contracts MAC exception list, use the <span style="font-weight : bold; ">show vlan-bwcontract-explist [internal]</span> command:</p>
+ <p class="FM_CLIIndented">(host) (config) #show vlan-bwcontract-explist internal</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">VLAN BW Contracts Internal MAC Exception List</p>
+ <p class="FM_CLIIndented">---------------------------------------------</p>
+ <p class="FM_CLIIndented">MAC address</p>
+ <p class="FM_CLIIndented">-----------</p>
+ <p class="FM_CLIIndented">01:80:C2:00:00:00</p>
+ <p class="FM_CLIIndented">01:00:0C:CC:CC:CD</p>
+ <p class="FM_CLIIndented">01:80:C2:00:00:02</p>
+ <p class="FM_CLIIndented">01:00:5E:00:82:11</p>
+ <p class="FM_2Heading"><a name="TOC_Optimize_VLAN_Broadcast"></a>Optimize VLAN Broadcast and Multicast Traffic</p>
+ <p class="FM_Body">Broadcast and Multicast (BCMC) traffic from APs, remote APs, or distributions terminating on the same VLAN floods all VLAN member ports. This causes critical bandwidth wastage especially when the APs are connected to L3 cloud where the available bandwidth is limited or expensive. Suppressing the VLAN BCMC traffic to prevent flooding can result in loss of client connectivity. </p>
+ <p class="FM_Body">To effectively prevent flooding of BCMC traffic on all VLAN member ports, use the <span class="FM_CLIBold">bcmc-optimization</span>&#160;parameter under the <span class="FM_CLI">interface vlan</span>&#160;command. This parameter ensures controlled flooding of BCMC traffic without compromising the client connectivity. By default this option is disabled. You must enable this parameter for the controlled flooding of BCMC traffic.</p>
+ <p class="FM_Body">The <span class="FM_CLIBold">bcmc-optimization</span> parameter has the following exemptions:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">All DHCP traffic will continue to flood VLAN member ports even if the <span class="FM_CLIBold">bcmc-optimization</span>&#160;parameter is enabled.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will do proxy ARP if the target IP entry exists on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If the target IP does not exist on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, ARP requests will be flooded on all VLAN member ports.</p>
+</li>
+ </ul>
+ <p class="FM_Body">You can configure BCMC optimization in CLI and in the WebUI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI5"></a>In the CLI</p>
+ <p class="FM_CLI">(host) (config) #interface vlan 1</p>
+ <p class="FM_CLI">(host) (config-subif)#bcmc-optimization</p>
+ <p class="FM_CLI">(host) (config-subif)#show interface vlan 1</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">VLAN1 is up line protocol is up</p>
+ <p class="FM_CLI">Hardware is CPU Interface, Interface address is 00:0B:86:61:5B:98 (bia 00:0B:86:61:5B:98)</p>
+ <p class="FM_CLI">Description: 802.1Q VLAN</p>
+ <p class="FM_CLI">Internet address is 10.17.22.1 &#160;255.255.255.0</p>
+ <p class="FM_CLI">Routing interface is enable, Forwarding mode is enable</p>
+ <p class="FM_CLI"><span class="FM_Red">Directed broadcast is disabled, BCMC Optimization enable</span></p>
+ <p class="FM_CLI">Encapsulation 802, loopback not set</p>
+ <p class="FM_CLI">MTU 1500 bytes</p>
+ <p class="FM_CLI">Last clearing of &quot;show interface&quot; counters 12 day 1 hr 4 min 12 sec</p>
+ <p class="FM_CLI">link status last changed 12 day 1 hr 2 min 21 sec</p>
+ <p class="FM_Body">Proxy Arp is disabled for the Interface</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI4"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span class="FM_Navigation">Configuration</span>&#160;&gt; <span class="FM_Navigation">Network</span>&#160;&gt; <span class="FM_Navigation">IP</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Navigation">IP Interfaces</span>&#160;tab, click the <span class="FM_Navigation">Edit</span> button of the VLAN for configuring BCMC optimization.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span class="FM_Navigation">Enable BCMC</span> check box to enable BCMC Optimization for the selected VLAN.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 1 &#160;</span>Enable BCMC Optimization</p>
+ <div align="left"><img alt="bcmc-optimization.jpg" id="image0" src="images/bcmc-optimization.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Ports"></a><a name="XREF_39336_Configuring_Ports"></a>Configuring Ports </p>
+ <p class="FM_Body">Both Fast Ethernet and Gigabit Ethernet ports can be set to access or trunk mode. By default, a port is in access mode and carries traffic only for the VLAN to which it is assigned. In trunk mode, a port can carry traffic for multiple VLANs. </p>
+ <p class="FM_Body"><a name="IX_configuring_1"></a>For a trunk port, specify whether the port will carry traffic for all VLANs configured on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or for specific VLANs. You can also specify the native VLAN for the port.&#160;A trunk port uses 802.1q tags to mark frames for specific VLANs, However, frames on a native VLAN are not tagged.</p>
+ <p class="FM_2Heading"><a name="TOC_Classifying_Traffic_as"></a>Classifying Traffic as Trusted or Untrusted</p>
+ <p class="FM_Body">You can classify wired traffic based not only on the incoming physical port and channel configuration but also on the VLAN associated with the port and channel.</p>
+ <p class="FM_3Heading"><a name="TOC_About_Trusted_and"></a>About Trusted and Untrusted Physical Ports</p>
+ <p class="FM_Body">By default, physical ports on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;are trusted and are typically connected to internal networks while untrusted ports connect to third-party APs, public areas, or other networks to which access controls can be applied. When you define a physical port as untrusted, traffic passing through that port needs to go through a predefined access control list policy.</p>
+ <p class="FM_3Heading"><a name="TOC_About_Trusted_and1"></a>About Trusted and Untrusted VLANs</p>
+ <p class="FM_Body">You can also classify traffic as trusted or untrusted based on the VLAN interface and port/channel. This means that wired traffic on the incoming port is trusted only when the port’s associated VLAN is also trusted, otherwise the traffic is untrusted. When a port and its associated VLANs are untrusted, any incoming and outgoing traffic must pass through a predefined ACL. For example, this setup is useful if your company provides wired user guest access and you want guest user traffic to pass through an ACL to connect to a captive portal.</p>
+ <p class="FM_Body">You can set a range of VLANs as trusted or untrusted in trunk mode. The following table lists the port, VLAN and the trust/untrusted combination to determine if traffic is trusted or untrusted. both the port and the VLAN have to be configured as trusted for traffic to be considered as trusted. If the traffic is classified as untrusted then traffic must pass through the selected session access control list and firewall policies.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 432.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 2 &#160;</span>Classifying Trusted and Untrusted Traffic<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Port</p>
+</th>
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">VLAN</p>
+</th>
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Traffic Status</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Trusted</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Trusted</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Trusted</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Untrusted</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Untrusted</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Untrusted</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Untrusted</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Trusted</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Untrusted</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Trusted</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Untrusted</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Untrusted</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Trusted"></a>Configuring Trusted/Untrusted Ports and VLANs</p>
+ <p class="FM_Body">You can configure an Ethernet port as an untrusted access port, assign VLANs and make them untrusted, and designate a policy through which VLAN traffic on this port must pass.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI5"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; Ports</span> window.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Port Selection </span>section, click the port you want to configure.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Make Port Trusted </span>section, clear the <span style="font-weight : bold; ">Trusted</span>&#160;check box to make the port untrusted. The default is trusted (checked).</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Port Mode</span>&#160;section, select <span style="font-weight : bold; ">Access</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the <span style="font-weight : bold; ">VLAN ID</span>&#160;drop-down list select the <span style="font-weight : bold; ">VLAN ID </span>whose traffic will be carried by this port.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Enter VLAN(s) </span>section<span style="font-weight : bold; ">, </span>clear the <span style="font-weight : bold; ">Trusted</span>&#160;check box to make the VLAN untrusted. The default is trusted (checked).</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">VLAN Firewall Policy</span>&#160;drop-down list, select the policy through which VLAN traffic must pass. You can select a policy for both trusted and untrusted VLANs.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the<span style="font-weight : bold; "> Firewall Policy</span>&#160;section, select the policy from the <span style="font-weight : bold; ">in</span>&#160;drop-down list through which inbound traffic on this port must pass. </p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the policy from the <span style="font-weight : bold; ">out</span> drop-down list through which outbound traffic on this port must pass.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Select the policy To apply a policy to this session’s traffic on this port and VLAN, select the policy from the <span style="font-weight : bold; ">session</span>&#160;drop-down list. </p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI6"></a>In the CLI</p>
+ <p class="FM_Body">In this example, </p>
+ <p class="FM_CLI">(host) (config) #<span style="font-weight : bold; ">interface range fastethernet 1/2</span></p>
+ <p class="FM_CLI">(host) (config-if)#<span style="font-weight : bold; ">switchport mode access</span></p>
+ <p class="FM_CLI">(host) (config-if)#no <span style="font-weight : bold; ">trusted</span></p>
+ <p class="FM_CLI">(host) (config-if)#<span style="font-weight : bold; ">switchport access vlan 2</span></p>
+ <p class="FM_CLI">(host) (config-if)#<span style="font-weight : bold; ">no trusted vlan 2</span></p>
+ <p class="FM_CLI">(host) (config-if)#<span style="font-weight : bold; ">ip access-group ap-acl session vlan 2</span></p>
+ <p class="FM_CLI">(host) (config-if)#<span style="font-weight : bold; ">ip access-group validuserethacl in</span></p>
+ <p class="FM_CLI">(host) (config-if)#<span style="font-weight : bold; ">ip access-group validuserethacl out</span></p>
+ <p class="FM_CLI">(host) (config-if)#<span style="font-weight : bold; ">ip access-group validuser session</span></p>
+ <p class="FM_2Heading"><a name="TOC_Configure_Trusted"></a>Configure Trusted/Untrusted Ports and VLANs in Trunk Mode</p>
+ <p class="FM_Body">The following procedures configure a range of Ethernet ports as untrusted native trunks ports, assign VLANs and make them untrusted and designate a policy through which VLAN traffic on the ports must pass.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI6"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; Ports</span> window.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the<span style="font-weight : bold; "> Port Selection</span> section, click the port you want to configure.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For<span style="font-weight : bold; "> Port Mode</span>&#160;select <span style="font-weight : bold; ">Trunk</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To specify the native VLAN, select a VLAN from the<span style="font-weight : bold; "> Native VLAN</span>&#160;drop-down list and click the &lt;-- arrow.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Choose one of the following options to control the type of traffic the port carries:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet2"><span style="font-weight : bold; ">Allow All VLANS Except</span>– The port carries traffic for all VLANs except the ones from this drop-down list.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2"><span style="font-weight : bold; ">Allow VLANs</span> – The port carries traffic for all VLANs selected from this drop-down list.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2"><span style="font-weight : bold; ">Remove VLANs</span> – The port does not carry traffic for any VLANs selected from this drop-down list.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To designate <span style="font-style : italic; ">untrusted</span>&#160;VLANs on this port, click <span style="font-weight : bold; ">Trusted except</span>. In the corresponding VLAN field enter a range of VLANs that you want to make <span style="font-style : italic; ">untrusted</span>. (In this format, for example: 200-300, 401-500 and so on). Only VLANs listed in this range are untrusted. Or, to make only one VLAN untrusted, select a VLAN from the drop-down menu. </p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To designate <span style="font-style : italic; ">trusted</span>&#160;VLANs on this port, click <span style="font-weight : bold; ">Untrusted except</span>. In the corresponding VLAN field enter a range of VLANs that you want to make <span style="font-style : italic; ">trusted</span>. (In this format, for example: 200-300, 401-500 and so on). Only VLANs listed in this range are trusted. Or, to make only one VLAN trusted, select a VLAN from the drop-down menu.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To remove a VLAN, click the <span style="font-weight : bold; ">Remove VLANs</span>&#160;option and select the VLAN you want to remove from the drop-down list and click the left arrow to add it to the list. </p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To designate the policy through which VLAN traffic must pass, click <span style="font-weight : bold; ">New</span>&#160;under the <span style="font-weight : bold; ">Session Firewall Policy </span>field.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Enter the VLAN ID or select it from the associated drop-down list. Then select the policy, through which the VLAN traffic must pass, from the <span style="font-weight : bold; ">Policy</span>&#160;drop-down list and click <span style="font-weight : bold; ">Add</span>. Both the selected VLAN and the policy appear in the <span style="font-weight : bold; ">Session Firewall Policy</span> field.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>When you are finished listing VLAN and policies, click <span style="font-weight : bold; ">Cancel</span>.</p>
+ <p class="FM_StepNext">12.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI7"></a>In the CLI</p>
+ <p class="FM_CLI">(host) (config) #<span style="font-weight : bold; ">interface fastethernet 2/0</span></p>
+ <p class="FM_CLI">(host) (config-if)#description FE2/</p>
+ <p class="FM_CLI">(host) (config-if)#trusted vlan 1-99,101, 104, 106-199, 201-299</p>
+ <p class="FM_CLI">(host) (config-range)# <span style="font-weight : bold; ">switchport mode trunk</span></p>
+ <p class="FM_CLI">(host) (config-if)#<span style="font-weight : bold; ">switchport trunk native vlan 100</span></p>
+ <p class="FM_CLI">(host) (config-range)# <span style="font-weight : bold; ">ip access-group</span></p>
+ <p class="FM_CLI">(host) (config-range)# <span style="font-weight : bold; ">ip access-group test session vlan 2</span></p>
+ <p class="FM_1Heading"><a name="TOC_About_VLAN_Assignments"></a><a name="XREF_56535_VLAN_Assignment"></a>About VLAN Assignments</p>
+ <p class="FM_Body"><a name="IX_assignment"></a>A client is assigned to a VLAN by one of several methods. There is an order of precedence by which VLANs are assigned. The assignment of VLANs are (from lowest to highest precedence):</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The default VLAN is the VLAN configured for the WLAN (see <a href="VirtualAPs.htm#XREF_84077_Configuring_a"><span class="FM_PMS646">“Virtual AP Profiles” </span></a>).</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Before client authentication, the VLAN can be derived from rules based on client attributes (SSID, BSSID, client MAC, location, and encryption type). A rule that derives a specific VLAN takes precedence over a rule that derives a user role that may have a VLAN configured for it.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>After client authentication, the VLAN can be the VLAN configured for a default role for an authentication method, such as 802.1x or VPN.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>After client authentication, the VLAN can be derived from attributes returned by the authentication server (<span style="font-style : italic; ">server-derived rule</span>). A rule that derives a specific VLAN takes precedence over a rule that derives a user role that may have a VLAN configured for it.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>After client authentication, the VLAN can be derived from Microsoft Tunnel attributes (Tunnel-Type, Tunnel Medium Type, and Tunnel Private Group ID). All three attributes must be present. This does not require any server-derived rule.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>After client authentication, the VLAN can be derived from Vendor Specific Attributes (VSA) for RADIUS server authentication. This does not require any server-derived rule. If a VSA is present, it overrides any previous VLAN assignment.</p>
+ <p class="FM_2Heading"><a name="TOC_How_a_VLAN_obtains_its"></a>How a VLAN obtains its IP Address</p>
+ <p class="FM_Body"><a name="IX_dynamic_address"></a>A VLAN on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> obtains its IP address in one of the following ways:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Manually configured by the network administrator. This is the default method and is described in <a href="#XREF_21968_Assigning_a_Static"><span class="FM_PMS646">“Assigning a Static Address to a VLAN”</span></a>. At least one VLAN on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;must be assigned a static IP address.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Dynamically assigned from a Dynamic Host Configuration Protocol (DHCP) or Point-to-Point Protocol over Ethernet (PPPoE) server. </p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Assigning_a_Static"></a><a name="IX_static_address"></a><a name="XREF_21968_Assigning_a_Static"></a>Assigning a Static Address to a VLAN</p>
+ <p class="FM_Body">You can manually assign a static IP address to a VLAN on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. At least one VLAN on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;must be assigned a static IP address.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI7"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; IP Interfaces </span>page on the WebUI. Click <span class="FM_Bold" style="font-weight : bold; ">Edit</span>&#160;for the VLAN you just added. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the Use the following IP address option. Enter the IP address and network mask of the VLAN interface. If required, you can also configure the address of the DHCP server for the VLAN by clicking <span class="FM_Bold" style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI8"></a>In the CLI</p>
+ <p class="FM_CLIIndented">interface vlan &lt;<span style="font-style : italic; ">id&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ip address &lt;<span style="font-style : italic; ">address&gt;</span> &lt;<span style="font-style : italic; ">netmask&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_a_VLAN_to"></a>Configuring a VLAN to Receive a Dynamic Address</p>
+ <p class="FM_Body">In a branch office, you can connect a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to an uplink switch or server that dynamically assigns IP addresses to connected devices. For example, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can be connected to a DSL or cable modem, or a broadband remote access server (BRAS). <a href="#XREF_36417_Figure_1_IP"></a>&#160;shows a branch office where a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;connects to a cable modem. VLAN 1 has a static IP address, while VLAN 2 has a dynamic IP address assigned via DHCP or PPPoE from the uplink device. </p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 2 &#160;</span>IP Address Assignment to VLAN via DHCP or PPPoE</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="Network_Parameters00007.jpg" id="image1" src="images/Network_Parameters00007.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_Multiple"></a>Configuring Multiple Wired Uplink Interfaces (Active-Standby)</p>
+ <p class="FM_Body">You can assign up to four VLAN interfaces to operate in active-standby topology. An active-standby topology provides redundancy so that when an active interface fails, the user traffic can failover to the standby interface.</p>
+ <p class="FM_Body"><a name="XREF_36417_Figure_1_IP"></a><a name="XREF_86129_Table2_1_DHCP"></a>To allow the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to obtain a dynamic IP address for a VLAN, enable the DHCP or PPPoE client on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for the VLAN. </p>
+ <p class="FM_Body">The following restrictions apply when enabling the DHCP or PPPoE client on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">You can enable the DHCP/PPPoE client multiple uplink VLAN interfaces (up to four) on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>; these VLANs cannot be VLAN 1.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Only one port in the VLAN can be connected to the modem or uplink switch.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">At least one interface in the VLAN must be in the up state before the DHCP/PPPoE client requests an IP address from the server.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Enabling_the_DHCP_Client"></a>Enabling the DHCP Client</p>
+ <p class="FM_Body"><a name="IX_DHCP_client"></a>The DHCP server assigns an IP address for a specified amount of time called a lease. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;automatically renews the lease before it expires. When you shut down the VLAN, the DHCP lease is released.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI8"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; IP Interfaces </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Edit</span> for a previously-created VLAN.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Obtain an IP address from DHCP</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a priority value for the VLAN ID in the <span style="font-weight : bold; ">Uplink Priority</span>&#160;field. By default, all wired uplink interfaces have the same priority. If you want to use an active-standby topology then prioritize each uplink interfaces by entering a different priority value (1– 4) for each uplink interface. </p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 3 &#160;</span>Assigning VLAN uplink priority—Active-Standby configuration</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="active-standby.jpg" id="image2" src="images/active-standby.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI9"></a>In the CLI</p>
+ <p class="FM_Body">In this example, the DHCP client has the client ID name <span style="font-style : italic; ">myclient</span>&#160;and the interface VLAN 62 has an uplink priority of 2.</p>
+ <p class="FM_CLIIndented">interface vlan 62</p>
+ <p class="FM_CLIIndented">uplink wired vlan 62 priority 3</p>
+ <p class="FM_CLIIndented">interface vlan 62 ip address dhcp-client client-id <span style="font-style : italic; ">myclient</span></p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_2Heading"><a name="TOC_Enabling_the_PPPoE_Client"></a><a name="XREF_90707_PPPoE_Client"></a>Enabling the PPPoE Client</p>
+ <p class="FM_Body"><a name="IX_PPPoE_client"></a>To authenticate to the BRAS and request a dynamic IP address, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;must have the following configured:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">PPPoE user name and password to connect to the DSL network</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">PPPoE service name — either an ISP name or a class of service configured on the PPPoE server</p>
+</li>
+ </ul>
+ <p class="FM_Body">When you shut down the VLAN, the PPPoE session terminates.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI9"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; IP Interfaces </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Edit</span> for a previously-created VLAN.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Obtain an IP address with PPPoE</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the service name, username, and password for the PPPoE session.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a priority value for the VLAN ID in the <span style="font-weight : bold; ">Uplink Priority</span>&#160;field. By default, all wired uplink interfaces have the same priority. If you want to use an active-standby topology then prioritize each uplink interfaces by entering a different priority value (1– 4) for each uplink interface. </p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI10"></a>In the CLI</p>
+ <p class="FM_Body">In this example, a PPoE service name, username and password are assigned. The interface VLAN 14 has an uplink priority of 3.</p>
+ <p class="FM_CLI">interface vlan 14</p>
+ <p class="FM_CLI">ip address pppoe</p>
+ <p class="FM_CLI">interface vlan 14 ip pppoe-service-name &lt;<span style="font-style : italic; ">service_name</span>&gt;</p>
+ <p class="FM_CLI">interface vlan 14 ip pppoe-username &lt;<span style="font-style : italic; ">username</span>&gt;</p>
+ <p class="FM_CLI">interface vlan 14 ip pppoe-password *****</p>
+ <p class="FM_CLI">uplink wired vlan 14 priority 3</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_2Heading"><a name="TOC_Default_Gateway_from"></a>Default Gateway from DHCP/PPPoE</p>
+ <p class="FM_Body">You can specify that the router IP address obtained from the DHCP or PPPoE server be used as the default gateway for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI10"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; IP Routes</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Default Gateway, select <span style="font-weight : bold; ">(Obtain an IP address automatically)</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI11"></a>In the CLI</p>
+ <p class="FM_CLIIndented">ip default-gateway import</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_DNS_WINS"></a>Configuring DNS/WINS Server from DHPC/PPPoE</p>
+ <p class="FM_Body">The DHCP or PPPoE server can also provide the IP address of a DNS server or NetBIOS name server, which can be passed to wireless clients through the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal DHCP server. </p>
+ <p class="FM_Body">For example, the following configures the DHCP server on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to assign addresses to authenticated employees; the IP address of the DNS server obtained by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;via DHCP/PPPoE is provided to clients along with their IP address.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI11"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; DHCP Server </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Enable DCHP Server</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Pool Configuration, select <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Pool Name, enter employee-pool.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Default Router, enter 10.1.1.254.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For DNS Servers, select <span style="font-weight : bold; ">Import from DHCP/PPPoE</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For WINS Servers, select <span style="font-weight : bold; ">Import from DHCP/PPPoE</span>.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Network, enter 10.1.1.0 for IP Address and 255.255.255.0 for Netmask.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI12"></a>In the CLI</p>
+ <p class="FM_CLIIndented">ip dhcp pool employee-pool</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;default-router 10.1.1.254</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;dns-server import</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;netbios-name-server import</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;network 10.1.1.0 255.255.255.0</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Source_NAT"></a>Configuring Source NAT to Dynamic VLAN Address</p>
+ <p class="FM_Body">When a VLAN interface obtains an IP address through DHCP or PPPoE, a NAT pool (dynamic-srcnat) and a session ACL (dynamic-session-acl) are automatically created which reference the dynamically-assigned IP addresses. This allows you to configure policies that map private local addresses to the public address(es) provided to the DHCP or PPPoE client. Whenever the IP address on the VLAN changes, the dynamic NAT pool address also changes to match the new address. </p>
+ <p class="FM_Body"><a name="IX_source_NAT_and_dynamic"></a>For example, the following rules for a guest policy deny traffic to internal network addresses. Traffic to other (external) destinations are source NATed to the IP&nbsp;address of the DHCP/PPPoE client on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI12"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies</span>&#160;page. Click <span style="font-weight : bold; ">Add</span>&#160;to add the policy <span style="font-weight : bold; ">guest</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add a rule, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Source, select <span style="font-weight : bold; ">any</span>. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Destination, select <span style="font-weight : bold; ">network</span>&#160;and enter 10.1.0.0 for Host IP and 255.255.0.0 for Mask. </p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Service, select <span style="font-weight : bold; ">any</span>. </p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Action, select <span style="font-weight : bold; ">reject</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add another rule, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Leave Source, Destination, and Service as <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Action, select <span style="font-weight : bold; ">src-nat</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For NAT Pool, select <span style="font-weight : bold; ">dynamic-srcnat</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI13"></a>In the CLI</p>
+ <p class="FM_CLIIndented">ip access-list session guest</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;any network 10.1.0.0 255.255.0.0 any deny</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;any any any src-nat pool dynamic-srcnat</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Source_NAT1"></a>Configuring Source NAT for VLAN Interfaces</p>
+ <p class="FM_Body"><a name="IX_source_NAT"></a>The example configuration in the previous section illustrates how to configure source NAT using a policy that is applied to a user role. You can also enable source NAT for a VLAN interface to cause NAT to be performed on the source address for <span style="font-style : italic; ">all</span>&#160;traffic that exits the VLAN. </p>
+ <p class="FM_Body">Packets that exit the VLAN are given a source IP address of the “outside” interface, which is determined by the following:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">If you configure “private” IP addresses for the VLAN, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is assumed to be the default gateway for the subnetwork. Packets that exit the VLAN are given the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for their source IP address.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is forwarding the packets at Layer-3, packets that exit the VLAN are given the IP address of the next-hop VLAN for their source IP address.</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_Example_Configuration"></a>Example Configuration</p>
+ <p class="FM_Body">In the following example, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;operates within an enterprise network. VLAN 1 is the outside VLAN. Traffic from VLAN 6 is source NATed using the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. In this example, the IP address assigned to VLAN 1 is used as the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address; thus traffic from VLAN 6 would be source NATed to 66.1.131.5.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 4 &#160;</span><a name="XREF_47474_Source_NAT_using"></a>Example: Source NAT using <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> IP Address</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="Network_Parameters00008.jpg" id="image3" src="images/Network_Parameters00008.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI13"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; VLANs</span>&#160;page. Click <span style="font-weight : bold; ">Add</span>&#160;to configure VLAN 6 (VLAN 1 is configured through the Initial Setup).</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter <span style="font-weight : bold; ">6</span> for the VLAN ID.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; IP Interfaces</span> page.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Edit</span> for VLAN 6:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select Use the following IP address.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter 192.168.2.1 for the IP Address and 255.255.255.0 for the Net Mask.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the Enable source NAT for this VLAN checkbox.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI14"></a>In the CLI</p>
+ <p class="FM_CLIIndented">interface vlan 1</p>
+ <p class="FM_CLIIndented">ip address 66.1.131.5 255.255.255.0</p>
+ <p class="FM_CLIIndented">interface vlan 6</p>
+ <p class="FM_CLIIndented">ip address 192.168.2.1 255.255.255.0</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ip nat inside</p>
+ <p class="FM_CLIIndented">ip default-gateway 66.1.131.1</p>
+ <p class="FM_2Heading"><a name="TOC_Inter_VLAN_Routing"></a>Inter-VLAN Routing</p>
+ <p class="FM_Body"><a name="IX_inter_VLAN_routing"></a>On the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can map a VLAN to a layer-3 subnetwork by assigning a static IP address and netmask or by configuring a DHCP or PPPoE server to provide a dynamic IP address and netmask to the VLAN interface. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, acting as a layer-3 switch, routes traffic between VLANs that are mapped to IP subnetworks; this forwarding is enabled by default.</p>
+ <p class="FM_Body">In <a href="#XREF_48064_Figure_4_Default"><span class="FM_PMS646">Figure 5</span></a>, VLAN 200 and VLAN 300 are assigned the IP addresses 2.1.1.1/24 and 3.1.1.1/24, respectively. Client A in VLAN 200 is able to access server B in VLAN 300 and vice versa, provided that there is no firewall rule configured on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to prevent the flow of traffic between the VLANs.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 5 &#160;</span><a name="XREF_48064_Figure_4_Default"></a>Default Inter-VLAN Routing</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="Network_Parameters00009.jpg" id="image4" src="images/Network_Parameters00009.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">You can optionally disable layer-3 traffic forwarding to or from a specified VLAN. When you disable layer-3 forwarding on a VLAN, the following restrictions apply:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Clients on the restricted VLAN can ping each other, but cannot ping the VLAN interface on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Forwarding of inter-VLAN traffic is blocked.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">IP mobility does not work when a mobile client roams to the restricted VLAN. You must ensure that a mobile client on a restricted VLAN is not allowed to roam to a non-restricted VLAN. For example, a mobile client on a guest VLAN should not be able to roam to a corporate VLAN.</p>
+</li>
+ </ul>
+ <p class="FM_Body"><a name="IX_disabling_VLAN_routing"></a>To disable layer-3 forwarding for a VLAN configured on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_WebUI_to"></a>Using the WebUI to restrict VLAN routing</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; IP Interface</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Edit</span> for the VLAN for which routing is to be restricted.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the VLAN to either obtain an IP address dynamically (via DHCP or PPPoE) or to use a static IP address and netmask.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Deselect (uncheck) the Enable Inter-VLAN Routing checkbox.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_CLI"></a>Using the CLI</p>
+ <p class="FM_CLIIndented">interface vlan &lt;id&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ip address {&lt;ipaddr&gt; &lt;netmask&gt;|dhcp-client|pppoe}</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;no ip routing</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Static_Routes"></a><a name="IX_static_routes"></a><a name="XREF_50308_Configuring_Static"></a>Configuring Static Routes</p>
+ <p class="FM_Body"><a name="IX_configuring_2"></a>To configure a static route (such as a default route) on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, do the following:</p>
+ <p class="FM_2Heading"><a name="TOC_Using_the_WebUI"></a>Using the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the<span class="FM_Button" style="font-family : Arial; font-weight : bold; ">&#160;</span><span class="FM_Bold">Configuration &gt;&#160;Network &gt;&#160;IP &gt; IP Routes</span>&#160;page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;to add a static route to a destination network or host. Enter the destination IP address and network mask (255.255.255.255 for a host route) and the next hop IP address.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> to add the entry. Note that the route has not yet been added to the routing table.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>&#160;to add this route to the routing table. The message <span style="font-weight : bold; ">Configuration Updated Successfully</span><span class="FM_System" style="font-family : Courier New; ">&#160;</span>confirms that the route has been added.</p>
+ <p class="FM_2Heading"><a name="TOC_Using_the_CLI1"></a>Using the CLI</p>
+ <p class="FM_CLIIndented">ip route &lt;<span style="font-style : italic; ">address&gt; &lt;netmask&gt; &lt;next_hop&gt;</span></p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the_Loopback1"></a><a name="IX_loopback_IP_address"></a><a name="XREF_81366_Configuring_the"></a>Configuring the Loopback IP Address</p>
+ <p class="FM_Body">The loopback IP address is a logical IP interface that is used by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to communicate with APs. The loopback address is used as the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address for terminating VPN and GRE tunnels, originating requests to RADIUS servers and accepting administrative communications. You configure the loopback address as a host address with a 32-bit netmask. The loopback address is not bound to any specific interface and is operational at all times. To use this interface, ensure that the IP address is reachable through one of the VLAN interfaces. It should be routable from all external networks.</p>
+ <p class="FM_Body">You must configure a loopback address if you are not using VLAN1 to connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the network. If the loopback interface address is not configured then the first configured VLAN interface address is selected. Generally, VLAN 1 is the factory default setting and thus becomes the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IP address</p>
+ <p class="FM_2Heading"><a name="TOC_Using_the_WebUI1"></a>Using the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the<span style="font-weight : bold; ">&#160;Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; System Settings </span>page and locate the <span style="font-weight : bold; ">Loopback Interface</span> section.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Modify the <span style="font-weight : bold; ">IP Address</span> as required.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 90.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconCaution"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">If you are using the loopback IP address to access the WebUI, changing the loopback IP address will result in loss of connectivity. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends that you use one of the VLAN interface IP addresses to access the WebUI.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext">Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Maintenance &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Reboot <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span><span class="FM_Button" style="font-family : Arial; ">&#160;</span>page to reboot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to apply the change of loopback IP address.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Continue</span> to save the configuration.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>When prompted that the changes were written successfully to flash, click <span class="FM_Bold" style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="ch2_pg9_flash_confirm.jpg" id="image5" src="images/ch2_pg9_flash_confirm.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> boots up with the changed loopback IP address.</p>
+ <p class="FM_2Heading"><a name="TOC_Using_the_CLI2"></a>Using the CLI</p>
+ <p class="FM_CLIIndented">interface loopback ip address &lt;<span style="font-style : italic; ">address&gt;</span></p>
+ <p class="FM_CLIIndented">write memory</p>
+ <p class="FM_Body">Enter the following command in Enable mode to reboot the controller :</p>
+ <p class="FM_CLIIndented">reload</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the1"></a><a name="XREF_24875_Configuring_the"></a>Configuring the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> IP Address</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;IP address is used by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to communicate with external devices such as APs.</p>
+ <p class="FM_Body">You can set the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;IP address to the loopback interface address or to an existing VLAN ID address. This allows you to force the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP address to be a specific VLAN interface or loopback address across multiple machine reboots. Once you configure an interface to be the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP address, that interface address cannot be deleted until you remove it from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IP configuration.</p>
+ <p class="FM_Body"><a name="IX_configuring_3"></a>If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP address is not configured then the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP defaults to the current loopback interface address. If the loopback interface address is not configured then the first configured VLAN interface address is selected. Generally, VLAN 1 is the factory default setting and thus becomes the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IP address.</p>
+ <p class="FM_Body">Using the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; System Settings </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Locate the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?><span style="font-weight : bold; "> IP Details</span> section.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the address you want to set the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> IP to from the VLAN<span style="font-weight : bold; "> ID</span>&#160;drop-down menu. This list only contains VLAN IDs that have statically assigned IP addresses. If a loopback interface IP address has been previously configured then it will also appear in this list. Dynamically assigned IP addresses, for example DHCP/PPPOE do not display.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Any change in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address requires a reboot.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Maintenance &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Reboot <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span><span class="FM_Button" style="font-family : Arial; ">&#160;</span>page to reboot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to apply the change of <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IP address.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Continue</span> to save the configuration.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>When prompted that the changes were written successfully to flash, click <span class="FM_Bold" style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="ch2_pg9_flash_confirm00010.jpg" id="image6" src="images/ch2_pg9_flash_confirm00010.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;boots up with the changed <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IP address. of the selected VLAN ID.</p>
+ <p class="FM_2Heading"><a name="TOC_Using_the_CLI3"></a>Using the CLI</p>
+ <p class="FM_CLI"><span style="font-weight : bold; ">(host) (config) #<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></span>-ip [loopback|vlan &lt;VLAN ID&gt;]</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_GRE_Tunnels"></a><a name="XREF_17198_Management_User"></a><a name="XREF_43591_Managing_Files_on"></a>Configuring GRE Tunnels</p>
+ <p class="FM_Body"><a name="IX_tunnel_GRE"></a><a name="IX_configuring_4"></a>A <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;supports generic routing encapsulation (GRE) tunnels between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and APs. An AP opens a GRE tunnel to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for each radio interface. On the AP, the other end of the GRE tunnel is specified by the IP address configured variable values (in descending order of priority) &lt;<span style="font-style : italic; ">master&gt;</span>, &lt;<span style="font-style : italic; ">servername&gt;</span>, and &lt;<span style="font-style : italic; ">serverip&gt;</span>. If these variable are left to default values, the AP uses DNS to look up <span style="font-weight : bold; ">aruba-master</span>&#160;to discover the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;also supports GRE tunnels between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and other GRE-capable devices. This section describes how to configure a GRE tunnel to such a device and how to direct traffic into the tunnel.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 90.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;uses GRE tunnels for communications between master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>; these GRE tunnels are automatically created and are not subject to the configuration described in this section.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Creating_a_Tunnel"></a>Creating a Tunnel Interface</p>
+ <p class="FM_Body">To create a GRE tunnel on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you need to specify the following:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Tunnel ID: this can be a number between 1 and 2147483647.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">IP address and netmask for the tunnel.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Tunnel source: the local endpoint for the tunnel on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This can be one of the following:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Loopback address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">A specified IP address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">A specified VLAN</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Tunnel destination: the IP address of the remote endpoint of the tunnel on the other GRE device.</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI14"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; GRE Tunnels</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the tunnel ID.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the IP address and netmask for the tunnel.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select (check) Enabled to enable the tunnel interface.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the tunnel source, if it is not the loopback address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If you select IP Address, enter the IP address for the tunnel source. If you select VLAN, select the ID of the VLAN.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the IP address of the tunnel destination.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI15"></a>In the CLI</p>
+ <p class="FM_CLIIndented">interface tunnel &lt;<span style="font-style : italic; ">id&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;tunnel mode gre &lt;num&gt; &lt;ip&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ip address &lt;<span style="font-style : italic; ">ipaddr&gt;</span> &lt;<span style="font-style : italic; ">netmask&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;no shutdown</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;tunnel source {&lt;<span style="font-style : italic; ">ipaddr&gt;</span>| loopback | vlan &lt;<span style="font-style : italic; ">vlan&gt;</span>}</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;tunnel destination &lt;<span style="font-style : italic; ">ipaddr&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Directing_Traffic_into"></a>Directing Traffic into the Tunnel</p>
+ <p class="FM_Body">You can direct traffic into the tunnel by configuring one of the following:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Static route, which redirects traffic to the IP address of the tunnel</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Firewall policy (session-based ACL), which redirects traffic to the specified tunnel ID</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_Static_Routes"></a>Static Routes</p>
+ <p class="FM_Body">You can configure a static route that specifies the IP address of a tunnel as the next-hop for traffic for a specific destination. See <a href="#XREF_50308_Configuring_Static"><span class="FM_PMS646">“Configuring Static Routes” </span></a>&#160;for descriptions of how to configure a static route. </p>
+ <p class="FM_3Heading"><a name="TOC_Firewall_Policy"></a>Firewall Policy</p>
+ <p class="FM_Body">You can configure a firewall policy rule to redirect selected traffic into a tunnel.</p>
+ <p class="FM_Body">Traffic redirected by a firewall policy rule is <span style="font-style : italic; ">not</span>&#160;forwarded to a tunnel that is “down” (see <a href="#XREF_17218_Tunnel_Keepalives"><span class="FM_PMS646">“Tunnel Keepalives”</span></a>&#160;for more information on how GRE tunnel status is determined). If you have more than one GRE tunnel configured, you can create multiple firewall policy rules with each rule redirecting the same traffic to different tunnels. If the tunnel in the first traffic redirect rule is down, then the tunnel in the subsequent traffic redirect rule is used instead.</p>
+ <p class="FM_4Heading">WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>&#160;to create a new firewall policy, or click <span style="font-weight : bold; ">Edit</span> to edit a specific policy.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to create a new policy rule.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the Source, Destination, and Service for the rule.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Action, select redirect to tunnel. Enter the tunnel ID.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure any additional options, and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_4Heading">CLI</p>
+ <p class="FM_CLIIndented">ip access-list session &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;&lt;<span style="font-style : italic; ">source&gt; &lt;destination&gt; &lt;service&gt;</span> redirect tunnel &lt;<span style="font-style : italic; ">id&gt;</span></p>
+ <p class="FM_3Heading"><a name="TOC_Tunnel_Keepalives"></a><a name="XREF_17218_Tunnel_Keepalives"></a>Tunnel Keepalives</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can determine the status of a GRE tunnel by sending periodic keepalive frames on the tunnel. If you enable tunnel keepalives, the tunnel is considered to be “down” if there is repeated failure of the keepalives. If you configured a firewall policy rule to redirect traffic to the tunnel, traffic is not forwarded to the tunnel until it is “up”. When the tunnel comes up or goes down, an SNMP trap and logging message is generated. The remote endpoint of the tunnel does not need to support the keepalive mechanism.</p>
+ <p class="FM_Body">By default, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;sends keepalive frames at 60-second intervals and retries keepalives up to three times before the tunnel is considered to be down. You can reconfigure the intervals from the default. For the interval, specify a value between 1-86400 seconds. For the retries, specify a value between 0-1024.</p>
+ <p class="FM_4Heading">In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; GRE Tunnels</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Edit</span> for the tunnel for which you are enabling tunnel keepalives.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select (check) <span style="font-weight : bold; ">Enable Heartbeats</span>&#160;to enable tunnel keepalives and display the Heartbeat Interval and Heartbeat Retries fields.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter values for Heartbeat Interval and Heartbeat Retries.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_4Heading">In the CLI</p>
+ <p class="FM_CLIIndented">interface tunnel <span style="font-style : italic; ">id</span></p>
+ <p class="FM_Body">&nbsp;&nbsp;&nbsp;tunnel keepalive [&lt;<span style="font-style : italic; ">interval&gt; &lt;retries&gt;</span>]</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

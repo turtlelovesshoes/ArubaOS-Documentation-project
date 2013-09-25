@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Mux_config</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content+"active tunneled node port, mux, mux configuration, controller, trunk port, ap license usage, vlan setting, tunneled node client"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Mux_config.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_AppendixNumber" style="color   : #000000;">Appendix F</p>
+ <p class="FM_ChapterTitle" style="color   : #000000;"><a name="TOC_Tunneled_Nodes"></a>Tunneled Nodes</p>
+ <p class="FM_Body"><a name="IX_tunneled_node"></a>This appendix describes how to configure an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> tunneled node, also known as a wired tunneled node. An <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> tunneled node provides access and security using an overlay architecture.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_20222_Configuration"><span class="FM_PMS646">“Configuration Overview” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_41257_Configuring_the"><span class="FM_PMS646">“Configuring a Wired Tunneled Node Client” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_63646_Example_Output"><span class="FM_PMS646">“Example Output” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Configuration_Overview"></a><a name="XREF_20222_Configuration"></a>Configuration Overview</p>
+ <p class="FM_Body">The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;tunneled node connects to one or more client devices at the edge of the network and then establishes a secure GRE tunnel to the controlling concentrator server. This approach allows the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to support all the centralized security features, such as 802.1x authentication, captive-portal authentication, and stateful firewall. The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;tunneled node is required to handle only the physical connection to clients and support for its end of the GRE tunnel.</p>
+ <p class="FM_Body">To support the wired concentrator, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;must have a license to terminate access points (APs). No other configuration is required. To configure the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;tunneled node, you must specify the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and identify the ports that are to be used as active tunneled node ports. Tunnels are established between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and each active tunneled node port on the tunneled node. All tunneled node units must be running the same version of software. The tunneled node port can also be configured as a trunk port. This allows customers to have multiple clients on different VLANs that come through the trunk port instead of having clients on a single vlan.</p>
+ <p class="FM_Body"><a href="#XREF_83847_Figure_209_T"><span class="FM_PMS646">Figure 216</span></a>&#160;shows how the tunneled node fits into network operations. Traffic moves through GRE tunnels between the active tunneled node ports and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. Policies are configured on a master server and enforced on the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. The master and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can run on the same or different systems. The tunneled node can connect to the master, but it is not required.</p>
+ <p class="FM_Body">On the controlling <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can assign the same policy to tunneled node user traffic as you would to any untrusted wired traffic. The profile specified by the <span style="font-weight : bold; ">aaa authentication wired </span>command determines the initial role, which contains the policy. The VLAN setting on the concentrator port must match the VLAN that will be used for users at the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 216 &#160;</span><span style="font-family : ITC Century Std Light; font-style : normal; font-size  : 2.0pt; "><a name="XREF_83847_Figure_209_T"></a></span>Tunneled node configuration operation</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="Mux_config00183.jpg" id="image0" src="images/Mux_config00183.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_a_Wired"></a><a name="IX_configuring_wired_client"></a><span style="font-family : Courier New; font-weight : normal; font-size  : 9.0pt; color   : #000000; "><a name="XREF_41257_Configuring_the"></a></span>Configuring a Wired Tunneled Node Client</p>
+ <p class="FM_Body">This section describes how to configure a tunneled node client. You can use the WebUI or the CLI to complete the configuration steps.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the Wired tunneled node CLI according to the instructions provided in the installation guide that shipped with your tunneled node. Console access (9600 8N1) and SSH access are supported.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Specify the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and specify tunnel loop prevention.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet2">CLI:</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config) # </span><span class="FM_System" style="font-weight : bold; ">tunneled-node-address ipaddress</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config) # </span><span class="FM_System" style="font-weight : bold; ">tunnel-loop-prevention</span></p>
+ <p class="FM_BodyinBulletStep">For example:</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host (config) # </span><span class="FM_System" style="font-weight : bold; ">tunneled-node-address 10.10.1.1</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config) # </span><span class="FM_System" style="font-weight : bold; ">tunnel-loop-prevention</span></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet2">WebUI</p>
+</li>
+ </ul>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to<span style="font-weight : bold; "> Configuration&gt;Advanced Services&gt;Wired Access</span> page.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Locate the<span style="font-weight : bold; ">&#160;Wired Access Concentration Configuration </span>section.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>T o enable tunneled nodes, click the <span style="font-weight : bold; ">Enable Wired Access Concentrator </span>checkbox.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the <span style="font-weight : bold; ">Wired Access Concentrator Server IP</span> field.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To enable tunnel loop prevention, click the<span style="font-weight : bold; "> Enable Wired Access Concentrator Loop Prevention</span>&#160;checkbox.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access each interface that you want to use, and assign it as a tunneled node port.</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host (config) # </span><span class="FM_System" style="font-weight : bold; ">interface fastethernet </span><span class="FM_System" style="font-style : italic; ">n</span><span class="FM_System">/m</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host (config-if) # </span><span class="FM_System" style="font-weight : bold; ">tunneled-node port</span></p>
+ <p class="FM_BodyinBulletStep">Example:</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config) # </span><span class="FM_System" style="font-weight : bold; ">interface fastethernet 2/1</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">tunneled-node-port</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config) # </span><span class="FM_System" style="font-weight : bold; ">interface fastethernet 2/3</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">tunneled-node-port</span></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Verify the configuration.</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">exit</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) #</span><span class="FM_System" style="font-weight : bold; "> show tunneled-port config</span></p>
+ <p class="FM_BodyinBulletStep">Example:</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) # </span><span class="FM_System" style="font-weight : bold; ">show tunneled-node config</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">Tunneled Node Client:Enabled</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">Tunneled Node Server:10.10.1.1</span></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_an_Access"></a>Configuring an Access Port as a Tunneled Node Port</p>
+ <p class="FM_Body">You can configure any port on any <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as a tunneled node port using the tunneled-node-port command. Set the tunneled-nod -address as the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to act as the tunneled node termination point. The <span style="font-weight : bold; ">tunneled-node-port</span>&#160;command tells the physical interface to tunnel that traffic to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enable portfast on the Wired tunneled node.</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config) # </span><span class="FM_System" style="font-weight : bold; ">interface fastethernet &lt;slot&gt;/&lt;port&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">spanning-tree portfast</span></p>
+ <p class="FM_BodyinBulletStep">Example:</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config)# </span><span class="FM_System" style="font-weight : bold; ">interface fastethernet 2/1</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if)# </span><span class="FM_System" style="font-weight : bold; ">spanning-tree portfast </span></p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Assign a VLAN to the tunneled node port.</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">switchport mode access </span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">switchport access vlan &lt;vlanid&gt;</span></p>
+ <p class="FM_BodyinBulletStep">Example:</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">switchport access vlan 10</span></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_a_Trunk_Port"></a>Configuring a Trunk Port as a Tunneled Node Port</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enable portfast on the Wired tunneled node.</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">switchport mode trunk</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">switchport trunk allowed vlan &lt;WORD&gt;</span></p>
+ <p class="FM_BodyinBulletStep">Example:</p>
+ <p class="FM_CLIIndented"><span class="FM_System">(host) (config-if) # </span><span class="FM_System" style="font-weight : bold; ">switch trunk allowed vlan 3-5,8,9</span></p>
+ <p class="FM_1Heading"><a name="TOC_Example_Output"></a><a name="XREF_63646_Example_Output"></a>Example Output</p>
+ <p class="FM_Body">Use the <span class="FM_System" style="font-family : Courier New; ">show tunneled-node state</span> command to verify the status of the Wired tunneled node.</p>
+ <p class="FM_CLI"><span class="FM_System">(show) # </span><span class="FM_System" style="font-weight : bold; ">show tunneled-node state</span></p>
+ <p class="FM_CLI"><span class="FM_System">Tunneled Node State</span></p>
+ <p class="FM_CLI"><span class="FM_System">-------------------</span></p>
+ <p class="FM_CLI"><span class="FM_System">IP &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MAC &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;s/p &#160;&#160;state &#160;&#160;&#160;&#160;vlan &#160;tunnel &#160;inactive-time</span></p>
+ <p class="FM_CLI"><span class="FM_System">-- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;--- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;--- &#160;&#160;----- &#160;&#160;&#160;&#160;---- &#160;------ &#160;-------------</span></p>
+ <p class="FM_CLI"><span class="FM_System">192.168.123.14 &#160;00:0b:86:40:32:40 &#160;1/23 &#160;complete &#160;10 &#160;&#160;&#160;9 &#160;&#160;&#160;&#160;&#160;&#160;1</span></p>
+ <p class="FM_CLI"><span class="FM_System">192.168.123.14 &#160;00:0b:86:40:32:40 &#160;1/22 &#160;complete &#160;10 &#160;&#160;&#160;10 &#160;&#160;&#160;&#160;&#160;1</span></p>
+ <p class="FM_CLI"><span class="FM_System">192.168.123.14 &#160;00:0b:86:40:32:40 &#160;1/20 &#160;complete &#160;10 &#160;&#160;&#160;11 &#160;&#160;&#160;&#160;&#160;1</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">On the tunneled node client:</p>
+ <p class="FM_CLI"><span class="FM_System">(host) # </span><span class="FM_System" style="font-weight : bold; ">show tunneled-node state</span></p>
+ <p class="FM_CLI"><span class="FM_System">Tunneled Node State</span></p>
+ <p class="FM_CLI"><span class="FM_System">-------------------</span></p>
+ <p class="FM_CLI"><span class="FM_System">IP &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;MAC &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;s/p &#160;&#160;state &#160;&#160;&#160;&#160;vlan &#160;tunnel &#160;inactive-time</span></p>
+ <p class="FM_CLI"><span class="FM_System">-- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;--- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;--- &#160;&#160;----- &#160;&#160;&#160;&#160;---- &#160;------ &#160;-------------</span></p>
+ <p class="FM_CLI"><span class="FM_System">192.168.123.16 &#160;00:0b:86:40:32:40 &#160;1/23 &#160;complete &#160;10 &#160;&#160;&#160;21 &#160;&#160;&#160;&#160;&#160;0</span></p>
+ <p class="FM_CLI"><span class="FM_System">192.168.123.16 &#160;00:0b:86:40:32:40 &#160;1/22 &#160;complete &#160;10 &#160;&#160;&#160;9 &#160;&#160;&#160;&#160;&#160;&#160;0</span></p>
+ <p class="FM_CLI"><span class="FM_System">192.168.123.16 &#160;00:0b:86:40:32:40 &#160;1/20 &#160;complete &#160;10 &#160;&#160;&#160;13 &#160;&#160;&#160;&#160;&#160;0</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span class="FM_System">(host) # </span><span class="FM_System" style="font-weight : bold; ">show tunneled-node config</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span class="FM_System">Tunneled Node Client:Enabled</span></p>
+ <p class="FM_CLI"><span class="FM_System">Tunneled Node Server:192.168.123.16</span></p>
+ <p class="FM_Body">Use the <span style="font-weight : bold; ">show license-usage ap </span>command to check current usage on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Each tunneled node client uses one AP license. Attaching an additional wired client on the tunneled node client does not increment the AP license usage on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_CLI">(host) #show license-usage ap</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">Total AP Licenses &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 128</p>
+ <p class="FM_CLI">AP Licenses Used &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 1</p>
+ <p class="FM_CLI">Tunneled Node Licenses Used<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>: 1</p>
+ <p class="FM_CLI">Unused AP Licenses &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 127</p>
+ <p class="FM_CLI">Licenses used for Campus AP's           : 1</p>
+ <p class="FM_CLI">Available Campus AP's                   : 31</p>
+ <p class="FM_CLI">Licenses used for Remote AP's           : 0</p>
+ <p class="FM_CLI">Available Remote AP's                   : 127</p>
+ <p class="FM_CLI">Total Ortronics AP Licenses &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 128</p>
+ <p class="FM_CLI">Ortronics AP Licenses Used &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 0</p>
+ <p class="FM_CLI">Total Indoor Mesh AP's Supported        : 128</p>
+ <p class="FM_CLI">Indoor Mesh AP's Active                 : 0</p>
+ <p class="FM_CLI">Total Outdoor Mesh AP's supported       : 128</p>
+ <p class="FM_CLI">Outdoor Mesh AP's Active                : 0</p>
+ <p class="FM_CLI">Total RF Protect Licenses<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>: 128</p>
+ <p class="FM_CLI">RF Protect Licenses Used <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>: 1</p>
+ <p class="FM_CLI">Total PEF Licenses &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 128</p>
+ <p class="FM_CLI">PEF Licenses Used &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;: 1</p>
+ <p class="FM_CLI">Total 802.11n-120abg Licenses &#160;&#160;: 128</p>
+ <p class="FM_CLI">802.11n-120abg Licenses Used &#160;&#160;&#160;: 0</p>
+ <p class="FM_CLI">Total 802.11n-121abg Licenses &#160;&#160;: 128</p>
+ <p class="FM_CLI">802.11n-121abg Licenses Used &#160;&#160;&#160;: 0</p>
+ <p class="FM_CLI">Total 802.11n-124abg Licenses &#160;&#160;: 128</p>
+ <p class="FM_CLI">802.11n-124abg Licenses Used &#160;&#160;&#160;: 0</p>
+ <p class="FM_CLI">Total 802.11n-125abg Licenses &#160;&#160;: 128</p>
+ <p class="FM_CLI">802.11n-125abg Licenses Used &#160;&#160;&#160;: 0</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

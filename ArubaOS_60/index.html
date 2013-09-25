@@ -1,0 +1,673 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta property="fb:admins" content="1569697804,arubanetworks" />
+    <title>Aruba Networks ArubaOs User Guide</title>
+      <link rel="stylesheet" href="../ArubaOS_61/ROBOHELP UG 6.1/ArubaOS_User_Guide_-_volumes/js/jquery.treeview.css" />
+        <link rel="stylesheet" href="css/Full.css" type="text/css" />
+     
+    <!--<script type="text/javascript" src="<?php bloginfo('url'); ?>/js/jquery.cycle.all.2.74.js"></script>-->
+    <!-- Additional jQuery dependent scripts here! -->
+    <!-- Elastic JS -->
+    
+    <script type="text/javascript"> 
+    function newPopupAP(url, w, h) {
+        var paramString = 'height=' + String(h);
+        paramString += ',width=' + String(w);
+        paramString += ',left=10,top=10,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=yes';
+        popupWindow = window.open(url,'popUpWindow',paramString);
+    }
+    </script>
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <script src="../ArubaOS_61/ROBOHELP UG 6.1/ArubaOS_User_Guide_-_volumes/js/lib/jquery.cookie.js" type="text/javascript"></script>
+     <script src="../ArubaOS_61/ROBOHELP UG 6.1/ArubaOS_User_Guide_-_volumes/js/jquery.treeview.js" type="text/javascript"></script>
+     <script type="text/javascript" src="../ArubaOS_61/ROBOHELP UG 6.1/ArubaOS_User_Guide_-_volumes/js/demo.js"></script>
+    
+      <script language="JavaScript" type="text/javascript">
+        function go(loc){
+            document.getElementById('calendar').src = loc;
+        }
+		 <!--
+        function JumpToIt(list) {
+            var newPage = list.options[list.selectedIndex].value
+            if (newPage != "None") {
+                parent.page.location=newPage;
+            }
+        }
+        //-->
+      </script>
+         
+       <script type="text/javascript">
+
+<!-- Declare the array and store the values according to ur usage -->
+
+var suggestions = new Array("aaa", "acceleration", "adp", "am", "ap", "apboot", "apconnect", "apdisconnect", "apflash", "ap-group", "ap-name", "AppA", "ap-regroup", "ap-rename", "arp", "audit-trail", "backup", "banner", "boot", "cellular", "cfgm", "clear", "CLI_front", "clock", "configure", "controller-ip", "control-plane-security", "copy", "cpbandwidth", "crypto", "crypto-local", "database", "delete", "destination", "dir", "dynamic-ip", "enable", "encrypt", "esi_cli", "exit", "export", "firewall", "gateway", "guest-access-email", "halt", "help", "hostname", "ids", "interface");
+
+
+
+var outp;
+
+var oldins;
+
+var posi = -1;
+
+var words = new Array();
+
+var input;
+
+var key;
+
+function setVisible(visi)
+
+{
+
+  var x = document.getElementById("shadow");
+
+  var t = document.getElementsByName("text")[0];
+
+  x.style.position = 'absolute';
+
+  x.style.top = (findPosY(t)+3)+"px";
+
+  x.style.left = (findPosX(t)+2)+"px";
+
+  x.style.visibility = visi;
+
+}
+
+function init()
+
+{
+
+  outp = document.getElementById("output");
+
+  window.setInterval("lookAt()", 100);
+
+  setVisible("hidden");
+
+  document.onkeydown = keygetter; //needed for Opera...
+
+  document.onkeyup = keyHandler;
+
+}
+
+function findPosX(obj)
+
+{
+
+  var curleft = 0;
+
+  if (obj.offsetParent)
+
+  {
+
+    while (obj.offsetParent)
+
+    {
+
+      curleft += obj.offsetLeft;
+
+      obj = obj.offsetParent;
+
+    }
+
+   }
+
+  else if (obj.x)
+
+    curleft += obj.x;
+
+        return curleft;
+
+}
+
+function findPosY(obj)
+
+{
+
+  var curtop = 0;
+
+  if (obj.offsetParent)
+
+  {
+
+    curtop += obj.offsetHeight;
+
+    while (obj.offsetParent)
+
+    {
+
+      curtop += obj.offsetTop;
+
+      obj = obj.offsetParent;
+
+     }
+
+   }
+
+   else if (obj.y)
+
+   {
+
+     curtop += obj.y;
+
+     curtop += obj.height;
+
+   }
+
+   return curtop;
+
+}
+
+function lookAt()
+
+{
+
+   var ins = document.getElementsByName("text")[0].value;
+
+   if (oldins == ins)
+
+      return;
+
+   else if (posi > -1);
+
+   else if (ins.length > 0)
+
+   {
+
+     words = getWord(ins);
+
+     if (words.length > 0)
+
+     {
+
+        clearOutput();
+
+        for (var i=0;i < words.length; ++i)
+
+             addWord (words[i]);
+
+        setVisible("visible");
+
+        input = document.getElementsByName("text")[0].value;
+
+     }
+
+     else
+
+     {
+
+        setVisible("hidden");
+
+        posi = -1;
+
+     }
+
+   }
+
+   else
+
+   {
+
+    setVisible("hidden");
+
+    posi = -1;
+
+   }
+
+   oldins = ins;
+
+}
+
+function addWord(word)
+
+{
+
+  var sp = document.createElement("div");
+
+  sp.appendChild(document.createTextNode(word));
+
+  sp.onmouseover = mouseHandler;
+
+  sp.onmouseout = mouseHandlerOut;
+
+  sp.onclick = mouseClick;
+
+  outp.appendChild(sp);
+
+}
+
+function clearOutput()
+
+{
+
+  while (outp.hasChildNodes())
+
+  {
+
+    noten=outp.firstChild;
+
+    outp.removeChild(noten);
+
+  }
+
+   posi = -1;
+
+}
+
+function getWord(beginning)
+
+{
+
+  var words = new Array();
+
+  for (var i=0;i < suggestions.length; ++i)
+
+   {
+
+    var j = -1;
+
+    var correct = 1;
+
+    while (correct == 1 && ++j < beginning.length)
+
+    {
+
+     if (suggestions[i].charAt(j) != beginning.charAt(j))
+
+         correct = 0;
+
+    }
+
+    if (correct == 1)
+
+       words[words.length] = suggestions[i];
+
+  }
+
+    return words;
+
+  
+
+}       
+
+function setColor (_posi, _color, _forg)
+
+{
+
+   outp.childNodes[_posi].style.background = _color;
+
+   outp.childNodes[_posi].style.color = _forg;
+
+}
+
+function keygetter(event)
+
+{
+
+  if (!event && window.event) 
+
+      event = window.event;
+
+  if (event)
+
+      key = event.keyCode;
+
+  else
+
+      key = event.which;
+
+}
+
+function keyHandler(event)
+
+{
+
+  if (document.getElementById("shadow").style.visibility == "visible")
+
+  {
+
+     var textfield = document.getElementsByName("text")[0];
+
+     if (key == 40)//key down
+
+     { 
+
+        if (words.length > 0 && posi <= words.length-1)
+
+        {
+
+          if (posi >=0)
+
+            setColor(posi, "#fff", "black");
+
+          else 
+
+             input = textfield.value;
+
+             setColor(++posi, "blue", "white");
+
+             textfield.value = outp.childNodes[posi].firstChild.nodeValue;
+
+        }
+
+      }
+
+      else if (key == 38)
+
+      { //Key up
+
+        if (words.length > 0 && posi >= 0)
+
+         {
+
+           if (posi >=1)
+
+           {
+
+              setColor(posi, "#fff", "black");
+
+              setColor(--posi, "blue", "white");
+
+              textfield.value = outp.childNodes[posi].firstChild.nodeValue;
+
+           }
+
+           else
+
+           {
+
+              setColor(posi, "#fff", "black");
+
+              textfield.value = input;
+
+              textfield.focus();
+
+              posi--;
+
+           }
+
+         }
+
+        }
+
+         else if (key == 27)
+
+         { // Esc
+
+            textfield.value = input;
+
+            setVisible("hidden");
+
+            posi = -1;
+
+            oldins = input;
+
+          }
+
+          else if (key == 8) 
+
+          { // Backspace
+
+            posi = -1;
+
+            oldins=-1;
+
+          } 
+
+              }
+
+   }
+
+    var mouseHandler=function()
+
+    {
+
+      for (var i=0; i < words.length; ++i)
+
+        setColor (i, "white", "black");
+
+      this.style.background = "blue";
+
+      this.style.color= "white";
+
+     }
+
+     var mouseHandlerOut=function()
+
+     {
+
+       this.style.background = "white";
+
+       this.style.color= "black";
+
+     }
+
+     var mouseClick=function()
+
+     {
+
+        document.getElementsByName("text")[0].value = this.firstChild.nodeValue;
+
+        setVisible("hidden");
+
+        posi = -1;
+
+        oldins = this.firstChild.nodeValue;
+
+     }
+
+	 
+
+ function JumpToIt(list) {
+
+        var newPage = list.options[list.selectedIndex].value
+
+        if (newPage != "None") {
+
+            page.location=newPage
+
+        }
+
+    }
+
+//function written by Rachel McGuigan 
+
+//Aruba Networks Contract
+
+//Last updated 5.19.2012
+
+//calls the text value of auto complete box and uses select box to go to next page
+
+ function gonext(){
+
+//This function should check the value of the autocomplete text box and change the dropdown value 
+
+//to that string
+
+
+
+	var str=document.getElementsByName("text")[0].value;
+
+	//alert(str);/*this is for debugging*/
+
+	//var e = document.getElementById("selected");
+
+	//var optionr = e.options[e.selectedIndex].value;*/
+
+
+
+	for(i=0; i<suggestions.length; i++){
+	
+	
+
+	 var str2=document.getElementById("selected").options[i].text;
+
+	 var compare=( str < str2 ) ? -1:( str > str2 ? 1 : 0 );
+
+		//alert(compare);
+
+		if (compare == 0){
+
+			var newPage=document.getElementById("selected").options[i].value;
+
+			
+
+			if(newPage != "None"){
+				top.frames['page'].location.href = newPage;
+				/*document.getElementById('page').setAttribute('src',newPage);*/
+				/*location=newPage;*//*use this if you want to break to a new window*/
+
+				break;
+
+			}
+
+		}
+
+	}
+
+}
+
+</script>
+    </head>
+    <body onload="init();">
+    <div id="wrapper">
+        <div id="picturelogo" class="picturelogo">
+          <p><img src="../images/Aruba_Networks_FullColor_png.jpg" width="137" height="37" alt="logo" /> People Move. Networks Must Follow &reg;
+      </p>
+   	</div>
+      <div class="logo" id="logo">
+      </div>
+        <div id="backimage">
+            <h1 class="style6" style="text-indent:20px;">ArubaOS Documentation</span>
+                <ul class="breadcrumb"><span id="dnn_ctr512_Dispatch_ctl00_lblBreadCrumb" style="">
+                     <li></li> <li><a href="http://support.arubanetworks.com/DOCUMENTATION/tabid/77/Default.aspx" class="CommandButton">Support Center</a></li>&nbsp;&nbsp;
+                       <li><a href="http://support.arubanetworks.com/DOCUMENTATION/tabid/77/DMXModule/512/EntryId/5806/Default.aspx" class="CommandButton">Software User &amp; Reference Guides</a>&nbsp;</li>
+                    <li style="background-color: #E9E9E9; text-align:right;"><a href="http://support.arubanetworks.com/DOCUMENTATION/tabid/77/DMXModule/512/EntryId/218/Default.aspx" class="CommandButton">ArubaOS</a></li></span>
+                    <li></li>
+                
+                </ul>
+        </div>
+      
+    <div class="tit">
+        
+        <div class="tit" style="float:right;">	
+          <p class="style3"><img src="../ArubaOS_61/ROBOHELP UG 6.1/ArubaOS_User_Guide_-_volumes/images/PDF-icon.jpg" width="57" height="42" alt="pdf icon" /><a href="http://support.arubanetworks.com/DOCUMENTATION/tabid/77/DMXModule/512/Command/Core_Download/Default.aspx?EntryId=4771">ArubaOS CLI pdf download</a></p>
+          
+    </div>
+    <p align="left"><span class="style5">ArubaOS 6.0 Command Line Interface Reference Guide</span></p>
+    <p align="left">The ArubaOS operating system for Aruba Mobility Controllers,   Mobility Access Switches and access points (APs) perform security and   system administration, as well as hardware-based routing, switching,   firewall and data encryption capabilitie s. <span class="style3" style="color:orange;">document last modified on 12/9/2010</span></p>
+</div><!--end title div-->
+    
+ 	<div id="contentcolumn">
+      <iframe name="page" id="page" src="CLI_front.htm" width="660px" frameborder="0" scrolling="Yes" marginwidth="660px"  height="800px" style="float:right; margin-left:10px;"></iframe>
+	</div>
+    
+    <div class="leftcolumn">
+    	<div id="navtools" class="navtools">
+          <ul>
+            <br/>
+           	  <li><span class="style3">Note:  Enter the desired command for the reference page</span></li>
+                <li><span class="style3">Command Line Lookup</span><form name="test" id="test"><input type="text" name="text" autocomplete="off" id="command" /><input type="button" name="go" value="Go" onclick="gonext()"/></li>
+            <li><span class="style3">Command Line List</span>
+                           <select name="select" id="selected" dir="ltr" lang="en"  onchange="JumpToIt(this)"  xml:lang="en">
+                 <option value="aaa.htm">aaa</option>
+                 <option value="acceleration.htm">acceleration</option>
+                 <option value="adp.htm">adp</option>
+                 <option value="acceleration.htm">acceleration</option>
+                 <option value="am.htm">am</option>
+                 <option value="ap.htm">ap</option>
+                  <option value="apboot.htm">apboot</option>
+                  <option value="apconnect.htm">apconnect</option>
+                   <option value="apflash.htm">apflash</option>
+                 <option value="ap-group.htm">ap-group</option>
+                
+                 <option value="ap-name.htm">ap-name</option>
+                 <option value="ap-regroup.htm">ap-regroup</option>
+                 <option value="ap-rename.htm">ap-rename</option>
+                
+                 
+                 <option value="apdisconnect.htm">apdisconnect</option>
+                 
+             
+                 <option value="banner.htm">banner</option>
+                 <option value="backup.htm">backup</option>
+                             <option value="boot.htm">boot</option>
+
+                 <option value="cellular.htm">cellular</option>
+                 <option value="cfgm.htm">cfgm</option>
+                 <option value="clear.htm">clear</option>
+                 <option value="clock.htm">clock</option>
+                 
+                 <option value="configure.htm">configure</option>
+               
+                 <option value="controller-ip.htm">controller-ip</option>
+               
+                 <option value="copy.htm">copy</option>
+                 <option value="cpbandwidth.htm">cpbandwidth</option>
+                 <option value="crypto.htm">crypto</option>
+                 <option value="crypto-local.htm">crypto-local</option>
+                 <option value="database.htm">database</option>
+                 <option value="delete.htm">delete</option>
+                 <option value="destination.htm">destination</option>
+                 <option value="dir.htm">dir</option>
+                 <option value="dynamic-ip.htm">dynamic-ip</option>
+                 <option value="enable.htm">enable</option>
+                 <option value="encrypt.htm">encrypt</option>
+                 <option value="esi_cli.htm">esi_cli</option>
+                 <option value="exit.htm">exit</option>
+                 <option value="export.htm">export</option>
+                 <option value="firewall.htm">firewall</option>
+                 <option value="gateway.htm">gateway</option>
+                 <option value="guest-access-email.htm">guest-access-email</option>
+                 <option value="halt.htm">halt</option>
+                 <option value="help.htm">help</option>
+                 <option value="hostname.htm">hostname</option>
+                 <option value="ids.htm">ids</option>
+                 <option value="interface.htm">interface</option>
+                 
+                       <!--<option>Select a Command </option>-->
+                        </select>
+                  </form> 
+                           <form action="" method="post" name="form1" id="form1">
+              
+                           </form>
+                           <div class="shadow" id="shadow">
+
+<div class="output" id="output">
+
+            </li>
+          </ul>
+      </div> 
+    </div>
+
+      <div id="footer">
+   	  </div>
+
+	 <div class="footer" id="footer">
+          <p style="text-align:center"><a href="../ArubaOS_61/ROBOHELP UG 6.1/ArubaOS_User_Guide_-_volumes/index.html"> ArubaOS 6.1User Guide</a> | <a href="../ArubaOS_61/ArubaOS_61_CLI/index.html">ArubaOS Command line 6.1 Reference</a> | <a href="http://support.arubanetworks.com/DOCUMENTATION/tabid/77/Default.aspx" class="CommandButton">Older Releases</a></p>
+ 
+    	</div>
+
+    </div>
+   
+     
+  
+     <p style="float:right; margin-right:10%;">Copyright © 2012. Aruba Networks, Inc. All rights reserved.  </p>
+    <!-- END CONTENT -->
+        <!-- </div>--><!--wrapper--> 
+    
+       
+        <div class="footer">
+         <!--| <a href="feedback.htm">Your feedback</a> -->
+    </div>
+   
+   
+    </body>
+</html>

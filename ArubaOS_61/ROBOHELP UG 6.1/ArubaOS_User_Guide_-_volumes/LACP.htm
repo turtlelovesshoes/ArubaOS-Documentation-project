@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>LACP</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\LACP.fm" />
+ <meta name="keywords" content="passive state, system id/key, port-channel interface wait, active state, static port member, actor system id,  ">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 31</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Link_Aggregation_Control"></a>Link Aggregation Control Protocol </p>
+ <p class="FM_Body"><a name="IX_see_LAG"></a><a name="IX_see_LACP"></a><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>’s implementation of Link Aggregation Control Protocol (LACP) is based on the standards specified in 802.3ad. LACP provides a standardized means for exchanging information, with partner systems, to form a link aggregation group (LAG). LACP avoids port channel misconfiguration.</p>
+ <p class="FM_Body"><a name="IX_data_units_DUs"></a>Two devices (actor and partner) exchange LACP data units (DUs) in the process of forming a LAG. Once multiple ports in the system have the same actor system ID, actor key, partner system ID, and partner key, they belong to the same LAG. </p>
+ <p class="FM_Body">The maximum number of supported port-channels is 8. With the introduction of LACP, this number remains the same. In essence, a port-channel group (LAG) is created either statically or dynamically via LACP. This chapter contains:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_77586_Important_Points"><span class="FM_PMS646">“Important Points to Remember”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_88394_LACP_Configuration"><span class="FM_PMS646">“Configuring LACP”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_15775_Best_Practices"><span class="FM_PMS646">“Best Practices” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_79443_Sample"><span class="FM_PMS646">“Sample Configuration”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Important_Points_to4"></a><a name="XREF_77586_Important_Points"></a>Important Points to Remember</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">LACP is disabled by default</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a name="IX_Tx_Rx"></a>LACP depends on periodical Tx/Rx of LACP data units (LACPDU). Any failures are noticed immediately and that port is removed from the LAG</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The maximum LAG supported per system is 8 groups; each group can be created statically or via LACP</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a name="IX_member_ports"></a>Each LAG can have up to 8 member ports</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a name="IX_group"></a>The LAG group identification (ID) range is 0 to 7 for both static (port-channel) and LACP groups</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">When a port is added to a LACP LAG, it inherits the port-channel’s properties (i.e. VLAN membership, trunk status etc)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">When a port is added to LACP LAG, the port’s property (i.e. speed) is compared to the existing port properties. If there is a mismatch, the command is rejected.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Configuring_LACP"></a><a name="XREF_88394_LACP_Configuration"></a>Configuring LACP</p>
+ <p class="FM_Body"><a name="IX_configuring_40"></a>Two LACP configured devices exchange LACPDUs to form a LAG. A device is configurable as an active or passive participant. In active mode, the device initiates DUs irrespective of the partner state; passive mode devices respond only to the incoming DUs sent by the partner device. Hence, to form a LAG group between two devices, one device must be an active participant. For detailed information on the LACP commands, see the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> Command Line Reference Guide.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI90"></a>In the CLI</p>
+ <p class="FM_Body"><a name="IX_with_the_CLI"></a>LACPDUs exchange their corresponding system identifier/priority along with their port’s key/priority. This information determines the LAG of a given port. The LAG for a port is selected based on it’s keys; the port is placed in that LAG only when it’s system ID/key and partner's system ID/key matches the other ports in the LAG (if the group has ports). </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enable LACP and configure the per-port specific LACP. The group number range is 0 to 7.</p>
+ <p class="FM_BodyinBulletStep">lacp group &lt;group_number&gt; mode {active | passive}</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">Active mode—the interface is in active negotiating state. LACP runs on any link that is configured to be in the active state. The port in an active mode also automatically initiates negotiations with other ports by initiating LACP packets.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Passive mode—the interface is <span style="font-style : italic; ">not</span>&#160;in an active negotiating state. LACP runs on any link that is configured in a passive state. The port in a passive mode responds to negotiations requests from other ports that are in an active state. Ports in passive state respond to LACP packets</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 40.00pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">A port in a passive state cannot set up a port channel (LAG group) with another port in a passive state. </p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_BulletinSteps">.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Set the timeout for the LACP session. The timeout value is the amount of time that a port-channel interface waits for a LACPDU from the remote system before terminating the LACP session. The default time out value is long (90 seconds); short is 3 seconds</p>
+ <p class="FM_BodyinBulletStep">lacp timeout {long | short}</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Set the port priority.</p>
+ <p class="FM_BodyinBulletStep"><span class="FM_CLI">lacp port-priority &lt;priority_value&gt;</span>&#160;</p>
+ <p class="FM_BodyinBulletStep">The higher the priority value the lower the priority. Range is 1 to 65535 and default is 255.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>View your LACP configuration.</p>
+ <p class="FM_BodyinBulletStep">The port uses the group number +1 as the “actor admin key”. By default, all the ports use the long timeout value (90 seconds).</p>
+ <p class="FM_CLI"><span class="FM_CLI">(host)#show lacp 0 neighbor</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">Flags: <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>S - Device is requesting Slow LACPDUs </span></p>
+ <p class="FM_CLI"><span class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;F - Device is requesting fast LACPDUs</span></p>
+ <p class="FM_CLI"><span class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A - Device is in active mode P - Device is in passive mode</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">Partner's information</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">---------------------</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">Port &#160;&#160;&#160;Flags &#160;Pri &#160;OperKey &#160;State Num &#160;Dev Id</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">---- &#160;&#160;&#160;----- &#160;---- ------- &#160;----- ---- ----------------</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">FE 1/1 &#160;SA &#160;&#160;&#160;&#160;1 &#160;&#160;&#160;0x10 &#160;&#160;&#160;&#160;0x45 &#160;0x5 &#160;00:0b:86:51:1e:70</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">FE 1/2 &#160;SA &#160;&#160;&#160;&#160;1 &#160;&#160;&#160;0x10 &#160;&#160;&#160;&#160;0x45 &#160;0x6 &#160;00:0b:86:51:1e:70</span></p>
+ <p class="FM_BodyinBulletStep">When a port in a LAG, is misconfigured (that is, the partner device is different than the other ports) or the neighbor timesout or can not exchange LACPDUs with the partner, the port status is displayed as “DOWN” (see the following example).</p>
+ <p class="FM_CLI"><span class="FM_CLI">(host)#show lacp 0 internal</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">Flags: S - Device is requesting Slow LACPDUs </span></p>
+ <p class="FM_CLI"><span class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>F - Device is requesting fast LACPDUs</span></p>
+ <p class="FM_CLI"><span class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>A - Device is in active mode P - Device is in passive mode</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span class="FM_CLI">Port &#160;&#160;&#160;Flags &#160;Pri &#160;AdminKey &#160;OperKey &#160;State Num &#160;Status</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">---- &#160;&#160;&#160;----- &#160;---- -------- &#160;-------- ----- ---- -------</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">FE 1/1 &#160;SA &#160;&#160;&#160;&#160;1 &#160;&#160;&#160;0x1 &#160;&#160;&#160;&#160;&#160;&#160;0x1 &#160;&#160;&#160;&#160;&#160;0x45 &#160;0x2 &#160;DOWN</span></p>
+ <p class="FM_CLI"><span class="FM_CLI">FE 1/2 &#160;SA &#160;&#160;&#160;&#160;1 &#160;&#160;&#160;0x1 &#160;&#160;&#160;&#160;&#160;&#160;0x1 &#160;&#160;&#160;&#160;&#160;0x45 &#160;0x3 &#160;UP</span></p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI89"></a>In the WebUI</p>
+ <p class="FM_Body"><a name="IX_configuring_with_WebUI"></a>Access LACP from the <span style="font-weight : bold; ">Configuration-&gt;Network-&gt;Port</span>&#160;tabs. Use the drop down menus to enter the LACP values.</p>
+ <div align="left"><img alt="LACP_Top_port.jpg" id="image0" src="images/LACP_Top_port.jpg" />
+ </div>
+ <p class="FM_Body">&#160;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="LACP_Bot_port.jpg" id="image1" src="images/LACP_Bot_port.jpg" />
+ </div>
+ <p class="FM_Anchor">&#160;</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">LACP Group—The link aggregation group (LAG) number; range is 0 to 7</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Mode—Active negotiation state or not in an active negotiation state indicated by the <span style="font-style : italic; ">passive</span> option.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Priority—The port priority value; range is 1 to 65535 Default 255</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Timeout—Time out value for the LACP session; Long, the default, is 90 seconds; short is 3 seconds</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Best_Practices"></a><a name="XREF_15775_Best_Practices"></a>Best Practices</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a name="IX_Best_Practices"></a>The LACP commands can not be configured on a port that is already a member of a static port-channel. Similarly, if the group assigned in the command <span style="font-weight : bold; ">lacp group</span> &lt;number&gt; already contains static port members, the command is rejected.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The port uses the group number as it’s actor admin key. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">By default, all ports use long timeout values (90 seconds)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The output of the command <span style="font-weight : bold; ">show interface port-channel</span>&#160;now indicates if the LAG is created by LACP (dynamic) or static configuration. If the LAG is created via LACP, you can not add/delete any ports under that port channel. All other commands are allowed.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Sample_Configuration"></a><a name="XREF_79443_Sample"></a>Sample Configuration</p>
+ <p class="FM_Body"><a name="IX_sample_configuration"></a>The following sample configuration is for FastEthernet (FE) port/slot 1/0, 1/1, and 1/2</p>
+ <p class="FM_CLI">interface fastethernet 1/0</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;description &quot;FE1/0&quot;</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;trusted vlan 1-4094</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;lacp group 0 mode active</p>
+ <p class="FM_CLI">!</p>
+ <p class="FM_CLI">interface fastethernet 1/1</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;description &quot;FE1/1&quot;</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;trusted vlan 1-4094</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;lacp timeout short</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;lacp group 0 mode active</p>
+ <p class="FM_CLI">!</p>
+ <p class="FM_CLI">interface fastethernet 1/2</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;description &quot;FE1/2&quot;</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;trusted vlan 1-4094</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;lacp group 0 mode passive</p>
+ <p class="FM_CLI">!</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

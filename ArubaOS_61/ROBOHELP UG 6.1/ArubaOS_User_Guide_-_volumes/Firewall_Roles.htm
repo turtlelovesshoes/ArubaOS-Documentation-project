@@ -1,0 +1,1355 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Firewall_Roles</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Firewall_Roles.fm" />
+ <meta name="keywords" content="bandwidth contract, virtual private networks, preconfigured internal bandwidth contract exception list, vlan bandwidth contract mac exception list">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_Anchor"><a name="XREF_98100_Title_of_Chapter"></a>&nbsp;</p>
+ <p class="FM_ChapterNumber"><a name="TOC_Chapter_12"></a>Chapter 12</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Roles_and_Policies"></a><a name="XREF_45383_Roles_and_Policies"></a>Roles and Policies</p>
+ <p class="FM_Body">Every client in an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;user-centric network is associated with a <span style="font-style : italic; ">user role</span>, which determines the client’s network privileges, how often it must re-authenticate, and which bandwidth contracts are applicable. A <span style="font-style : italic; ">policy </span>is a set of rules that applies to traffic that passes through the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You specify one or more policies for a user role. Finally, you can assign a user role to clients before or after they authenticate to the system.</p>
+ <p class="FM_Body">This chapter describes assigning and creating roles and policies using the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;CLI or WebUI. Roles and policies can also be configured for WLANs associated with the “default” ap-group via the WLAN Wizard: Configuration &gt;&#160;Wizards &gt; WLAN Wizard. Follow the steps in the workflow pane within the wizard and refer to the help tab for assistance.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_49460_Policies"><span class="FM_PMS646">“Policies” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_73126_Creating_a_Policy"><span class="FM_PMS646">“Creating a Firewall Policy” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_64979_Creating_a_Network"><span class="FM_PMS646">“Creating a Network Service Alias”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_99743_Creating_an_ACL"><span class="FM_PMS646">“Creating an ACL White List” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_48865_Creating_a_New"><span class="FM_PMS646">“User Roles”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_21625_Assigning_User"><span class="FM_PMS646">“User Role Assignments”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_26781_Global_Firewall"><span class="FM_PMS646">“Global Firewall Parameters” </span></a></p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote"><span style="color   : #000000; ">This chapter describes configuring firewall policies and parameters that relate to IPv4 traffic. See </span><a href="Network_Parameters.htm#XREF_54310_Creating_and"><span class="FM_PMS646">Chapter 36, “IPv6 Support”</span></a><span style="color   : #000000; "> for information about configuring IPv6 firewall policies and parameters.</span></p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Policies"></a><a name="XREF_49460_Policies"></a>Policies</p>
+ <p class="FM_Body"><a name="IX_policies"></a>A firewall policy identifies specific characteristics about a data packet passing through the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and takes some action based on that identification. In an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, that action can be a firewall-type action such as permitting or denying the packet, an administrative action such as logging the packet, or a quality of service (QoS) action such as setting 802.1p bits or placing the packet into a priority queue. You can apply firewall policies to user roles to give differential treatment to different users on the same network, or to physical ports to apply the same policy to all traffic through the port.</p>
+ <p class="FM_Body">Firewall policies differ from access control lists (ACLs) in the following ways:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Firewall policies are <span style="font-style : italic; ">stateful</span>, meaning that they recognize flows in a network and keep track of the state of sessions. For example, if a firewall policy permits telnet traffic from a client, the policy also recognizes that inbound traffic associated with that session should be allowed.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Firewall policies are <span style="font-style : italic; ">bi-directional</span>, meaning that they keep track of data connections traveling into or out of the network. ACLs are normally applied to either traffic inbound to an interface or outbound from an interface.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Firewall policies are <span style="font-style : italic; ">dynamic</span>, meaning that address information in the policy rules can change as the policies are applied to users. For example, the alias <span style="font-style : italic; ">user</span>&#160;in a policy automatically applies to the IP address assigned to a particular user. ACLs typically require static IP addresses in the rule.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 521.25pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 71.250pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zTextNote"><span style="color   : #000000; ">You can apply IPv4 and IPv6 firewall policies to the same user role. See </span><a href="Network_Parameters.htm#XREF_54310_Creating_and"><span class="FM_PMS646">Chapter 36, “IPv6 Support”</span></a><span style="color   : #000000; ">&#160;for information about configuring IPv6 firewall policies.</span></p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Access_Control_Lists_ACLs"></a>Access Control Lists (ACLs)</p>
+ <p class="FM_Body"><a name="IX_access_control_lists"></a>Access control lists (ACLs) are a common way of restricting certain types of traffic on a physical port. <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> provides the following types of ACLs:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Standard ACLs permit or deny traffic based on the source IP address of the packet. Standard ACLS can be either named or numbered, with valid numbers in the range of 1-99 and 1300-1399. Standard ACLs use a bitwise mask to specify the portion of the source IP address to be matched.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Extended ACLs permit or deny traffic based on source or destination IP address, source or destination port number, or IP protocol. Extended ACLs can be named or numbered, with valid numbers in the range 100-199 and 2000-2699.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">MAC ACLs are used to filter traffic on a specific source MAC address or range of MAC addresses. Optionally, you can mirror packets to a datapath or remote destination for troubleshooting and debugging purposes. MAC ACLs can be either named or numbered, with valid numbers in the range of 700-799 and 1200-1299.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Ethertype ACLs are used to filter based on the Ethertype field in the frame header. Optionally, you can mirror packets to a datapath or remote destination for troubleshooting and debugging purposes. Ethertype ACLs can be either named or numbered, with valid numbers in the range of 200-299.These ACLs can be used to permit IP while blocking other non-IP protocols, such as IPX or AppleTalk.</p>
+</li>
+ </ul>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;provides both standard and extended ACLs for compatibility with router software from popular vendors, however firewall policies provide equivalent and greater function than standard and extended ACLs and should be used instead. </p>
+ <p class="FM_Body">You can apply MAC and Ethertype ACLs to a user role, however these ACLs only apply to non-IP traffic <span style="font-style : italic; ">from</span> the user.</p>
+ <p class="FM_2Heading"><a name="TOC_Creating_a_Firewall"></a><a name="XREF_73126_Creating_a_Policy"></a>Creating a Firewall Policy</p>
+ <p class="FM_Body"><a name="IX_configuring_20"></a>This section describes how to configure the rules that constitute a firewall policy. A firewall policy can then be applied to a user role (until the policy is applied to a user role, it does not have any effect).</p>
+ <p class="FM_Body"><a name="XREF_36877_Creating_a_New"></a><a href="Network_Parameters.htm#XREF_24204_Creating_Updating"><span class="FM_PMS646">Table 58</span></a> describes required and optional parameters for a rule.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 451.91pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 58 &#160;</span><a name="XREF_39312_Table1_1_Required"></a>Firewall Policy Rule Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 76.128pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Field</p>
+</th>
+  <th style="width : 375.787pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 133.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Source (required)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Source of the traffic, which can be one of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">any</span>: Acts as a wildcard and applies to any source address.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">user</span>: This refers to traffic from the wireless client.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">host</span><span style="font-style : italic; ">:</span>&#160;This refers to traffic from a specific host. When this option is chosen, you must configure the IP address of the host.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">network</span><span style="font-style : italic; ">:</span>&#160;This refers to a traffic that has a source IP from a subnet of IP addresses. When this option is chosen, you must configure the IP address and network mask of the subnet.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">alias</span><span style="font-style : italic; ">:</span>&#160;This refers to using an alias for a host or network. You configure the alias by navigating to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt;&#160;Stateful Firewall &gt; Destination</span>&#160;page. </p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Destination (required)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Destination of the traffic, which can be configured in the same manner as Source.</p>
+</td>
+</tr>
+  <tr style=" height : 143.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Service (required)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Type of traffic, which can be one of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_Bold" style="font-style : italic; font-weight : bold; ">any</span>: This option specifies that this rule applies to any type of traffic.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">tcp</span>: Using this option, you configure a range of TCP port(s) to match for the rule to be applied.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">udp</span>: Using this option, you configure a range of UDP port(s) to match for the rule to be applied.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">service</span><span style="font-style : italic; ">: </span>Using this option, you use one of the pre-defined services (common protocols such as HTTPS, HTTP, and others) as the protocol to match for the rule to be applied. You can also specify a network service that you configure by navigating to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt;&#160;Stateful Firewall &gt; Network Services</span> page.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">protocol</span>: Using this option, you specify a different layer 4 protocol (other than TCP/UDP) by configuring the IP protocol value.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 209.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Action (required)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The action that you want the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to perform on a packet that matches the specified criteria. This can be one of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">permit: </span>Permits traffic matching this rule.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">drop:</span> Drops packets matching this rule without any notification.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">reject: </span>Drops the packet and sends an ICMP notification to the traffic source.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">src-nat: </span>Performs network address translation (NAT) on packets matching the rule. When this option is selected, you need to select a NAT pool. (If this pool is not configured, you configure a NAT pool by navigating to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced &gt; Security &gt;&#160;Advanced &gt; NAT Pools</span>.)</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">dst-nat:</span>&#160;This option redirects traffic to the configured IP address and destination port. An example of this option is to redirect all HTTP packets to the captive portal port on the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as used in the pre-defined policy called <span style="font-style : italic; ">“captiveportal”</span>.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">dual-nat</span>: This option performs both source and destination NAT on packets matching the rule.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">redirect to tunnel: </span>This option redirects traffic into a GRE tunnel. This option is used primarily to redirect all guest traffic into a GRE tunnel to a DMZ router/switch.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">redirect to ESI group</span>: This option redirects traffic to the specified ESI server group. You also specify the direction of traffic to be redirected: forward, reverse, or both directions.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Log (optional)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logs a match to this rule. This is recommended when a rule indicates a security breach, such as a data packet on a policy that is meant only to be used for voice calls.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mirror (optional)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mirrors session packets to datapath or remote destination.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Queue (optional)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The queue in which a packet matching this rule should be placed.<br />Select <span class="FM_Bold" style="font-weight : bold; ">High</span>&#160;for higher priority data, such as voice, and <span class="FM_Bold" style="font-weight : bold; ">Low</span> for lower priority traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time Range (optional)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time range for which this rule is applicable.</p>
+  <p class="FM_TableBody">Configure time ranges on the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Time Ranges</span>&#160;page.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Pause ARM Scanning (optional)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Pause ARM scanning while traffic is present. Note that you must enable “VoIP Aware Scanning” in the ARM profile for this feature to work.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Black List (optional)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Automatically blacklists a client that is the source or destination of traffic matching this rule. This option is recommended for rules that indicate a security breach where the blacklisting option can be used to prevent access to clients that are attempting to breach the security.</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">White List (optional)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A rule must explicitly permit a traffic session before it is forwarded to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The last rule in the white list denies everything else. <br />Configure white list ACLs on the <span style="font-weight : bold; ">Configuration &gt; Advanced Services&gt; Stateful Firewall&gt; White List (ACL) </span>page.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TOS (optional)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Value of type of service (TOS) bits to be marked in the IP header of a packet matching this rule when it leaves the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">802.1p Priority (optional)</p>
+</td>
+  <td style="width : 375.787pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Value of 802.1p priority bits to be marked in the frame of a packet matching this rule when it leaves the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body">The following example creates a policy ‘web-only’ that allows web (HTTP and HTTPS) access.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI60"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies</span> page on the WebUI.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure a firewall policy, select the policy type from the Policies title bar. You can select <span style="font-weight : bold; ">All</span>, <span style="font-weight : bold; ">IPv4</span>&#160;<span style="font-weight : bold; ">Session</span>, <span style="font-weight : bold; ">IPv6 Session</span>, <span style="font-weight : bold; ">Ethernet</span>, <span style="font-weight : bold; ">MAC</span>, <span style="font-weight : bold; ">Standard</span>&#160;or <span style="font-weight : bold; ">Extended</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;to create a new policy. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If you selected All in Step 2, then select the type of policy you are adding from the <span style="font-weight : bold; ">Policy Type</span> drop-down menu.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a name="XREF_15424_3_Click_Add_to_add"></a>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span> to add a rule that allows HTTP traffic.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select service from the drop-down list. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select svc-http from the scrolling list.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to add a rule that allows HTTPS traffic.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select service from the drop-down list. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select svc-https from the scrolling list.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 521.25pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 71.250pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">Rules can be re-ordered by using the up and down buttons provided for each rule.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepSubNext"></p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span> to apply this configuration. The policy is not created until the configuration is applied.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI62"></a>In the CLI</p>
+ <p class="FM_CLIIndented">ip access-list session web-only</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;any any svc-http permit</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;any any svc-https permit</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_2Heading"><a name="TOC_Creating_a_Network"></a><a name="XREF_64979_Creating_a_Network"></a>Creating a Network Service Alias</p>
+ <p class="FM_Body">A network service alias defines a TCP, UDP or IP protocol and a list or range of ports supported by that service. When you create a network service alias, you can use that alias when specifying the network service for multiple session ACLs.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI61"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt; Advanced Services&gt;&#160;Stateful Firewall &gt; Network Services </span>page on the WebUI.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span> to create a new alias.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name for the alias in the <span style="font-weight : bold; ">Service Nam</span>e field.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Protocol</span>&#160;section, select either TCP or UDP, or select Protocol and enter the IP protocol number of the protocol for which you want to create an alias.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Port Type</span>&#160;section, specify whether you want to define the port by a contiguous range of ports, or by a list of non-contiguous port numbers.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">If you selected <span style="font-weight : bold; ">Range</span>, enter the starting and ending port numbers in the <span style="font-weight : bold; ">Starting Port</span>&#160;and <span style="font-weight : bold; ">End Port</span> fields.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">If you selected list, enter a comma-separated list of port numbers.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To limit the service alias to a specific application, click the <span style="font-weight : bold; ">Application Level Gateway (ALG)</span> drop-down list and select one of the following service types</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">dhcp</span>: &nbsp;Service is DHCP</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">dns</span>: &nbsp;Service is DNS</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">ftp</span>: &nbsp;Service is FTP</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">h323</span>: &nbsp;Service is H323</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">noe</span>: &nbsp;Service is Alcatel NOE</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">rtsp</span>:&nbsp; Service is RTSP</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">sccp</span>: &nbsp;Service is SCCP</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">sip</span>: &nbsp;Service is SIP</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">sips</span>: &nbsp;Service is Secure SIP</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">svp</span>: &nbsp;Service is SVP</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">tftp</span>: &nbsp;Service is TFTP</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">vocera</span>: &nbsp;Service is VOCERA</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your changes.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI63"></a>In the CLI</p>
+ <p class="FM_Body">To define a service alias via the command-line interface, access the CLI in config mode and issue the following command:</p>
+ <p class="FM_Body">netservice &lt;name&gt; &lt;protocol&gt;|tcp|udp {list &lt;port&gt;,&lt;port&gt;}|{&lt;port&gt; [&lt;port&gt;]}<br />[ALG &lt;service&gt;]</p>
+ <p class="FM_2Heading"><a name="TOC_Creating_an_ACL_White"></a><a name="IX_whitelisting_ACLs"></a><a name="IX_ACL_white_list"></a><a name="IX_white_list"></a><a name="XREF_99743_Creating_an_ACL"></a>Creating an ACL White List</p>
+ <p class="FM_Body">The ACL White List consists of rules that explicitly permit or deny session traffic from being forwarded to or blocked from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The white list protects the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;during traffic session processing by prohibiting traffic from being automatically forwarded to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;if it was not specifically denied in a blacklist. The maximum number of entries allowed in the ACL White List is 64. To create an ACL white list, you must first define a white list bandwidth contract, and then assign it to an ACL.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_a_White_List"></a>Configuring a White List Bandwidth Contract in the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt;&#160;Stateful Firewall &gt; White List BW Contracts</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to create a new contract.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">White list contract name</span> field, enter the name of a bandwidth contract.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <span style="font-weight : bold; ">Bandwidth Rate</span>&#160;field allows you to define a bandwidth rate in either kbps or Mbps. Enter a rate value the <span style="font-weight : bold; ">Bandwidth rate</span> field, then click the drop-down list and select either kbps or Mbps.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_the_ACL"></a>Configuring the ACL White List in the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt; Stateful Firewall&gt; ACL White List </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add an entry, click the <span style="font-weight : bold; ">Add </span>button at the bottom of the page. The <span style="font-weight : bold; ">Add New Protocol </span>section displays.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Action</span>&#160;drop-down list and select <span style="font-weight : bold; ">Permit</span>&#160;or <span style="font-weight : bold; ">Deny</span>. <span style="font-weight : bold; ">Permit</span>&#160;allows session traffic to be forwarded to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;while <span style="font-weight : bold; ">Deny</span> blocks session traffic.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the IP Protocol Number field, enter the number for a protocol used by session traffic. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Starting Ports</span>&#160;field, enter a starting port. This is the first port, in the port range, on which permitted or denied session traffic is running. Port range: 1–65535.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">End Port</span>s field, enter an ending port. This is the last port, in the port range, on which permitted or denied session traffic is running. Port range: 1–65535.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) Click the <span style="font-weight : bold; ">White list Bandwidth Contract</span>&#160;drop-down list and specify the name of a bandwidth contract to apply to the session traffic. For further information on creating Bandwidth Contracts, see <a href="#XREF_12140_Using_the_WebUI_to"><span class="FM_PMS646">“Configuring a Bandwidth Contract in the WebUI”</span></a></p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>. The ACL displays on the white list section.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To delete an entry, click <span style="font-weight : bold; ">Delete</span> next to the entry you want to delete.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save changes.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_the_White"></a>Configuring the White List Bandwidth Contract in the CLI</p>
+ <p class="FM_CLI">cp-bandwidth-contract &lt;name&gt; {mbits &lt;1..2000&gt;}|{kbits &lt;256..2000000&gt;}</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_the_ACL1"></a>Configuring the ACL White List in the CLI</p>
+ <p class="FM_Body">Use the following CLI command to create ACL White Lists.</p>
+ <p class="FM_CLI"><span style="font-weight : bold; ">(host) (config) #</span>firewall cp {deny|permit} proto &lt;IP protocol number&gt; ports &lt;start port number&gt; &lt;last port number&gt; [bandwidth-contract &lt;name&gt;]</p>
+ <p class="FM_Body">To create a whitelist ACL entry that permits traffic using protocol 6 on ports 5000 through 6000 to be forwarded to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <p class="FM_CLI"><span style="font-weight : bold; ">(host) (config-fw-cp) #</span>firewall cp permit proto 6 ports 5000 6000</p>
+ <p class="FM_Body">To create a whitelist ACL entry that denies traffic using protocol 2 on port 5000 from being forwarded to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <p class="FM_Body"><span style="font-weight : bold; ">(host) (config-fw-cp) #</span>firewall cp deny proto 2 ports 5000 5000</p>
+ <p class="FM_1Heading"><a name="TOC_User_Roles"></a><a name="XREF_48865_Creating_a_New"></a>User Roles</p>
+ <p class="FM_Body"><a name="IX_configuring_22"></a><a name="IX_configuring_21"></a>This section describes how to create a new user role. When you create a user role, you specify one or more policies for the role.</p>
+ <p class="FM_Body"><a href="#XREF_33466_Table1_2_User_Role"><span class="FM_PMS646">Table 59</span></a> describes the different parameters you can configure for the user role.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 469.05pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 59 &#160;</span><a name="XREF_33466_Table1_2_User_Role"></a>User Role Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 80.955pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Field</p>
+</th>
+  <th style="width : 388.093pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 119.00pt;">
+  <td style="width : 80.955pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Firewall Policies (required)</p>
+</td>
+  <td style="width : 388.093pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One or more policies that define the privileges of a wireless client in this role. There are three ways to add a firewall policy to a user role:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Choose from configured policies (see <a href="#XREF_73126_Creating_a_Policy"><span class="FM_PMS646">“Creating a Firewall Policy” </span></a>): Select a policy from the list of configured policies and click the “Done” button to add the policy to the list of policies in the user role. If this policy is to be applied to this user role only for specific AP groups, you can specify the applicable AP group.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Create a new policy from a configured policy: This option can be used to create a new policy that is derived from an existing policy.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Create a new policy: The rules for the policy can be added as explained in <a href="#XREF_73126_Creating_a_Policy"><span class="FM_PMS646">“Creating a Firewall Policy” </span></a>.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 80.955pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Re-authentication Interval (optional)</p>
+</td>
+  <td style="width : 388.093pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time, in minutes, after which the client is required to reauthenticate. Enter a value between 0-4096. 0 disables reauthentication.</p>
+  <p class="FM_TableBody">Default: 0 (disabled)</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 80.955pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Role VLAN ID (optional)</p>
+</td>
+  <td style="width : 388.093pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">By default, a client is assigned a VLAN on the basis of the ingress VLAN for the client to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can override this assignment and configure the VLAN ID that is to be assigned to the user role. You configure a VLAN by navigating to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; VLANs</span>&#160;page.</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 80.955pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Bandwidth Contract (optional)</p>
+</td>
+  <td style="width : 388.093pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">You can assign a bandwidth contract to provide an upper limit to upstream or downstream bandwidth utilized by clients in this role. You can select the Per User option to apply the bandwidth contracts on a per-user basis instead of to all clients in the role.</p>
+  <p class="FM_TableBody">For more information, see <a href="#XREF_21598_Bandwidth_Contracts"><span class="FM_PMS646">“Bandwidth Contracts”</span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 80.955pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VPN Dialer (optional)</p>
+</td>
+  <td style="width : 388.093pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This assigns a VPN dialer to a user role. For details about VPN dialer, see <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 17, “Virtual Private Networks” </span></a>. </p>
+  <p class="FM_TableBody">Select a dialer from the drop-down list and assign it to the user role. This dialer will be available for download when a client logs in using captive portal and is assigned this role.</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 80.955pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">L2TP Pool (optional)</p>
+</td>
+  <td style="width : 388.093pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This assigns an L2TP pool to the user role. For more details about L2TP pools, see <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 17, “Virtual Private Networks” </span></a>. </p>
+  <p class="FM_TableBody">Select the required L2TP pool from the list to assign to the user role. The inner IP addresses of VPN tunnels using L2TP will be assigned from this pool of IP addresses for clients in this user role.</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 80.955pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">PPTP Pool (optional)</p>
+</td>
+  <td style="width : 388.093pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This assigns a PPTP pool to the user role. For more details about PPTP pools, see <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 17, “Virtual Private Networks” </span></a>. </p>
+  <p class="FM_TableBody">Select the required PPTP pool from the list to assign to the user role. The inner IP addresses of VPN tunnels using PPTP will be assigned from this pool of IP addresses for clients in this user role.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 80.955pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Captive Portal Profile (optional)</p>
+</td>
+  <td style="width : 388.093pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This assigns a Captive Portal profile to this role. For more details about Captive Portal profiles, see <a href="VirtualAPs.htm#XREF_15337_Access_Points"><span class="FM_PMS646">Chapter 15, “Captive Portal” </span></a>. </p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 80.955pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max Sessions</p>
+</td>
+  <td style="width : 388.093pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This configures a maximum number of sessions per user in this role. The default is 65535. You can configure any value between 0-65535.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_2Heading"><a name="TOC_Creating_a_User_Role"></a>Creating a User Role</p>
+ <p class="FM_Body">The following example creates the user role ‘web-guest’ and assigns the previously-configured ‘web-only’ policy to this user role.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI62"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; User Roles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span> to create and configure a new user role.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter web-guest for Role Name.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>. From Choose from Configured Policies, select the ‘web-only’ session policy from the list. You can click <span style="font-weight : bold; ">Create</span>&#160;to create and configure a new policy. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span> to add the policy to the user role.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 521.25pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 71.250pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:black solid 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">If there are multiple policies for this role, policies can be re-ordered by the using the up and down buttons provided for each policy.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>You can optionally enter configuration values as described in <a href="#XREF_33466_Table1_2_User_Role"><span class="FM_PMS646">Table 59</span></a>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span> to apply this configuration. The role is not created until the configuration is applied.</p>
+ <p class="FM_Body">After assigning the user role (see <a href="#XREF_21625_Assigning_User"><span class="FM_PMS646">“User Role Assignments” </span></a>), you can click the Show Reference button to see the profiles that reference this user role.</p>
+ <p class="FM_Body">To a delete a user role in the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; User Roles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Delete</span> button against the role you want to delete.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You cannot delete a user-role that is referenced to profile or server derived role. Deleting a server referenced role will result in an error. Remove all references to the role and then perform the delete operation.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI64"></a>In the CLI </p>
+ <p class="FM_CLIIndented">user-role web-guest</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;access-list session web-only position 1</p>
+ <p class="FM_Body">After assigning the user role (see <a href="#XREF_21625_Assigning_User"><span class="FM_PMS646">“User Role Assignments”</span></a>), you can use the <span style="font-weight : bold; ">show reference user-role &lt;</span><span style="font-style : italic; font-weight : bold; ">role</span><span style="font-weight : bold; ">&gt;</span> command to see the profiles that reference this user role.</p>
+ <p class="FM_2Heading"><a name="TOC_Bandwidth_Contracts"></a><a name="XREF_21598_Bandwidth_Contracts"></a>Bandwidth Contracts</p>
+ <p class="FM_Body">You can manage bandwidth utilization by assigning maximum bandwidth rates, or <span style="font-style : italic; ">bandwidth</span>&#160;<span style="font-style : italic; ">contracts</span>, to user roles. You can configure bandwidth contracts, in kilobits per second (Kbps) or megabits per second (Mbps), for the following types of traffic:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">from the client to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> (“upstream” traffic)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to the client (“downstream” traffic)</p>
+</li>
+ </ul>
+ <p class="FM_Body">You can assign different bandwidth contracts to upstream and downstream traffic for the same user role. You can also assign a bandwidth contract for only upstream or only downstream traffic for a user role; if there is no bandwidth contract specified for a traffic direction, unlimited bandwidth is allowed.</p>
+ <p class="FM_Body">By default, all users that belong to the same role share a configured bandwidth rate for upstream or downstream traffic. You can optionally apply a bandwidth contract on a <span style="font-style : italic; ">per-user</span>&#160;basis; each user who belongs to the role is allowed the configured bandwidth rate.</p>
+ <p class="FM_Body">For example, if clients are connected to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;through a DSL line, you may want to restrict the upstream bandwidth rate allowed for <span class="FM_Emphasis">each</span>&#160;user to 128 Kbps. Or, you can limit the <span class="FM_Emphasis">total</span>&#160;downstream bandwidth used by all users in the ‘guest’ role to 128 Mbps. The following example configures a bandwidth rate of 128 Kbps and applies it to upstream traffic for the previously-configured ‘web-guest’ user role on a per-user basis. </p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_a_Bandwidth"></a><a name="XREF_12140_Using_the_WebUI_to"></a>Configuring a Bandwidth Contract in the WebUI</p>
+ <p class="FM_Body">In the WebUI, you can first configure a bandwidth contract and then assign it to a user role:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt;&#160;Stateful Firewall &gt; BW Contracts</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to create a new contract.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Contract Name</span>&#160;field, enter <span style="font-weight : bold; ">BC512_up</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <span style="font-weight : bold; ">Bandwidth</span>&#160;field allows you to define a bandwidth rate in either kbps or Mbps. For this example, enter <span style="font-weight : bold; ">512</span>&#160;in the <span style="font-weight : bold; ">Bandwidth </span>field, then click the drop-down list and select <span style="font-weight : bold; ">kbps</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Assigning_a_Bandwidth"></a>Assigning a Bandwidth Contract to a User Role in the WebUI</p>
+ <p class="FM_Body">Now that you have a defined bandwidth contract, you can assign that contract to a user role.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; User Roles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Edit</span> for the web-guest user role.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Bandwidth Contract, select <span style="font-weight : bold; ">BC512_up</span> from the drop-down menu for Upstream.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select Per User.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Scroll to the bottom of the page, and click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">You can also can configure the user role and create the bandwidth contract from the<span style="font-weight : bold; "> User Roles</span> page:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; User Roles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select Edit for the web-guest user role.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Bandwidth Contract section, click the <span style="font-weight : bold; ">Upstream</span>&#160;drop-down list and select <span style="font-weight : bold; ">Add New</span>. The <span style="font-weight : bold; ">New Bandwidth Contract</span> fields appear.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Name</span>&#160;field, enter <span style="font-weight : bold; ">BC512_up</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Bandwidth</span> field, enter 512.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Bandwidth</span> drop-down list and select kbps.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>&#160;to add the new contract and assign it to the role. The <span style="font-weight : bold; ">New Bandwidth Contract</span>&#160;section closes.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Bandwidth Contract</span>&#160;section, select the <span style="font-weight : bold; ">Per User</span> checkbox.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Scroll to the bottom of the page, and click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_and"></a>Configuring and Assigning Bandwidth Contracts in the CLI</p>
+ <p class="FM_CLIIndented">aaa bandwidth-contract BC512_up kbps 512</p>
+ <p class="FM_CLIIndented">user-role web-guest</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;bw-contract BC512_up per-user upstream</p>
+ <p class="FM_2Heading"><a name="TOC_Bandwidth_Contract"></a>Bandwidth Contract Exceptions</p>
+ <p class="FM_Body">Bandwidth contracts on a VLAN can limit broadcast and multicast traffic. <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;includes an internal exception list to allow broadcast and multicast traffic using the VRRP, LACP, OSPF, PVST and STP protocols. To remove per-vlan bandwidth contract limits on an additional broadcast or multicast protocol, add the MAC address for that broadcast/multicast protocol to the Vlan Bandwidth Contracts MAC Exception List</p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_the_Current"></a>Viewing the Current Exceptions List</p>
+ <p class="FM_Body">To view the current bandwidth contract exception list, access the command-line interface in enable mode and issue the command <span style="font-weight : bold; ">show vlan-bwcontract-explist</span>. To view the preconfigured internal bandwidth contract exception list, include the optional internal parameter, as shown in the example below:</p>
+ <div align="left"><img alt="Firewall_Roles00062.jpg" id="image0" src="images/Firewall_Roles00062.jpg" />
+ </div>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_Bandwidth1"></a>Configuring Bandwidth Contract Exceptions</p>
+ <p class="FM_Body">To add the MAC address of a protocol to the exception list for bandwidth contracts, access the command-line interface in config mode and issue the command <span style="font-weight : bold; ">vlan-bwcontract-explist &lt;mac-addr&gt;</span>.<span style="font-family : HelveticaNeueLT Std; font-size  : 9.0pt; ">&#160;</span></p>
+ <p class="FM_Body">The following example adds the MAC address for CDP (Cisco Discovery Protocol) and VTP (Virtual Trunking Protocol to the list of protocols that are not limited by VLAN bandwidth contracts.</p>
+ <p class="FM_Body">(host) (config) #vlan-bwcontract-explist mac 01:00:0C:CC:CC:CC</p>
+ <p class="FM_1Heading"><a name="TOC_User_Role_Assignments"></a><a name="XREF_21625_Assigning_User"></a>User Role Assignments</p>
+ <p class="FM_Body"><a name="IX_assigning_2"></a><a name="IX_assigning_1"></a>A client is assigned a user role by one of several methods. A role assigned by one method may take precedence over one assigned by a different method. The methods of assigning user roles are, from lowest to highest precedence:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The initial user role or VLAN for unauthenticated clients is configured in the AAA profile for a virtual AP (see <a href="Network_Parameters.htm#XREF_24204_Creating_Updating"><span class="FM_PMS646">Chapter 4, “Access Points” </span></a>). </p>
+ <p class="FM_StepNext"><a name="IX_user_derived_role"></a>2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The user role can be derived from user attributes upon the client’s association with an AP (this is known as a <span style="font-style : italic; ">user-derived role</span>). You can configure rules that assign a user role to clients that match a certain set of criteria. For example, you can configure a rule to assign the role <span style="font-style : italic; ">“VoIP-Phone”</span>&#160;to any client that has a MAC address that starts with bytes <span style="font-style : italic; ">xx:yy:zz.</span>&#160;User-derivation rules are executed <span style="font-style : italic; ">before</span>&#160;client authentication.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The user role can be the default user role configured for an authentication method, such as 802.1x or VPN. For each authentication method, you can configure a default role for clients who are successfully authenticated using that method.</p>
+ <p class="FM_StepNext"><a name="IX_server_derived_role"></a>4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The user role can be derived from attributes returned by the authentication server and certain client attributes (this is known as a <span style="font-style : italic; ">server-derived role</span>). If the client is authenticated via an authentication server, the user role for the client can be based on one or more attributes returned by the server during authentication, or on client attributes such as SSID (even if the attribute is not returned by the server). Server-derivation rules are executed <span style="font-style : italic; ">after</span> client authentication.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The user role can be derived from <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Vendor-Specific Attributes (VSA) for RADIUS server authentication. A role derived from an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> VSA takes precedence over any other user roles.</p>
+ <p class="FM_Body">The following sections describe the methods of assigning user roles.</p>
+ <p class="FM_2Heading"><a name="TOC_User_Role_in_AAA_Profile"></a>User Role in AAA Profile</p>
+ <p class="FM_Body">An AAA profile defines the user role for unauthenticated clients (initial role) as well as the default user role for MAC and 802.1x authentication. To configure user roles in the AAA profile:</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI63"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; AAA Profiles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the “default” profile or a user-defined AAA profile.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Initial Role</span> drop-down list, and select the desired user role for unauthenticated users.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">802.1x Authentication Default Role</span>&#160;drop-down list and select the desired user role for users who have completed 802.1x authentication.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">MAC Authentication Default Role</span>&#160;drop-down list and select the desired user role for clients who have completed MAC authentication.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI65"></a>In the CLI</p>
+ <p class="FM_CLIIndented">aaa profile &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;initial-role &lt;<span style="font-style : italic; ">role&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;dot1x-default-role &lt;<span style="font-style : italic; ">role&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;mac-default-role <span style="font-style : italic; ">&lt;role&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_User_Derived_Roles_or"></a><a name="XREF_89178_User_Derived_Roles"></a>User-Derived Roles or VLANs</p>
+ <p class="FM_Body">Attributes derived from the client’s association with an AP can be used to assign the client to a specific role or VLAN, as user-derivation rules are executed before the client is authenticated.</p>
+ <p class="FM_Body"><a name="IX_configuring_23"></a>You configure the user role or VLAN to be assigned to the client by specifying condition rules; when a condition is met, the specified user role or VLAN is assigned to the client. You can specify more than one condition rule; the order of rules is important as the first matching condition is applied. You can optionally add a description of the user rule.</p>
+ <p class="FM_Body"><a href="#XREF_71417_Table1_3"><span class="FM_PMS646">Table 60</span></a> describes the conditions for which you can specify a user role or VLAN.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 465.93pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 60 &#160;</span><a name="XREF_71417_Table1_3"></a>Conditions for a User-Derived Role<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>or VLAN<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 193.585pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Rule Type</p>
+</th>
+  <th style="width : 104.464pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Condition</p>
+</th>
+  <th style="width : 167.885pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Value</p>
+</th>
+</tr>
+  <tr style=" height : 83.00pt;">
+  <td style="width : 193.585pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">BSSID: Assign client to a role or VLAN based upon the BSSID of AP to which client is associating.</p>
+</td>
+  <td style="width : 104.464pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">contains</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">ends with</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">equals</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">does not equal</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">starts with</p>
+</li>
+  </ul></td>
+  <td style="width : 167.885pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">MAC address (xx:xx:xx:xx:xx:xx)</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 193.585pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">DHCP-Option: Assign client to a role or VLAN based upon the DHCP signature ID.</p>
+</td>
+  <td style="width : 104.464pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">equals</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">starts with</p>
+</li>
+  </ul></td>
+  <td style="width : 167.885pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">DHCP signature ID. </p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>This string is <span style="font-style : italic; ">not</span> case sensitive.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 193.585pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">DHCP-Option-77: Assign client to a role or VLAN based upon the user class identifier returned by DHCP server. </p>
+</td>
+  <td style="width : 104.464pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">equals</p>
+</td>
+  <td style="width : 167.885pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">string</p>
+</td>
+</tr>
+  <tr style=" height : 95.00pt;">
+  <td style="width : 193.585pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Encryption: Assign client to a role or VLAN based upon the encryption type used by the client.</p>
+</td>
+  <td style="width : 104.464pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">equals</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">does not equal</p>
+</li>
+  </ul></td>
+  <td style="width : 167.885pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; ">
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Open (no encryption)</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">WPA/WPA2 AES</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">WPA-TKIP (static or dynamic)</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Dynamic WEP</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">WPA/WPA2 AES PSK</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Static WEP</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">xSec</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 125.00pt;">
+  <td style="width : 193.585pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ESSID: Assign client to a role or VLAN based upon the ESSID to which the client is associated</p>
+</td>
+  <td style="width : 104.464pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">contains</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">ends with</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">equals</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">does not equal</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">starts with</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">value of (does not take <span style="font-style : italic; ">string</span>; attribute value is used as role)</p>
+</li>
+  </ul></td>
+  <td style="width : 167.885pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">string</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 193.585pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Location: Assign client to a role or VLAN based upon the ESSID to which the client is associated</p>
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 104.464pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">equals</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">does not equal</p>
+</li>
+  </ul></td>
+  <td style="width : 167.885pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">string</p>
+</td>
+</tr>
+  <tr style=" height : 83.00pt;">
+  <td style="width : 193.585pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">MAC address of the client</p>
+</td>
+  <td style="width : 104.464pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">contains</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">ends with</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">equals</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">does not equal</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">starts with</p>
+</li>
+  </ul></td>
+  <td style="width : 167.885pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">MAC address (xx:xx:xx:xx:xx:xx)</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_3Heading"><a name="TOC_Device_Identification"></a><a name="IX_Windows_device"></a><a name="IX_Android_identification"></a><a name="IX_iPad_identification_see"></a>Device Identification</p>
+ <p class="FM_Body"><a name="IX_fingerprinting_see"></a><a name="IX_device_identification"></a>The<span style="font-weight : bold; ">&#160;</span>device identification feature allows you to assign a user role or VLAN to a specific device type by identifying a DHCP option and signature for that device. If you create a user rule with the <span style="font-weight : bold; ">DHCP-Option</span>&#160;rule type, the first two characters in the <span style="font-weight : bold; ">Value</span>&#160;field must represent the hexadecimal value of the DHCP option that this rule should match, while the rest of the characters in the <span style="font-weight : bold; ">Value</span>&#160;field indicate the DHCP signature the rule should match. To create a rule that matches DHCP option 12 (host name), the first two characters of the in the <span style="font-weight : bold; ">Value</span>&#160;field must be the hexadecimal value of 12, which is 0C. To create a rule that matches DHCP option 55, the first two characters in the <span style="font-weight : bold; ">Value</span>&#160;field must be the hexadecimal value of 55, which is 37.</p>
+ <p class="FM_Body">The following table describes some of the DHCP options that are useful for assigning a user role or VLAN.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 398.87pt;" cellspacing="0">
+  <caption class="FM_Body" align="left">DHCP Option values
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 99.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">DHCP Option</p>
+</th>
+  <th style="width : 149.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+  <th style="width : 149.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Hexadecimal Equivalent</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 99.625pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">12</p>
+</td>
+  <td style="width : 149.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Host name</p>
+</td>
+  <td style="width : 149.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">0C</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 99.625pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">55</p>
+</td>
+  <td style="width : 149.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Parameter Request List</p>
+</td>
+  <td style="width : 149.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">37</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 99.625pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">60</p>
+</td>
+  <td style="width : 149.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Vendor Class Identifier</p>
+</td>
+  <td style="width : 149.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">3C</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 99.625pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">81</p>
+</td>
+  <td style="width : 149.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Client FQDN</p>
+</td>
+  <td style="width : 149.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">51</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The device identification features in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;can also automatically identify different client device types and operating systems by parsing the User-Agent strings in the client’s HTTP packets. To enable this feature, select the <span style="font-weight : bold; ">Device Type Classification</span>&#160;option in the AP’s AAA profile. For details, see <a href="Network_Parameters.htm#XREF_24204_Creating_Updating"><span class="FM_PMS646">“Device Type Classification”</span></a>.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_a_User"></a><a name="XREF_17768_Configuring_a_User"></a>Configuring a User-derived Role or VLAN in the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; User Rules </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>&#160;to add a new set of derivation rules. Enter a name for the set of rules, and click <span style="font-weight : bold; ">Add</span>. The name appears in the User Rules Summary list.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the User Rules Summary list, select the name of the rule set to configure rules.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>&#160;to add a rule. For <span style="font-weight : bold; ">Set Type</span>, select <span style="font-weight : bold; ">Role</span>&#160;from the drop-down menu. (You can select <span style="font-weight : bold; ">VLAN</span>&#160;to create a derivation rules for setting the VLAN assigned to a client.)</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the condition for the rule by setting the Rule Type, Condition, Value parameters and optional description of the rule. See <a href="#XREF_71417_Table1_3"><span class="FM_PMS646">Table 60</span></a> for descriptions of these parameters.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the role assigned to the client when this condition is met.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add.</span></p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>You can configure additional rules for this rule set. When you have added rules to the set, use the up or down arrows in the Actions column to modify the order of the rules. (The first matching rule is applied.)</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>(Optional) I<span style="color   : #525252; ">f</span>&#160;the rule uses the <span style="font-weight : bold; ">DHCP-Option</span>&#160;condition, best practices is to enable the <span style="font-weight : bold; ">Enforce DHCP</span>&#160;parameter in the AP group’s AAA profile, which requires users to complete a DHCP exchange to obtain an IP address. For details on configuring this parameter in an AAA profile, see<span style="color   : #525252; ">&#160;</span><a href="Defaults.htm#XREF_87554_Basic_System"><span class="FM_PMS646">“Configuring Authentication”</span></a>.</p>
+ <p class="FM_3Heading"><a name="TOC_Configure_a_User_derived"></a>Configure a User-derived Role or VLAN in the CLI</p>
+ <p class="FM_CLI">aaa derivation-rules user &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_CLIIndented">set role|vlan</p>
+ <p class="FM_CLIIndented">condition bssid|dhcp-option|dhcp-option-77|encryption-type|essid|location|macaddr </p>
+ <p class="FM_CLIIndented">contains|ends-with|equals|not-equals|starts-with|value-of &lt;string&gt; </p>
+ <p class="FM_CLIIndented">set-value &lt;<span style="font-style : italic; ">role&gt; </span></p>
+ <p class="FM_CLIIndented">position<span style="font-style : italic; "> &lt;number&gt;</span></p>
+ <p class="FM_Body">See <a href="#XREF_71417_Table1_3"><span class="FM_PMS646">Table 60</span></a> for descriptions of these parameters.</p>
+ <p class="FM_3Heading"><a name="TOC_User_Derived_Role_Example"></a>User-Derived Role Example</p>
+ <p class="FM_Body">The example rule shown in <a href="#XREF_93183_Figure_42_DHCP"><span class="FM_PMS646">Figure 50</span></a>&#160;below sets a user role for clients whose host name (DHCP option 12) has a value of <span style="font-weight : bold; ">6C6170746F70</span>, which is the hexadecimal equivalent of the ASCII string “laptop”. The first two digits in the <span style="font-weight : bold; ">Value</span>&#160;field are the hexadecimal value of 12 (which is 0C), followed by the specific signature to be matched. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">There are many online tools available for converting ASCII text to a hexadecimal string.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 50 &#160;</span><a name="XREF_93183_Figure_42_DHCP"></a>DHCP Option Rule</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="DHCP_matching_rule.jpg" id="image1" src="images/DHCP_matching_rule.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">To identify DHCP strings used by an individual device, access the command-line interface in config mode and issue the following command to include DHCP option values for DHCP-DISCOVER and DHCP-REQUEST frames in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s log files:</p>
+ <p class="FM_CLI">logging level debugging network process dhcpd</p>
+ <p class="FM_Body">Now, connect the device you want to identify to the network, and issue the CLI command <span style="font-weight : bold; ">show log network</span>. The sample below is an example of the output that may be generated by this command.</p>
+ <div align="left"><img alt="Firewall_Roles00065.jpg" id="image2" src="images/Firewall_Roles00065.jpg" />
+ </div>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">Be aware that each device type may not have a unique DHCP fingerprint signature. For example, devices from different manufacturers may use vendor class identifiers that begin with similar strings. If you create a DHCP-Option rule that uses the <span style="font-weight : bold; ">starts-with</span>&#160;condition instead of the <span style="font-weight : bold; ">equals</span>&#160;condition, the rule may assign a role or VLAN to more than one device type.</p>
+ <p class="FM_2Heading"><a name="TOC_Default_Role_for"></a>Default Role for Authentication Method</p>
+ <p class="FM_Body">For each authentication method, you can configure a default role for clients who are successfully authenticated using that method. To configure a default role for an authentication method:</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI64"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt; Authentication </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure the default user role for MAC or 802.1x authentication, select the <span style="font-weight : bold; ">AAA Profiles</span>&#160;tab. Select the AAA profile. Enter the user role for MAC Authentication Default Role or 802.1x Authentication Default Role.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure the default user role for other authentication methods, select the <span style="font-weight : bold; ">L2 Authentication</span>&#160;or <span style="font-weight : bold; ">L3 Authentication</span>&#160;tab. Select the authentication type (Stateful 802.1x or stateful NTLM for L2 Authentication, Captive Portal or VPN for L3 Authentication), and then select the profile. Enter the user role for Default Role.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>. </p>
+ <p class="FM_Body">For additional information on configuring captive portal authentication, see <a href="VirtualAPs.htm#XREF_15337_Access_Points"><span class="FM_PMS646">“Captive Portal” </span></a>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI66"></a>In the CLI</p>
+ <p class="FM_Body">To configure the default user role for MAC or 802.1x authentication:</p>
+ <p class="FM_CLIIndented">aaa profile &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;mac-default-role &lt;<span style="font-style : italic; ">role&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;dot1x-default-role &lt;<span style="font-style : italic; ">role&gt;</span></p>
+ <p class="FM_Body">To configure the default user role for other authentication methods:</p>
+ <p class="FM_CLIIndented">aaa authentication captive-portal &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;default-role &lt;<span style="font-style : italic; ">role&gt;</span></p>
+ <p class="FM_CLIIndented">aaa authentication stateful-dot1x</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;default-role &lt;<span style="font-style : italic; ">role&gt;</span></p>
+ <p class="FM_CLIIndented">aaa authentication stateful-ntlm</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;default-role &lt;<span style="font-style : italic; ">role&gt;</span></p>
+ <p class="FM_CLIIndented">aaa authentication vpn</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;default-role &lt;<span style="font-style : italic; ">role&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Server_Derived_Role"></a>Server-Derived Role</p>
+ <p class="FM_Body"><a name="IX_configuring_24"></a>If the client is authenticated via an authentication server, the user role for the client can be based on one or more attributes returned by the server during authentication. You configure the user role to be derived by specifying condition rules; when a condition is met, the specified user role is assigned to the client. You can specify more than one condition rule; the order of rules is important as the first matching condition is applied. You can also define server rules based on client attributes such as ESSID, BSSID, or MAC address, even though these attributes are not returned by the server.</p>
+ <p class="FM_Body">For information about configuring a server-derived role, see <a href="AAA_Servers.htm#XREF_42358_Configuring_Server"><span class="FM_PMS646">“Configuring Server-Derivation Rules”</span></a>.</p>
+ <p class="FM_2Heading"><a name="TOC_VSA_Derived_Role"></a>VSA-Derived Role</p>
+ <p class="FM_Body"><a name="IX_VSA_derived_role"></a>Many Network Address Server (NAS) vendors, including <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>, use VSAs to provide features not supported in standard RADIUS attributes. For <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;systems, VSAs can be employed to provide the user role and VLAN for RADIUS-authenticated clients, however the VSAs must be present on your RADIUS server. This involves defining the vendor (<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>) and/or the vendor-specific code (14823), vendor-assigned attribute number, attribute format (such as string or integer), and attribute value in the RADIUS dictionary file. VSAs supported on <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;conform to the format recommended in RFC 2865, “Remote Authentication Dial In User Service (RADIUS)”.</p>
+ <p class="FM_Body">Dictionary files that contain <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;VSAs are available on the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;support website for various RADIUS servers. Log into the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> support website to download a dictionary file from the Tools folder.</p>
+ <p class="FM_1Heading"><a name="TOC_Global_Firewall"></a><a name="IX_firewall_parameters"></a><a name="XREF_26781_Global_Firewall"></a>Global Firewall Parameters</p>
+ <p class="FM_Body"><a name="IX_firewall_parameters_1"></a><a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Table 61</span></a>&#160;describes optional firewall parameters you can set on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for IPv4 traffic. To set these options in the WebUI, navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt;&#160;Stateful Firewall &gt; Global Setting </span>page and select or enter values in the IPv4 column. To set these options in the CLI, use the <span style="font-weight : bold; ">firewall</span>&#160;configuration commands.</p>
+ <p class="FM_Body">See <a href="Network_Parameters.htm#XREF_54310_Creating_and"><span class="FM_PMS646">Chapter 36, “IPv6 Support” </span></a> for information about configuring firewall parameters for IPv6 traffic.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.21pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 61 &#160;</span><a name="XREF_47168_Table1_1_Firewall"></a>IPv4 Firewall Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.963pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 322.245pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Monitor Ping Attack</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of ICMP pings per second, which if exceeded, can indicate a denial of service attack. Valid range is 1-255 pings per second. Recommended value is 4.</p>
+  <p class="FM_TableBody">Default: No default</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Monitor TCP SYN Attack rate</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of TCP SYN messages per second, which if exceeded, can indicate a denial of service attack. Valid range is 1-255 messages per second. Recommended value is 32.</p>
+  <p class="FM_TableBody">Default: No default</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Monitor IP Session Attack</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of TCP or UDP connection requests per second, which if exceeded, can indicate a denial of service attack. Valid range is 1-255 requests per second. Recommended value is 32.</p>
+  <p class="FM_TableBody">Default: No default</p>
+</td>
+</tr>
+  <tr style=" height : 57.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Monitor/Police CP Attack rate (per sec)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rate of misbehaving user’s inbound traffic, which if exceeded, can indicate a denial or service attack. </p>
+  <p class="FM_TableBody">Recommended value is 100 frames per second.</p>
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Deny Inter User Bridging</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Prevents the forwarding of Layer-2 traffic between wired or wireless users. You can configure user role policies that prevent Layer-3 traffic between users or networks but this does not block Layer-2 traffic. This option can be used to prevent traffic, such as Appletalk or IPX, from being forwarded.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Deny Inter User Traffic</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Denies traffic between untrusted users by disallowing layer2 and layer3 traffic. This parameter does not depend on the deny-inter-user-bridging parameter being enabled or disabled.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 57.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Deny All IP Fragments</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Drops all IP fragments. </p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>Do not enable this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;representative.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enforce TCP Handshake Before Allowing Data</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Prevents data from passing between two clients until the three-way TCP handshake has been performed. This option should be disabled when you have mobile clients on the network as enabling this option will cause mobility to fail. You can enable this option if there are no mobile clients on the network.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 85.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Prohibit IP Spoofing</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables detection of IP spoofing (where an intruder sends messages using the IP address of a trusted client). When this option is enabled, source and destination IP and MAC addresses are checked for each ARP request/response. Traffic from a second MAC address using a specific IP address is denied, and the entry is not added to the user table. Possible IP spoofing attacks are logged and an SNMP trap is sent.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Prohibit RST Replay Attack</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">When enabled, closes a TCP connection in both directions if a TCP RST is received from either direction. You should not enable this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> representative.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Log ICMP Errors</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables logging of received ICMP errors. You should not enable this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> representative.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stateful SIP Processing</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Disables monitoring of exchanges between a voice over IP or voice over WLAN device and a SIP server. This option should be enabled only when there is no VoIP or VoWLAN traffic on the network.</p>
+  <p class="FM_TableBody">Default: Disabled (stateful SIP processing is enabled)</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allow Tri-session with DNAT</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allows three-way session when performing destination NAT. This option should be enabled when the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is <span style="font-style : italic; ">not</span>&#160;the default gateway for wireless clients and the default gateway is behind the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This option is typically used for captive portal configuration.</p>
+  <p class="FM_TableBody">Default: Disabled.</p>
+</td>
+</tr>
+  <tr style=" height : 137.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session Mirror Destination</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Destination (IP address or port) to which mirrored session packets are sent. This option is used only for troubleshooting or debugging.</p>
+  <p class="FM_TableBody">Packets can be mirrored in multiple ACLs, so only a single copy is mirrored if there is a match within more than one ACL.</p>
+  <p class="FM_TableBody">You can configure the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Ethertype to be mirrored with the Ethertype ACL mirror option.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">IP flows to be mirrored with the session ACL mirror option. </p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">MAC flows to be mirrored with the MAC ACL mirror option.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">If you configure both an IP address and a port to receive mirrored packets, the IP address takes precedence.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session Idle Timeout (sec)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Set the time, in seconds, that a non-TCP session can be idle before it is removed from the session table. Specify a value in the range 16-259 seconds. You should not set this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;representative.</p>
+  <p class="FM_TableBody">Default: 15 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Disable FTP Server</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Disables the FTP server on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Enabling this option prevents FTP transfers. You should not enable this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> representative.</p>
+  <p class="FM_TableBody">Default: Disabled (FTP server is enabled)</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">GRE Call ID Processing</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Creates a unique state for each PPTP tunnel. You should not enable this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> representative.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 75.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Per-packet Logging</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables logging of every packet if logging is enabled for the corresponding session rule. Normally, one event is logged per session. If you enable this option, each packet in the session is logged. You should not enable this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;representative, as doing so may create unnecessary overhead on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+  <p class="FM_TableBody">Default: Disabled (per-session logging is performed)</p>
+</td>
+</tr>
+  <tr style=" height : 67.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Broadcast-filter ARP</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Reduces the number of broadcast packets sent to VoIP clients, thereby improving the battery life of voice handsets. You can enable this option for voice handsets in conjunction with increasing the DTIM interval on</p>
+  <p class="FM_TableBody">clients.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Prohibit ARP Spoofing</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Detects and prohibits arp spoofing. When this option is enabled, possible arp spoofing attacks are logged and an SNMP trap is sent.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session VOIP Timeout (sec)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Sets the idle session timeout for sessions that are marked as voice sessions. If no voice packet exchange occurs over a voice session for the specified time, the voice session is removed. Range is 16 – 300 seconds.</p>
+  <p class="FM_TableBody">Default: 300 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stateful H.323 Processing</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Disables stateful H.323 processing. </p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stateful SCCP Processing</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Disables stateful SCCP processing.<span style="font-weight : bold; ">&#160;</span></p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Only allow local subnets in user table</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Adds only IP addresses, which belong to a local subnet, to the user-table.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 57.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session mirror IPSEC</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Configures session mirroring of all frames that are processed by IPsec. Frames are sent to IP address specified by the session-mirror-destination option.</p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>Use this option for debugging or troubleshooting only.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Multicast automatic shaping</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables multicast optimization and provides excellent streaming quality regardless of the amount of VLANs or IP IGMP groups that are used.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stateful VOCERA Processing</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Disables stateful VOCERA processing. </p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stateful UA Processing</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Disables stateful UA processing. </p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enforce bw contracts for broadcast traffic</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Applies bw contracts to local subnet broadcast traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Clear Sessions on Role Update</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If enabled, this setting clears all existing user role sessions after a user or client roles is modified.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enforce TCP Sequence numbers</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enforces the TCP sequence numbers for all packets.</p>
+  <p class="FM_TableBody">Default:Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enforce WMM Voice Priority Matches Flow Content</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If traffic to or from the user is inconsistent with the associated QoS policy for voice, the traffic is reclassified to best effort and data path counters incremented.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rate limit CP untrusted ucast traffic (Mbps)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the untrusted unicast traffic rate limit. Range is 1-200 Mbps.</p>
+  <p class="FM_TableBody">Default: 10 Mbps</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rate limit CP untrusted mcast traffic (Mbps)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the untrusted multicast traffic rate limit. Range is 1-200 Mbps.</p>
+  <p class="FM_TableBody">Default: 2 Mbps</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rate limit CP trusted ucast traffic (Mbps)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the trusted unicast traffic rate limit. Range is 1-200 Mbps.</p>
+  <p class="FM_TableBody">Default: 80 Mbps</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rate limit CP trusted mcast traffic (Mbps)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the trusted multicast traffic rate limit. Range is 1-200 Mbps.</p>
+  <p class="FM_TableBody">Default: 2 Mbps</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rate limit CP route traffic (Mbps)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the traffic rate limit that needs ARP requests. Range is 1-200 Mbps.</p>
+  <p class="FM_TableBody">Default: 1 Mbps</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rate limit CP session mirror traffic (Mbps)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the session mirrored traffic forwarded to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Range is 1-200 Mbps.</p>
+  <p class="FM_TableBody">Default: 1 Mbps</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 144.963pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Rate limit CP auth process traffic (Mbps)</p>
+</td>
+  <td style="width : 322.245pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the traffic rate limit that is forwarded to the authentication process. Range is 1-200 Mbps.</p>
+  <p class="FM_TableBody">Default: 1 Mbps</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

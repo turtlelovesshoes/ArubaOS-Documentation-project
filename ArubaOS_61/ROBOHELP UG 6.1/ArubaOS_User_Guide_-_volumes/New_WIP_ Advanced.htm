@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>New_WIP_ Advanced</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="5-mhz granular channel scanning,response frame,unauthorized wireless device,all-reg-domain channel group,dual radio ap, ap arm scan-time, dynamic scanning dwell, channel dwell, WIP Advanced Features,"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\New_WIP_ Advanced.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 30</p>
+ <p class="FM_ChapterTitle"><a name="TOC_WIP_Advanced_Features"></a><a name="XREF_83760_Chapter_Title_max"></a>WIP Advanced Features</p>
+ <p class="FM_Body">Device Classification is the first step in securing the corporate environment from unauthorized wireless access. Adequate measures to quickly shut down intrusions are critical to protect sensitive information and network resources. APs and stations must be accurately classified to determine whether they are valid, rogue or neighboring APs, and an automated response can be implemented to prevent possible intrusion attempts. </p>
+ <p class="FM_Body">TotalWatch™ allows for detecting devices that are running on typical operational channels. Tarpit Shielding provides a better way of containing devices that are deemed unauthorized. Both of these features are discussed in the sections that follow. </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_53457_TotalWatch"><span class="FM_PMS646">“TotalWatch”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_13601_Total_Watch"><span class="FM_PMS646">“TotalWatch Administration” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_92271_Tarpit_Shielding"><span class="FM_PMS646">“Tarpit Shielding”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_75269_Tarpit_Shielding"><span class="FM_PMS646">“Tarpit Shielding Administration” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_TotalWatch"></a><a name="XREF_53457_TotalWatch"></a>TotalWatch</p>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;802.11n APs and non-11n APs in AM-mode support for TotalWatch is the ability to scan all channels of the RF spectrum, including 2.4-and 5-GHz bands as well as the 4.9-GHz public safety band. TotalWatch also provides 5-MHz granular channel scanning of bands for rogue devices, and dynamic scanning dwell times to focus on those channels with traffic. TotalWatch provides an advanced set of features to detect unauthorized wireless devices and a set of customized rules are used to highlight devices that truly pose a threat to the network.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">TotalWatch is supported on APs deployed in the AM-mode only.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">TotalWatch provides monitoring support for the entire WLAN spectrum. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs in the AM-mode can <span style="font-style : italic; ">monitor</span> the following frequencies:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">2412MHz to 2472MHz in the 2.5GHz band</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">5100Mhz to 5895MHz in the 5GHz band.</p>
+</li>
+ </ul>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs in AM-mode can <span style="font-style : italic; ">scan</span> the following additional frequencies:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">2484 MHz and 4900Mhz to 5000MHz (J-channels)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">5000 to 5100Mhz</p>
+</li>
+ </ul>
+ <p class="FM_Body">If the AP is HT-capable (High Throughput), then these frequencies are scanned in the 40MHz mode.</p>
+ <p class="FM_2Heading"><a name="TOC_Channel_Types_and"></a>Channel Types and Qualifiers</p>
+ <p class="FM_Body">Based on the regulatory characteristics, channels are categorized into the following types:</p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">Reg-domain Channels</span>—A channel that belongs to the regulatory domain of the country in which the AP is deployed. The set of channels that belong to this group is a subset of the channels in all-reg-domain channel group.</p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">All-reg-domain Channels</span>—A valid non-overlapping channel that is in the regulatory domain of at least one country. The channels in this category belong to the frequency range of:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet2">2412MHz to 2472MHz in the g-band</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">5100Mhz to 5895MHz in the a-band.</p>
+</li>
+ </ul>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">Rare Channel</span>—Channels that fall into a frequency range outside of the regulatory domain; 2484 MHz and 4900MHz-4995MHz (J-channels), and 5000-5100Mhz. The channels in this group do not belong to any other group.</p>
+ <p class="FM_Body">Each of these channel types can have an associated qualifier:</p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">Active Channel</span>—This qualifier indicates that wireless activity is detected on this channel by the presence of an AP or other 802.11 activity; a probe requests for example.</p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">DOS Channel</span>—A channel where wireless containment is active. This channel should belong to the country-code channel (regulatory domain).</p>
+ <p class="FM_2Heading"><a name="TOC_Monitoring"></a>Monitoring</p>
+ <p class="FM_Body">TotalWatch enables monitoring of all channels including regulatory domain and rare channels. You can select one of the following scanning modes for each radio AP.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">scan only the channels that belong to the AP’s regulatory domain </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">scan channels that belong to all regulatory domains </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">scan all channels </p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Scanning_Spectrum"></a>Scanning Spectrum</p>
+ <p class="FM_Body">TotalWatch scans the following frequencies.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">G-band—2412MHz to 2472MHz</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">J band—2484 MHz</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">A-band—5000-5100Mhz to 5895MHz</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">J-band—4900-4995MHz</p>
+</li>
+ </ul>
+ <p class="FM_Body"><a href="#XREF_81971_Table_111"><span class="FM_PMS646">Table 112</span></a> list the frequency-to-channel mapping used by TotalWatch.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 333.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 112 &#160;</span>Frequency to Channel Mapping<a name="XREF_81971_Table_111"></a><?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 189.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Frequency</p>
+</th>
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Channel</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 189.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">2412 – 2472MHz (in increments of 5MHz)</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1 - 13</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 189.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">2484MHz</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">14</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 189.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5100 – 5895MHz (in increments of 5MHz)</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">20 - 179</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 189.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">4900 – 4995MHz (in increments of 5MHz)</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">180 - 199</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 189.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5000 – 5100MHz</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">200 - 219</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body">&#160;</p>
+ <p class="FM_2Heading"><a name="TOC_Channel_Dwell_Time"></a>Channel Dwell Time</p>
+ <p class="FM_Body">When an AP (in am-mode) visits a channel, the amount of time the AP <span style="font-style : italic; ">stays</span>&#160;on that channel is known as the <span style="font-style : italic; ">dwell time</span>. The channel dwell time is a variable value based on the following channel types. </p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">dwell-time-active-channel</span>—For channels where there is wireless activity. Default is setting is 500 ms.</p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">dwell-time-reg-domain channel</span>—For channels that belong to the AP’s regulatory domain group (reg-domain) with <span style="font-style : italic; ">no</span>&#160;wireless activity. The default setting is 250 ms. </p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">dwell-time-other-reg-domain-channel</span>—For channels that belong to the <span style="font-style : italic; ">all</span> regulatory domain group (all-reg-domain) with <span style="font-style : italic; ">no</span>&#160;wireless activity The default setting is 250 ms. </p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">dwell-time-rare-channel</span>—For channels in the rare group where <span style="font-style : italic; ">no</span>&#160;wireless activity is detected. The default value is 100 ms. </p>
+ <p class="FM_Body">Use the <span style="font-weight : bold; ">rf am-scan-profile</span> command to set the dwell time and scan mode.</p>
+ <p class="FM_2Heading"><a name="TOC_Channel_Visiting"></a>Channel Visiting </p>
+ <p class="FM_Body">The Active and DOS channels are visited more frequently than the other channels. The order of preference in selecting the next channel is:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>DOS</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Active</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>reg-domain</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>All-reg-domain</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Rare</p>
+ <p class="FM_BodyLeadin">Once a channel is selected, the dwell time for that channel is determined based on the channel type. At the end of the dwell time, a new channel is picked.</p>
+ <p class="FM_2Heading"><a name="TOC_Age_out_of_Devices"></a>Age out of Devices</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;uses a combination of inactivity time and unseen time to age out a device. This ensures that the channel is scanned a sufficient number of times before a device ages out. AM module maintains the following parameters:</p>
+ <p class="FM_Body"><span style="font-weight : bold; ">Discovered Time</span>—The absolute time, is seconds, since the device was discovered.</p>
+ <p class="FM_Body"><span style="font-weight : bold; ">Monitored Time</span>—The number of times the channel was scanned since discovery.</p>
+ <p class="FM_Body"><span style="font-weight : bold; ">Inactivity Time</span>—The number of times the device was not “seen” when the channel is scanned.</p>
+ <p class="FM_Body"><span style="font-weight : bold; ">Unseen Time</span>—The absolute time, in seconds, since the device was last “seen.”</p>
+ <p class="FM_1Heading"><a name="TOC_TotalWatch_Administration"></a><a name="XREF_13601_Total_Watch"></a>TotalWatch Administration</p>
+ <p class="FM_Body">The AM module will initialize the channel list for each of the AP’s radios based on the scan mode setting for the radio. For example, if scan mode is set to rare, then the channel list will contain all possible channels. You can view these channels by using the <span style="font-weight : bold; ">show ap arm scan-times</span>&#160;command. </p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Per_Radio"></a>Configuring Per Radio Settings</p>
+ <p class="FM_Body">For each radio, you can configure the following settings (for detailed information on commands, refer to the <span style="font-style : italic; ">Command Line Reference Guide</span>):</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">the dwell times for the various channel types</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">the channel list that should be used for scanning</p>
+</li>
+ </ul>
+ <p class="FM_Body">These settings are configured via the command <span style="font-weight : bold; ">rf</span>&#160;<span style="font-weight : bold; ">am-scan-profile</span>, which can be attached to the two profiles, <span style="font-weight : bold; ">dot11a-radio-profile</span>&#160;and <span style="font-weight : bold; ">dot11g-radio-profile</span>. </p>
+ <p class="FM_Body">The am-scan-profile includes the following parameters that can be configured:</p>
+ <p class="FM_CLIIndented">rf am-scan-profile &lt;name&gt;</p>
+ <p class="FM_CLIIndented">scan-mode [reg-domain | all-reg-domain | rare]</p>
+ <p class="FM_Body">The default setting is the all-reg-domain. This is consistent with the default functioning of the AM scanning where the radio scans channels belonging to all regulatory domains.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Per_AP"></a>Configuring Per AP Setting</p>
+ <p class="FM_Body">If the AP is a dual-band single radio AP, an option is available to specify which band should be used for scanning in AM-mode. This setting is available in the “ap system-profile”, via the am-scan-rf-band command.</p>
+ <p class="FM_CLIIndented">ap system-profile &lt;name&gt;</p>
+ <p class="FM_CLIIndented">am-scan-rf-band [a | g | all]</p>
+ <p class="FM_Body">The default value is “all”, which is consistent with the prior behavior. This setting is ignored in the case of a dual radio AP.</p>
+ <p class="FM_Body">There are four parameters that will control the age out of devices in the AM module.</p>
+ <p class="FM_CLIIndented">ids general-profile &lt;name&gt;</p>
+ <p class="FM_CLIIndented">ap-inactivity-timeout</p>
+ <p class="FM_CLIIndented">sta-inactivity-timeout</p>
+ <p class="FM_CLIIndented">ap-max-unseen-timeout</p>
+ <p class="FM_CLIIndented">sta-max-unseen-timeout</p>
+ <p class="FM_Body">The inactivity timeout is the number of times the device was not “seen” when the channel was scanned. The unseen timeout is the time, in seconds, since the device was last “seen.”</p>
+ <p class="FM_Body">The <span style="font-weight : bold; ">show ap monitor scan-info/channel</span>&#160;commands provide details of the channel types, dwell times, and the channel visit sequence.</p>
+ <p class="FM_CLI">(host) # show ap monitor scan-info ap-name rb-121</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">WIF Scanning State: wifi0</p>
+ <p class="FM_CLI">--------------------------</p>
+ <p class="FM_CLI">Parameter &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Value</p>
+ <p class="FM_CLI">--------- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-----</p>
+ <p class="FM_CLI">Scan Mode &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;all-reg-domain</p>
+ <p class="FM_CLI">Scan Channel &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;yes</p>
+ <p class="FM_CLI">Disable Scanning &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;no</p>
+ <p class="FM_CLI">Current Channel &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;36-</p>
+ <p class="FM_CLI">Current Scan Channel &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;36-</p>
+ <p class="FM_CLI">Current Channel Index &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1</p>
+ <p class="FM_CLI">Current Scan Start Milli Tick &#160;351757100</p>
+ <p class="FM_CLI">Current Dwell Time &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;600</p>
+ <p class="FM_CLI">Current Scan Type &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;active</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">Scan-Type-Info</p>
+ <p class="FM_CLI">---------------</p>
+ <p class="FM_CLI">Info-Type &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Active &#160;Reg-domain &#160;All-reg-domain &#160;Rare &#160;DOS</p>
+ <p class="FM_CLI">--------- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;------ &#160;---------- &#160;-------------- &#160;---- &#160;---</p>
+ <p class="FM_CLI">Dwell Times &#160;&#160;&#160;&#160;&#160;&#160;&#160;600 &#160;&#160;&#160;&#160;250 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;100 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;100 &#160;&#160;600</p>
+ <p class="FM_CLI">Last Scan Channel &#160;36- &#160;&#160;&#160;&#160;116- &#160;&#160;&#160;&#160;&#160;&#160;&#160;0 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0 &#160;&#160;&#160;&#160;0</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">(host) #show ap monitor channel ap-name rb-121 36</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">Aggregate Stats</p>
+ <p class="FM_CLI">---------------</p>
+ <p class="FM_CLI">retry &#160;low-speed &#160;non-unicast &#160;frag &#160;bwidth &#160;phy-err &#160;mac-err &#160;noise</p>
+ <p class="FM_CLI">----- &#160;--------- &#160;----------- &#160;---- &#160;------ &#160;------- &#160;------- &#160;-----</p>
+ <p class="FM_CLI">0 &#160;&#160;&#160;&#160;&#160;0 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0 &#160;&#160;&#160;&#160;1 &#160;&#160;&#160;&#160;&#160;&#160;0 &#160;&#160;&#160;&#160;&#160;&#160;&#160;9 &#160;&#160;&#160;&#160;&#160;&#160;&#160;90</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">Scanning Stats</p>
+ <p class="FM_CLI">---------------</p>
+ <p class="FM_CLI">scans-attempted &#160;assign-time(ms) &#160;last-visit-time &#160;monitored-time &#160;reside-time(ms) &#160;dos-scans &#160;flags</p>
+ <p class="FM_CLI">--------------- &#160;--------------- &#160;--------------- &#160;-------------- &#160;--------------- &#160;--------- &#160;-----</p>
+ <p class="FM_CLI">42702 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;25620500 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;402424 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;56245 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;0 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DVACLU</p>
+ <p class="FM_CLI">Channel Flags: D: Default, V: Valid, A: AP Present, C: Reg Domain Channel,</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;O: DOS Channel, Z: Rare Channel</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;T: Valid 20MHZ Channel, F: Valid 40MHz Channel,</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;L: Scan 40MHz Channel (lower), U: Scan 40MHz channel (upper)</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;R: Radar detected in last 30 min, X: DFS required</p>
+ <p class="FM_2Heading"><a name="TOC_Licensing"></a>Licensing</p>
+ <p class="FM_Body">The ability to perform rare scanning is available only with the RFprotect license. However, the AP can scan ‘reg-domain’ or ‘all-reg-domain’ channels without the RFprotect license.</p>
+ <p class="FM_1Heading"><a name="TOC_Tarpit_Shielding"></a><a name="XREF_92271_Tarpit_Shielding"></a>Tarpit Shielding</p>
+ <p class="FM_Body">The Tarpit Shielding feature is a type of wireless containment. Detected devices that are classified as rogues are contained by forcing client association to a fake channel or BSSID. This method of tarpitting is more efficient than rogue containment via repeated de-authorization requests. Tarpit Sheilding works by spoofing frames from an AP to <span style="font-style : italic; ">confuse</span>&#160;a client about its association. The <span style="font-style : italic; ">confused</span>&#160;client assumes it is associated to the AP on a different (fake) channel than the channel that the AP is actually operating on, and will attempt to communicate with the AP in the fake channel. </p>
+ <p class="FM_Body">Tarpit Shielding works in conjunction with the <span style="font-style : italic; ">deauth</span>&#160;wireless containment mechanism. The deauth mechanism triggers the client to generate probe request and subsequent association request frames. The AP then responds with probe response and association response frames. Once the monitoring AP sees these frames, it will spoof the probe-response and association response frames, and manipulates the content of the frames to confuse the client.</p>
+ <p class="FM_Body">A station is determined to be in the Tarpit when we <span style="font-style : italic; ">see</span>&#160;it sending data frames in the fake channel. With some clients, the station remains in tarpit state until the user manually disables and re-enables the wireless interface.</p>
+ <p class="FM_1Heading"><a name="TOC_Tarpit_Shielding1"></a><a name="XREF_75269_Tarpit_Shielding"></a>Tarpit Shielding Administration</p>
+ <p class="FM_Body">Tarpit shielding is configured on an AP using one of two methods: </p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">Disable all clients</span>—In this method, any client that attempts to associate with an AP marked for containment is sent spoofed frames.</p>
+ <p class="FM_BodyLeadin"><span style="font-weight : bold; ">Disable non-valid clients</span>—In this method, only non-authorized clients that attempt to associate with an AP is sent to the tarpit.</p>
+ <p class="FM_Body">The choices for disabling Tarpit Shielding on an AP are:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Deauth-wireless-containment</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Deauth-wireless-containment with tarpit-shielding (excluding-valid-clients)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Deauth-wireless-containment with tarpit-shielding </p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Tarpit"></a>Configuring Tarpit Shielding</p>
+ <p class="FM_Body">Use the <span style="font-weight : bold; ">ids-general-profile</span>&#160;command to configure Tarpit Shielding (for detailed information on commands refer to the <span style="font-style : italic; ">Command Line Reference Guide</span>).</p>
+ <p class="FM_CLI">ids general-profile default</p>
+ <p class="FM_CLIIndented">wireless-containment [deauth-only | none | tarpit-all-sta | tarpit-non-valid-sta]</p>
+ <p class="FM_Body">Use the following show commands to view updated Tarpit Shielding status and the spoofed frames generated for an AP:</p>
+ <p class="FM_CLI">show ap monitor stats …</p>
+ <p class="FM_CLI">show ap monitor containment-info</p>
+ <p class="FM_2Heading"><a name="TOC_Licensing1"></a>Licensing</p>
+ <p class="FM_Body">In the <span style="font-weight : bold; ">ids general-profile default wireless-containment</span> command, the ‘tarpit-non-valid-sta’ and ‘tarpit-all-sta’ options are available only with a RFprotect license. The ‘deauth-only’ and ‘none’ options are available with the Base OS license.</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

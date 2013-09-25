@@ -1,0 +1,606 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>remote-node-profile</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+<link rel="stylesheet" href="css/Full.css" type="text/css" />
+</head>
+
+<body>
+
+ <p class="FM_1CmdHeading"><a name="XREF_68791_boc_profile"></a>remote-node-profile</p>
+ <p class="FM_CLI">remote-node-profile &lt;remote-node-profile-name&gt;</p>
+ <p class="FM_CLIIndented">aaa authentication-server internal use-local-switch</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">cellular profile &lt;profile-name&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">clone &lt;profile-name&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ip vlan &lt;id&gt; ip address </p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">dialer group &lt;name&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">instance &lt;remote-node-mac-address&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">interface cellular [{fastethernet|gigabitethernet} &lt;slot&gt;/&lt;port&gt;] |[loopback]|<br />[port-channel &lt;id&gt;]|[tunnel &lt;1-2147483647&gt;|vlan &lt;id&gt;]</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">ip [default-gateway &lt;ipaddr&gt;]|{import cell|dhcp|pppoe}|{ipsec &lt;name&gt;} &lt;cost&gt;}|[domain lookup|domain-name &lt;name&gt;]|[name-server &lt;ipaddr&gt;]|[nat pool &lt;name&gt; &lt;start-ipaddr&gt; &lt;end-ipaddr&gt; &lt;dest-ipaddr&gt;|[radius {nas-ip &lt;ipaddr&gt;]|[rfc-3576-server udp-port &lt;port&gt;]|[source-interface {loopback|vlan &lt;vlan&gt;}]|[route &lt;destip&gt; &lt;destmask&gt; {&lt;nexthop&gt; [&lt;cost&gt;]]|[ipsec &lt;name&gt;|null 0}]</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">ipv6 enable|route &lt;ipv6-prefix/prefix-length&gt; &lt;ipv6-next-hop&gt; &lt;cost&gt;</p>
+ <p class="FM_CLIIndented">logging &lt;ipaddr&gt;|facility &lt;facility&gt;|level &lt;level&gt; &lt;category&gt; [process &lt;process&gt;] [subcat &lt;subcategory&gt;]</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">mgmt-server [type {amp|other}]|[primary-server &lt;ip-addr&gt;] </p>
+ <p class="FM_CLIIndented">mgmt-user [&lt;username&gt; &lt;role&gt; &lt;password&gt;]|[localauth-disablessh-pubkey client-cert &lt;certificate&gt; &lt;username&gt; &lt;role&gt;]|[webui-cacert &lt;certificate_name&gt; serial &lt;number&gt; &lt;username&gt; &lt;role&gt;]</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">mobility-manager &lt;ipaddr&gt; user &lt;username&gt; &lt;password&gt; [interval &lt;secs&gt;]|[retrycount &lt;number&gt;] [udp-port &lt;port&gt;] [rtls &lt;rtls-udp-port&gt;] trap-version {1|2c|3}</p>
+ <p class="FM_CLIIndented">model &lt;model_type&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">no</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">priority-map &lt;name&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">remote-node-dhcp-pool &lt;pool-name&gt;|pool-type {vlan &lt;id&gt;}|tunnel|range startip &lt;start-ip&gt; endip &lt;end-ip&gt; num_hosts</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">router ospf enable {area &lt;area-id&gt;|redistribute vlan [&lt;vlan-ids&gt;|add &lt;vlan-ids&gt;|remove &lt;vlan-ids&gt;] |router-id &lt;rtr-id&gt; |subnet exclude &lt;addr&gt;}</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">snmp-server community &lt;string&gt;|enable trap|engine-id|host &lt;ipaddr&gt; version {1 &lt;name&gt; udp-port &lt;port&gt;}|2c|{3 &lt;name&gt;} [inform] [interval &nbsp;&nbsp;&lt;seconds&gt;] [retrycount &lt;number&gt;] [udp-port &lt;port&gt;]}|inform queue-length &lt;size&gt;|source|stats|trap enable|disable|{source &lt;ipaddr&gt;}|user &lt;name&gt; [auth-prot {md5|sha} &lt;password&gt;] [priv-prot {AES|DES} &lt;password&gt;]</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">spanning-tree [forward-time &lt;value&gt; | hello-time &lt;value&gt; | max-age &lt;value&gt; | priority &lt;value&gt; | vlan range &lt;WORD&gt;| </p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">syscontact &lt;syscontact&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">syslocation &lt;syslocation&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">uplink {cellular priority &lt;prior&gt;}|disable|enable|{wired priority &lt;prior&gt;}|{wired vlan &lt;id&gt;}</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">validate</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">vlan&#160;<span style="font-size  : 10.0pt; ">&lt;id&gt; [&lt;description&gt;]|[&lt;name&gt; &lt;vlan-ids&gt;]|[range &lt;range&gt;]|[wired aaa-profile &lt;profile&gt;]</span></p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">vrrp &lt;id&gt; {advertise &lt;interval&gt;|authentication &lt;password&gt;|description &lt;text&gt;|ip address &lt;ipaddr&gt;|preempt|priority &lt;level&gt;|shutdown} tracking interface {fastethernet &lt;slot&gt;/&lt;port&gt;|gigabitethernet &lt;slot&gt;/&lt;port&gt;}{sub &lt;value&gt;}|tracking master-up-time &lt;duration&gt; add &lt;value&gt;|tracking vlan &lt;vlanid&gt; {sub &lt;value&gt;}|tracking vrrp-master-state &lt;vrid&gt; add &lt;value&gt;|vlan &lt;vlanid&gt;}</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body"><a name="XREF_29238_The_remote_node"></a>The remote-node-profile command lets you create a Remote Node profile. Once in Remote Node profile configuration mode, you can issue any of the following commands to define the values you want to assign to that profile. </p>
+ <p class="FM_2Heading">Syntax</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 468.13pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 200.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 268.125pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">aaa</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configure authentication server using an internal server. For details, see <a href="aaa.htm#XREF_49968_aaa_authentication"><span class="FM_PMS646">aaa authentication-server internal</span></a></p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">cellular profile &lt;name&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Cellular interface&#160;profile associated with this Remote Node profile.&#160;For details, see <a href="cellular.htm"><span class="FM_PMS646">cellular profile</span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">clone &lt;profile-name&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Use this command to copy a Remote Node profile to this profile.</p>
+</td>
+</tr>
+  <tr style=" height : 75.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ip vlan &lt;id&gt;&#160;ip address </p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Select one of the following parameters for the VLAN interface</p>
+  <p class="FM_TableBody"><span style="font-weight : bold; ">dhcp-clien</span>t: The remote node will use DHCP to obtain IP address</p>
+  <p class="FM_TableBody"><span style="font-weight : bold; ">internal</span>: Then remote node IP will be derived from the remote node DHCP pool. </p>
+  <p class="FM_TableBody"><span style="font-weight : bold; ">pppoe</span>: Use PPPoE to obtain IP address</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">dialer group &lt;name&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Dialer group profile associated with this Remote Node profile.</p>
+</td>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">instance</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configure the Remote Node MAC address to associate the Remote Node to this profile. When you create a new Remote Node profile, enter the <span style="font-weight : bold; ">remote-node profile instance</span>&#160;command first.</p>
+</td>
+</tr>
+  <tr style=" height : 232.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">interface </p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configure the Remote Node interface</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">cellular—Configure the cellular &#160;Interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">fastethernet—Configure the FastEthernet (IEEE 802.3) interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">gigabitethernet—Configure the GigabitEthernet Interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">loopback—Configure the Loopback Interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">port-channel—Configure the Ethernet channel of interfaces.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">tunnel—Configure the Tunnel interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">vlan —Configure the Switch VLAN Virtual Interface.</p>
+</li>
+  </ul>
+  <p class="FM_TableNote"><span class="FM_Navigation">NOTE: </span>The VLAN ID mapped using the “interface vlan &lt;id&gt; ip address” command can use the following parameters to define how the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ip is derived:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_Bullet2" style="font-family:     Arial, Helvetica, sans-serif; font-size  : 9.0pt;">dhcp-client: The remote node will use DHCP to obtain IP address</p>
+</li>
+   <li style="">
+   <p class="FM_Bullet2" style="font-family:     Arial, Helvetica, sans-serif; font-size  : 9.0pt;">internal: Then remote node IP will be derived from the remote node DHCP pool. </p>
+</li>
+   <li style="">
+   <p class="FM_Bullet2" style="font-family:     Arial, Helvetica, sans-serif; font-size  : 9.0pt;">pppoe: Use PPPoE to obtain IP address</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">For details on using this command, <br />see <a href="interface.htm#XREF_53544_interface"><span class="FM_PMS646">interface fastethernet | gigabitethernet </span></a></p>
+</td>
+</tr>
+  <tr style=" height : 123.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">ip </p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configure the Interface Internet Protocol configuration sub commands. For details, see command descriptions beginning with <a href="ip.htm#XREF_68846_ip_default_gateway"><span class="FM_PMS646">&#160;ip default-gateway</span></a>.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">default-gateway</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">domain lookup</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">domain-name</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">name-server</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">nat</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">radius</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">route</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 66.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a name="XREF_94440_ipv6"></a>ipv6</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configure the Global IPv6 configuration sub commands. For details, see command descriptions beginning with <a href="ipv6.htm#XREF_72440_ipv6_enable"><span class="FM_PMS646">&#160;ipv6 enable</span></a>.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_Bullet1" style="font-family:     Arial, Helvetica, sans-serif; font-size  : 9.0pt;">enable</p>
+</li>
+   <li style="">
+   <p class="FM_Bullet1" style="font-family:     Arial, Helvetica, sans-serif; font-size  : 9.0pt;">route X:X:X:X::X/&lt;0-128&gt; </p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 67.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">logging</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Set the logging level up to which messages are logged.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">A.B.C.D</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">facility</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">level</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">For details on using this command, see <a href="logging.htm"><span class="FM_PMS646">logging</span></a></p>
+</td>
+</tr>
+  <tr style=" height : 59.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a name="XREF_94717_mgmt_server"></a>mgmt-server</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Register Mgmt Server IP Address with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.This could be AirWave Management Server or any other server that would like to receive messages from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using AMON protocol. For details on using this command, see <a href="mgmt-server.htm#XREF_14268_mgmt_server"><span class="FM_PMS646">&#160;mgmt-server</span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">mgmt-user </p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configure a management user. For details on using this command, see <a href="mgmt-user.htm"><span class="FM_PMS646">mgmt-user</span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a name="XREF_38583_mobility_manager"></a>mobility-manager</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configure a mobility manager. For details on using command, see <a href="mobility-manager.htm"><span class="FM_PMS646">&#160;mobility-manager </span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 101.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">model &lt;model_type&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;model associated to the Remote Node profile, where &lt;model-type&gt; is one of the following <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> model types:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="3200MC"  ?>3200<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="3400MC"  ?>3400<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="3600MC"  ?>3600<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="620_controller_"  ?>620<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="650_controller"  ?>650<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="651_controller"  ?>651<?rh-udv_end ?></p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">no</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Delete a remote node profile.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">priority-map &lt;name&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Priority Map specification, used to prioritize the incoming packets on an interface.&#160;For details on using this command, see <a href="priority-map.htm#XREF_52063_priority_map"><span class="FM_PMS646">priority-map</span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">remote-node-dhcp-pool &lt;pool_name&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Name of the DHCP pool.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">pool-type {vlan &lt;id&gt;}|tunnel</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Specify whether you are creating a pool of IP addresses for RN VLANs or RN tunnels.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;id&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The ID number of the VLAN associated with the RN.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;start-ip&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">IP addresses at the start and end of the RN’s address range, in dotted-decimal format.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">&lt;end-ip&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">IP address at the end of the RN’s address range, in dotted-decimal format.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLIIndented">num_hosts</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Maximum number of hosts supported by an RN using this pool.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">router ospf &lt;area-id&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enables and configures OSPF. Configure an OSP area, control distribution of default information, redistribute the route, configure the Router ID and specific the subnet.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a name="XREF_82077_snmp_server"></a>snmp-server</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enables SNMP and modifies SNMP parameters. For details on using this command, see <a href="firewall.htm#XREF_20635_firewall"><span class="FM_PMS646">&#160;snmp-server</span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">spanning-tree</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Create a Spanning Tree Subsystem. For details on using this command, see <a href="spanning-tree(Global).htm#XREF_35967_spanning_tree"><span class="FM_PMS646">spanning-tree (Global Configuration</span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a name="XREF_54827_syscontact"></a>syscontact &lt;syscontact&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configures the name of the system contact for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Enter an alphanumeric string that specifies the name of the system contact.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a name="XREF_15284_syslocation"></a>syslocation &lt;syslocation&gt;</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configures the name of the system location for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Enter an alphanumeric string that specifies the name of the system location.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">uplink</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Define an uplink manager configuration. For details on using this command, see <a href="uplink.htm"><span class="FM_PMS646">uplink </span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 81.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">validate</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">After you have defined configuration settings for a Remote Node profile, you must activate that profile by issuing the command<span style="font-weight : bold; ">&#160;remote-node-profile &lt;profile-name&gt; validate</span>&#160;to validate that the configuration has a correctly defined uplink, model type, and an interface type supported by the Remote Node model. </p>
+  <p class="FM_TableBody">You cannot assign a Remote Node configuration profile to a Remote Node until that profile has been activated. </p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">vlan</p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Create a Remote Node VLAN Virtual Interface&#160;vlan. For details on using this command, see <a href="vlan.htm"><span class="FM_PMS646">vlan</span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 200.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">vrrp </p>
+</td>
+  <td style="width : 268.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Define a Virtual Router Redundancy Protocol (VRRP) configuration.&#160;For details on using this command, see <a href="vrrp.htm"><span class="FM_PMS646">vrrp</span></a>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Usage Guidelines</p>
+ <p class="FM_Body">Use the<span style="font-weight : bold; "> remote-node-profile</span>&#160;command to create a Remote Node profile. You define configuration settings for each Remote Node through a Remote Node profile on the Remote Node-master. The Remote Node-master must be a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_2Heading">Related Commands</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 466.50pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 132.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 207.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+  <th style="width : 127.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 132.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="remote-node-localip.htm"><span class="FM_CLI" style="color   : #548baf; ">remote-node-localip</span></a></p>
+</td>
+  <td style="width : 207.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configures security for all Remote Node and Remote <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> control traffic</p>
+</td>
+  <td style="width : 127.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config mode</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 132.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="remote-node-masterip.htm#XREF_73426_boc_masterip"><span class="FM_CLI" style="color   : #548baf; ">remote-node-masterip</span></a></p>
+</td>
+  <td style="width : 207.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configures security for the Remote Node master IP address.</p>
+</td>
+  <td style="width : 127.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config mode</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 132.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="local-userdb-remote-node.htm"><span class="FM_CLI" style="color   : #548baf; ">local-userdb-remote-node</span></a></p>
+</td>
+  <td style="width : 207.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command adds a Remote Node to the Remote Node whitelist. You can also delete the whitelist entry using this command.</p>
+</td>
+  <td style="width : 127.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config mode</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 132.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="show_remote-node.htm"><span class="FM_CLI" style="color   : #548baf; ">show remote-node</span></a></p>
+</td>
+  <td style="width : 207.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Shows Remote Node configuration, dhcp instance, license usage and running configuration information.</p>
+</td>
+  <td style="width : 127.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config mode</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 132.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="show_remote-node-dhcp-pool.htm"><span class="FM_CLI" style="color   : #548baf; ">show remote-node-dhcp-pool</span></a></p>
+</td>
+  <td style="width : 207.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Shows Remote Node dhcp pool configuration information.</p>
+</td>
+  <td style="width : 127.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config mode</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 132.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="show_remote-node-profile.htm"><span class="FM_CLI" style="color   : #548baf; ">show remote-node-profile</span></a></p>
+</td>
+  <td style="width : 207.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Shows Remote Node profile status information.</p>
+</td>
+  <td style="width : 127.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config mode</p>
+</td>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 132.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="showlocal-userdb-remote-node.htm"><span class="FM_CLI" style="color   : #548baf; ">show local-userdb-remote-node</span></a></p>
+</td>
+  <td style="width : 207.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The output of this command lists the MAC address and assigned remote-node-profile for each Remote <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;associated with that Remote <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> master.</p>
+</td>
+  <td style="width : 127.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config mode</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Command History</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 467.38pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 120.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading"> Version</p>
+</th>
+  <th style="width : 346.875pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Modification</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 120.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;6.0</p>
+</td>
+  <td style="width : 346.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Command introduced.</p>
+</td>
+</tr>
+  <tr style=" height : 103.00pt;">
+  <td style="width : 120.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 6.1</p>
+</td>
+  <td style="width : 346.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; "><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></span><span style="font-weight : bold; ">-ip loopback </span>parameter was deprecated.</p>
+  <p class="FM_TableBody">The following parameters were added:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">ipv6</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">mgmt-server</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">mobility-manager</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">snmp-server</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">syscontact</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">syslocation</p>
+</li>
+  </ul></td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;  width: 465.38pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 126.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platform</p>
+</th>
+  <th style="width : 185.375pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">License</p>
+</th>
+  <th style="width : 153.251pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 126.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Available on all platforms</p>
+</td>
+  <td style="width : 185.375pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Available in the base operating system. </p>
+</td>
+  <td style="width : 153.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config modes&#160;on master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+ <p class="FM_2Heading">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
+

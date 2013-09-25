@@ -1,0 +1,1171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>IPv6</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\IPv6.fm" />
+ <meta name="keywords" content="ipv6 address, external ipv6 router, ipv6 ap, ipv6, ">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_Anchor"><a name="XREF_98100_Title_of_Chapter"></a>&nbsp;</p>
+ <p class="FM_ChapterNumber"><a name="TOC_Chapter_36"></a>Chapter 36</p>
+ <p class="FM_ChapterTitle"><a name="TOC_IPv6_Support"></a><a name="XREF_23343_IPv6_Client_Support"></a>IPv6 Support</p>
+ <p class="FM_Body">This chapter describes <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> support for IPv6 clients.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_13712_About_IPv6"><span class="FM_PMS646">“About IPv6”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_81430_IPv6_Support_for"><span class="FM_PMS646">“IPv6 Topology”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_62630_IPv6_Support_for"><span class="FM_PMS646">“IPv6 Support for Controller and AP”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_95917_IPv6_Extension"><span class="FM_PMS646">“IPv6 Extension Header (EH) Filtering”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_54429_ArubaOS_Support"><span class="FM_PMS646">“ArubaOS Support for IPv6 Clients”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_48906_ArubaOS_Features"><span class="FM_PMS646">“ArubaOS Features that Support IPv6” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_71379_IPv6_User_Addresses"><span class="FM_PMS646">“IPv6 User Addresses”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_34481_Important_Things"><span class="FM_PMS646">“Important Points to Remember”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_About_IPv6"></a><a name="IX_IPv6"></a><a name="XREF_13712_About_IPv6"></a>About IPv6</p>
+ <p class="FM_Body">The IPv6 protocol enables the next generation of large-scale IP networks by supporting addresses that are 128 bits long. This allows 2<sup>128</sup> possible addresses (versus 2<sup>32</sup> possible IPv4 addresses).</p>
+ <p class="FM_Body">Typically, the IP address assigned on an IPv6 host consists of a 64-bit subnet identifier and a 64-bit interface identifier. IPv6 addresses are represented as eight colon-separated fields of up to four hexadecimal digits each. The following are examples of IPv6 addresses:</p>
+ <p class="FM_CLI">FEDC:BA98:7654:3210:FEDC:BA98:7654:3210</p>
+ <p class="FM_CLI">1080:0:0:0:0:800:200C:417A</p>
+ <p class="FM_Body">The use of the “::” symbol is a special syntax that you can use to compress one or more 16-bit groups of zeros or to compress leading or trailing zeros in an address. The “::” can appear only once in an address. For example, the address, <span class="FM_CLI">1080:0:0:0:0:800:200C:417A</span>&#160;can also be represented as <span class="FM_CLI">1080::800:200C:417A</span>.</p>
+ <p class="FM_Body">IPv6 uses subnet identifiers to identify subnetworks to which nodes are attached. In <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>, when you refer IPv6 subnetworks in firewall policies, you must specify a subnet mask in addition to the IPv6 address. The subnet mask is a bitmask that specifies the prefix length. For example, <span class="FM_CLI">1080::800:200C:417A ffff:ffff:ffff:ffff::</span>&#160;represents all IPv6 addresses with the subnet identifier <span class="FM_CLI">1080:0:0:0</span>.</p>
+ <p class="FM_1Heading"><a name="TOC_IPv6_Topology"></a><a name="XREF_81430_IPv6_Support_for"></a>IPv6 Topology</p>
+ <p class="FM_Body">IPv6 APs connect to the IPv6 <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;over an IPv6 L3 network. The IPv6 <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can terminate both IPv4 and IPv6 APs. IPv4 and IPv6 clients can terminate to either IPv4 or IPv6 APs. An external IPv6 router is required in the subnet to generate router advertisements (RA), if the IPv6 APs and clients depend on stateless autoconfiguration to obtain IPv6 address. The external IPv6 router is the default gateway in most deployments. However, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can be the default gateway by using static routes. The master-local communication always happens in IPv4.</p>
+ <p class="FM_Body">The following image illustrates how IPv6 clients, APs, and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;communicate with each other in an IPv6 network.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 162 &#160;</span>IPv6 Topology</p>
+ <div align="left"><img alt="ipv6_topology.jpg" id="image0" src="images/ipv6_topology.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The IPv6 <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> (<span class="FM_Navigation">MC2</span>) terminates both <span class="FM_Navigation">V4 AP</span>&#160;(IPv4 AP) and <span class="FM_Navigation">V6 AP</span> (IPv6 AP).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Client 1</span>&#160;(IPv4 client) terminates to <span class="FM_Navigation">V6 AP</span>&#160;and <span class="FM_Navigation">Client 2</span>&#160;(IPv6 client) terminates to <span class="FM_Navigation">V4 AP</span>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Router</span>&#160;is an external IPv6 router in the subnet to generate RAs and acts as the default gateway in this illustration.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">MC1</span>&#160;(master) and <span class="FM_Navigation">MC2</span> (local) communicates in IPv4.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_IPv6_Support_for"></a><a name="XREF_62630_IPv6_Support_for"></a>IPv6 Support for <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> and AP</p>
+ <p class="FM_Body">This release of <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;provides IPv6 support for <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and access points. You can now configure the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;with an IPv6 address to manage the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and APs. Both IPv4 and IPv6 APs can terminate on the IPv6 <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can provision an IPv6 AP in the network only if the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;interface is configured with an IPv6 address. An IPv6 AP can serve both IPv4 and IPv6 clients.</p>
+ <p class="FM_Anchor">.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You must manually configure an IPv6 address on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;interface to enable IPv6 support. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body">You can perform the following IPv6 operations on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_69885_Configure_IPv6"><span class="FM_PMS646">“Configure IPv6 Interface Address”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_19222_Configure_IPv6"><span class="FM_PMS646">“Configure IPv6 Static Neighbor” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_82571_Configure_IPv6"><span class="FM_PMS646">“Configure IPv6 Default Gateway and Static IPv6 Routes” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_73161_Manage_Controller"><span class="FM_PMS646">“Manage Controller IP Address”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_48064_Configure"><span class="FM_PMS646">“Configure Multicast Listener Discovery (MLD)”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_61798_Debug_IPv6"><span class="FM_PMS646">“Debug IPv6 Controller” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_22073_Provision_IPv6_AP"><span class="FM_PMS646">“Provision IPv6 AP” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_Body">You can also view the IPv6 statistics on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> using the following commands:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">show datapath ip-reassembly ipv6</span>: View the IPv6 contents of the IP Reassembly statistics table.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">show datapath route ipv6</span>: View datapath IPv6 routing table.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">show datapath route-cache ipv6</span>: View datapath IPv6 route cache.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">show datapath tunnel ipv6</span>: View the tcp tunnel table filtered on IPv6 entries.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">show datapath user ipv6</span>: View datapath IPv6 user statistics such as current entries, pending deletes, high water mark, maximum entries, total entries, allocation failures, invalid users, and maximum link length.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">show datapath session ipv6</span>: View datapath IPv6 session entries and statistics such as current entries, pending deletes, high water mark, maximum entries, total entries, allocation failures, invalid users, and maximum link length.</p>
+</li>
+ </ul>
+ <p class="FM_Body">Additionally, you can view the IPv6 AP information on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> using the following show commands:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>show ap database<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>show ap active<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">show user<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">show ap details ip6-addr<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">show ap debug</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</li>
+ </ul>
+ <p class="FM_Body">The following table gives the list of features that are supported and not supported on IPv6 APs:</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 327.11pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 147 &#160;</span>IPv6 APs Support Matrix<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 183.108pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Features</p>
+</th>
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Supported on IPv6 APs?</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Forward Mode - Tunnel</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Forward Mode - Decrypt Tunnel</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Forward Mode - Bridge</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Forward Mode - Split Tunnel</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP Type - CAP</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP Type - RAP</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP Type - Mesh Node</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IPSEC</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">CPSec </p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Wired-AP/Secure-Jack</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Fragmentation/Reassembly</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">MTU Discovery</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Provisioning through Static IPv6 Addresses</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Provisioning through IPv6 FQDN Master Name</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Provisioning from WebUI</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP boot by Flash</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP boot by TFTP</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">WMM QoS</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP Debug and Syslog</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ARM &amp; AM</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">WIDS</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes (Limited)</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Legacy APs as IPv6 APs </p>
+  <p class="FM_TableBody">(AP-60/61, <?rh-udv_start name="65AP"  ?>AP-65<?rh-udv_end ?>, <?rh-udv_start name="70AP"  ?>AP-70<?rh-udv_end ?>, <?rh-udv_start name="85AP"  ?>AP-85<?rh-udv_end ?>, and RAP-2WG)</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 183.108pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">CLI support for users &amp; datapath</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_2Heading"><a name="TOC_Configure_IPv6_Interface"></a><a name="XREF_69885_Configure_IPv6"></a>Configure IPv6 Interface Address</p>
+ <p class="FM_Body">You can configure IPv6 addresses for the management interface, VLAN interface, and the loopback interface of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can have up to three IPv6 addresses for each VLAN interface. The IPv6 address configured on the loopback interface or the first VLAN interface of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;becomes the default IPv6 address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">If only one IPv6 address is configured on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, it becomes the default IPv6 address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You cannot delete the IPv6 address unless there is an IPv6 address configured for the loopback interface or a VLAN interface of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You can configure IPv6 interface address using the WebUI or CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI114"></a>In the WebUI</p>
+ <p class="FM_4Heading">To Configure Link Local Address</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt;&#160;Network &gt; IP</span>&#160;page and select the <span class="FM_Navigation">IP Interfaces</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Edit a VLAN # and select <span class="FM_Navigation">IP version</span> as IPv6.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the link local address in the Link Local Address field.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to apply the configuration.</p>
+ <p class="FM_4Heading">To Configure Global Unicast Address</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt;&#160;Network &gt; IP</span>&#160;page and select the <span class="FM_Navigation">IP Interfaces</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Edit a VLAN # and select <span class="FM_Navigation">IP version</span> as IPv6.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the global unicast address and the prefix-length in the IP Address/Prefix-length field. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) Select the <span class="FM_Navigation">EUI64 Format</span> check box, if applicable.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Add</span> button add the address to the global address list.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to apply the configuration.</p>
+ <p class="FM_4Heading">To Configure Loopback Interface Address </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>&#160;page and select the <span class="FM_Navigation">System Settings</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under <span class="FM_Navigation">Loopback Interface</span>&#160;enter the loopback address in the <span class="FM_Navigation">IPv6 Address</span> field.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to apply the configuration.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You cannot configure the management interface address using the WebUI.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI115"></a>In the CLI</p>
+ <p class="FM_Body">To configure link local address</p>
+ <p class="FM_CLI">(host)(config)#interface vlan &lt;vlan#&gt;</p>
+ <p class="FM_CLI">(host)(config-subif)#ipv6 address &lt;ipv6-address&gt; link-local</p>
+ <p class="FM_Body">To configure global unicast address</p>
+ <p class="FM_CLI">(host)(config)#interface vlan &lt;vlan#&gt;</p>
+ <p class="FM_CLI">(host)(config-subif)#ipv6 address &lt;ipv6-prefix&gt;/&lt;prefix-length&gt;</p>
+ <p class="FM_Body">To configure global unicast address (EUI 64 format)</p>
+ <p class="FM_CLI">(host)(config)#interface vlan &lt;vlan#&gt;</p>
+ <p class="FM_CLI">(host)(config-subif)#ipv6 address &lt;ipv6-prefix/prefix-length&gt; eui-64</p>
+ <p class="FM_Body">To configure management interface address</p>
+ <p class="FM_CLI">(host)(config)#interface mgmt</p>
+ <p class="FM_CLI">(host)(config-subif)#ipv6 address &lt;ipv6-prefix/prefix-length&gt;</p>
+ <p class="FM_Body">To configure loopback interface address</p>
+ <p class="FM_CLI">(host)(config)#interface loopback</p>
+ <p class="FM_CLI">(host)(config-subif)#ipv6 address &lt;ipv6-prefix&gt;</p>
+ <p class="FM_2Heading"><a name="TOC_Configure_IPv6_Static"></a><a name="XREF_19222_Configure_IPv6"></a>Configure IPv6 Static Neighbor</p>
+ <p class="FM_Body">You can configure a static neighbor on a VLAN interface either using the WebUI or the CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI115"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt;&#160;Network &gt; IP</span>&#160;page and select the <span class="FM_Navigation">IPv6 Neighbors</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Add</span> button and enter the following details of the IPv6 neighbor:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>IPv6 Address</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Link-layer Addr</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">VLAN Interface</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Done</span> button to apply the configuration.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI116"></a>In the CLI</p>
+ <p class="FM_Body"> To configure a static neighbor on a VLAN interface</p>
+ <p class="FM_CLI">(host)(config)#ipv6 neighbor &lt;ipv6addr&gt; vlan &lt;vlan#&gt; &lt;mac&gt;</p>
+ <p class="FM_2Heading"><a name="TOC_Configure_IPv6_Default"></a><a name="XREF_82571_Configure_IPv6"></a>Configure IPv6 Default Gateway and Static IPv6 Routes</p>
+ <p class="FM_Body">You can configure IPv6 default gateway and static IPv6 routes using the WebUI or CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI116"></a>In the WebUI</p>
+ <p class="FM_4Heading">To Configure IPv6 Default Gateway</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt;&#160;Network &gt; IP</span>&#160;page and select the <span class="FM_Navigation">IP Routes</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the <span class="FM_Navigation">Default Gateway</span>&#160;section, click the <span class="FM_Navigation">Add</span> button.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select IPv6 as <span class="FM_Navigation">IP Version</span>, and enter the IPv6 address in the <span class="FM_Navigation">IP Address</span>&#160;field. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Add</span> button to add the address to the IPv6 default gateway table.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to apply the configuration.</p>
+ <p class="FM_4Heading">To Configure Static IPv6 Routes</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the <span class="FM_Navigation">IP Routes</span>&#160;section, click the <span class="FM_Navigation">Add</span>&#160;button and select IPv6 as <span class="FM_Navigation">IP Version</span>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the destination IP address and the forwarding settings in the respective fields. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Done</span> button to add the static route to the IPv6 routes table.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to apply the configuration.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI117"></a>In the CLI</p>
+ <p class="FM_Body">To configure IPv6 default gateway</p>
+ <p class="FM_CLI">(host)(config)#ipv6 default-gateway &lt;ipv6-address&gt; &lt;cost&gt;</p>
+ <p class="FM_Body">To configure static IPv6 routes</p>
+ <p class="FM_CLI">(host)(config)#ipv6 route &lt;ipv6-prefix/prefix-length&gt; &lt;ipv6-next-hop&gt; &lt;cost&gt;</p>
+ <p class="FM_CLI">&lt;ipv6-next-hop&gt;  = X:X:X:X::X    </p>
+ <p class="FM_2Heading"><a name="TOC_Manage_Controller_IP"></a><a name="XREF_73161_Manage_Controller"></a>Manage <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> IP Address</p>
+ <p class="FM_Body">You can change the default <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP address by assigning a different VLAN interface address or the loop back interface address. You can also turn on Syslog messaging for IPv6 (similar to IPv4 logging) using the <span style="font-family : Courier New; font-size  : 9.0pt; ">logging &lt;ipv6 address&gt; </span>command. For more information on logging, see <a href="Management_Utilities.htm#XREF_77453_Configuring_Logging"><span class="FM_PMS646">“Configuring Logging”</span></a>.You can use the WebUI or CLI to change the default <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IP address.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI117"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>&#160;page and select the <span class="FM_Navigation">System Settings</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the <span class="FM_Navigation"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> IP Details</span>&#160;section, select the VLAN Id or the loopback interface Id in the <span class="FM_Navigation">IPv6 Address</span> drop down.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to apply the configuration.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI118"></a>In the CLI</p>
+ <p class="FM_Body">To configure an IPv6 address to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <p class="FM_CLI">(host)(config)#<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ipv6 loopback</p>
+ <p class="FM_CLI">(host)(config)#<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ipv6 vlan &lt;vlanId&gt;</p>
+ <p class="FM_Body">To enable logging over IPv6</p>
+ <p class="FM_CLI">(host)(config)#logging &lt;ipv6 address&gt;</p>
+ <p class="FM_2Heading"><a name="TOC_Configure_Multicast"></a><a name="XREF_48064_Configure"></a>Configure Multicast Listener Discovery (MLD)</p>
+ <p class="FM_Body">You can enable the IPv6 multicast snooping on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the WebUI or CLI. You can also modify the default values of the MLD parameters such as query interval, query response interval, and robustness variable. </p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI118"></a>In the WebUI</p>
+ <p class="FM_4Heading">To Enable IPv6 MLD Snooping</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt;&#160;Network &gt; IP </span>page and select the <span class="FM_Navigation">IP Interfaces</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Edit the required VLAN interface.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Check the <span class="FM_Navigation">Enable MLD Snooping</span> check box to enable IPv6 MLD snooping.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to apply the configuration.</p>
+ <p class="FM_4Heading">To Modify IPv6 MLD Parameters</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt;&#160;Network &gt; IP</span>&#160;page and select the <span class="FM_Navigation">Multicast Routing</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the <span class="FM_Navigation">MLD</span> section, enter the required values in the following fields:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">Robustness Variable: default value is 2</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Query Interval: default value is 125 seconds</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Query Response Interval: default value is 100 (1/10 seconds).</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to apply the configuration.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI119"></a>In the CLI</p>
+ <p class="FM_Body">To enable IPv6 MLD snooping:</p>
+ <p class="FM_Body"><span class="FM_CLI">(host) (config) #interface vlan 1</span></p>
+ <p class="FM_Body"><span class="FM_CLI">(host) (config-subif)#ipv6 mld snooping</span></p>
+ <p class="FM_Body">To view if IPv6 MLD snooping is enabled:</p>
+ <p class="FM_Body">(host) (config-subif)#show ipv6 mld interface</p>
+ <p class="FM_Body">MLD Interface Table</p>
+ <p class="FM_Body">-------------------</p>
+ <p class="FM_Body">VLAN &#160;Snooping &#160;Querier</p>
+ <p class="FM_Body">---- &#160;-------- &#160;-------</p>
+ <p class="FM_Body">1 &#160;&#160;&#160;&#160;enabled &#160;&#160;::</p>
+ <p class="FM_Body">3 &#160;&#160;&#160;&#160;disabled &#160;::</p>
+ <p class="FM_Body">60 &#160;&#160;&#160;disabled &#160;::</p>
+ <p class="FM_Body">To modify IPv6 MLD parameters:</p>
+ <p class="FM_Body"><span class="FM_CLI">(host) (config) #ipv6 mld</span></p>
+ <p class="FM_Body"><span class="FM_CLI">(host) (config-mld) # query-interval &lt;time in seconds (1-65535)&gt;|query-response-interval &lt;time in 1/10th of seconds (1-65535)|robustness-variable &lt;value (2-10)&gt;</span></p>
+ <p class="FM_Body">To view MLD configuration:</p>
+ <p class="FM_Body">(host) (config-subif)#show ipv6 mld config</p>
+ <p class="FM_Body">MLD Config</p>
+ <p class="FM_Body">----------</p>
+ <p class="FM_Body">Name &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Value</p>
+ <p class="FM_Body">---- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-----</p>
+ <p class="FM_Body">robustness-variable &#160;&#160;&#160;&#160;&#160;2</p>
+ <p class="FM_Body">query-interval &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;125</p>
+ <p class="FM_Body">query-response-interval &#160;100</p>
+ <p class="FM_2Heading"><a name="TOC_Debug_IPv6_Controller"></a><a name="XREF_61798_Debug_IPv6"></a>Debug IPv6 <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">You can now use the debug options such as ping and tracepath for IPv6 hosts. You can either use the WebUI or the CLI to use the ping and tracepath options.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI119"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To ping an IPv6 host, navigate to the <span style="font-weight : bold; ">Diagnostics &gt;&#160;Network &gt; Ping</span>&#160;page, enter an IPv6 address, and click the <span style="font-weight : bold; ">Ping</span> button.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To trace the path of an IPv6 host, navigate to the <span style="font-weight : bold; ">Diagnostics &gt;&#160;Network &gt; Tracepath</span>&#160;page, enter an IPv6 address, and click the <span style="font-weight : bold; ">Trace</span> button.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI120"></a>In the CLI</p>
+ <p class="FM_Body">To ping an IPv6 host</p>
+ <p class="FM_CLI">(host) #ping ipv6 &lt;global-ipv6-address&gt;</p>
+ <p class="FM_CLI">(host) #ping ipv6 interface vlan &lt;vlan-id&gt; &lt;linklocal-address&gt;</p>
+ <p class="FM_Body">To trace the path of an IPv6 host</p>
+ <p class="FM_CLI">(host) #tracepath ipv6 &lt;global-ipv6-address&gt;</p>
+ <p class="FM_2Heading"><a name="TOC_Provision_IPv6_AP"></a><a name="XREF_22073_Provision_IPv6_AP"></a>Provision IPv6 AP</p>
+ <p class="FM_Body">You can provision an IPv6 AP on an IPv6 <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can either configure a static IP address or obtain a dynamic IPv6 address via stateless-autoconfig. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can act as the default gateway for the IPv6 clients, if static IPv6 routes are set on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">In this release of <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>, the IPv6 <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;cannot generate router advertisements (RA). It can, however, pass on the RAs generated by the external routers to the clients.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You can provision an IPv6 AP using the WebUI or CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI120"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt; AP Installation&gt; Provision</span>&#160;page and select the <span class="FM_Navigation">Provisioning</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select an AP and click the <span class="FM_Navigation">Provision</span> button.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the <span class="FM_Navigation">Master Discovery</span>&#160;section, enter the host <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP address and the IPv6 address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To provision a static IP, select the <span class="FM_Navigation">Use the following IP address</span>&#160;check box under the <span class="FM_Navigation">IP Settings</span>&#160;section, and enter the following details:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">IPv6 Address/Prefix-lengths</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Gateway IPv6 Address</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">DNS IPv6 Address</p>
+</li>
+ </ul>
+ <p class="FM_Body"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Ensure that CPSEC is disabled before rebooting the AP.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply and Reboot</span> button to bring the IPv6 AP up.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI121"></a>In the CLI</p>
+ <p class="FM_Body">To provision a static IPv6 address </p>
+ <p class="FM_CLI">(host) (config)# provision-ap</p>
+ <p class="FM_CLI">(host) (AP provisioning)# master &lt;IPv6 address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&gt;</p>
+ <p class="FM_CLI">(host) (AP provisioning)# dns-server-ip6 &lt;IPv6 address of the AP's DNS server&gt;</p>
+ <p class="FM_CLI">(host) (AP provisioning)# ip6addr &lt;the static IPv6 address of the AP&gt;</p>
+ <p class="FM_CLI">(host) (AP provisioning)# ip6prefix &lt;the prefix of the AP's static IPv6 address&gt;</p>
+ <p class="FM_CLI">(host) (AP provisioning)# gateway6 &lt;the default gateway IPv6 address for the AP&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_IPv6_Extension_Header_EH"></a><a name="XREF_95917_IPv6_Extension"></a>IPv6 Extension Header (EH) Filtering</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;firewall is enhanced to process the IPv6 Extension Header (EH) to enable IPv6 packet filtering. You can now filter the incoming IPv6 packets based on the EH type. You can edit the packet filter options in the default EH, using the CLI. By default, the default EH alias permits all EH types.</p>
+ <p class="FM_Body">Execute the following commands to permit or deny the IPv6 packets matching an EH type:</p>
+ <p class="FM_CLI">(host) (config) #netexthdr default</p>
+ <p class="FM_CLI">(host) (config-exthdr) #eh &lt;eh-type&gt; permit | deny</p>
+ <p class="FM_Body">To view the EH types denied:</p>
+ <p class="FM_CLI">(host) (config-exthdr) #show netexthdr default</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">Extended Header type(s) Denied</p>
+ <p class="FM_CLI">------------------------------</p>
+ <p class="FM_CLI">51, &#160;234,</p>
+ <p class="FM_1Heading"><a name="TOC_Captive_Portal_over_IPv6"></a>Captive Portal over IPv6</p>
+ <p class="FM_Body">IPv6 is now enabled on the captive portal for user authentication on the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. For user authentication use the internal captive portal that is initiated from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. A new parameter <span class="FM_CLI">captive </span>has been added to the IPv6 captive portal session ACL.</p>
+ <p class="FM_Body">ipv6 user alias <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>6 svc-https captive</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">This release does not support external captive portal for IPv6. The captive portal authentication, customization of pages, and other attributes are same as IPv4.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Captive4"></a>Configuring Captive Portal over IPv6</p>
+ <p class="FM_Body">You can configure captive portal over IPv6 (similar to IPv4) using the WebUI or CLI. For more information on configuration, see <a href="VirtualAPs.htm#XREF_79166_Configuring_an"><span class="FM_PMS646">“Captive Portal in the Base ArubaOS”</span></a>.</p>
+ <p class="FM_1Heading"><a name="TOC_ArubaOS_Support_for_IPv6"></a><a name="XREF_54429_ArubaOS_Support"></a><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> Support for IPv6 Clients</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;provides wired or wireless clients using IPv6 addressing with services such as firewall functionality, layer-2 authentication, and, with the installation of the Policy Enforcement Firewall Next Generation (PEFNG), identity-based security. The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;does not provide routing or Network Address Translation to IPv6 clients (see <a href="#XREF_34481_Important_Things"><span class="FM_PMS646">“Important Points to Remember”</span></a>).</p>
+ <p class="FM_2Heading"><a name="TOC_Enabling_IPv6"></a>Enabling IPv6 </p>
+ <p class="FM_Body">You must enable the IPv6 option on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;before using any of the IPv6 functions. You can use the <span class="FM_CLI">ipv6 enable </span>command to enable the IPv6 processing on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. By default, the IPv6 option is disabled.</p>
+ <p class="FM_Body">You can also use the WebUI to enable the IPv6 option as follows:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Navigation">Configuration &gt;&#160;Advanced Services &gt; Stateful Firewall </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span class="FM_Navigation">Global Settings</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span class="FM_Navigation">IPv6 Enable</span> check box to enable the IPv6 option.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Navigation">Apply</span> button to apply the configuration.</p>
+ <p class="FM_2Heading"><a name="TOC_Supported_Network"></a>Supported Network Configuration</p>
+ <p class="FM_Body">Clients can be wired or wireless and use IPv4 and/or IPv6 addressing. <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;requires that the default gateway for the IPv6 clients be an external router that supports IPv6. The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;itself has an IPv4 address, and can offer limited routing services to IPv6 clients. It is highly recommended to use an external IPv6 router for a complete routing experience (dynamic routing and router advertisements<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>). You can use the WebUI or CLI to display IPv6 client information.</p>
+ <p class="FM_Body">IPv6 clients must be mapped to a VLAN that is bridged to an external router which provides IPv6 services to those clients. On the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can configure IPv4 and IPv6 clients on the same VLAN.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">IPv6 clients and the IPv6 router must be on the same VLAN.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 163 &#160;</span></p>
+ <div align="left"><img alt="ipv6_network.jpg" id="image1" src="images/ipv6_network.jpg" />
+ </div>
+ <p class="FM_FigureTitle">Supported Network Configuration<a name="XREF_94128_Figure1_1"></a></p>
+ <p class="FM_2Heading"><a name="TOC_Network_Connection_for"></a>Network Connection for Windows IPv6 Clients</p>
+ <p class="FM_Body">This section describes the network connection sequence for Windows Vista/XP clients that use IPv6 addresses, and the actions performed by the AP and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The IPv6 client sends a Router Solicit message through the AP.&#160;The AP passes the Router Solicit message from the IPv6 client through the GRE tunnel to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> removes the 802.11 frame and creates an 802.3 frame for the Router Solicit message.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;authenticates the user, applies firewall policies and bridges the 802.3 frame to the IPv6 router.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Entries are created in the user and session tables.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>IPv6 router responds with a Router Advertisement message.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;applies firewall policies, then creates an 802.11 frame for the Router Advertisement message. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> sends the Router Advertisement through the GRE tunnel to the AP.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>IPv6 client sends a Neighbor Solicitation message.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>IPv6 router responds with a Neighbor Advertisement message.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If DHCP is required to provide IPv6 addresses, the DHCPv6 process is started.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>IPv6 client sends data.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> removes the 802.11 frame and creates an 802.3 frame for the data.</p>
+ <p class="FM_BodyinBulletStep">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;authenticates the user, applies firewall policies and bridges the 802.3 frame to the IPv6 router. Entries are created in the user and session tables.</p>
+ <p class="FM_1Heading"><a name="TOC_ArubaOS_Features_that"></a><a name="XREF_48906_ArubaOS_Features"></a><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> Features that Support IPv6</p>
+ <p class="FM_Body">This section describes <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> features that support IPv6 clients.</p>
+ <p class="FM_2Heading"><a name="TOC_Authentication2"></a>Authentication</p>
+ <p class="FM_Body">This release of <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;only supports 802.1x authentication for IPv6 clients. You cannot configure layer-3 authentications to authenticate IPv6 clients.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 324.75pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 148 &#160;</span>IPv6 Client Authentication<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 171.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Authentication Method</p>
+</th>
+  <th style="width : 153.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Supported for IPv6 Clients?</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 171.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">802.1x</p>
+</td>
+  <td style="width : 153.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 171.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stateful 802.1x (with non-<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> APs)</p>
+</td>
+  <td style="width : 153.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 171.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Local database </p>
+</td>
+  <td style="width : 153.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 171.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Captive Portal</p>
+</td>
+  <td style="width : 153.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 171.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VPN</p>
+</td>
+  <td style="width : 153.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 171.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">xSec</p>
+</td>
+  <td style="width : 153.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No (not tested)</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 171.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">MAC-based</p>
+</td>
+  <td style="width : 153.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You configure 802.1x authentication for IPv6 clients in the same way as for IPv4 client configuration. For more information about configuring 802.1x authentication on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, see <a href="VirtualAPs.htm#XREF_51279_Channel_Switch"><span class="FM_PMS646">Chapter 10, “802.1x Authentication” </span></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">This release does not support authentication of management users on IPv6 clients.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Firewall_Functions"></a>Firewall Functions</p>
+ <p class="FM_Body">If you installed a Policy Enforcement Firewall Next Generation (PEFNG) license in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can configure firewall functions for IPv6 client traffic. While these firewall functions are identical to firewall functions for IPv4 clients, you need to explicitly configure them for IPv6 traffic. For more information about firewall policies, see <a href="XML_API.htm#XREF_83760_Chapter_Title_max"><span class="FM_PMS646">“Global Firewall Parameters”</span></a>. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Voice-related and NAT firewall functions are not supported for IPv6 traffic.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 149 &#160;</span><a name="XREF_47168_Table1_1_Firewall"></a>IPv6 Firewall Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 40.00pt;background : #548baf;">
+  <th style="width : 108.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Authentication Method</p>
+</th>
+  <th style="width : 360.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Monitor Ping Attack</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of ICMP pings per second, which if exceeded, can indicate a denial of service attack. Valid range is 1–255 pings per second. Recommended value is 4.</p>
+  <p class="FM_TableBody">Default: No default</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Monitor TCP SYN Attack rate</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of TCP SYN messages per second, which if exceeded, can indicate a denial of service attack. Valid range is 1–255 messages per second. Recommended value is 32.</p>
+  <p class="FM_TableBody">Default: No default</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Monitor IP Session Attack</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of TCP or UDP connection requests per second, which if exceeded, can indicate a denial of service attack. Valid range is 1–255 requests per second. Recommended value is 32.</p>
+  <p class="FM_TableBody">Default: No default</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Deny Inter User Bridging</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Prevents the forwarding of Layer-2 traffic between wired or wireless users. You can configure user role policies that prevent Layer-3 traffic between users or networks but this does not block Layer-2 traffic. This option can be used to prevent traffic, such as Appletalk or IPX, from being forwarded.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Deny All IP Fragments</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Drops all IP fragments. </p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>Do not enable this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> representative.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enforce TCP Handshake Before Allowing Data</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Prevents data from passing between two clients until the three-way TCP handshake has been performed. This option should be disabled when you have mobile clients on the network as enabling this option will cause mobility to fail. You can enable this option if there are no mobile clients on the network.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 97.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Prohibit IP Spoofing</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables detection of IP spoofing (where an intruder sends messages using the IP address of a trusted client). When this option is enabled, IP and MAC addresses are checked for each ARP request/response. Traffic from a second MAC address using a specific IP address is denied, and the entry is not added to the user table. Possible IP spoofing attacks are logged and an SNMP trap is sent.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>An IPv6 client can have multiple IP addresses. Enabling IP spoofing on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> can cause IPv6 clients to lose network access.</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Prohibit RST Replay Attack</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">When enabled, closes a TCP connection in both directions if a TCP RST is received from either direction. You should not enable this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> representative.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session Mirror Destination</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Destination (IPv4 address or <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;port) to which mirrored session packets are sent. You can configure IPv6 flows to be mirrored with the session ACL “mirror” option. This option is used only for troubleshooting or debugging.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 108.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session Idle Timeout</p>
+</td>
+  <td style="width : 360.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Set the time, in seconds, that a non-TCP session can be idle before it is removed from the session table. Specify a value in the range 16–259 seconds. You should not set this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> representative.</p>
+  <p class="FM_TableBody">Default: 30 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 108.000pt; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Per-packet Logging</p>
+</td>
+  <td style="width : 360.000pt; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables logging of every packet if logging is enabled for the corresponding session rule. Normally, one event is logged per session. If you enable this option, each packet in the session is logged. You should not enable this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;representative, as doing so may create unnecessary overhead on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+  <p class="FM_TableBody">Default: Disabled (per-session logging is performed)</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The following examples configure attack rates and the session timeout for IPv6 traffic.</p>
+ <p class="FM_Body">To configure the firewall function via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt;&#160;Stateful Firewall &gt; Global Setting</span>&#160;page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the IPv6 column, enter the following:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">For Monitor Ping Attack, enter 15</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">For Monitor IP Session Attack, enter 25</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">For Session Idle Timeout, enter 60</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To configure firewall functions using the command line interface, issue the following commands in config mode:</p>
+ <p class="FM_CLI">ipv6 firewall attack-rate ping 15</p>
+ <p class="FM_CLI">ipv6 firewall attack-rate session 25</p>
+ <p class="FM_CLI">ipv6 firewall session-idle-timeout 60</p>
+ <p class="FM_2Heading"><a name="TOC_Firewall_Policies"></a>Firewall Policies</p>
+ <p class="FM_Body">A user role, which determines a client’s network privileges, is defined by one or more firewall policies. A firewall policy consists of one or more rules that define the source, destination, and service type for specific traffic and whether you want the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to permit or deny traffic that matches the rule.</p>
+ <p class="FM_Body">You can configure firewall policies for IPv4 traffic or for IPv6 traffic and apply IPv4 and IPv6 firewall policies to the same user role. For example, if you have employees that are using both IPv4 and IPv6 clients you can configure both IPv4 and IPv6 firewall policies and apply them both to the “employee” user role.</p>
+ <p class="FM_Body">The procedure to configure an IPv6 firewall policy rule is similar to configuring a firewall policy rule for IPv4 traffic, but with some differences. <a name="XREF_36877_Creating_a_New"></a><a href="Management_Utilities.htm#XREF_77453_Configuring_Logging"><span class="FM_PMS646">Table 150</span></a>&#160;describes required and optional parameters for an IPv6 firewall policy rule.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.60pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 150 &#160;</span><a name="XREF_39312_Table1_1_Required"></a>IPv6 Firewall Policy Rule Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 76.128pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Field</p>
+</th>
+  <th style="width : 391.469pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 145.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Source (required)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Source of the traffic, which can be one of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">any</span>: Acts as a wildcard and applies to any source address.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">user</span>: This refers to traffic from the wireless client.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">host</span><span style="font-style : italic; ">:</span>&#160;This refers to traffic from a specific host. When this option is chosen, you must configure the IPv6 address of the host. For example, 2002:d81f:f9f0:1000:c7e:5d61:585c:3ab.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">network</span><span style="font-style : italic; ">:</span>&#160;This refers to a traffic that has a source IP from a subnet of IP addresses. When this option is chosen, you must configure the IPv6 address and network mask of the subnet. For example, 2002:ac10:fe:: ffff:ffff:ffff::.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">alias</span><span style="font-style : italic; ">:</span> This refers to using an alias for a host or network.</p>
+</li>
+  </ul>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>This release does not support IPv6 aliases. You cannot configure an alias for an IPv6 host or network.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Destination (required)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Destination of the traffic, which can be configured in the same manner as Source.</p>
+</td>
+</tr>
+  <tr style=" height : 155.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Service (required)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>Voice over IP services are not available for IPv6 policies.</p>
+  <p class="FM_TableBody">Type of traffic, which can be one of the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_Bold" style="font-style : italic; font-weight : bold; ">any</span>: This option specifies that this rule applies to any type of traffic.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">tcp</span>: Using this option, you configure a range of TCP port(s) to match for the rule to be applied.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">udp</span>: Using this option, you configure a range of UDP port(s) to match for the rule to be applied.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">service</span><span style="font-style : italic; ">: </span>Using this option, you use one of the pre-defined services (common protocols such as HTTPS, HTTP, and others) as the protocol to match for the rule to be applied. You can also specify a network service that you configure by navigating to the <span style="font-weight : bold; ">Configuration &gt; Advanced Services &gt;&#160;Stateful Firewall &gt; Network Services</span> page.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">protocol</span>: Using this option, you specify a different layer 4 protocol (other than TCP/UDP) by configuring the IP protocol value.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 89.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Action (required)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The action that you want the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to perform on a packet that matches the specified criteria. This can be one of the following:</p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>The only actions for IPv6 policy rules are permit or deny; in this release, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;cannot perform network address translation (NAT) or redirection on IPv6 packets. You can specify options such as logging, mirroring, or blacklisting (described below).</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">permit: </span>Permits traffic matching this rule.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-style : italic; font-weight : bold; ">drop:</span> Drops packets matching this rule without any notification.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Log (optional)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logs a match to this rule. This is recommended when a rule indicates a security breach, such as a data packet on a policy that is meant only to be used for voice calls.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mirror (optional)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mirrors session packets to datapath or remote destination specified in the IPv6 firewall function (see “Session Mirror Destination” in <a href="#XREF_47168_Table1_1_Firewall"><span class="FM_PMS646">Table 149 </span></a>). If the destination is an IP address, it must be an IPv4 IP address.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Queue (optional)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The queue in which a packet matching this rule should be placed. Select <span class="FM_Bold" style="font-weight : bold; ">High</span>&#160;for higher priority data, such as voice, and <span class="FM_Bold" style="font-weight : bold; ">Low</span> for lower priority traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time Range (optional)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time range for which this rule is applicable. You configure time ranges in the <span style="font-weight : bold; ">Configuration &gt; Security &gt;&#160;Access Control &gt; Time Ranges</span> page.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Black List (optional)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Automatically blacklists a client that is the source or destination of traffic matching this rule. This option is recommended for rules that indicate a security breach where the blacklisting option can be used to prevent access to clients that are attempting to breach the security.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TOS (optional)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Value of type of service (TOS) bits to be marked in the IP header of a packet matching this rule when it leaves the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 76.128pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">802.1p Priority (optional)</p>
+</td>
+  <td style="width : 391.469pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Value of 802.1p priority bits to be marked in the frame of a packet matching this rule when it leaves the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body">The following example creates a policy ‘ipv6-web-only’ that allows only web (HTTP and HTTPS) access for IPv6 clients and assigns the policy to the user role “web-guest”. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The user role “web-guest” can include both IPv6 and IPv4 policies, although this example only shows configuration of an IPv6 policy.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Creating_an_IPv6"></a>Creating an IPv6 firewall policy</p>
+ <p class="FM_Body">Following the procedure below to create an IPv6 firewall policy via the WebUI.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to create a new policy.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter <span style="font-weight : bold; ">ipv6-web-only</span> for the Policy Name.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure a firewall policy, select <span style="font-weight : bold; ">Session</span> for Policy Type.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to add a rule that allows HTTP traffic.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under <span style="font-weight : bold; ">IP Version</span>&#160;column, select <span style="font-weight : bold; ">IPv6</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under <span style="font-weight : bold; ">Source</span>, select <span style="font-weight : bold; ">network</span> from the drop-down list.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For <span style="font-weight : bold; ">Host IP</span>, enter <span style="font-weight : bold; ">2002:d81f:f9f0:1000::</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For <span style="font-weight : bold; ">Mask</span>, enter <span style="font-weight : bold; ">ffff:ffff:ffff:ffff::</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under <span style="font-weight : bold; ">Service</span>, select <span style="font-weight : bold; ">service</span> from the drop-down list.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">svc-http</span> from the scrolling list.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to add a rule that allows HTTPS traffic.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under <span style="font-weight : bold; ">IP Version</span>&#160;column, select <span style="font-weight : bold; ">IPv6</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under <span style="font-weight : bold; ">Source</span>, select <span style="font-weight : bold; ">network</span> from the drop-down list.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For <span style="font-weight : bold; ">Host IP</span>, enter <span style="font-weight : bold; ">2002:d81f:f9f0:1000::</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For <span style="font-weight : bold; ">Mask</span>, enter <span style="font-weight : bold; ">ffff:ffff:ffff:ffff::</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under <span style="font-weight : bold; ">Service</span>, select <span style="font-weight : bold; ">service</span> from the drop-down list.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">svc-https</span> from the scrolling list.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span></p>
+ <p class="FM_Anchor">.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Rules can be reordered using the up and down arrow buttons provided for each rule.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration. The policy is not created until the configuration is applied.</p>
+ <p class="FM_Body">To create an IPv6 firewall policy using the command-line interface, issue the following commands in config mode:</p>
+ <p class="FM_CLI">ip access-list session ipv6-web-only</p>
+ <p class="FM_CLI">&nbsp;&nbsp;ipv6 network 2002:d81f:f9f0:1000::/64 any svc-http permit</p>
+ <p class="FM_CLI">&nbsp;&nbsp;ipv6 network 2002:d81f:f9f0:1000::/64 any svc-https permit</p>
+ <p class="FM_3Heading"><a name="TOC_Assigning_an_IPv6_Policy"></a>Assigning an IPv6 Policy to a User Role</p>
+ <p class="FM_Body">To assign an IPv6 policy using the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; User Roles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to create a new user role.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter <span style="font-weight : bold; ">web-guest</span> for Role Name.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>. From Choose from Configured Policies, select the “ipv6-web-only” IPv6 session policy from the list.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span> to add the policy to the user role.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply this configuration.</p>
+ <p class="FM_Body">To assign an IPv6 policy to a user role via the command-line interface, issue the following command in config mode:</p>
+ <p class="FM_CLI">user-role web-guest</p>
+ <p class="FM_CLI">&nbsp;&nbsp;access-list session ipv6-web-only position 1</p>
+ <p class="FM_2Heading"><a name="TOC_DHCPv6_Passthrough_Relay"></a>DHCPv6 Passthrough/Relay</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;forwards DHCPv6 requests from IPv6 clients to the external IPv6 router. On the external IPv6 router, you must configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address as the DHCP relay. You do <span style="font-style : italic; ">not</span>&#160;need to configure an IP helper address on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to forward DHCPv6 requests.</p>
+ <p class="FM_1Heading"><a name="TOC_IPv6_User_Addresses"></a><a name="XREF_71379_IPv6_User_Addresses"></a>IPv6 User Addresses</p>
+ <p class="FM_2Heading"><a name="TOC_Viewing_or_Deleting_User"></a>Viewing or Deleting User Entries</p>
+ <p class="FM_Body">To view or delete IPv6 user entries via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Clients</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">IPv6</span> tab to display IPv6 clients.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To delete an entry in the IPv6 client display, click the radio button to the left of the client and then click <span style="font-weight : bold; ">Disconnect</span>.</p>
+ <p class="FM_Body">To view user entries for IPv6 clients using the command line interface, use the <span style="font-weight : bold; ">show user-table </span>command in enable mode. To delete a user entry for an IPv6 client, access the CLI in config mode and use the <span style="font-weight : bold; ">aaa ipv6 user delete</span> command. For example:</p>
+ <p class="FM_CLI">aaa ipv6 user delete 2002:d81f:f9f0:1000:e409:9331:1d27:ef44</p>
+ <p class="FM_2Heading"><a name="TOC_User_Roles1"></a>User Roles</p>
+ <p class="FM_Body">An IPv6 user or a client can inherit the corresponding IPv4 roles. A user or client entry on the user table will contain the user or client’s IPv4 and IPv6 entries. After captive-portal authentication, a IPv4 client can acquire a different role. This role is also updated on the client’s IPv6 entry in the user table.</p>
+ <p class="FM_2Heading"><a name="TOC_Viewing_Datapath"></a>Viewing Datapath Statistics for IPv6 Sessions</p>
+ <p class="FM_Body">To view datapath session statistics for individual IPv6 sessions, access the command-line interface in enable mode and issue the command <span style="font-weight : bold; ">show datapath session ipv6</span>. To display the user entries in the datapath, access the command-line interface in enable mode, and issue the command <span style="font-weight : bold; ">show datapath user ipv6</span>. For details on each of these commands and the output they display, refer to the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;CLI Reference Guide.</p>
+ <p class="FM_1Heading"><a name="TOC_Important_Points_to5"></a><a name="XREF_34481_Important_Things"></a>Important Points to Remember</p>
+ <p class="FM_Body">This <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> release does not support the following functions for IPv6 clients:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Do not use VLAN pooling if you enable IPv6 forwarding on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, as VLAN pooling will flood IPv6 multicast packets for all VLANs that are part of the VLAN pool. This can cause autoconfigured clients to acquire multiple IPv6 addresses (one for each vlan in the pool) making those clients behave unpredictably. If you need to work around this limitation, you can unicast BC/MC traffic to every station. To enable this workaround, you must enable the wlan ssid-profile battery-boost option, and install a Policy Enforcement Firewall Next Generation (PEFNG) license.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;offers limited routing services to IPv6 clients. It is highly recommended to use an external IPv6 router for a complete routing experience (dynamic routing and router advertisements).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> does not perform network address translation on IPv6 addresses.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> does not generate any IPv6 ICMP messages.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Voice over IP is not supported for IPv6 clients.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Remote AP supports IPv6 clients in tunnel forwarding mode only. The Remote AP bridge and split-tunnel forwarding modes do not support IPv6 clients. Secure Thin Remote Access Point (STRAP) cannot support IPv6 clients.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> cannot terminate VPNs for IPv6 clients.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">VPN authentication cannot be performed for IPv6 clients. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> does not support RADIUS over IPv6 as an authentication protocol.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication of management users on IPv6 clients is not supported.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;does not access the flow information field in IPv6 packet headers. (This field can be used by IPv6 routers to identify the sequence of packets and to facilitate routing decisions.)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">A client can have an both IPv4 address and an IPv6 address, but the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;does not relate the states of the IPv4 and IPv6 addresses on the same client. For example, if an IPv6 user session is active on a client, an IPv4 user session on the same client will be deleted if the idle timeout for the IPv4 session is reached.</p>
+</li>
+ </ul>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

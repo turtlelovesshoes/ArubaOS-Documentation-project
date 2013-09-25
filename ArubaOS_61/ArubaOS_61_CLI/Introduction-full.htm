@@ -1,0 +1,1426 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Introduction</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+ <script type="text/JavaScript">
+<!--
+function setIframeSource() {
+     var theSelect = document.getElementById('location');
+     var theIframe = document.body.getElementById('myIframe');
+     var theUrl;
+ 
+     theUrl = theSelect.options[theSelect.selectedIndex].value;
+     theIframe.src = theUrl;
+}
+//-->
+ </script>
+</head>
+
+<body>
+<span id="dnn_ctr512_Dispatch_ctl00_lblBreadCrumb" class="DMX_breadcrumbs" style=""></span>
+<ul class="breadcrumb"><span id="dnn_ctr512_Dispatch_ctl00_lblBreadCrumb" class="DMX_breadcrumbs" style=""><li></li><li></li></span>
+</ul>
+
+<p align="left"><span class="style5">Command Line Interface Reference Guide</span> </p>
+
+<div class="splash">
+    <span class="style3" style="font-family:Arial, Helvetica, sans-serif;">Preface Topics</span>    
+  <ul style="list-style-type:none; font-family:Arial, Helvetica, sans-serif;">
+    	<li><a href="#New">What’s New In  ArubaOS 6.1 </a></li>
+        <li><a href="#Contents" >Reference Guide  Contents</a></li>
+        <li><span class="FM_1Heading"><a href="#connecting">Connecting to the
+            <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>
+            Controller
+            <?rh-udv_end ?>
+          </a></span></li>
+        <li><a href="#cli">CLI Access</a></li>
+        <li><a href="#saving">Saving Configuration Changes</a></li>
+        <li><a href="#editing">Command Line Editing</a></li>
+  </ul>
+  </p>
+  </p>
+</div>
+<p class="FM_CLI">The 
+<?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;command line interface (CLI) allows you to configure and manage your <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. The CLI is accessible from a local console connected to the serial port on the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;or through a Telnet or Secure Shell (SSH) session from a remote management console or workstation. Telnet access is disabled by default. To enable Telnet access, enter the <span class="style2">telnet cli</span> command from a serial connection or an SSH session, or  access the WebUI,  navigate to the <strong>Configuration &gt; Management &gt; General page</strong> and select the <strong>Management Telnet Access</strong> checkbox.</p>
+<p class="FM_Body">Click the  drop-down list to go directly to the selected command, or see what commands were <a href="#New" class="style4">added</a>, <a href="#modified" class="style4">modified</a> or <a href="#deprecated" class="style4">deprecated</a> in ArubaOS 6.1. </p>
+ 
+ 
+ 
+        </tr>
+        <tr>
+</tr>
+<tr> 
+  <td valign="top"> 
+    <table border="0" width="800" cellspacing="2" cellpadding="2">
+              <tr>
+                <td><!--Start of drop down menus -->
+                    <!--Start of All Commands drop down menu -->
+                    
+                  <!--End of All Commands drop down menu -->                </td>
+                <td width="4" valign="top"">&nbsp;</td>
+              </tr>
+              
+
+              <tr>
+                <td rowspan="1" colspan="2"><p class="FM_Body">You can also download a printer-ready <a href="http://support.arubanetworks.com/DOCUMENTATION/tabid/77/DMXModule/512/Default.aspx?EntryId=5585" target="PDF"  title="open PDF in new window"  >PDF</a> file containing details on all of the commands.</p></td>
+              </tr>
+            </table>
+            <p class="FM_1Heading"><a name="New" id="New">What’s New In  ArubaOS
+            
+            6.1 </a></p>
+            <p class="FM_Body">The following commands were added in ArubaOS 6.1</p>
+            <?rh-align_start align="left"?>
+<table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 451.00pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf; border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 307.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="clear.htm#XREF_70305_clear_wms_wired_mac"><span class="FM_CLI" style="color   : #548baf; ">clear wms wired-mac</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Clear <span style="font-style : italic; ">learned</span>&#160;and <span style="font-style : italic; ">collected</span>&#160;Wired MAC information. </p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="cluster.htm#XREF_75866_cluster_member_cert"><span class="FM_CLI" style="color   : #548baf; ">cluster-member-custom-cert</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command sets the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as a control plane security cluster root, and specifies a custom user-installed certificate for authenticating cluster members</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="cluster.htm#XREF_92817_cluster_member"><span class="FM_CLI" style="color   : #548baf; ">cluster-member-factory-cert</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command sets the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as a control plane security cluster root, and specifies a custom user-installed certificate for authenticating cluster members.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="controller-ipv6.htm#XREF_11997_controller_ip"><span class="FM_CLI" style="color   : #548baf; ">controller-ipv6</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command sets the default IPv6 address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the IPv6 loopback interface address or a specific VLAN interface address.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto-local.htm#XREF_23569_crypto_local_ipsec"><span class="FM_CLI" style="color   : #548baf; ">crypto-local ipsec sa-cleanup</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_TableBody">Issue this </span>command to clean IPsec security associations (SAs).</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto-local.htm#XREF_66944_crypto_local"><span class="FM_CLI" style="color   : #548baf; ">crypto-local isakmp certificate-group</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Issue this command to configure an IKE Certificate Group for VPN clients.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto-local.htm#XREF_49631_crypto_local"><span class="FM_CLI" style="color   : #548baf; ">crypto-local isakmp sa-cleanup</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_TableBody">This command enables the cleanup of IKE SAs.</span></p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto-local.htm#XREF_66511_crypto_local"><span class="FM_CLI" style="color   : #548baf; ">crypto-local isakmp xauth</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command assigns the server certificate used to authenticate the 
+    <?rh-udv_start name="C1-Controller"  ?>
+    controller
+    <?rh-udv_end ?> 
+    for VPN clients using IKEv2.</p></td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ip.htm#XREF_33841_ip_igmp"><span class="FM_CLI" style="color   : #548baf; ">ip igmp</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Added parameters: <strong>max-members-per-group</strong> and <strong>quick-client-conver</strong></p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="interface.htm#XREF_27232_interface_vlan"><span class="FM_CLI" style="color   : #548baf; ">interface vlan ipv6 address</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures the link local address or the global unicast adress for this interface.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="ipv6.htm#XREF_63966_ipv6_default"><span class="FM_CLI" style="color   : #548baf; ">ipv6 cp-redirect-address</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures a redirect address for captive portal.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ipv6.htm#XREF_36029_ipv6_enable"><span class="FM_CLI" style="color   : #548baf; ">ipv6 default-gateway</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures an IPv6 default gateway.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ipv6.htm#XREF_30286_ipv6_mld"><span class="FM_CLI" style="color   : #548baf; ">ipv6 mld</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures the IPv6 MLD(Multi-listener discovery) parameters.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ipv6.htm#XREF_74400_ipv6_neighbor"><span class="FM_CLI" style="color   : #548baf; ">ipv6 neighbor</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures an IPv6 static neighbor on a VLAN interface.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ipv6.htm#XREF_51444_ipv6_route"><span class="FM_CLI" style="color   : #548baf; ">ipv6 route</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures static IPv6 routes on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="localip.htm#XREF_92666_localip"><span class="FM_CLI" style="color   : #548baf; ">local-custom-cert</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures the user-installed certificate for secure communication between a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="localip.htm#XREF_92666_localip"><span class="FM_CLI" style="color   : #548baf; ">local-factory-cert</span></a>&#160;</p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures the factory-installed certificate for secure communication between a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="shownetexthdr.htm#XREF_22440_netdestination"><span class="FM_CLI" style="color   : #548baf; ">netdestination6</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures an alias for an IPv6 -only network host, subnetwork, or range of addresses.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="color   : #548baf; ">netexthdr</span></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command allows you to edit the packet filter options in the extension header (EH).</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ntp.htm#XREF_44896_ntp_authenticate"><span class="FM_CLI" style="color   : #548baf; ">ntp authenticate</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command enables or disables NTP authentication<span style="font-family : ITC Century Std Book; font-size  : 10.0pt; ">.</span></p>
+</td>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ntp.htm#XREF_40583_ntp_authentication"><span class="FM_CLI" style="color   : #548baf; ">ntp authentication-key</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures a key identifier and secret key and adds them to the database. NTP authentication works with a symmetric key configured by user. The key is shared by the client (<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>) and an external NTP server.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ntp.htm#XREF_67675_ntp_trusted_key"><span class="FM_CLI" style="color   : #548baf; ">ntp trusted-key</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures an additional subset of trusted keys which can be used for NTP authentication.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="remote-node-localip.htm#XREF_50857_boc_localip"><span class="FM_CLI" style="color   : #548baf; ">remote-node-local-factory-cert</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Configure factory certificates for secure traffic between Remote-Node-Masters and Remote-Nodes.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showwebserver.htm#XREF_95580_show_banner"><span class="FM_CLI" style="color   : #548baf; ">show controller-ipv6</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command displays the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IPv6 address and VLAN interface ID.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showipv6.htm#XREF_36587_show_ipv6_interface"><span class="FM_CLI" style="color   : #548baf; ">show ipv6 interface</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command displays IPv6-related information on all interfaces.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showipv6.htm#XREF_38696_show_ipv6_neighbors"><span class="FM_CLI" style="color   : #548baf; ">show ipv6 neighbors</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command displays the IPv6 neighbors configured on a VLAN interface.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showipv6.htm#XREF_83269_show_ipv6_route"><span class="FM_CLI" style="color   : #548baf; ">show ipv6 route</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command displays the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IPv6 routing table.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showwebserver.htm#XREF_95580_show_banner"><span class="FM_CLI" style="color   : #548baf; ">show local-cert-mac</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Display the IP, MAC address and certificate configuration of local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> in a master-local configuration.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="shownetexthdr.htm#XREF_22440_netdestination"><span class="FM_CLI" style="color   : #548baf; ">show netexthdr</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command displays the IPv6 extension header (EH) types that are denied.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="show_wms.htm#XREF_72113_show_wms_wired_mac"><span class="FM_CLI" style="color   : #548baf; ">show wms wired-mac</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Display a summary table of Wireless Management System (wms) wired MAC information.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="traceroute.htm#XREF_57666_traceroute"><span class="FM_CLI" style="color   : #548baf; ">tracepath</span></a></p>
+</td>
+  <td style="width : 307.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Traces the path of an IPv6 host.</p>
+</td>
+</tr>
+</table>
+<?rh-align_end ?>
+ <p class="FM_Body" style="margin-top  : 7.000pt; margin-bottom : 7.000pt; font-size  : 12.0pt;"><span style="font-size  : 10.0pt; ">The following commands have been added in the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;6.1 command line interface</span><span style="font-family : Times New Roman; ">.</span></p>
+ <p class="FM_2Heading"><a name="modified" id="modified"></a>Modified Commands</p>
+<p class="FM_Body">The following commands were modified in ArubaOS 6.1</p>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 449.25pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 305.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Parameter Description</p>
+</th>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="aaa.htm#XREF_67548_aaa_authentication"><span class="FM_CLI" style="color   : #548baf; ">aaa authentication captive-portal</span></a>&#160;black-list &lt;black-list&gt; | white-list &lt;white-list&gt;</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Name of an existing black list or white list on an IPv4 or IPv6 network destination. The black list contains websites (unauthenticated) that a guest cannot access. The white list contains authenticated websites that a guest can access.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="aaa.htm#XREF_12771_aaa_authentication"><span class="FM_CLI" style="color   : #548baf; ">aaa authentication-server radius</span></a>&#160;source-interface &lt;vlan&gt;</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Associates a VLAN interface with the RADIUS server to allow the group-specific source interface to override the global configuration.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="aaa.htm#XREF_41481_aaa_derivation"><span class="FM_CLI" style="color   : #548baf; ">aaa derivation-rules</span></a>&#160;user &lt;name&gt; set {role|vlan} condition dhcp-option</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Use DHCP signature matching to assign a role or VLAN to a specific device type.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="aaa.htm#XREF_71423_aaa_profile"><span class="FM_CLI" style="color   : #548baf; ">aaa profile</span></a> &lt;profile&gt; devtype-clasification </p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">When the devtype-classification parameter is enabled, the output of the <span style="font-weight : bold; ">show user</span>&#160;and <span style="font-weight : bold; ">show user-table </span>commands shows each client’s device type, if that client device can be identified</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="aaa.htm#XREF_71423_aaa_profile"><span class="FM_CLI" style="color   : #548baf; ">aaa profile</span></a> &lt;profile&gt; enforce-dhcp</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">When you enable this option, clients must complete a DHCP exchange to obtain an IP address.</p>
+</td>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="aaa.htm#XREF_71423_aaa_profile"><span class="FM_CLI" style="color   : #548baf; ">aaa profile</span></a> &lt;profile&gt; radius-interim-accounting</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">By default, the RADIUS accounting feature sends only start and stop messages to the RADIUS accounting server. Issue the interim-radius-accounting command to allow the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to send Interim-Update messages with current user statistics to the server at regular intervals.</p>
+</td>
+</tr>
+  <tr style=" height : 51.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="aaa.htm#XREF_59364_aaa_authentication"><span class="FM_CLI" style="color   : #548baf; ">aaa authentication via connection-profile</span></a> admin-logoff-script |</p>
+  <p class="FM_CLI">admin-logon-script</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Use this option to specify scripts that must be executed after VIA connection is established and terminated.</p>
+</td>
+</tr>
+  <tr style=" height : 59.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="aaa.htm#XREF_59364_aaa_authentication"><span class="FM_CLI" style="color   : #548baf; ">aaa authentication via connection-profile</span></a> ikev2-policy | ikev2-proto | ikev2auth | ipsecv2-cryptomap</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Use this option to enable IKEv2 authentication mechanism.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="aaa.htm#XREF_59364_aaa_authentication"><span class="FM_CLI" style="color   : #548baf; ">aaa authentication via connection-profile</span></a>&#160;suiteb-crypto</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Use this option to enable Suite B cryptography support.</p>
+</td>
+</tr>
+  <tr style=" height : 63.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="cluster.htm#XREF_98485_clock_set"><span class="FM_PMS646">clear</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Clears all IPv6 session statistics, multicast listener discovery (MLD) group and member information, MLD statistics, and counters. The following MLD parameters are added to the <span style="font-weight : bold; ">ipv6</span> option:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">mld group</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">mld stats-counters</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="cluster.htm#XREF_20051_cluster_root_ip"><span class="FM_PMS646">cluster-root-ip</span></a>&#160;<br />ipsec-factory-cert| ipsec-custom-cert</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">ipsec-factory-cert </span>and<span style="font-weight : bold; "> ipsec-custom-cert</span>&#160;parameters were introduced to allow certificate-based authentication of cluster members. </p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="crypto.htm#XREF_16438_crypto_dynamic_map"><span class="FM_CLI" style="color   : #548baf; ">crypto dynamic-map</span></a>&#160;<span class="FM_CLI" style="color   : #548baf; ">set pfs group19|group20</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">The </span><span class="FM_CLI" style="font-weight : bold; ">pfs</span><span class="FM_CLI">&#160;parameter was modified to support the group19 and group20 PFS group values.</span></p>
+</td>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="crypto.htm#XREF_44721_crypto_ipsec"><span class="FM_CLI" style="color   : #548baf; ">crypto ipsec</span></a>&#160;<span class="FM_CLI" style="color   : #548baf; ">transform-set &lt;transform-set-mtu&gt;</span>&#160;<span class="FM_CLI" style="color   : #548baf; ">esp-aes128-gcm</span> |<span class="FM_CLI" style="color   : #548baf; ">esp-aes256-gcm</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">This command configures IPsec parameters.</span></p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">Use ESP with 128-bit AES-GCM encryption.</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">Use ESP with 256-bit AES-GCM encryption.</span></p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="crypto.htm#XREF_50285_crypto_isakmp"><span class="FM_CLI" style="color   : #548baf; ">crypto isakmp</span></a>&#160;<span class="FM_CLI" style="color   : #548baf; ">eap-passthrough</span>&#160;<span class="FM_CLI" style="color   : #548baf; ">eap-mschapv2</span>|<span class="FM_CLI" style="color   : #548baf; ">eap-peap</span>|<span class="FM_CLI" style="color   : #548baf; ">eap-tls</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">Select one of the following authentication types for IKEv2 user authentication using EAP.</span></p>
+</td>
+</tr>
+  <tr style=" height : 31.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto.htm#XREF_70002_crypto_isakmp"><span class="FM_CLI" style="color   : #548baf; ">crypto isakmp policy</span></a></p>
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="color   : #548baf; ">authentication ecdsa-256</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">Use ECDSA-256 signatures for IKE authentication.</span></p>
+</td>
+</tr>
+  <tr style=" height : 31.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto.htm#XREF_70002_crypto_isakmp"><span class="FM_CLI" style="color   : #548baf; ">crypto isakmp policy</span></a></p>
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="color   : #548baf; ">authentication ecdsa-384</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">Use ECDSA-384 signaturesfor IKE authentication.</span></p>
+</td>
+</tr>
+  <tr style=" height : 31.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto.htm#XREF_70002_crypto_isakmp"><span class="FM_CLI" style="color   : #548baf; ">crypto isakmp policy</span></a></p>
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="color   : #548baf; ">hash sha1-96</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">Use SHA1-96 as the hash algorithm.</span></p>
+</td>
+</tr>
+  <tr style=" height : 31.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto.htm#XREF_70002_crypto_isakmp"><span class="FM_CLI" style="color   : #548baf; ">crypto isakmp policy</span></a></p>
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="color   : #548baf; ">hash sha2-256-128</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">Use SHA2-256-128 as the hash algorithm.</span></p>
+</td>
+</tr>
+  <tr style=" height : 31.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto.htm#XREF_70002_crypto_isakmp"><span class="FM_CLI" style="color   : #548baf; ">crypto isakmp policy</span></a></p>
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="color   : #548baf; ">hash sha2-384-192</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">Use SHA2-384-192 as the hash algorithm.</span></p>
+</td>
+</tr>
+  <tr style=" height : 77.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto.htm#XREF_70002_crypto_isakmp"><span class="FM_CLI" style="color   : #548baf; ">crypto isakmp policy</span></a></p>
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="color   : #548baf; ">prf</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">Set one of the following pseudo-random function (PRF) values for an IKEv2 policy:</span></p>
+  <p class="FM_TableBody"><span class="FM_CLI">PRF-HMAC-MD5 (default)</span></p>
+  <p class="FM_TableBody"><span class="FM_CLI">PRF-HMAC-SHA1</span></p>
+  <p class="FM_TableBody"><span class="FM_CLI">PRF-HMAC-SHA256</span></p>
+  <p class="FM_TableBody"><span class="FM_CLI">PRF-HMAC-SHA384</span></p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto.htm#XREF_21783_crypto_pki"><span class="FM_CLI" style="color   : #548baf; ">crypto pki</span></a>&#160;<span class="FM_CLI">ec curve-name &lt;key_val&gt;</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">The ec curve-name parameter was introduced to support certificate signing requests using an elliptic-curve (EC) key</span></p>
+</td>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="crypto.htm#XREF_34012_crypto_pki_import"><span class="FM_CLI" style="color   : #548baf; ">crypto pki-import</span></a>&#160;{CRL|IntermediateCA|<br />OCSPResponderCert|<br />OCSPSignerCert} &lt;name&gt; </p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span style="font-weight : bold; ">CRL</span>, <span style="font-weight : bold; ">IntermediateCA</span>, <span style="font-weight : bold; ">OCSPResponderCert</span>&#160;and <span style="font-weight : bold; ">OCSPSignerCert</span>&#160;certificates can now be imported.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto-local.htm#XREF_85192_crypto_local_ipsec"><span class="FM_CLI" style="color   : #548baf; ">crypto-local ipsec-map</span></a>&#160;<span style="font-family : Courier New; ">&lt;map&gt; &lt;priority&gt; </span><span class="FM_CLI">peer-cert-dn &lt;peer-dn&gt;</span>&#160;</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">If you are using IKEv2 to establish a site-to-site VPN to a statically addressed remote peer, identify the peer device by entering its certificate subject name in the Peer Certificate Subject Name field</span></p>
+</td>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="crypto-local.htm#XREF_85192_crypto_local_ipsec"><span class="FM_CLI" style="color   : #548baf; ">crypto-local ipsec-map</span></a>&#160;&lt;map&gt; &lt;priority&gt; <span class="FM_CLI">peer-fqdn</span>&#160;<span class="FM_CLI">any-fqdn</span>|<span class="FM_CLI">fqdn-id &lt;peer-id-fqdn&gt;</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">For site-to-site VPNs with dynamically addressed peers, specify a fully qualified domain name (FQDN) for the </span><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?><span class="FM_CLI">.</span></p>
+</td>
+</tr>
+  <tr style=" height : 63.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto-local.htm#XREF_85192_crypto_local_ipsec"><span class="FM_CLI" style="color   : #548baf; ">crypto-local ipsec-map</span></a>&#160;<span style="font-family : Courier New; ">&lt;map&gt; &lt;priority&gt; </span><span class="FM_CLI">set pfs {group1|group2|group19|group20}</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">The set pfs command introduced the group19 and group20 parameters.</span></p>
+  <p class="FM_TableBody"><span class="FM_CLI">group19: 256-bit random Diffie Hellman ECP modulus group. (For IKEv2 only)</span></p>
+  <p class="FM_TableBody"><span class="FM_CLI">group20: 384-bit random Diffie Hellman ECP modulus group. (For IKEv2 only)</span></p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto-local.htm#XREF_72197_crypto_local"><span class="FM_CLI" style="color   : #548baf; ">crypto-local isakmp key</span></a>&#160;<span class="FM_CLI">fqdn &lt;ike-id-fqdn&gt;</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">Configure the PSK for the specified FQDN.</span></p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto-local.htm#XREF_72197_crypto_local"><span class="FM_CLI" style="color   : #548baf; ">crypto-local isakmp key</span></a>&#160;<span class="FM_CLI">fqdn-any</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI">Configure the PSK for any FQDN.</span></p>
+</td>
+</tr>
+  <tr style=" height : 103.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="crypto-local.htm#XREF_60656_crypto_local_pki"><span class="FM_CLI" style="color   : #548baf; ">crypto-local pki</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The following parameters were added for the certificate revocation feature:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">CRL</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Intermediate CA</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">OCSPResponderCert</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">OCSPSignerCert</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">global-ocsp-signer-cert</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">rcp</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">service-ocsp-responder</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 127.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="firewall.htm#XREF_20635_firewall"><span class="FM_PMS646">firewall</span></a>&#160;amsdu| clear-sessions-role-update&#160;prohibit-ip-spoofing|</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The parameter <span style="font-weight : bold; ">amsdu</span>, when enabled, causes Aggregated Medium Access Control Service Data Units (AMSDU) packets to be dropped.</p>
+  <p class="FM_TableBody">&nbsp;</p>
+  <p class="FM_TableBody">The parameter <span style="font-weight : bold; ">clear-sessions-role-update </span>clears the datapath sessions when roles are updated.</p>
+  <p class="FM_TableBody">&nbsp;</p>
+  <p class="FM_TableBody">The funtionality of the<span style="font-weight : bold; ">&#160;prohibit-ip-spoofing </span>feature was enhanced. In previous versions of <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>, this feature checked only the source IP and the source MAC address in the frame. Starting with <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;6.1, this feature also checks the destination IP and the destination MAC address in the frame.</p>
+</td>
+</tr>
+  <tr style=" height : 77.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ids.htm#XREF_81627_ids_dos_profile"><span class="FM_CLI" style="color   : #548baf; ">ids dos-profile</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Added the following new parameters to detect Meiners DoS Power Save<span style="font-weight : bold; font-size  : 11.0pt; color   : #548baf; ">&#160;</span>attack:</p>
+  <p class="FM_CLIIndented">detect-power-save-dos-attack</p>
+  <p class="FM_CLIIndented">power-save-dos-min-frames </p>
+  <p class="FM_CLIIndented">power-save-dos-quiet-time</p>
+  <p class="FM_CLIIndented">power-save-dos-threshold</p>
+</td>
+</tr>
+  <tr style=" height : 41.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="ids.htm#XREF_41748_ids_unauthorized"><span class="FM_CLI" style="color   : #548baf; ">ids unauthorized-device-profile</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Added the following parameter to internally generate a list of valid SSIDs to use in addition to the user configured list of Valid and Protected SSIDs</p>
+  <p class="FM_CLIIndented"><span class="FM_CLI">detect-valid-ssid-misuse</span>&#160;</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="interface.htm#XREF_53544_interface"><span class="FM_CLI" style="color   : #548baf; ">interface fastethernet | gigabitethernet</span></a>&#160;<span style="font-family : Courier New; ">tunneled-node-port</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The parameter muxport has had a name change to <span class="FM_CLI">tunneled-node-port</span>. The functionality has not changed.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="interface.htm#XREF_98977_interface_loopback"><span class="FM_CLI" style="color   : #548baf; ">interface loopback</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The parameter <span style="font-weight : bold; ">ipv6 address</span> was added.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="interface.htm#XREF_68193_interface_mgmt"><span class="FM_CLI" style="color   : #548baf; ">interface mgmt</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The parameter <span style="font-weight : bold; ">ipv6 address</span> was added.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="interface.htm#XREF_17389_interface_vlan"><span class="FM_CLI" style="color   : #548baf; ">interface vlan</span></a> option-82</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Allows a DHCP relay agent to insert circuit specific information (about the AP and SSID) into a request that is being forwarded to a DHCP server. </p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="ipv6.htm#XREF_60687_ipv6_firewall"><span class="FM_CLI" style="color   : #548baf; ">ipv6 firewall</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">enable</span>&#160;parameter has been removed from this command. The <a href="ipv6.htm#XREF_96437_ipv6_enable"><span class="FM_CLI" style="color   : #548baf; ">ipv6 enable</span></a>&#160;command is the global command to enable/disable ipv6 processing on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="mgmt-server.htm#XREF_14268_mgmt_server"><span class="FM_CLI" style="color   : #548baf; ">mgmt-server</span></a>&#160;<span class="FM_CLI">secondary-server &lt;ip-addr&gt;</span>&#160;</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">secondary-server </span>parameter has been deprecated.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="masterip.htm#XREF_17288_masterip"><span class="FM_CLI" style="color   : #548baf; ">masterip</span></a> ipsec-custom-cert| ipsec-factory-cert</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Use a custom-installed or factory-installed certificate on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to establish a master-local IPsec tunnel using IKEv2.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="master-redundancy.htm#XREF_73806_master_redundancy"><span class="FM_CLI" style="color   : #548baf; ">master-redundancy peer-ip</span></a>&#160;ipsec-factory-cert|ipsec-custom-cert</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">ipsec-factory-cert </span>and<span style="font-weight : bold; "> ipsec-custom-cert</span>&#160;parameters were introduced to allow certificate-based authentication of master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="showphonehome.htm#XREF_62716_Command_Name"><span class="FM_CLI" style="color   : #548baf; ">ntp server</span></a> [key &lt;key-id&gt;]</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The key-id parameter authenticate sthe NTP server. This needs to match the key identifier configured in the <span style="font-weight : bold; ">ntp authentication-key</span> command.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="shownetexthdr.htm#XREF_22440_netdestination"><span class="FM_CLI" style="color   : #548baf; ">netdestination</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command configures an alias for an IPv4 -only network host, subnetwork, or range of addresses.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="showphonehome.htm#XREF_62716_Command_Name"><span class="FM_CLI" style="color   : #548baf; ">ping</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Introduced <span style="font-weight : bold; ">ipv6</span> parameter to provide support for IPv6.</p>
+</td>
+</tr>
+  <tr style=" height : 67.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="provision-ap.htm#XREF_36594_provision_ap"><span class="FM_CLI" style="color   : #548baf; ">provision-ap</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The following new parameters were introduced for provisioning IPv6 APs:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">dns-server-ip6</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">ip6addr</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">ip6prefix</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">gateway6</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="remote-node-masterip.htm#XREF_73426_boc_masterip"><span class="FM_CLI" style="color   : #548baf; ">remote-node-masterip</span></a>&#160;<span style="font-family : Courier New; ">ipsec-factory-cert</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Secure communication between a Remote-Node and Remote-Node master by identifying a factory-installed certificate on the Remote-Node Master.</p>
+</td>
+</tr>
+  <tr style=" height : 113.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="remote-node-profile.htm#XREF_68791_boc_profile"><span class="FM_CLI" style="color   : #548baf; ">remote-node-profile</span></a></p>
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The following parameters were introduced for configuring a remote node profile:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">ipv6</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">mgmt-server</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">mobility-manager</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">snmp-server</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">syscontact</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">syslocation</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">controller-ip </span>parameter has been deprecated.</p>
+</td>
+</tr>
+  <tr style=" height : 69.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="rf.htm#XREF_97050_rf_radio_profile"><span class="FM_CLI" style="color   : #548baf; ">rf dot11a-radio-profile</span></a><span class="FM_CLI" style="color   : #548baf; ">&#160;&lt;profile&gt; spectrum-monitoring</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Issue this command to turn an AP in ap-mode into a hybrid AP. An AP in hybrid AP mode will continue to serve clients as an access point while it scans and analyzes spectrum analysis data for a single radio channel. For further details on using hybrid APs and spectrum monitors to examine the radio frequency (RF) environment in which the Wi-Fi network is operating, refer to the Spectrum Analysis chapter of the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> User Guide</p>
+</td>
+</tr>
+  <tr style=" height : 69.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="rf.htm#XREF_57325_rf_dot11g_radio"><span class="FM_CLI" style="color   : #548baf; ">rf dot11g-radio-profile</span></a><span class="FM_CLI" style="color   : #548baf; ">&#160;&lt;profile&gt; spectrum-monitoring</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Issue this command to turn an AP in ap-mode into a hybrid AP. An AP in hybrid AP mode will continue to serve clients as an access point while it scans and analyzes spectrum analysis data for a single radio channel. For further details on using hybrid APs and spectrum monitors to examine the radio frequency (RF) environment in which the Wi-Fi network is operating, refer to the Spectrum Analysis chapter of the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> User Guide.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="showaaa.htm#XREF_83967_show_aaa_state"><span class="FM_CLI" style="color   : #548baf; ">show aaa state debug-statistics</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">Mobility Stats</span> parameter was introduced.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showap.htm#XREF_76249_show_ap_active"><span class="FM_CLI" style="color   : #548baf; ">show ap active</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The parameter <span style="font-weight : bold; ">ip6-addr</span> was added to view data for an IPv6 AP.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showap.htm#XREF_88168_show_ap_details"><span class="FM_CLI" style="color   : #548baf; ">show ap details</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The parameter <span style="font-weight : bold; ">ip6-addr</span> was added to view data for an IPv6 AP.</p>
+</td>
+</tr>
+  <tr style=" height : 103.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showcrypto-local.htm#XREF_67374_show_crypto_local"><span class="FM_CLI" style="color   : #548baf; ">show crypto-local pki</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The following new parameters now display output:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">CRL</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Intermediate CA</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">OCSPResponderCert</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">OCSPSignerCert</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">global-ocsp-signer-cert</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">rcp</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">service-ocsp-responder</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showcrypto-local.htm#XREF_94376_show_crypto_local"><span class="FM_CLI" style="color   : #548baf; ">show crypto-local isakmp</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The parameter <span style="font-weight : bold; ">certificate-group</span> was introduced.</p>
+</td>
+</tr>
+  <tr style=" height : 155.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showdatapath.htm#XREF_55178_show_datapath"><span class="FM_CLI" style="color   : #548baf; ">show datapath</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">crypto counters </span>parameter now displays a number of TKIP/AESCCM/AESGCM decriptions per priority level along with any counter errors per priority.</p>
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">ipv6</span>&#160;filter option is added to the following parameters in the command:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">session</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">tunnel</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">user</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">route-cache</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">route</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet" style="font-weight : bold;">ip-reassembly</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">The parameter <span style="font-weight : bold; ">vlan-mcast</span>&#160;has been added to view the datapath VLAN multicast table entries.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="showip.htm#XREF_29066_show_ip_interface"><span class="FM_CLI" style="color   : #548baf; ">show ip interface brief</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">View IP-related information on all interfaces in summary format.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="showrft.htm#XREF_62295_show_rft_profile"><span class="FM_CLI" style="color   : #548baf; ">show ntp servers</span></a> brief</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">key-id</span> parameter output displays if configured for this ntp server.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="showmux.htm#XREF_20123_show_tunneled_node"><span class="FM_CLI" style="color   : #548baf; ">show tunneled-node</span></a>&#160;[state|database]</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command name has changed from show mux to show tunneled node. A new parameter, database, was added.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="showwebserver.htm#XREF_95580_show_banner"><span class="FM_CLI" style="color   : #548baf; ">show tunneled-node config</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command name has changed from show mux to show tunneled-node config. The command functionality did not change..</p>
+</td>
+</tr>
+  <tr style=" height : 79.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="show_wms.htm#XREF_18389_show_wms_general"><span class="FM_CLI" style="color   : #548baf; ">show wms general</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="font-family:     Arial, Helvetica, sans-serif;">Added the following display parameterss</p>
+  <p class="FM_CLIIndented">adhoc-ap-ageout-interval</p>
+  <p class="FM_CLIIndented">persistent-neighbor</p>
+  <p class="FM_CLIIndented">event-correlation</p>
+  <p class="FM_CLIIndented">event-correlation-quiet-time</p>
+  <p class="FM_CLIIndented">Minutes Tick</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="mux-loop-prevention.htm#XREF_25305_tunnel_loop"><span class="FM_CLI" style="color   : #548baf; ">tunnel-loop-prevention</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command name has changed from mux-loop-prevention to <br />tunnel-loop-prevention. The command functionality did not change.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="mux-address.htm#XREF_11599_tunneled_node"><span class="FM_CLI" style="color   : #548baf; ">tunneled-node-address</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">This command name has changed from mux-address to tunneled-node address. The functionality command did not change.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-family : Courier New;"><a href="vrrp.htm#XREF_66548_vrrp"><span class="FM_PMS646" style="color   : #548baf; ">vrrp</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">delay</span>&#160;option is added to the <span style="font-weight : bold; ">preempt</span> parameter.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="user-role.htm#XREF_12663_user_role"><span class="FM_CLI" style="color   : #548baf; ">user-role</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span style="font-weight : bold; ">ipv6 session-acl</span>&#160;parameter was removed. The <span style="font-weight : bold; ">session-acl</span>&#160;parameter is common for both IPv4 and IPv6 ACLs.</p>
+</td>
+</tr>
+  <tr style=" height : 73.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI"><a href="wlan.htm#XREF_27886_wlan_ssid_profile"><span class="FM_CLI" style="color   : #548baf; ">wlan ssid-profile</span></a>&#160;&lt;profile&gt;</p>
+  <p class="FM_TableBody" style="font-family : Courier New;">opmode wpa2-aes-gcm-128|wpa2-aes-gcm-256</p>
+  <p class="FM_TableBody" style="font-family : Courier New;">qbss-load-enable local-probe-req-thresh</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The opmode options <span style="font-weight : bold; ">wpa2-aes-gcm-128</span>&#160;and <span style="font-weight : bold; ">wpa2-aes-gcm-256</span>&#160;were introduced. </p>
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">qbss-load-enable</span>&#160;and <span style="font-weight : bold; ">local-probe-req-thresh</span><span style="font-family : Courier New; ">&#160;</span>options are included.</p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="wlan.htm#XREF_27363_wlan_ht_ssid"><span class="FM_CLI" style="color   : #548baf; ">wlan ht-ssid-profile</span></a></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">The <span style="font-weight : bold; ">allow-weak-encrytion</span> parameter was deprecated.</p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><a href="wms.htm#XREF_36418_wms_general"><span class="FM_CLI" style="color   : #548baf; ">wms general</span></a>&#160;<span style="font-family : Courier New; ">learn-system-wired-macs</span>&#160;</p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Added parameter to enable or disable “learning” of wired MACs at the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span class="FM_CLI" style="color   : #548baf; ">wms-local system</span>&#160;<span style="font-family : Courier New; ">max-system-wm | system-wm-update-interval</span></p>
+</td>
+  <td style="width : 305.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Added parameter to set the max number of system wired MAC table entries learned at the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and set the interval, in minutes, for repopulating the system wired MAC table at the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+<p class="FM_2Heading"><a name="deprecated" id="deprecated"></a>Deprecated Commands</p>
+ <p class="FM_Body">The folowing commands were deprecated in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 6.1:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 5.00pt;float: alignleft; width: 450.88pt;" cellspacing="0">
+  <tr style=" height : 25.00pt;background : #548baf;">
+  <th style="width : 174.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 276.376pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 40.00pt;">
+  <td style="width : 174.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="color   : #548baf;"><a href="showipv6.htm#XREF_44834_show_ipv6_access"><span class="FM_CLI" style="color   : #548baf; ">show ipv6 access-list&#160;(deprecated)</span></a></p>
+</td>
+  <td style="width : 276.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Displays IPv6 access lists configured in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This command has been replaced by the <span style="font-weight : bold; ">show ip access-list </span>command.</p>
+</td>
+</tr>
+  <tr style=" height : 30.00pt;">
+  <td style="width : 174.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="color   : #548baf;"><a href="showipv6.htm#XREF_85813_show_ipv6_datapath"><span class="FM_CLI" style="color   : #548baf; ">show ipv6 datapath session counters (deprecated)</span></a></p>
+</td>
+  <td style="width : 276.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Displays datapath session table statistics. This command has been replaced by the <span style="font-weight : bold; ">show datapath session ipv6 counters</span> command.</p>
+</td>
+</tr>
+  <tr style=" height : 40.00pt;">
+  <td style="width : 174.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="color   : #548baf;"><a href="showipv6.htm#XREF_59816_show_ipv6_datapath"><span class="FM_CLI" style="color   : #548baf; ">show ipv6 datapath session table (deprecated)</span></a></p>
+</td>
+  <td style="width : 276.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Displays current IPv6 session on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This command has been replaced by the <span style="font-weight : bold; ">show datapath session ipv6 table</span>&#160;command.</p>
+</td>
+</tr>
+  <tr style=" height : 30.00pt;">
+  <td style="width : 174.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="color   : #548baf;"><a href="showipv6.htm#XREF_98952_show_ipv6_datapath"><span class="FM_CLI" style="color   : #548baf; ">show ipv6 datapath user counters (deprecated)</span></a></p>
+</td>
+  <td style="width : 276.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Displays datapath user table statistics. This command has been replaced by the <span style="font-weight : bold; ">show datapath user ipv6 </span>command.</p>
+</td>
+</tr>
+  <tr style=" height : 30.00pt;">
+  <td style="width : 174.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI" style="color   : #548baf;"><a href="showipv6.htm#XREF_56415_show_ipv6_datapath"><span class="FM_CLI" style="color   : #548baf; ">show ipv6 datapath user table&#160;(deprecated)</span></a></p>
+</td>
+  <td style="width : 276.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Displays ipv6 datapath user table entries. This command has been replaced by the <span style="font-weight : bold; ">show datapath user ipv6</span> command.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ 
+ <p class="FM_1Heading"><a name="Contents">Reference Guide  Contents </a></p>
+ <p class="FM_Body">The commands in this guide are listed alphabetically. </p>
+ <p class="FM_Body">The following information is provided for each command: </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Command Syntax—The complete syntax of the command. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Description—A brief description of the command. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Syntax—A description of the command parameters, including license requirements for specific parameters if needed. The applicable ranges and default values, if any, are also included. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Usage Guidelines—Information to help you use the command, including: prerequisites, prohibitions, and related commands. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Example—An example of how to use the command. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Command History—The version of <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;in which the command was first introduced. Modifications and changes to the command are also noted</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Command Information—This table describes any licensing requirements, command modes and platforms for which this command is applicable. For more information about available licenses, see the “Software Licenses” chapter in the <?rh-cbt_start condition="DellCondition" ?><span style="
+font-style:italic;">Dell PowerConnect W-Series </span><?rh-cbt_end ?><span style="font-style : italic;  "><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?></span><span class="FM_Emphasis"> User Guide</span>.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="connecting">Connecting to the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></a></p>
+ <p class="FM_Body">This section describes how to connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to use the CLI.</p>
+ <p class="FM_2Heading">Serial Port Connection</p>
+ <p class="FM_Body">The serial port is located on the front panel of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Connect a terminal or PC/workstation running a terminal emulation program to the serial port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to use the CLI. Configure your terminal or terminal emulation program to use the following communication settings</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-top: 4.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 450.75pt;" cellspacing="0">
+  <tr style=" height : 21.00pt;">
+  <th style="width : 82.765pt; border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeadingSyntax">Baud Rate</p>
+</th>
+  <th style="width : 98.044pt; border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeadingSyntax">Data Bits</p>
+</th>
+  <th style="width : 85.470pt; border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeadingSyntax">Parity</p>
+</th>
+  <th style="width : 85.470pt; border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeadingSyntax">Stop Bits</p>
+</th>
+  <th style="width : 98.999pt; border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeadingSyntax">Flow Control</p>
+</th>
+</tr>
+  <tr style=" height : 17.00pt;">
+  <td style="width : 82.765pt; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">9600</p>
+</td>
+  <td style="width : 98.044pt; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">8</p>
+</td>
+  <td style="width : 85.470pt; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">None</p>
+</td>
+  <td style="width : 85.470pt; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">1</p>
+</td>
+  <td style="width : 98.999pt; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">None</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body">.</p>
+ <p class="FM_2Heading">Telnet or SSH Connection</p>
+ <p class="FM_Body">Telnet or SSH access requires that you configure an IP address and a default gateway on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to your network. This is typically performed when you run the Initial Setup on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, as described in the <?rh-cbt_start condition="DellCondition" ?><span style="
+font-style:italic;">Dell PowerConnect W-Series </span><?rh-cbt_end ?><span style=" font-style : italic; "><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> Q</span><span style="font-style : italic; ">uick Start Guide</span>. In certain deployments, you can also configure a loopback address for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>; see the “Deploying a Basic <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;User-Centric System” chapter in the <?rh-cbt_start condition="DellCondition" ?><span style="
+font-style:italic;">Dell PowerConnect W-Series </span><?rh-cbt_end ?><span style="font-style : italic;  "><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> User Guide</span>&#160;for more information.</p>
+ <p class="FM_2Heading">Configuration changes on Master <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></p>
+ <p class="FM_Body">Some commands can only be issued when connected to a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If you make a configuration change on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, all connected local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;will subsequently update their configurations as well. You can manually synchronize all of the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;at any time by saving the configuration on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_1Heading"><a name="cli">CLI Access</a></p>
+ <p class="FM_Body">When you connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the CLI, the system displays its host name followed by the login prompt. Log in using the admin user account and the password you entered during the Initial Setup on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> (the password displays as asterisks). For example:</p>
+ <p class="FM_CLI">(host)</p>
+ <p class="FM_CLI">User: <span style="font-weight : bold; ">admin</span></p>
+ <p class="FM_CLI">Password: <span class="FM_TypeThis" style="font-weight : bold; ">*****</span></p>
+ <p class="FM_Body">When you are logged in, the <span style="font-style : italic; ">user</span> mode CLI prompt displays. For example:</p>
+ <p class="FM_CLI">(host) &gt;</p>
+ <p class="FM_Body">User mode provides only limited access for basic operational testing such as running <span class="FM_CLIBold">ping</span>&#160;and <span class="FM_CLIBold">traceroute</span>. </p>
+ <p class="FM_Body">Certain management functions are available in <span style="font-style : italic; ">enable</span>&#160;(also called “privileged”) mode. To move from user mode to enable mode requires you to enter an additional password that you entered during the Initial Setup (the password displays as asterisks). For example:</p>
+ <p class="FM_CLI">(host) &gt; <span style="font-weight : bold; ">enable</span></p>
+ <p class="FM_CLI">Password: <span class="FM_TypeThis" style="font-weight : bold; ">******</span></p>
+ <p class="FM_Body">When you are in enable mode, the &gt; prompt changes to a pound sign (#):</p>
+ <p class="FM_CLI">(host) #</p>
+ <p class="FM_Body">Configuration commands are available in <span style="font-style : italic; ">config</span>&#160;mode. Move from enable mode to config mode by entering <span class="FM_CLIBold">configure terminal</span> at the # prompt:</p>
+ <p class="FM_CLI">(host) # <span style="font-weight : bold; ">configure terminal</span></p>
+ <p class="FM_CLI">Enter Configuration commands, one per line. End with CNTL/Z</p>
+ <p class="FM_Body">When you are in basic config mode, (config) appears before the # prompt:</p>
+ <p class="FM_CLI">(host) (config) #</p>
+ 
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 55.00pt;">
+  <td style="width : 70.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_zIconNote"><img src="images/Graphics/Note.jpg" alt="Note_icon" width="42" height="52" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt; border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote" style="text-indent : 0.000pt;">There are several other sub- command modes that allow users to configure individual interfaces, subinterfaces, loopback addresses, GRE tunnels and cellular profiles. For details on the prompts and the available commands for each of these modes, see <span class="FM_PMS646">Appendix A: Command Modes</span><span style="color   : #000000; ">.</span></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ 
+ <p class="FM_2Heading">Command Help</p>
+ <p class="FM_Body">You can use the question mark (<span style="font-weight : bold; ">?</span>) to view various types of command help.</p>
+ <p class="FM_Body">When typed at the beginning of a line, the question mark lists all the commands available in your current mode or sub-mode. A brief explanation follows each command. For example:</p>
+ <p class="FM_CLI">(host) &gt; <span class="FM_TypeThis" style="font-weight : bold; ">?</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">enable &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Turn on Privileged commands</p>
+ <p class="FM_CLI">logout &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Exit this session. Any unsaved changes are lost.</p>
+ <p class="FM_CLI">ping &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Send ICMP echo packets to a specified IP address.</p>
+ <p class="FM_CLI">traceroute &#160;&#160;&#160;&#160;&#160;&#160;&#160;Trace route to specified IP address.</p>
+ <p class="FM_Body">When typed at the end of a possible command or abbreviation, the question mark lists the commands that match (if any). For example:</p>
+ <p class="FM_CLI">(host) &gt; <span class="FM_TypeThis" style="font-weight : bold; ">c?</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">clear &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Clear configuration</p>
+ <p class="FM_CLI">clock &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Configure the system clock</p>
+ <p class="FM_CLI">configure &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Configuration Commands</p>
+ <p class="FM_CLI">copy &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Copy Files</p>
+ <p class="FM_Body">If more than one item is shown, type more of the keyword characters to distinguish your choice. However, if only one item is listed, the keyword or abbreviation is valid and you can press tab or the spacebar to advance to the next keyword.</p>
+ <p class="FM_Body">When typed in place of a parameter, the question mark lists the available options. For example:</p>
+ <p class="FM_CLI">(host) # <span class="FM_TypeThis" style="font-weight : bold; ">write ?</span></p>
+ <p class="FM_CLI">erase &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Erase and start from scratch</p>
+ <p class="FM_CLI">file &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Write to a file in the file system</p>
+ <p class="FM_CLI">memory &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Write to memory</p>
+ <p class="FM_CLI">terminal &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Write to terminal</p>
+ <p class="FM_CLI">&lt;cr&gt;</p>
+ <p class="FM_Body">The &lt;cr&gt; indicates that the command can be entered without additional parameters. Any other parameters are optional.</p>
+ <p class="FM_2Heading">Command Completion</p>
+ <p class="FM_Body">To make command input easier, you can usually abbreviate each key word in the command. You need type only enough of each keyword to distinguish it from similar commands. For example:</p>
+ <p class="FM_CLI"><span class="FM_System">(host) # </span><span style="font-weight : bold; ">configure terminal</span></p>
+ <p class="FM_Body">could also be entered as:</p>
+ <p class="FM_CLI"><span class="FM_System">(host) # </span><span style="font-weight : bold; ">con t</span></p>
+ <p class="FM_Body">Three characters (<span style="font-weight : bold; ">con</span>) represent the shortest abbreviation allowed for <span style="font-weight : bold; ">configure</span>. Typing only <span style="font-weight : bold; ">c</span>&#160;or <span style="font-weight : bold; ">co</span>&#160;would not work because there are other commands (like <span style="font-weight : bold; ">copy</span>) which also begin with those letters. The configure command is the only one that begins with <span style="font-weight : bold; ">con</span>.</p>
+ <p class="FM_Body">As you type, you can press the spacebar or tab to move to the next keyword. The system then attempts to expand the abbreviation for you. If there is only one command keyword that matches the abbreviation, it is filled in for you automatically. If the abbreviation is too vague (too few characters), the cursor does not advance and you must type more characters or use the help feature to list the matching commands.</p>
+ <p class="FM_2Heading">Deleting Configuration Settings</p>
+ <p class="FM_Body">Use the <span class="FM_Bold" style="font-weight : bold; ">no</span>&#160;command to delete or negate previously-entered configurations or parameters. </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">To view a list of no commands, type <span class="FM_Bold" style="font-weight : bold; ">no</span>&#160;at the enable or config prompt followed by the question mark. For example:</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">(host) (config) # <span class="FM_TypeThis">no?</span></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">To delete a configuration, use the <span class="FM_Bold">no</span>&#160;form of a configuration command. For example, the following command removes a configured user role:</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">(host) (config) # <span class="FM_TypeThis">no user-role &lt;name&gt;</span>&#160;</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">To negate a specific configured parameter, use the <span class="FM_Bold" style="font-weight : bold; ">no</span>&#160;parameter within the command. For example, the following commands delete the DSCP priority map for a priority map configuration:</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">(host) (config) # <span class="FM_TypeThis">priority-map &lt;name&gt;</span></p>
+ <p class="FM_CLIIndented">(host) (config-priority-map) # <span class="FM_TypeThis">no dscp priority high </span></p>
+ <p class="FM_1Heading"><a name="saving">Saving Configuration Changes</a></p>
+ <p class="FM_Body">Each <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> contains two different types of configuration images.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The <span style="font-style : italic; ">running</span>&#160;<span style="font-style : italic; ">config</span><span class="FM_System">&#160;</span>holds the current <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configuration, including all pending changes which have yet to be saved. To view the running-config, use the following command:</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">(host) # <span class="FM_TypeThis" style="font-weight : bold; ">show running-config</span></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The <span style="font-style : italic; ">startup config</span><span class="FM_System">&#160;</span>holds the configuration which will be used the next time the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is rebooted. It contains all the options last saved using the <span style="font-weight : bold; ">write memory</span>&#160;command. To view the startup-config, use the following command:</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">(host) # <span class="FM_TypeThis" style="font-weight : bold; ">show startup-config</span></p>
+ <p class="FM_Body">When you make configuration changes via the CLI, those changes affect the current running configuration only. If the changes are not saved, they will be lost after the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;reboots. To save your configuration changes so they are retained in the startup configuration after the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;reboots, use the following command in enable mode:</p>
+ <p class="FM_CLI">(host) # <span style="font-weight : bold; ">write memory</span></p>
+ <p class="FM_CLI">Saving Configuration...</p>
+ <p class="FM_Body" style="margin-top  : 5.000pt; margin-bottom : 5.000pt; font-family : Courier New; font-size  : 9.0pt;">Saved Configuration</p>
+ <p class="FM_Body">Both the startup and running configurations can also be saved to a file or sent to a TFTP server for backup or transfer to another system.</p>
+ <p class="FM_2Heading">Commands That Reset the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> or AP</p>
+ <p class="FM_Body">If you use the CLI to modify a currently provisioned and running radio profile, those changes take place immediately; you do not reboot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or the AP for the changes to affect the current running configuration. Certain commands, however, automatically force the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or AP to reboot. You may want to consider current network loads and conditions before issuing these commands, as they may cause a momentary disruption in service as the unit resets. Note also that changing the <span style="font-weight : bold; ">lms-ip</span>&#160;parameter in an AP system profile associated with an AP group will cause all APs in that AP group to reboot.</p>
+ 
+ <div align="left"></div>
+ 
+ <p class="FM_1Heading"><a name="editing">Command Line Editing</a></p>
+ <p class="FM_Body">The system records your most recently entered commands. You can review the history of your actions, or reissue a recent command easily, without having to retype it.</p>
+ <p class="FM_Body">To view items in the command history, use the <span style="font-style : italic; ">up</span>&#160;arrow to move back through the list and the <span style="font-style : italic; ">down</span>&#160;arrow key to forward. To reissue a specific command, press <span style="font-weight : bold; ">Enter</span>&#160;when the command appears in the command history. You can even use the command line editing feature to make changes to the command prior to entering it.</p>
+ <p class="FM_Body">The command line editing feature allows you to make corrections or changes to a command without retyping. <span class="FM_PMS646">Table 1</span>&#160;lists the editing controls: To use key shortcuts, press and hold the <span style="font-weight : bold; ">Ctrl</span>&#160;button while you press a letter key.</p>
+ <p class="FM_Body"><span class="FM_TableTitle"><span class="FM_zTitleNo">Table 1 &#160;</span></a>Line Editing Keys </span></p>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 450.37pt;" cellspacing="0">
+   
+   <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Key</p>
+</th>
+  <th style="width : 90.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Effect</p>
+</th>
+  <th style="width : 215.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-weight : bold;">Ctrl A</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Home</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Move the cursor to the beginning of the line.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span style="font-weight : bold; ">Ctrl B </span>or the <br />left arrow</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Back</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Move the cursor one character left.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-weight : bold;">Ctrl D</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Delete Right</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Delete the character to the right of the cursor.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-weight : bold;">Ctrl E</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">End</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Move the cursor to the end of the line.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span style="font-weight : bold; ">Ctrl F </span>or the <br />right arrow</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Forward</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Move the cursor one character right.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-weight : bold;">Ctrl K</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Delete Right</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Delete all characters to the right of the cursor.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span style="font-weight : bold; ">Ctrl N</span> or the<br />down arrow</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Next</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Display the next command in the command history.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><span style="font-weight : bold; ">Ctrl P</span> or<br />up arrow</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Previous</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Display the previous command in the command history.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-weight : bold;">Ctrl T</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Transpose</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Swap the character to the left of the cursor with the character to the right of the cursor.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-weight : bold;">Ctrl U</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Clear</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Clear the line.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-weight : bold;">Ctrl W</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Delete Word</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Delete the characters from the cursor up to and including the first space encountered.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody" style="font-weight : bold;">Ctrl X</p>
+</td>
+  <td style="width : 90.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Delete Left</p>
+</td>
+  <td style="width : 215.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Delete all characters to the left of the cursor.</p>
+</td>
+</tr>
+ </table>
+ 
+<?rh-align_end ?>
+ 
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
+

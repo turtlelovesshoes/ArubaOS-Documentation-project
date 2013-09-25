@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>reload</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+<link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_1CmdHeading"><a name="XREF_62716_Command_Name"></a>reload</p>
+ <p class="FM_CLI">reload</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">This command performs a reboot of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_2Heading">Syntax</p>
+ <p class="FM_Body">No parameters.</p>
+ <p class="FM_2Heading">Usage Guidelines</p>
+ <p class="FM_Body">Use this command to reboot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;if required after making configuration changes or under the guidance of <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Networks customer support. The <span style="font-weight : bold; ">reload</span>&#160;command powers down the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, making it unavailable for configuration. After the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;reboots, you can access it via a local console connected to the serial port, or through an SSH, Telnet, or WebUI session. If you need to troubleshoot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;during a reboot, use a local console connection. </p>
+ <p class="FM_Body">After you use the <span style="font-weight : bold; ">reload</span>&#160;command, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;prompts you for confirmation of this action. If you have not saved your configuration, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> returns the following message:</p>
+ <p class="FM_CLI">Do you want to save the configuration (y/n):</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Enter <span style="font-weight : bold; ">y</span>&#160;to save the configuration. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Enter <span style="font-weight : bold; ">n</span>&#160;to not save the configuration. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Press [Enter] to exit the command without saving changes or rebooting the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+ </ul>
+ <p class="FM_Body">If your configuration has already been saved, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> returns the following message:</p>
+ <p class="FM_CLI">Do you really want to reset the system(y/n):</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Enter <span style="font-weight : bold; ">y</span>&#160;to reboot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Enter<span style="font-weight : bold; "> n</span> to cancel this action.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The command will timeout if you do not enter y or n. </p>
+ <p class="FM_2Heading">Example</p>
+ <p class="FM_Body">The following command assumes you have already saved your configuration and you must reboot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <p class="FM_CLI">(host) (config) #reload</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> returns the following messages:</p>
+ <p class="FM_CLI">Do you really want to reset the system(y/n): y</p>
+ <p class="FM_CLI">System will now restart!</p>
+ <p class="FM_CLI">...</p>
+ <p class="FM_CLI">Restarting system.</p>
+ <p class="FM_2Heading">Command History</p>
+ <p class="FM_Body">This command was introduced in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 1.0.</p>
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 468.38pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 135.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platforms </p>
+</th>
+  <th style="width : 106.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 226.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">All platforms</p>
+</td>
+  <td style="width : 106.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 226.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enable and Config modes on master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+  
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
+

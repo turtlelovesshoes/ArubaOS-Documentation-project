@@ -1,0 +1,932 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Mobility</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="mobility, home agent, mobility domain, mobile client, foreign agent, virtual ap, DATE()"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Mobility.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 23</p>
+ <p class="FM_ChapterTitle"><a name="TOC_IP_Mobility"></a><a name="XREF_24394_IP_Mobility"></a>IP Mobility</p>
+ <p class="FM_Body"><a name="IX_IP_mobility"></a><a name="IX_mobility_domain"></a>A <span class="FM_Emphasis">mobility</span>&#160;<span style="font-style : italic; ">domain</span>&#160;is a group of <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;among which a wireless user can roam without losing their IP address. Mobility domains are not tied with the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, thus it is possible for a user to roam between <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;managed by different master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;as long as all of the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;belong to the same mobility domain.</p>
+ <p class="FM_Body">You enable and configure mobility domains only on <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. No additional software or configuration is required on wireless clients to allow roaming within the domain.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_20202_Aruba_Mobility"><span class="FM_PMS646">“Aruba Mobility Architecture”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_30103_Configuring"><span class="FM_PMS646">“Configuring Mobility Domains”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_44235_Tracking_Mobile"><span class="FM_PMS646">“Tracking Mobile Users” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_49708_Advanced"><span class="FM_PMS646">“Advanced Mobility Functions” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_36988_Bridge_Mode"><span class="FM_PMS646">“Bridge Mode Mobility” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_40155_Mobility_Multicast"><span class="FM_PMS646">“Mobility Multicast” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Aruba_Mobility"></a><a name="XREF_20202_Aruba_Mobility"></a><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> Mobility Architecture</p>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>’s layer-3 mobility solution is based on the Mobile IP protocol standard, as described in RFC 3344, “IP Mobility Support for IPv4”. This standard addresses users who need both network connectivity and mobility within the work environment.</p>
+ <p class="FM_Body">Unlike other layer-3 mobility solutions, an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;mobility solution does not require that you install mobility software or perform additional configuration on wireless clients. The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;perform all functions that enable clients to roam within the mobility domain.</p>
+ <p class="FM_Body"><a name="IX_home_network"></a><a name="IX_mobile_client"></a>In a mobility domain, a <span style="font-style : italic; ">mobile client</span>&#160;is a wireless client that can change its point of attachment from one network to another within the domain. A mobile client receives an IP address (a <span style="font-style : italic; ">home address</span>) on a <span style="font-style : italic; ">home network</span>.</p>
+ <p class="FM_Body"><a name="IX_care_of_address"></a><a name="IX_foreign_network"></a>A mobile client can detach at any time from its home network and reconnect to a <span style="font-style : italic; ">foreign network</span>&#160;(any network other than the mobile client’s home network) within the mobility domain. When a mobile client is connected to a foreign network, it is bound to a <span style="font-style : italic; ">care-of address</span>&#160;that reflects its current point of attachment. A care-of address is the IP address of the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the foreign network with which the mobile client is associated.</p>
+ <p class="FM_Body"><a name="IX_foreign_agent"></a><a name="IX_home_agent"></a>The <span style="font-style : italic; ">home agent</span>&#160;for the client is the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;where the client appears for the first time when it joins the mobility domain. The home agent is the single point of contact for the client when the client roams. The <span style="font-style : italic; ">foreign agent</span>&#160;for the client is the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;which handles all Mobile IP communication with the home agent on behalf of the client. Traffic sent to a client’s home address is intercepted by the home agent and tunneled for delivery to the client on the foreign network. On the foreign network, the foreign agent delivers the tunneled data to the mobile client.</p>
+ <p class="FM_Body"><a href="#XREF_60897_Figure_45_Routing"></a><a href="#XREF_60897_Figure_45_Routing"></a><a href="#XREF_60897_Figure_45_Routing"><span class="FM_PMS646">Figure 76</span></a>&#160;shows the routing of traffic from Host A to Mobile Client B when the client is away from its home network. The client’s care-of address is the IP address of the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the foreign network. </p>
+ <p class="FM_Body">The numbers in the <a href="#XREF_60897_Figure_45_Routing"><span class="FM_PMS646">Figure 76</span></a> correspond to the following descriptions:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Traffic to Mobile Client B arrives at the client’s home network via standard IP routing mechanisms.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The traffic is intercepted by the home agent in the client’s home network and tunneled to the care-of address in the foreign network.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The foreign agent delivers traffic to the mobile client.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Traffic sent by Mobile Client B is also tunneled back to the home agent.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 76 &#160;</span><a name="XREF_60897_Figure_45_Routing"></a>Routing of Traffic to Mobile Client within Mobility Domain</p>
+ <div align="left"><img alt="ip_mobility.jpg" id="image0" src="images/ip_mobility.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Mobility"></a><a name="XREF_30103_Configuring"></a>Configuring Mobility Domains</p>
+ <p class="FM_Body"><a name="IX_configuring_37"></a>Before configuring a mobility domain, you should determine the user VLAN(s) for which mobility is required. For example, you may want to allow employees to be able to roam from one subnetwork to another. All <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;that support the VLANs into which employee users can be placed should be part of the same mobility domain.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;mobility domains are supported only on <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">A <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can be part of multiple mobility domains, although <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends that a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;belong to only one domain. The <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;in a mobility domain do not need to be managed by the same master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">You configure a mobility domain on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>; the mobility domain information is pushed to all local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;that are managed by the same master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. On each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you must specify the <span style="font-style : italic; ">active</span>&#160;domain (the domain to which the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;belongs). If you do not specify the active domain, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> will be assigned to a predefined “default” domain.</p>
+ <p class="FM_Body">Although you configure a mobility domain on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;does not need to be a member of the mobility domain. For example, you could set up a mobility domain that contains only local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>; you still need to configure the mobility domain on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that manages the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. You can also configure a mobility domain that contains multiple master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>; you need to configure the mobility domain on each master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">The basic tasks you need to perform to configure a mobility domain are listed below. The sections following describe each task in further detail. A sample mobility domain configuration is provided in <a href="#XREF_80026_Example"><span class="FM_PMS646">“Example Configuration”</span></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 442.38pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 90 &#160;</span>Tasks to Configure a Mobility Domain<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 176.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">On a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+</th>
+  <th style="width : 265.876pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">On all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> in the mobility domain:</p>
+</th>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 176.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; ">
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><a name="IX_home_agent_table"></a>Configure the mobility domain, including the entries in the home agent table (HAT)</p>
+</li>
+  </ul></td>
+  <td style="width : 265.876pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; ">
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Enable mobility (disabled by default)</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Join a specified mobility domain (not required for “default” mobility domain)</p>
+</li>
+  </ul></td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You can enable or disable IP mobility in a virtual AP profile (IP mobility is enabled by default). When IP mobility is enabled in a virtual AP profile, the ESSID that is configured for the virtual AP supports layer-3 mobility. If you disable IP mobility for a virtual AP, any clients that associate to the virtual AP will not have mobility service.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_a_Mobility"></a>Configuring a Mobility Domain</p>
+ <p class="FM_Body">You configure mobility domains on master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. All local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;managed by the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;share the list of mobility domains configured on the master. Mobility is disabled by default and must be explicitly enabled on all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;that will support client mobility. Disabling mobility does not delete any mobility-related configuration.</p>
+ <p class="FM_Body">The home agent table (HAT) maps a user VLAN IP subnet to potential home agent addresses. The mobility feature uses the HAT table to locate a potential home agent for each mobile client, and then uses this information to perform home agent discovery. To configure a mobility domain, you must assign a home agent address to at least one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;with direct access to the user VLAN IP subnet. (Some network topologies may require multiple home agents.)</p>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends you configure the switch IP address to match the AP’s local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;<span style="font-style : italic; ">or</span>&#160;define the Virtual Router Redundancy Protocol (VRRP) IP address to match the VRRP IP used for <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;redundancy. Do not configure both a switch IP address and a VRRP IP address as a home agent address, or multiple home agent discoveries may be sent to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">All user VLANs that are part of a mobility domain must have an IP address that can correctly forward layer-3 broadcast multicast traffic to clients when they are away from home network.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">Configure the HAT with a list of every subnetwork, mask, VLAN ID, VRRP IP, and home agent IP address in the mobility domain. Include an entry for every home agent and user VLAN to which an IP subnetwork maps. If there is more than one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the mobility domain providing service for the same user VLAN, you must configure an entry for the VLAN for each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends using the same VRRP IP used by the AP.</p>
+ <p class="FM_Body">The mobility domain named “default” is the default active domain for all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. If you need only one mobility domain, you can use this default domain. However, you also have the flexibility to create one or more user-defined domains to meet the unique needs of your network topology. Once you assign a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to a user-defined domain, it automatically leaves the “default” mobility domain. If you want a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to belong to both the “default” and a user-defined mobility domain at the same time, you must explicitly configure the “default” domain as an active domain for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_WebUI29"></a>Using the WebUI</p>
+ <p class="FM_Body">The following procedure illustrates configuring mobility domain on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; IP Mobility </span>page. Select the <span class="FM_Navigation">Enable IP Mobility</span> checkbox.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure the default mobility domain, select the “default” domain in the Mobility Domain list.</p>
+ <p class="FM_BodyinBulletStep">To create a new mobility domain, enter the name of the domain in Mobility Domain Name and click <span style="font-weight : bold; ">Add</span>; the new domain name appears in the Mobility Domain list. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the newly-created domain name. Click <span style="font-weight : bold; ">Add</span>&#160;under the Subnet column. Enter the subnetwork, mask, VLAN ID, VRIP, and home agent IP address and click <span style="font-weight : bold; ">Add</span>. Repeat this step for each HAT entry.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_CLI34"></a>Using the CLI</p>
+ <p class="FM_Body">The following command configures mobility domain on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_CLI">router mobile</p>
+ <p class="FM_CLI">ip mobile domain &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;hat &lt;<span style="font-style : italic; ">subnetwork&gt; &lt;netmask&gt; &lt;vlan-id&gt; &lt;home-agent-address&gt; description &lt;desc&gt;</span></p>
+ <p class="FM_Body">The VLAN ID must be the VLAN number on the home agent <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">To view currently-configured mobility domains in the CLI, use the <span style="font-weight : bold; ">show ip mobile domain</span>&#160;command. </p>
+ <p class="FM_Body">Make sure that the ESSID to which the mobile client will connect supports IP mobility. You can disable IP mobility for an ESSID in the virtual AP profile (IP mobility is enabled by default). If you disable IP mobility for a virtual AP, any client that associates to the virtual AP will not have mobility service.</p>
+ <p class="FM_2Heading"><a name="TOC_Joining_a_Mobility_Domain"></a>Joining a Mobility Domain</p>
+ <p class="FM_Body">Assigning a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to a specific mobility domain is the key to defining the roaming area for mobile clients. You should take extra care in planning your mobility domains, including surveying the user VLANs and <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> to which clients can roam, to ensure that there are no roaming holes.</p>
+ <p class="FM_Body">All <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;are initially part of the “default” mobility domain. If you are using the default mobility domain, you do not need to specify this domain as the active domain on a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. However, once you assign a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to a user-defined domain, the “default” mobility domain is no longer an active domain on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI83"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; IP Mobility </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Mobility Domain list, select the mobility domain.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Active</span> checkbox for the domain.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI83"></a>In the CLI</p>
+ <p class="FM_CLI">ip mobile active-domain &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_Body">To view the active domains in the CLI, use the <span style="font-weight : bold; ">show ip mobile active-domains</span>&#160;command on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_2Heading"><a name="TOC_Example_Configuration2"></a><a name="XREF_80026_Example"></a>Example Configuration</p>
+ <p class="FM_Body"><a name="IX_example_configuration"></a>The following example (<a href="#XREF_88490_Campus_Wide"><span class="FM_PMS646">Figure 77</span></a>) configures a network in a campus with three buildings. An <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in each building provides network connections for wireless users on several different user VLANs. To allow wireless users to roam from building to building without interrupting ongoing sessions, you configure a mobility domain that includes all user VLANs on the three <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. You configure the HAT on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> only (<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;A in this example). On the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> (<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;B and C), you only need to enable mobility.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 77 &#160;</span><a name="XREF_88490_Campus_Wide"></a>Example Configuration: Campus-Wide </p>
+ <div align="left"><img alt="Mobility00079.jpg" id="image1" src="images/Mobility00079.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Body">This example uses the “default” mobility domain for the campus-wide roaming area. Since all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;are initially included in the default mobility domain, you do not need to explicitly configure “default” as the active domain on each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_Mobility1"></a>Configuring Mobility using the WebUI</p>
+ <p class="FM_Body">On <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;A (the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>):</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; IP Mobility </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Enable IP Mobility </span>checkbox.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the “default” domain in the Mobility Domain list.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>&#160;under the Subnet column. Enter the subnetwork, mask, VLAN ID, home agent IP address, and a description for the first entry shown below and click <span style="font-weight : bold; ">Add</span>. Repeat this step for each HAT entry.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 432.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 91 &#160;</span>Example entries<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 110.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Subnetwork</p>
+</th>
+  <th style="width : 96.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Mask</p>
+</th>
+  <th style="width : 57.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">VLAN ID</p>
+</th>
+  <th style="width : 168.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Home Agent Address or VRIP</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.1.1.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.1.1.245</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.1.1.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.2.1.245</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.1.2.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">2</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.1.1.245</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.1.3.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">3</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.1.1.245</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.2.1.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">4</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.2.1.245</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.2.2.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.2.1.245</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.2.3.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">6</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.2.1.245</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.3.1.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">7</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.3.1.245</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.3.2.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.3.1.245</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 110.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.3.3.0</p>
+</td>
+  <td style="width : 96.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">255.255.255.0</p>
+</td>
+  <td style="width : 57.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">9</p>
+</td>
+  <td style="width : 168.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10.3.1.245</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">On <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> B and C:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; IP Mobility </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Enable IP Mobility </span>checkbox.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Mobility2"></a>Configuring Mobility using the CLI</p>
+ <p class="FM_Body">On <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;A (the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>):</p>
+ <p class="FM_CLI">ip mobile domain default</p>
+ <p class="FM_CLIIndented">hat 10.1.1.0 255.255.255.0 1 10.1.1.245 description “corporate mobility entry”</p>
+ <p class="FM_CLIIndented">hat 10.1.1.0 255.255.255.0 1 10.2.1.245 description “local entry”</p>
+ <p class="FM_CLIIndented">hat 10.1.2.0 255.255.255.0 2 10.1.1.245 description “reserved rentry”</p>
+ <p class="FM_CLIIndented">hat 10.1.3.0 255.255.255.0 3 10.1.1.245 description “sales team”</p>
+ <p class="FM_CLIIndented">hat 10.2.1.0 255.255.255.0 4 10.2.1.245 description “marketing team”</p>
+ <p class="FM_CLIIndented">hat 10.2.2.0 255.255.255.0 5 10.2.1.245 description “test environment”</p>
+ <p class="FM_CLIIndented">hat 10.2.3.0 255.255.255.0 6 10.2.1.245 description “guess access”</p>
+ <p class="FM_CLIIndented">hat 10.3.1.0 255.255.255.0 7 10.3.1.245 description “backup”</p>
+ <p class="FM_CLIIndented">hat 10.3.2.0 255.255.255.0 8 10.3.1.245 description “reserved”</p>
+ <p class="FM_CLIIndented">hat 10.3.3.0 255.255.255.0 9 10.3.1.245 description “reserved”</p>
+ <p class="FM_CLI">router mobile</p>
+ <p class="FM_Body">On <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> B and C:</p>
+ <p class="FM_CLI">router mobile</p>
+ <p class="FM_1Heading"><a name="TOC_Tracking_Mobile_Users"></a><a name="XREF_44235_Tracking_Mobile"></a>Tracking Mobile Users</p>
+ <p class="FM_Body">This section describes the ways in which you can view information about the status of mobile clients in the mobility domain.</p>
+ <p class="FM_Body">Location-related information for users, such as roaming status, AP name, ESSID, BSSID, and physical type are consistent in both the home agent and foreign agent. The user name, role, and authentication can be different on the home agent and foreign agent, as explained by the following: Whenever a client connects to a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in a mobility domain, layer-2 authentication is performed and the station obtains the layer-2 (logon) role. When the client roams to other networks, layer-2 authentication is performed and the client obtains the layer-2 role. If layer-3 authentication is required, this authentication is performed on the client’s home agent only. The home agent obtains a new role for the client after layer-3 authentication; this new role appears in the user status on the home agent only. Even if re-authentication occurs after the station moves to a foreign agent, the display on the foreign agent still shows the layer-2 role for the user.</p>
+ <p class="FM_2Heading"><a name="TOC_Mobile_Client_Roaming"></a>Mobile Client Roaming Status</p>
+ <p class="FM_Body">You can view the list of mobile clients and their roaming status on any <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in the mobility domain:</p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_mobile_client"></a>Viewing mobile client status using the WebUI</p>
+ <p class="FM_Body">Navigate to the <span style="font-weight : bold; ">Monitoring &gt; <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;&gt; Clients</span> page.</p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_mobile_client1"></a>Viewing mobile client status using the CLI</p>
+ <p class="FM_CLI">show ip mobile host</p>
+ <p class="FM_Body">Roaming status can be one of the following:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.88pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 92 &#160;</span>Client Roaming Status<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 40.00pt;background : #548baf;">
+  <th style="width : 106.700pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Roaming </p>
+  <p class="FM_TableHeading">Status Type</p>
+</th>
+  <th style="width : 362.178pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Home Switch/Home VLAN</p>
+</td>
+  <td style="width : 362.178pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is the home agent for a station and the client is on the VLAN on which it has an IP address.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mobile IP Visitor</p>
+</td>
+  <td style="width : 362.178pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is not the home agent for a client.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mobile IP Binding (away)</p>
+</td>
+  <td style="width : 362.178pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is the home agent for a client that is currently away.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Home Switch/Foreign VLAN</p>
+</td>
+  <td style="width : 362.178pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is the home agent for a client but the client is currently on a different VLAN than its home VLAN (the VLAN from which it acquired its IP address).</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stale</p>
+</td>
+  <td style="width : 362.178pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The client does not have connectivity in the mobility domain. Either the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has received a disassociation message for a client but has not received an association or registration request for the client from another <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, or a home agent binding for the station has expired before being refreshed by a foreign agent.</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No Mobility Service</p>
+</td>
+  <td style="width : 362.178pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;cannot provide mobility service to this client. The mobile client may lose its IP address if it obtains the address via DHCP and has limited connectivity. The mobile client may be using an IP address that cannot be served, or there may be a roaming hole due to improper configuration.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You can view the roaming status of users on any <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in the mobility domain:</p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_user_roaming"></a>Viewing user roaming status using the CLI</p>
+ <p class="FM_CLI">show user</p>
+ <p class="FM_Body">Roaming status can be one of the following:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.13pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 93 &#160;</span>User Roaming status<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 106.700pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Status Type</p>
+</th>
+  <th style="width : 361.428pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Associated</p>
+</td>
+  <td style="width : 361.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This client is on its home agent <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the client is on the VLAN on which it has an IP address.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Visitor</p>
+</td>
+  <td style="width : 361.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This client is visiting this <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is not its home agent.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Away</p>
+</td>
+  <td style="width : 361.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This client is currently away from its home agent <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Foreign VLAN</p>
+</td>
+  <td style="width : 361.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This client is on its home agent <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;but the client is currently on a different VLAN than the one on which it has an IP address.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 106.700pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Stale</p>
+</td>
+  <td style="width : 361.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This should be a temporary state as the client will either recover connectivity or the client’s entry is deleted when the stale timer expires.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You can use the following CLI command to view the home agent, foreign agent, and roaming status for a specific mobile client.</p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_specific_client"></a>Viewing specific client information using the CLI</p>
+ <p class="FM_CLI">show ip mobile trace &lt;<span style="font-style : italic; ">ip-address&gt;</span>|&lt;<span style="font-style : italic; ">mac-address&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Mobile_Client_Roaming1"></a>Mobile Client Roaming Locations</p>
+ <p class="FM_Body">You can view information about where a mobile user has been in the mobility domain. This information can only be viewed on the client’s home agent.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI84"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Monitoring &gt; <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;&gt; Clients</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Status</span>. The mobility state section contains information about the user locations.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI84"></a>In the CLI</p>
+ <p class="FM_CLI">show ip mobile trail &lt;<span style="font-style : italic; ">ip-address</span>&gt;|&lt;<span style="font-style : italic; ">mac-address</span>&gt;</p>
+ <p class="FM_2Heading"><a name="TOC_HA_Discovery_on"></a>HA Discovery on Association</p>
+ <p class="FM_Body">In normal circumstances a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;performs an HA discovery only when it is aware of the client’s IP address which it learns through the ARP or any L3 packet from the client. This limitation of learning the client’s IP and then performing the HA discovery is not effective when the client performs an inter switch move silently (does not send any data packet when in power save mode). This behavior is commonly seen with various handheld devices, Wi-Fi phones, etc. This delays HA discovery and eventually resulting in loss of downstream traffic if any meant for the mobile client.</p>
+ <p class="FM_Body">With HA discovery on association, a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can perform a HA discovery as soon as the client is associated. This feature can be enabled using the <span class="FM_InlineCLIOption" style="font-family : Courier New; ">ha-disc-onassoc</span>&#160;parameter in the <span class="FM_InlineCLIOption" style="font-family : Courier New; ">wlan virtual &lt;ap-profile&gt;</span>&#160;command. By default, this feature is disabled. You can enable this on virtual APs with devices in power-save mode and requiring mobility. This option will also poll for all potential HAs. </p>
+ <p class="FM_3Heading"><a name="TOC_Setting_up_mobility"></a>Setting up mobility association Using the CLI</p>
+ <p class="FM_CLI">wlan virtual-ap default ha-disc-onassoc</p>
+ <p class="FM_1Heading"><a name="TOC_Advanced_Mobility"></a><a name="XREF_49708_Advanced"></a>Advanced Mobility Functions</p>
+ <p class="FM_Body">You can configure various parameters that pertain to mobility functions on a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in a mobility domain using either the WebUI or the CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_advanced"></a>Configuring advanced mobility functions using the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; IP Mobility </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Global Parameters</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure your desired IP mobility settings. <a href="#XREF_54356_Table_60_IP"><span class="FM_PMS646">Table 94</span></a>&#160;describes the parameters you can configure on the <span style="font-weight : bold; ">Global Parameters</span> tab.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 94 &#160;</span><a name="XREF_54356_Table_60_IP"></a>IP Mobility Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 113.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 354.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td colspan="2" style="width : 468.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">General</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Encapsulation Supported</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This parameter shows the type of encapsulation currently supported on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Clear Trail Entries</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Clear the station location trail table. You can view entries in this table using the <span style="font-weight : bold; ">show ip mobile trail</span> command.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Clear Mobility Counters</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Clear counters for IP mobility statistics.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td colspan="2" style="width : 468.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Foreign Agent</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">lifetime</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Requested lifetime, in seconds, as per RFC 3344, “IP Mobility Support for IPv4”. The range of allowed values is 10-65534<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span> seconds. The default setting is 180 seconds.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max. Visitors Allowed</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Set a maximum allowed number of active visitors. The range of allowed values for this option is 0-5000 visitors. The default setting is 5000 visitors.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Registration Requests Retransmits</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum number of times the foreign agent attempts mobile IP registration message exchanges before giving up. The range of allowed values for this option is 0-5 attempts. The default setting is 3 attempts.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Registration Requests Interval</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Retransmission interval, in milliseconds. The range of allowed values for this option is 100-10000 milliseconds, inclusive. The default setting is 1000 milliseconds.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td colspan="2" style="width : 468.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Home Agent</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Replay</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time difference, in seconds, for timestamp-based replay protection, as described by RFC 3344<span style="font-family : Univers LT Std 53 Extended; ">, “IP Mobility Support for IPv4”</span>. 0 disables replay. The range of allowed values is 0-5000 seconds. The default setting is 5000 seconds.</p>
+</td>
+</tr>
+  <tr style=" height : 85.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max. Binding Allowed</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum number of mobile IP bindings. Note that there is a license-based limit on the number of users and a one user per binding limit in addition to unrelated users. This option is an additional limitation to control the maximum number of roaming users. When the limit is reached, registration requests from the foreign agent fail which causes a mobile client to set a new session on the visited <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, which will become its home <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+  <p class="FM_TableBody">The range of allowed values is 0-300 seconds. The default setting is 7 seconds.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td colspan="2" style="width : 468.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Proxy Mobile IP</p>
+</td>
+</tr>
+  <tr style=" height : 75.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Trigger Mobility on Station Association<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If enabled, mobility move detection is performed when the client associates with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;instead of when the client sends packets. </p>
+  <p class="FM_TableBody">This option is enabled by default. Mobility on association can speed up roaming and improve connectivity for devices that do not send many uplink packets out that can trigger mobility. The downside to this option is lowered security; an association is all it takes to trigger mobility, however, this is irrelevant unless layer-2 security is enforced.</p>
+</td>
+</tr>
+  <tr style=" height : 143.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>Stand Alone AP Support</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables support for third party or standalone APs. When this is enabled, broadcast packets are not used to trigger mobility and packets from untrusted interfaces are accepted.</p>
+  <p class="FM_TableBody">If mobility is enabled, you must also enable standalone AP for the client to connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s untrusted port. If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;learns wired users via the following methods, enable standalone AP:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Third party AP connected to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> through the untrusted port.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Clients connected to ENET1 on the <?rh-udv_start name="70AP"  ?>AP-70<?rh-udv_end ?>. </p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Wired user connected directly to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s untrusted port.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">When IP mobility is enabled, you must also enable the Stand Alone AP Support option so that a tunneled node server can perform properly and display all wired users who are connected to a tunneled node port.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mobility Trail Logging<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables logging at the notification level for mobile client moves.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Roaming for Authenticated Stations Only<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allows a client to roam only if has been authenticated. If a client has not been authenticated, no mobility service is offered if it roams to a different VLAN or <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Blocking DHCP Release from stations</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Determines whether DHCP release packets generated from the client should be dropped or forwarded to the DHCP server. Blocking the packets prevents the DHCP server from assigning the same IP address to another client until the lease has expired.</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>Re-Homing for Voice Capable Client<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allows on-hook phones to be assigned a new home agent. This is to load balance voice client home agents across <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> in a mobility domain.</p>
+  <p class="FM_TableBody">This parameter requires that you install the Policy Enforcement Firewall Next Generation (PEFNG) license in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, and is disabled by default.</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max. Station Mobility Events per Second<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum number of mobility events (events that can trigger mobility) handled per second. Mobility events above this threshold are ignored. This helps to control frequent mobility state changes when the client bounces back and forth on APs before settling down.</p>
+  <p class="FM_TableBody">The allowed range of values is 1-65535 events, and the default value is 25 events.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Station Trail Timeout<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the maximum interval, in seconds, an inactive mobility trail is held. The allowed range of values is 120-86400 seconds, and the default value is <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>3600 seconds.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Station Trail Max. Entries<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specifies the maximum number of entries (client moves) stored in the user mobility trail. The allowed range of values is 1-100<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span> entries, and the default value is 30 entries.</p>
+</td>
+</tr>
+  <tr style=" height : 93.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mobility Host Entry Hold Time<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of seconds the mobility state is retained after the loss of connectivity. This allows authentication state and mobility information to be preserved on the home agent <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The default is 60 seconds but can be safely increased. Note that in many case a station state is deleted without waiting for the stale timeout; user delete from management, foreign agent to foreign agent handoff, etc. (This is different from the no-service-timeout; no-service-timeout occurs up front while the stale-timeout begins when mobility service is provided but the connection is disrupted for some reason.)</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mobility Host Entry Lifetime<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time, in seconds, after which mobility service expires. If nothing has changed from the previous state, the client is given another bridge entry but it will have limited connectivity.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td colspan="2" style="width : 468.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Proxy DHCP</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max. BOOTP Messages per Transaction</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>Maximum number of BOOTP packets that are allowed to be handled during one DHCP session. The allowed range of values for tis parameter is <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>0-65534 packets.<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;The default value is 25.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max. Time Allowed per DHCP Transaction</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum time allowed for a proxy DHCP session to complete. The allowed range of values for this parameter is <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>1-600 seconds.<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span> The default value is 60 seconds.</p>
+</td>
+</tr>
+  <tr style=" height : 75.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time to hold DHCP state after transaction completion</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Hold time, in seconds, on proxy DHCP state after completion of DHCP transaction (DHCP ACK) was forwarded to the client. This option ensures that late BOOTP replies reach the station and that a retransmitted BOOTP request does not trigger a new proxy DHCP session. </p>
+  <p class="FM_TableBody">The allowed range of values for this parameter is <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>1-600 seconds.<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;The default value is 5 seconds.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td colspan="2" style="width : 468.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Revocation</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Retransmits</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum number of times the home agent or foreign agent attempts mobile IP registration/revocation message exchanges before giving up. The allowed range of values for this parameter is <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>0-5 retransmissions.<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span> The default value is 3 retransmissions.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 113.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Interval</p>
+</td>
+  <td style="width : 354.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Retransmission interval, in milliseconds. The allowed range of values for this parameter is <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>100-10000 milliseconds.<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span> The default value is 1000 milliseconds.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> after setting the parameter.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_mobility3"></a>Configuring mobility functions Using the CLI</p>
+ <p class="FM_Body">To configure foreign agent functionality, use the following command:</p>
+ <p class="FM_CLI">ip mobile foreign-agent {lifetime &lt;seconds&gt; | max-visitors &lt;number&gt; |</p>
+ <p class="FM_CLIIndented">registrations {interval &lt;msecs&gt; | retransmits &lt;number&gt;}}</p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_Body">To configure home agent functionality, use the following command:</p>
+ <p class="FM_CLI">ip mobile home-agent {max-bindings &lt;number&gt;|replay &lt;seconds&gt;}</p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_Body">To configure proxy mobile IP and DHCP functionality, use the following command:</p>
+ <p class="FM_CLI">ip mobile proxy </p>
+ <p class="FM_CLIIndented">auth-sta-roam-only | block-dhcp-release | dhcp {aggressive-transaction|ignore-options|max-requests &lt;number&gt;|transaction-hold &lt;seconds&gt;|transaction-timeout &lt;seconds&gt;}| event-threshold &lt;number&gt; | log-trail | no-service-timeout &lt;seconds&gt; | on-association |re-home | stale-timeout &lt;seconds&gt; | stand-alone-AP | trail-length &lt;number&gt; |trail-timeout &lt;seconds&gt; </p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_Body">To configure revocation functionality, use the following command:</p>
+ <p class="FM_CLI">ip mobile revocation {interval &lt;msec&gt;|retransmits &lt;number&gt;</p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_Body">To enable packet trace for a given MAC address, use the following command:</p>
+ <p class="FM_CLI">ip mobile packet-trace &lt;host MAC address&gt;</p>
+ <p class="FM_2Heading"><a name="TOC_Proxy_Mobile_IP"></a><a name="XREF_56973_Proxy_Mobile_IP"></a>Proxy Mobile IP</p>
+ <p class="FM_Body">The <span style="font-style : italic; ">proxy mobile IP module</span>&#160;in a mobility-enabled <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;detects when a mobile client has moved to a foreign network and determines the home agent for a roaming client. The proxy mobile IP module performs the following functions:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Derives the address of the home agent for a mobile client from the HAT using the mobile client’s IP address. If there is more than one possible home agent for a mobile client in the HAT, the proxy mobile IP module uses a discovery mechanism to find the current home agent for the client.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Detects when a mobile client has moved. Client moves are detected based on ingress port and VLAN changes and mobility is triggered accordingly. For faster roaming convergence between AP(s) on the same <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, it is recommended that you keep the “on-association” option enabled. This helps trigger mobility as soon as 802.11 association packets are received from the mobile client.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Proxy_DHCP"></a>Proxy DHCP</p>
+ <p class="FM_Body">When a mobile client first associates with a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, it sends a DHCP discover request with no requested IP. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;allows DHCP packets for the client onto the configured VLAN where, presumably, it will receive an IP address. The incoming VLAN becomes the client’s home VLAN.</p>
+ <p class="FM_Body">If a mobile client moves to another AP on the same <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that places the client on a different VLAN than its initial (home) VLAN, the <span style="font-style : italic; ">proxy DHCP module</span>&#160;redirects packets from the client’s current/visited VLAN to the home VLAN. The proxy DHCP module also redirects DHCP packets for the client from the home VLAN to the visited VLAN. </p>
+ <p class="FM_Body">If the mobile client moves to another <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the proxy DHCP module attempts to discover if the client has an ongoing session on a different <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. When a remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is identified, all DHCP packets from the client are sent to the home agent where they are replayed on the home VLAN. The proxy DHCP module also redirects DHCP packets for the client from the home VLAN to the visited network. In either situation, operations of the proxy DHCP module do not replace DHCP relay functions which can still operate on the client’s home VLAN, either in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> or in another device.</p>
+ <p class="FM_2Heading"><a name="TOC_Revocations"></a>Revocations</p>
+ <p class="FM_Body">A home agent or foreign agent can send a registration revocation message, which revokes registration service for the mobile client. For example, when a mobile client roams from one foreign agent to another, the home agent can send a registration revocation message to the first foreign agent so that the foreign agent can free any resources held for the client. </p>
+ <p class="FM_1Heading"><a name="TOC_Bridge_Mode_Mobility"></a><a name="XREF_36988_Bridge_Mode"></a>Bridge Mode Mobility</p>
+ <p class="FM_Body">In bridge mode deployments, it is possible that more than one AP could be deployed in a single location. Therefore, APs in bridge forwarding mode support firewall session synchronization, which allows clients to retain their current session and IP address as they roam between different bridge mode APs on the same layer-2 network. </p>
+ <p class="FM_Body">The bridge mode mobility feature facilitates client mobility on up to 32 layer-2 connected APs by allowing the APs to communicate and share user state as the user roams from AP to AP. This mechanism is always enabled when an AP is set to bridge mode, and it requires that all of the APs where roaming will occur be on the same Layer 2 segment. </p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 78 &#160;</span>Bridge Mode Mobility</p>
+ <div align="left"><img alt="Mobility00082.jpg" id="image2" src="images/Mobility00082.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Body">The roaming process occurs as follows:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>A client begins to roam from AP1 and starts an association with AP2.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>AP2 sends a broadcast message to all APs on the local layer-2 network asking if any other AP has a current session state for the roaming client.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Only AP1 responds to the broadcast, and sends the current session table of the client.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>AP2 acknowledges the receipt of the session table.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>AP1 deletes the session state of the client.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Roaming is complete.</p>
+ <p class="FM_1Heading"><a name="TOC_Mobility_Multicast"></a><a name="XREF_40155_Mobility_Multicast"></a>Mobility Multicast</p>
+ <p class="FM_Body">Internet Protocol (IP) multicast is a network addressing method used to simultaneously deliver a single stream of information from one sender to multiple clients on a network. Unlike broadcast traffic, which is meant for all hosts in a single domain, multicast traffic is sent only to those specific hosts who are configured to receive such traffic. Clients who want to receive multicast traffic can join a multicast group via IGMP messages. Upstream routers use IGMP message information to compute multicast routing tables and determine the outgoing interfaces for each multicast group stream.</p>
+ <p class="FM_Body">In <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;3.3.x and earlier, when a mobile client moved away from its local network and associated with a VLAN on a foreign <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;(or a foreign VLAN on its own <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>) the client’s multicast membership information would not be available at its new destination, and multicast traffic from the client could be interrupted. <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;3.4 and later supports mobility multicast enhancements that provide uninterrupted streaming of multicast traffic, regardless of a client's location. </p>
+ <p class="FM_2Heading"><a name="TOC_Proxy_IGMP_and_Proxy"></a>Proxy IGMP and Proxy Remote Subscription</p>
+ <p class="FM_Body">The mobility <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is always aware of the client's location, so the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can join multicast group(s) on behalf of that mobile client. This feature, called Proxy IGMP, allows the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to join a multicast group and suppresses the client’s IGMP control messages to the upstream multicast router. (The client's IGMP control messages will, however, still be used by <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to maintain a multicast forwarding table.) The multicast IGMP traffic originating from the client will instead be sent from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s incoming VLAN interface IP. </p>
+ <p class="FM_Body">The IGMP proxy feature includes both a host implementation and a router implementation. An upstream router sees a <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;running IGMP proxy as a host; a client attached to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;would see the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as router. When Proxy IGMP is enabled, all multicast clients associated with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;are hidden from the upstream multicast device or router. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 80.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The newer IGMP proxy feature and the older IGMP snooping feature cannot be enabled at the same time, as both features add membership information to multicast group table. For most multicast deployments, you should enable the IGMP Proxy feature on all VLAN interfaces to manage all the multicast membership requirements on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If IGMP snooping is configured on some of the interfaces, there is a greater chance that multicast information transfers may be interrupted.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">IGMP proxy must be enabled or disabled on each individual interface. To use the IGMP proxy ensure that the VLANs on the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;are extended to the upstream router. Enabling IGMP proxy enables IGMP on the interface and sets the querier to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;itself. You must identify the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;port from which the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;sends proxy join information to the upstream router, and identify the upstream router by upstream port so the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can dynamically update the upstream multicast router information. </p>
+ <p class="FM_2Heading"><a name="TOC_Inter_controller_Mobility"></a>Inter-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> Mobility</p>
+ <p class="FM_Body">When a client moves from one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to another, multicast traffic migrates as follows:</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 79 &#160;</span>Inter-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> Mobility</p>
+ <div align="left"><img alt="inter-controller-mobility.jpg" id="image3" src="images/inter-controller-mobility.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> uses its VLAN 10 IP address to join multicast group1 on behalf of a mobile client.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The mobile client leaves its local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and roams to VLAN 50 remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> A.</p>
+ <p class="FM_BodyinBulletStep">Remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> A locates the mobile client's local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and learns about the client's multicast groups. Remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;A then joins group1 on behalf the mobile client, using its VLAN 50 source IP. Upstream multicast traffic from the roaming client is sent to the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;over an IPIP tunnel. The remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> will receive downstream multicast traffic and send it to the mobile client.</p>
+ <p class="FM_BodyinBulletStep">Meanwhile, the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;checks to see if other local clients require group1 traffic. If no other clients are interested in group1, then the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will leave that group. If there are other clients using that group, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> it will continue its group1 membership.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Now the mobile client leaves remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;A and roams to VLAN 100 on remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;B. Remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> B locates he mobile client's local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and learns about the client's multicast groups. Remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;B then joins group1 on behalf the roaming mobile client 1, using its VLAN 100 IP address. </p>
+ <p class="FM_BodyinBulletStep">Both the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;A will check to see if any of their other clients require group1 traffic. If none of their other clients are interested in group1, then that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will leave the group. (If the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;leaves the group, it will also notify remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;A.) If either <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has other clients using that group, that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;it will continue its group1 membership. </p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_Mobility4"></a>Configuring Mobility Multicast Using the WebUI</p>
+ <p class="FM_Body">To configure the mobility multicast feature using the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; IP </span>window. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Edit</span>&#160;button by the VLAN interface for which you want to configure mobility multicast. The <span style="font-weight : bold; ">Edit VLAN</span> window opens.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Enable IGMP</span> to enable the router to discover the presence of multicast listeners on directly-attached links. When </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Snooping</span>&#160;to save bandwidth and limit the sending of multicast frames to only those nodes that need to receive them.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Interface</span>&#160;checkbox, then click the <span style="font-weight : bold; ">Proxy</span>&#160;drop-down list and select the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;interface, port and slot for which you want to enable proxy IGMP.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply your changes.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) Repeat steps 1-6 above to configure mobility multicast for another VLAN interface.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_Mobility5"></a>Configuring Mobility Multicast Using the CLI</p>
+ <p class="FM_Body">The following command enables IGMP and/or IGMP snooping on this interface, or configures a VLAN interface for uninterrupted streaming of multicast traffic.</p>
+ <p class="FM_CLI">interface vlan &lt;vlan&gt;</p>
+ <p class="FM_CLIIndented">ip igmp proxy [{fastethernet|gigabitethernet} &lt;slot&gt;/&lt;port&gt;]|[snooping]</p>
+<?rh-align_start align="right"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignright;margin-bottom: 12.00pt; width: 468.87pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="right"><span class="FM_zTitleNo">Table 95 &#160;</span>Command Syntax<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 115.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 353.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 24.00pt;">
+  <td style="width : 115.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p style="font-family : Courier New;">fastethernet</p>
+</td>
+  <td style="width : 353.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable IGMP proxy on the FastEthernet (IEEE 802.3) interface</p>
+</td>
+</tr>
+  <tr style=" height : 24.00pt;">
+  <td style="width : 115.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p style="font-family : Courier New;">gigabitethernet</p>
+</td>
+  <td style="width : 353.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable IGMP proxy on the GigabitEthernet (IEEE 802.3) interface</p>
+</td>
+</tr>
+  <tr style=" height : 187.00pt;">
+  <td style="width : 115.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p style="font-family : Courier New;">&lt;slot&gt;/&lt;port&gt;</p>
+</td>
+  <td style="width : 353.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Any command that references a Fast Ethernet or Gigabit Ethernet interface requires that you specify the corresponding port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in the format &lt;slot&gt;/&lt;port&gt;.</p>
+  <p class="FM_TableBody"><span style="font-weight : bold; ">&lt;slot&gt; </span>is always 1, except when referring to interfaces on the <?rh-udv_start name="6000MC"  ?>6000<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;. For the <?rh-udv_start name="6000MC"  ?>6000<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the four slots are allocated as follows:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">Slot 0</span>: contains a supervisor card or <?rh-udv_start name="MSMLong"  ?>Aruba Multi-Service Mobility Module Mark I<?rh-udv_end ?>. </p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">Slot 1</span>: can contain either a redundant supervisor card, <?rh-udv_start name="MSMLong"  ?>Aruba Multi-Service Mobility Module Mark I<?rh-udv_end ?>, or a third line card.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">Slot 2</span>: can contain either a <?rh-udv_start name="MSMLong"  ?>Aruba Multi-Service Mobility Module Mark I<?rh-udv_end ?>&#160;or line card (required if slot 0 contains a supervisor card).</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">Slot 3</span>: can contain either a <?rh-udv_start name="MSMLong"  ?>Aruba Multi-Service Mobility Module Mark I<?rh-udv_end ?>&#160;or second line card. </p>
+</li>
+  </ul>
+  <p class="FM_TableBody"><span style="font-weight : bold; ">&lt;port&gt; </span>refers to the network interfaces that are embedded in the front panel of the <?rh-udv_start name="200MC"  ?>200<?rh-udv_end ?>, <?rh-udv_start name="16-800MC"  ?>800<?rh-udv_end ?>, or <?rh-udv_start name="2400MC"  ?>2400<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, <?rh-udv_start name="3000MC_Series"  ?>3000 Series<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, <?rh-udv_start name="MSMLong"  ?>Aruba Multi-Service Mobility Module Mark I<?rh-udv_end ?>, or a line card installed in the <?rh-udv_start name="6000MC"  ?>6000<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Port numbers start at 0 from the left-most position. </p>
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 115.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p style="font-family : Courier New;">snooping</p>
+</td>
+  <td style="width : 353.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enable IGMP snooping. </p>
+  <p class="FM_TableBody">The IGMP protocol enables an router to discover the presence of multicast listeners on directly-attached links. Enable IGMP snooping to limit the sending of multicast frames to only those nodes that need to receive them.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_CLIIndented"></p>
+ <p class="FM_3Heading"><a name="TOC_Example"></a>Example</p>
+ <p class="FM_Body">The following example configures IGMP proxy for VLAN 2. IGMP reports from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;would be sent to the upstream router on fastethernet port 1/3.</p>
+ <p class="FM_CLI">conf# interface vlan 2</p>
+ <p class="FM_CLIIndented">conf-subif# ip igmp proxy fastethernet 1/3</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

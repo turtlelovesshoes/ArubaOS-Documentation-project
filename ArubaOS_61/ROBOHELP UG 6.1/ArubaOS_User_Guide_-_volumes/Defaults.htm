@@ -1,0 +1,1915 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Defaults</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Defaults.fm" />
+ <meta name="keywords" content="default self-signed certificate, captive portal profile, decrypt-tunnel forwarding mode,captive portal authentication, forwarding mode, tkip counter measure management">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_AppendixNumber" style="color   : #000000;">Appendix C</p>
+ <p class="FM_ChapterTitle" style="margin-top  : 40.000pt; color   : #000000;"><a name="TOC_Behavior_and_Defaults"></a>Behavior and Defaults</p>
+ <p class="FM_Body">This appendix contains the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_28021_Mode_Support"><span class="FM_PMS646">“Mode Support”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="VirtualAPs.htm#XREF_15337_Access_Points"><span class="FM_PMS646">“Basic System Defaults” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_88249_Default_Management"><span class="FM_PMS646">“Default Management User Roles” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_61419_Default_Open_Ports"><span class="FM_PMS646">“Default Open Ports”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Mode_Support"></a><a name="IX_forwarding_modes"></a><a name="XREF_28021_Mode_Support"></a>Mode Support</p>
+ <p class="FM_Body">Most <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;features are supported in all forwarding modes. However, there are a some features that are not supported in one or more forwarding modes. Campus APs do not support split-tunnel forwarding mode and the decrypt-tunnel forwarding mode does not support TKIP Counter measure management on campus APs or remote APs. </p>
+ <p class="FM_Body"><a href="#XREF_32397_Table_126_Features"><span class="FM_PMS646">Table 170</span></a>&#160;describes the features that are not supported in each forwarding mode. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 450.50pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 170 &#160;</span><a name="XREF_32397_Table_126_Features"></a>Features not Supported in Each Forwarding Mode<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 214.001pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Forwarding Mode</p>
+</th>
+  <th style="width : 236.501pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Feature Not Supported</p>
+</th>
+</tr>
+  <tr style=" height : 143.00pt;">
+  <td style="width : 214.001pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Split Tunnel Mode on Remote APs</p>
+</td>
+  <td style="width : 236.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">VLAN Pooling</p>
+  <p class="FM_TableBody">Named VLAN</p>
+  <p class="FM_TableBody">Voice over Mesh</p>
+  <p class="FM_TableBody">Video over Mesh</p>
+  <p class="FM_TableBody">Layer-2 Mobility</p>
+  <p class="FM_TableBody">Layer-3 Mobility</p>
+  <p class="FM_TableBody">IGMP Proxy Mobility</p>
+  <p class="FM_TableBody">Mobile IP</p>
+  <p class="FM_TableBody">TKIP countermeasure mgmt</p>
+  <p class="FM_TableBody">Bandwidth based CAC</p>
+  <p class="FM_TableBody">Dynamic Multicast Optimization</p>
+</td>
+</tr>
+  <tr style=" height : 155.00pt;">
+  <td style="width : 214.001pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Bridge Mode on Campus APs or Remote APs</p>
+</td>
+  <td style="width : 236.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Firewall—SIP/SCCP/RTP/RTSP Voice Support</p>
+  <p class="FM_TableBody">Firewall—Alcatel NOE Support</p>
+  <p class="FM_TableBody">Voice over Mesh</p>
+  <p class="FM_TableBody">Video over Mesh</p>
+  <p class="FM_TableBody">Named VLAN</p>
+  <p class="FM_TableBody">Captive portal</p>
+  <p class="FM_TableBody">Rate Limiting for broadcast/multicast</p>
+  <p class="FM_TableBody">Power save: Wireless battery boost</p>
+  <p class="FM_TableBody">Power save: Drop wireless multicast traffic</p>
+  <p class="FM_TableBody">Power save: Proxy ARP (global)</p>
+  <p class="FM_TableBody">Power save: Proxy ARP (per-SSID)</p>
+  <p class="FM_TableBody">Automatic Voice Flow Classification</p>
+</td>
+</tr>
+  <tr style=" height : 263.00pt;">
+  <td style="width : 214.001pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Bridge Mode on Campus APs or Remote APs (continued)</p>
+</td>
+  <td style="width : 236.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">SIP ALG</p>
+  <p class="FM_TableBody">SIP: SIP authentication tracking</p>
+  <p class="FM_TableBody">SIP: CAC enforcement enhancements</p>
+  <p class="FM_TableBody">SIP: Phone number awareness</p>
+  <p class="FM_TableBody">SIP: R-Value computation</p>
+  <p class="FM_TableBody">SIP: Delay measurement</p>
+  <p class="FM_TableBody">Management: Voice-specific views</p>
+  <p class="FM_TableBody">Management: Voice client statistics</p>
+  <p class="FM_TableBody">Management: Voice client troubleshooting</p>
+  <p class="FM_TableBody">Voice protocol monitoring/reporting</p>
+  <p class="FM_TableBody">SVP ALG</p>
+  <p class="FM_TableBody">H.323 ALG</p>
+  <p class="FM_TableBody">Vocera ALG</p>
+  <p class="FM_TableBody">SCCP ALG</p>
+  <p class="FM_TableBody">NOE ALG</p>
+  <p class="FM_TableBody">Layer 3 Mobility</p>
+  <p class="FM_TableBody">IGMP Proxy Mobility</p>
+  <p class="FM_TableBody">Mobile IP</p>
+  <p class="FM_TableBody">TKIP countermeasure mgmt</p>
+  <p class="FM_TableBody">Bandwidth based CAC</p>
+  <p class="FM_TableBody">Dynamic Multicast Optimization</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_1Heading"><a name="TOC_Basic_System_Defaults"></a><a name="IX_system_defaults"></a><a name="XREF_87554_Basic_System"></a>Basic System Defaults</p>
+ <p class="FM_Body">The default administrator user name is <span class="FM_System" style="font-family : Courier New; ">admin</span>, and the default password is also <span class="FM_System" style="font-family : Courier New; ">admin</span>.<span style="font-family : Univers LT Std 53 Extended; ">&#160;</span>The <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;software includes several predefined network services, firewall policies, and roles.<a name="XREF_83992_Firewall_Defaults"></a></p>
+ <p class="FM_2Heading"><a name="TOC_Network_Services"></a><a name="XREF_83277_Network_Services"></a>Network Services</p>
+ <p class="FM_Body"><a href="#XREF_84378_Table_1_Predefined"><span class="FM_PMS646">Table 171</span></a> lists the predefined network services and their protocols and ports.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 235.45pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 171 &#160;</span><a name="XREF_84378_Table_1_Predefined"></a>Predefined Network Services<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 98.930pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Name</p>
+</th>
+  <th style="width : 68.032pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading" style="text-align  : center;">Protocol</p>
+</th>
+  <th style="width : 68.485pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading" style="text-align  : center;">Port(s)</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-dhcp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">67 68</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-snmp-trap </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">162</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-smb-tcp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">445</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-https </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">443</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-ike </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">500</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-l2tp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1701</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-syslog </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">514</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-pptp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1723</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-telnet </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">23</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-sccp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">2000</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-tftp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">69</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-sip-tcp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5060</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-kerberos </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">88</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-pop3 </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">110</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-adp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8200</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-noe </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">32512</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-noe-oxo </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5000</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-dns </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">53</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-msrpc-tcp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">135 139</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-rtsp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">554</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-http </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">80</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-vocera </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5002</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-nterm </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1026 1028</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-sip-udp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5060</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-papi </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8211</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-ftp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">21</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-natt </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">4500</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-svp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">119</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">0</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-gre </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">gre</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">0</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-smtp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">25</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-smb-udp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">445</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-esp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">esp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">0</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-bootp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">67 69</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-snmp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">161</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-icmp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">icmp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">0</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-ntp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">123</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-msrpc-udp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">135 139</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-ssh </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">22</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-h323-tcp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1720</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-h323-udp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1718 1719</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-http-proxy1 </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">3128</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-http-proxy2 </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8080</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-http-proxy3 </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8888</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-sips </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">tcp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5061</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-v6-dhcp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">udp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">546 547</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">svc-v6-icmp </p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">icmp</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">0</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 98.930pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">any</p>
+</td>
+  <td style="width : 68.032pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">any</p>
+</td>
+  <td style="width : 68.485pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">0</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_2Heading"><a name="TOC_Policies1"></a><a name="IX_predefined"></a><a name="IX_policies_1"></a>Policies</p>
+ <p class="FM_Body">The following are predefined policies.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.33pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 172 &#160;</span>Predefined Policies<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 194.196pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Predefined Policy</p>
+</th>
+  <th style="width : 274.132pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session allowall</p>
+  <p class="FM_TableBody"> &#160;any any any permit</p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">An &quot;allow all&quot; firewall rule that permits all traffic. </p>
+</td>
+</tr>
+  <tr style=" height : 131.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session control </p>
+  <p class="FM_TableBody">&nbsp;&nbsp;user any udp 68 deny </p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any svc-icmp permit </p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any svc-dns permit </p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any svc-papi permit </p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any svc-cfgm-tcp permit </p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any svc-adp permit</p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any svc-tftp permit</p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any svc-dhcp permit</p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any svc-natt permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Controls traffic—Apply to untrusted wired ports in order to allow <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs to boot up. </p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>In most cases wired ports should be made &quot;trusted&quot; when attached to an internal network.</p>
+</td>
+</tr>
+  <tr style=" height : 143.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session captiveportal </p>
+  <p class="FM_TableBody">&nbsp;&nbsp;user alias mswitch svc-https dst-nat 8081</p>
+  <p class="FM_TableBody">&nbsp;&nbsp;user any svc-http dst-nat 8080</p>
+  <p class="FM_TableBody">&nbsp;&nbsp;user any svc-https dst-nat 8081</p>
+  <p class="FM_TableBody">&nbsp;&nbsp;user any svc-http-proxy1 dst-nat 8088 </p>
+  <p class="FM_TableBody">&nbsp;&nbsp;user any svc-http-proxy2 dst-nat 8088 </p>
+  <p class="FM_TableBody">&nbsp;&nbsp;user any svc-http-proxy3 dst-nat 8088 </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables Captive Portal authentication. </p>
+  <p class="FM_TableStep1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Any HTTPS traffic destined for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will be NATed to port 8081, where the captive portal server will answer.</p>
+  <p class="FM_TableStepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>All HTTP traffic to any destination will be NATed to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;on port 8080, where an HTTP redirect will be issued. </p>
+  <p class="FM_TableStepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>All HTTPS traffic to any destination will be NATed to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;on port 8081, where an HTTP redirect will be issued. </p>
+  <p class="FM_TableStepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>All HTTP proxy traffic will be NATed to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;on port 8088. </p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>In order for captive portal to work properly, DNS must also be permitted. This is normally done in the &quot;logon-control&quot; firewall rule. </p>
+</td>
+</tr>
+  <tr style=" height : 63.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session cplogout</p>
+  <p class="FM_TableBody">&nbsp;&nbsp;user alias mswitch svc-https dst-nat 8081</p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Used to enable the captive portal &quot;logout&quot; window. If the user attempts to connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;on the standard HTTPS port (443) the client will be NATed to port 8081, where the captive portal server will answer. If this rule is not present, a wireless client may be able to access the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>'s administrative interface.</p>
+</td>
+</tr>
+  <tr style=" height : 83.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session vpnlogon</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-ike permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-esp permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-l2tp permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-pptp permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-gre permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This policy permits VPN sessions to be established to any destination. IPsec (IKE, ESP, and L2TP) and PPTP (PPTP and GRE) are supported. </p>
+</td>
+</tr>
+  <tr style=" height : 107.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session ap-acl</p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any udp 5000</p>
+  <p class="FM_TableBody">&nbsp;&nbsp;any any udp 5555</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-gre permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-syslog permit </p>
+  <p class="FM_TableBody">&#160;&#160;any user svc-snmp permit </p>
+  <p class="FM_TableBody">&#160;&#160;user any svc-snmp-trap permit </p>
+  <p class="FM_TableBody">&#160;&#160;user any svc-ntp permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is a policy for internal use and should not be modified. It permits APs to boot up and communicate with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+</td>
+</tr>
+  <tr style=" height : 105.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session validuser</p>
+  <p class="FM_TableBody">&#160;&#160;any any any permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This firewall rule controls which users will be added to the user-table of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;through untrusted interfaces. Only IP addresses permitted by this ACL will be admitted to the system for further processing. If a client device attempts to use an IP address that is denied by this rule, the client device will be ignored by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and given no network access. You can use this rule to restrict foreign IP addresses from being added to the user-table.</p>
+  <p class="FM_TableBody">This policy should not be applied to any user role, it is an internal system policy.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session vocera-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-vocera permit queue high </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use for Vocera VoIP devices to automatically permit and prioritize Vocera traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session icmp-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-icmp permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all ICMP traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session sip-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-sip-udp permit queue high </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-sip-tcp permit queue high </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use for SIP VoIP devices to automatically permit and prioritize all SIP control and data traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session https-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-https permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all HTTPS traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session dns-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-dns permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all DNS traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 83.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session logon-control</p>
+  <p class="FM_TableBody">&#160;&#160;user any udp 68 deny </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-icmp permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-dns permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-dhcp permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-natt permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The default pre-authentication role that should be used by all wireless clients. Prohibits the client from acting as a DHCP server. Permits all ICMP, DNS, and DHCP. Also permits IPsec NAT-T (UDP 4500). Remove NAT-T if not needed.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session srcnat</p>
+  <p class="FM_TableBody">&#160;&#160;user any any src-nat </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This policy can be used to source-NAT all traffic. Because no NAT pool is specified, traffic that matches this policy will be source NATed to the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session skinny-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-sccp permit queue high </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use for Cisco Skinny VoIP devices to automatically permit and prioritize VoIP traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session tftp-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-tftp permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all TFTP traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session guest</p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This policy is not used.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session dhcp-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-dhcp permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all DHCP traffic. If DHCP is not allowed, clients will not be able to request or renew IP addresses.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session http-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-http permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all HTTP traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session svp-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-svp permit queue high </p>
+  <p class="FM_TableBody"> &#160;user host 224.0.1.116 any permit</p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use for Spectralink VoIP devices to automatically permit and prioritize Spectralink Voice Protocol (SVP).</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session noe-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-noe permit queue high </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use for Alcatel NOE VoIP devices to automatically permit and prioritize NOE traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ip access-list session h323-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-h323-tcp permit queue high </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-h323-udp permit queue high </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use for H.323 VoIP devices to automatically permit and prioritize H.323 traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 83.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ipv6 access-list session v6-control</p>
+  <p class="FM_TableBody">&#160;&#160;user any udp 68 deny </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-v6-icmp permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-v6-dhcp permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-dns permit </p>
+  <p class="FM_TableBody"> &#160;any any svc-tftp permit</p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Provides equivalent functionality to the &quot;control&quot; policy, but for IPv6 clients.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ipv6 access-list session v6-icmp-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-v6-icmp permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all ICMPv6 traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ipv6 access-list session v6-https-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-https permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all IPv6 HTTPS traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ipv6 access-list session v6-dhcp-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-v6-dhcp permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all IPv6 DHCP traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ipv6 access-list session v6-dns-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-dns permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all IPv6 DNS traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ipv6 access-list session v6-allowall</p>
+  <p class="FM_TableBody">&#160;&#160;any any any permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all IPv6 traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ipv6 access-list session v6-http-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-http permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all IPv6 HTTP traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ipv6 access-list session v6-tftp-acl</p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-tftp permit </p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Permits all IPv6 TFTP traffic.</p>
+</td>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 194.196pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ipv6 access-list session v6-logon-control </p>
+  <p class="FM_TableBody">&#160;&#160;user any udp 68 deny </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-v6-icmp permit </p>
+  <p class="FM_TableBody">&#160;&#160;any any svc-v6-dhcp permit </p>
+  <p class="FM_TableBody"> &#160;any any svc-dns permit</p>
+</td>
+  <td style="width : 274.132pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Provides equivalent functionality to the &quot;logon-control&quot; policy, but for IPv6 clients.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_2Heading"><a name="TOC_Roles"></a><a name="IX_predefined_1"></a>Roles</p>
+ <p class="FM_Body">The following are predefined roles.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 541.50pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 469.501pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">If you upgrade from a previous <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;release, your existing configuration may have additional or different predefined roles. The information in this section only describes the predefined roles for this release.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.33pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 173 &#160;</span>Predefined Roles<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 204.831pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Predefined Role</p>
+</th>
+  <th style="width : 262.497pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role ap-role</p>
+  <p class="FM_TableBody">&nbsp;session-acl control</p>
+  <p class="FM_TableBody">&nbsp;session-acl ap-acl</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is an internal role and should not be edited.</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role default-vpn-role</p>
+  <p class="FM_TableBody">&nbsp;session-acl allowall</p>
+  <p class="FM_TableBody">&nbsp;ipv6 session-acl v6-allowall</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is the default role used for VPN-connected clients. It is referenced in the default &quot;aaa authentication vpn&quot; profile.</p>
+</td>
+</tr>
+  <tr style=" height : 143.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role voice</p>
+  <p class="FM_TableBody">&nbsp;session-acl sip-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl noe-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl svp-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl vocera-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl skinny-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl h323-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl dhcp-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl tftp-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl dns-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl icmp-acl</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This role can be applied to voice devices in order to automatically permit and prioritize all VoIP protocols.</p>
+</td>
+</tr>
+  <tr style=" height : 143.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role guest</p>
+  <p class="FM_TableBody">&nbsp;session-acl http-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl https-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl dhcp-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl icmp-acl</p>
+  <p class="FM_TableBody">&nbsp;session-acl dns-acl</p>
+  <p class="FM_TableBody">&nbsp;ipv6 session-acl v6-http-acl</p>
+  <p class="FM_TableBody">&nbsp;ipv6 session-acl v6-https-acl</p>
+  <p class="FM_TableBody">&nbsp;ipv6 session-acl v6-dhcp-acl</p>
+  <p class="FM_TableBody">&nbsp;ipv6 session-acl v6-icmp-acl</p>
+  <p class="FM_TableBody">&nbsp;ipv6 session-acl v6-dns-acl</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is a default role for guest users. It permits only HTTP, HTTPS, DHCP, ICMP, and DNS for the guest user. To increase security, a &quot;deny&quot; rule for internal network destinations could be added at the beginning.</p>
+</td>
+</tr>
+  <tr style=" height : 59.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role guest-logon</p>
+  <p class="FM_TableBody"> captive-portal default</p>
+  <p class="FM_TableBody"> session-acl logon-control</p>
+  <p class="FM_TableBody"> session-acl captiveportal</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This role is used as the pre-authentication role for guest SSIDs. It allows control traffic such as DNS, DHCP, and ICMP, and also enables captive portal.</p>
+</td>
+</tr>
+  <tr style=" height : 73.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role &lt;ssid&gt;-guest-logon</p>
+  <p class="FM_TableBody"> captive-portal default</p>
+  <p class="FM_TableBody"> session-acl logon-control</p>
+  <p class="FM_TableBody"> session-acl captiveportal</p>
+  <p class="FM_TableBody" style="font-family : Courier New; font-size  : 10.2pt; letter-spacing : -0.02em;">&nbsp;</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This role is only generated when creating a new WLAN using the WLAN Wizard. The WLAN Wizard creates this role when captive portal is enabled. This is the initial role that a guest will be placed in prior to captive portal authentication. By using a different guest logon role for each SSID, it is possible to enable multiple captive portal profiles with different customization.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role stateful-dot1x </p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is an internal role used for Stateful 802.1x. It should not be edited.</p>
+</td>
+</tr>
+  <tr style=" height : 47.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role authenticated</p>
+  <p class="FM_TableBody">&nbsp;session-acl allowall</p>
+  <p class="FM_TableBody">&nbsp;ipv6 session-acl v6-allowall</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is a default role that can be used for authenticated users. It permits all IPv4 and IPv6 traffic for users who are part of this role.</p>
+</td>
+</tr>
+  <tr style=" height : 105.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role logon</p>
+  <p class="FM_TableBody"> session-acl logon-control</p>
+  <p class="FM_TableBody"> session-acl captiveportal</p>
+  <p class="FM_TableBody"> session-acl vpnlogon</p>
+  <p class="FM_TableBody">&nbsp;ipv6 session-acl v6-logon-control</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is a system role that is normally applied to a user prior to authentication. This applies to wired users and non-802.1x wireless users. </p>
+  <p class="FM_TableBody">The role allows certain control protocols such as DNS, DHCP, and ICMP, and also enables captive portal and VPN termination/pass through. The logon role should be edited to provide only the required services to a pre-authenticated user. For example, VPN pass through should be disabled if it is not needed.</p>
+</td>
+</tr>
+  <tr style=" height : 83.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role &lt;ssid&gt;-logon</p>
+  <p class="FM_TableBody"> session-acl control</p>
+  <p class="FM_TableBody"> session-acl captiveportal</p>
+  <p class="FM_TableBody"> session-acl vpnlogon</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This role is only generated when creating a new WLAN using the WLAN Wizard. The WLAN Wizard creates this role when captive portal is enabled and a PEFNG license is installed. This is the initial role that a client will be placed in prior to captive portal authentication. By using a different logon role for each SSID, it is possible to enable multiple captive portal profiles with different customization.</p>
+</td>
+</tr>
+  <tr style=" height : 155.00pt;">
+  <td style="width : 204.831pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user-role &lt;ssid&gt;-captiveportal-profile</p>
+</td>
+  <td style="width : 262.497pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">When utilizing the WLAN Wizard and you do not have a PEF NG installed and you are configuring an Internal or Guest WLAN with captive portal enabled, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;creates an implicit user role with the same name as the captive portal profile, &lt;ssid&gt;-captiveportal-profile. </p>
+  <p class="FM_TableBody">This implicit user role allows only DNS and DHCP traffic between the client and network and directs all HTTP or HTTPS requests to the captive portal. You cannot directly modify the implicit user role or its rules. Upon authentication, captive portal clients are allowed full access to their assigned VLAN. Once the WLAN configuration is pushed to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the WLAN wizard will associate the new role with the initial user role that you specify in the AAA profile. This role will not be visible to the user in the WLAN wizard.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_1Heading"><a name="TOC_Default_Management_User"></a><a name="IX_management_user_roles"></a><a name="XREF_88249_Default_Management"></a>Default Management User Roles</p>
+ <p class="FM_Body">The <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> software includes predefined management user roles.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.75pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.752pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">If you upgrade from a previous <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;release, your existing configuration may have different management roles. The information in this section only describes the predefined management roles for this release.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.54pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 174 &#160;</span>Predefined Management Roles<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 109.283pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Predefined Role</p>
+</th>
+  <th style="width : 357.252pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Permissions </p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 109.283pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">root</p>
+</td>
+  <td style="width : 357.252pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This role permits access to all management functions (commands and operations) on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 109.283pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">read-only</p>
+</td>
+  <td style="width : 357.252pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This role permits access to CLI show commands or WebUI monitoring pages only.</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 109.283pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">guest-provisioning</p>
+</td>
+  <td style="width : 357.252pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This role permits access to configuring guest users in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database only. This user only has access via the WebUI to create guest accounts; there is no CLI access.</p>
+  <p class="FM_TableBody">Guest-provisioning tasks include creating or generating the user name and password for a guest account as well as configuring when the account expires. </p>
+</td>
+</tr>
+  <tr style=" height : 131.00pt;">
+  <td style="width : 109.283pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">location-api-mgmt</p>
+</td>
+  <td style="width : 357.252pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This role permits access to location API information and the CLI; however, you cannot use any CLI commands. This role does not permit access to the WebUI.</p>
+  <p class="FM_TableBody">Using a third-party location appliance, you can gather information about the location of 802.11 stations. </p>
+  <p class="FM_TableBody">To log in to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> using a third-party location appliance, enter:<br />http[s]://&lt;ipaddress&gt;[:port]/screens/wms/wms.login. </p>
+  <p class="FM_TableBody">You are prompted to enter your username and password (for example, the username and password associated with the location API management role). Once authenticated, you can use an API call to request location information from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, for example:</p>
+  <p class="FM_TableBody">http[s]://&lt;ipaddress&gt;[:port]/screens/wms/wms.cgi?opcode=wlm-get-spot&amp;campus-name=&lt;campus id&gt;&amp;building-name&lt;building id&gt;&amp;mac=&lt;client1&gt;,&lt;client2&gt;....</p>
+</td>
+</tr>
+  <tr style=" height : 629.00pt;">
+  <td style="width : 109.283pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; " rowspan="6">
+  <p class="FM_TableBody">network-operations</p>
+</td>
+  <td style="width : 357.252pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; " rowspan="6">
+  <p class="FM_TableBody">This role supports a subset of show, configuration, action, and database commands that are used to monitor the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can log into the CLI; however, you can only use a subset of CLI commands to monitor the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+  <p class="FM_TableBody">This role permits the following WebUI pages and associated CLI commands:</p>
+  <p class="FM_TableBody">As a network-operations user, commands with an asterisk (*) are hidden in the CLI but are executed and visible from the WebUI.</p>
+  <p class="FM_TableBody" style="font-weight : bold;">Plan Page</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">You can move APs on the floor plan and save their new location.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">You cannot change or modify the AP configuration.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">Reports Page</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">You can view all of the available reports.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody" style="font-weight : bold;">Events Page</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">You can view all of the available events.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody" style="font-weight : bold;">Monitoring Page</p>
+  <p class="FM_TableBody">You can view the reports created by the following CLI commands:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">show keys all</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show mobility-managers</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show roleinfo</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show license<span class="FM_Superscript">*</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap essid</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">DB:opcode=cr-load</p>
+</li>
+  </ul>
+  <p class="FM_TableBody" style="font-weight : bold;">Monitoring &gt;&#160;Network &gt; Network Summary</p>
+  <p class="FM_TableBody">You can view the reports created by the following CLI commands:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">show interface vlan &lt;id&gt;</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show interface loopback</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show datapath utilization</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show aaa state configuration</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show user-table unique</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show aaa authentication-server all</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show switches summary</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap blacklist-clients</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show wlan-ap-count type access-points<span class="FM_Superscript">*</span>&#160;</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show wlan-ap-count type air-monitor<span class="FM_Superscript">*</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show wlan-ap-count type secure-access<span class="FM_Superscript">*</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show user-table verbose</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap database unprovisioned page &lt;page&gt;</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap-group default</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show wlan virtual-ap</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show rf dot11a-radio-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show rf dot11g-radio-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap wired-ap-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap enet-link-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap system-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show wlan voip-cac-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show wlan traffic-management-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap regulatory-domain-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap snmp-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show rf optimization-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show rf event-thresholds-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ids profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show rf arm-profile</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap association bssid</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 497.00pt;">
+  <td style="width : 109.283pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; " rowspan="7">
+  <p class="FM_Body" style="font-family : HelveticaNeueLT Std; font-size  : 9.0pt;">network-operations (continued)</p>
+</td>
+  <td style="width : 357.252pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; " rowspan="7">
+  <p class="FM_TableBody" style="font-weight : bold;">Monitoring &gt;&#160;Network &gt; All Access Points<br />Monitoring &gt;&#160;Network &gt; All Wired Access Points</p>
+  <p class="FM_TableBody">You can view the reports created by the following CLI commands:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">DB:opcode=monitor-summary</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">DB:opcode=cr-load</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">DB:opcode=wlm-search&amp;class=probes&amp;start</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">DB:opcode=wlm-search&amp;class=amii</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">DB:opcode=monitor-get-all-gps&amp;status=any</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ap-group</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show vlan status</p>
+</li>
+  </ul>
+  <p class="FM_TableBody" style="font-weight : bold;">Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Summary</p>
+  <p class="FM_TableBody">You can view the reports created by the following CLI commands:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">show switches</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show switches summary</p>
+</li>
+  </ul>
+  <p class="FM_TableBody" style="font-weight : bold;">Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Air Monitors</p>
+  <p class="FM_TableBody">You can view the reports created by the following CLI commands:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">show wlan-ap start<span class="FM_Superscript">*</span></p>
+</li>
+  </ul>
+  <p class="FM_TableBody" style="font-weight : bold;">Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Clients</p>
+  <p class="FM_TableBody">You can view the reports created by the following CLI commands:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">show ip mobile host</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show ip mobile trail {&lt;ipaddr&gt; | &lt;macaddr&gt;}</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show esi groups</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show esi servers</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show esi ping</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show esi parser stats</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show private port status<span class="FM_Superscript">*</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show vlan</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show port stats</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show spanning-tree interface fastethernet &lt;slot/port&gt;</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show interface fastethernet &lt;slot/port&gt; counters</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">clear counters fastethernet &lt;slot/port&gt;</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">show snmp trap-queue &lt;page&gt;</p>
+</li>
+  </ul>
+  <p class="FM_TableBody" style="font-weight : bold;">Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt;&#160;Clients &gt; Packet Capture<br />Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt;&#160;Clients &gt; Locate<br />Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt;&#160;Clients &gt; Debug</p>
+  <p class="FM_TableBody">You can view the reports created by the following CLI commands:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">aaa user debug mac </p>
+</li>
+  </ul>
+  <p class="FM_TableBody" style="font-weight : bold;">Monitoring &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt;&#160;Clients &gt; Disconnect</p>
+  <p class="FM_TableBody">You can view the reports created by the following CLI commands:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">stm kick-off-sta &lt;macaddr&gt;</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">aaa user logout &lt;ipaddr&gt;</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 463.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+  <tr style=" height : 0.00pt;"></tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_1Heading"><a name="TOC_Default_Open_Ports"></a><a name="IX_open"></a><a name="XREF_61419_Default_Open_Ports"></a>Default Open Ports</p>
+ <p class="FM_Body">By default, <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and access points treat ports as untrusted. However, certain ports are open by default only on the trusted side of the network. These open ports are listed in <a href="#XREF_96782_Table2_1_Default"><span class="FM_PMS646">Table 175</span></a>.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 465.80pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 175 &#160;</span><a name="XREF_96782_Table2_1_Default"></a>Default (Trusted) Open Ports <?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 40.00pt;background : #548baf;">
+  <th style="width : 63.125pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading" style="text-align  : center;">Port Number</p>
+</th>
+  <th style="width : 65.624pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading" style="text-align  : center;">Protocol</p>
+</th>
+  <th style="width : 83.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading" style="text-align  : center;">Where Used</p>
+</th>
+  <th style="width : 253.302pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">17</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is use for certain types of VPN clients that accept a banner (QOTD). During normal operation, this port will only accept a connection and immediately close it.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">21</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"> FTP server for AP6X software download.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">22</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">SSH</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">23</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Telnet is disabled by default but the port is still open.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">53</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Internal domain.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">67</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP (and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;if DHCP server is configured)</p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">DHCP server.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">68</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP (and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;if DHCP server is configured)</p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">DHCP client.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">69</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TFTP</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">80</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">HTTP Used for remote packet capture where the capture is saved on the Access Point. Provides access to the WebUI on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">123</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">NTP</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">161</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">SNMP. Disabled by default.</p>
+</td>
+</tr>
+  <tr style=" height : 135.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">443</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Used internally for captive portal authentication (HTTPS) and is exposed to wireless users. A default self-signed certificate is installed in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Users in a production environment are urged to install a certificate from a well known CA such as Verisign. Self-signed certs are open to man-in-the-middle attacks and should only be used for testing.</p>
+  <p class="FM_TableBody"><span style="font-weight : bold; ">Required for VIA</span>: During the initializing phase, VIA uses HTTPS connections to perform trusted network and captive portal checks against the controller. It is mandatory that you enable port 443 on your network to allow VIA to perform these checks</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">500</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ISAKMP</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">514</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Syslog</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1701</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">L2TP</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1723</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">PPTP </p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">2300</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Internal terminal server opened by <span class="FM_System" style="font-family : Courier New; ">telnet soe</span> command.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">3306</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Remote wired MAC lookup.</p>
+</td>
+</tr>
+  <tr style=" height : 73.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">4343</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">HTTPS. A different port is used from 443 in order to not conflict with captive portal. A default self-signed certificate is installed in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Users in a production environment are urged to install a certificate from a well known CA such as Verisign. Self-signed certs are open to man-in-the-middle attacks and should only be used for testing</p>
+</td>
+</tr>
+  <tr style=" height : 75.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">4500 </p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">sae-urn </p>
+  <p class="FM_TableBody"><span style="font-weight : bold; ">Required for VIA</span>: During the initializing phase, VIA uses HTTPS connections to perform trusted network and captive portal checks against the controller. It is mandatory that you enable port 4500 on your network to allow VIA to perform these checks</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8080</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Used internally for captive portal authentication (HTTP-proxy). This port is not exposed to wireless users.</p>
+</td>
+</tr>
+  <tr style=" height : 73.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8081</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Used internally for captive portal authentication (HTTPS). Not exposed to wireless users. A default self-signed certificate is installed in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Users in a production environment are urged to install a certificate from a well known CA such as Verisign. Self-signed certs are open to man-in-the-middle attacks and should only be used for testing.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8082</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Used internally for single sign-on authentication (HTTP). Not exposed to wireless users.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8083</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Used internally for single sign-on authentication (HTTPS). Not exposed to wireless users.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8088</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">For internal use.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8200</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The Aruba Discovery Protocol (ADP)</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8211</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">UDP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">For internal use.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8888</p>
+</td>
+  <td style="width : 65.624pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP</p>
+</td>
+  <td style="width : 83.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+  <td style="width : 253.302pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Used for HTTP access.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

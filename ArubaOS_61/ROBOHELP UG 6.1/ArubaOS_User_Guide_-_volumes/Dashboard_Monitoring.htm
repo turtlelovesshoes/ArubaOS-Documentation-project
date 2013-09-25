@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Dashboard_Monitoring</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Dashboard_Monitoring.fm" />
+ <meta name="keywords" content="sort icon, air quality metric, ghz radio band, frame rate distribution">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_Anchor"><a name="XREF_98100_Title_of_Chapter"></a>&nbsp;</p>
+ <p class="FM_ChapterNumber"><a name="TOC_Chapter_13"></a>Chapter 13</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Dashboard_Monitoring"></a><a name="XREF_23343_IPv6_Client_Support"></a>Dashboard Monitoring</p>
+ <p class="FM_Body">The <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;dashboard monitoring functionality provides enhanced visibility into your wireless network performance and usage within a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This allows you to easily locate and diagnose WLAN issues in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">The dashboard monitoring is available via the WebUI. To monitor and troubleshoot RF issues in the WLAN, click the <span class="FM_Navigation">Dashboard</span>&#160;tab. The following pages in the <span class="FM_Navigation">Dashboard</span>&#160;page allows you to view various performance and usage information:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Performance</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Usage</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Security</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Potential Issues</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">WLANs</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Access Points</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Clients</p>
+</li>
+ </ul>
+ <p class="FM_Body">Additionally, you can view the context sensitive help for each field in the <span class="FM_Navigation">Dashboard </span>UI by doing a right click on the field.</p>
+ <p class="FM_1Heading"><a name="TOC_Performance"></a>Performance</p>
+ <p class="FM_Body">This page displays the performance details of the wireless clients and APs connected to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_2Heading"><a name="TOC_Clients"></a><span class="FM_Navigation">Clients</span></p>
+ <p class="FM_Body">This section displays the total number of wireless clients connected to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can view the distribution of clients in different SNR ranges, associated data rate ranges, and data transfer speed ranges using the histograms. You can click on the hyperlinked number to view the <span class="FM_Navigation">Clients</span>&#160;page. Additionally, you can view the following client performance details:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Signal to noise ratio (SNR)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Phy type</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Client connection speed</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Effective data rate of the clients connected to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</li>
+ </ul>
+ <p class="FM_Body">To understand histogram information, see <a href="#XREF_95331_What_you_can_do_on"><span class="FM_PMS646">“Using Dashboard Histograms”</span></a>.</p>
+ <p class="FM_2Heading"><a name="TOC_APs"></a><span class="FM_Navigation">AP</span>s</p>
+ <p class="FM_Body">This section displays the following performance details of the APs on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">To client or from client frame rates</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Overall goodput</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Percentage of frames dropped</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Frame rate distribution of the APs</p>
+</li>
+ </ul>
+ <p class="FM_Body">Additionally, you can view the distribution of the APs in different noise floor ranges, channel utilization ranges, and non-Wi-Fi interference ranges using the histograms. To understand histogram information, see <a href="#XREF_95331_What_you_can_do_on"><span class="FM_PMS646">“Using Dashboard Histograms” </span></a>.</p>
+ <p class="FM_2Heading"><a name="TOC_Using_Dashboard"></a><a name="XREF_95331_What_you_can_do_on"></a>Using Dashboard Histograms</p>
+ <p class="FM_Body">Dashboard histograms are a visual representation of the distribution of the wireless clients, access points, and radios across different performance parameters in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Histograms help you to quickly identify any performance issues in the network from the color of the distribution. For example, critical ranges of the distribution are highlighted in red and the normal ranges are highlighted in green.</p>
+ <p class="FM_Body">You can view the number of clients or APs falling in each range of the distribution with a hyperlink. You can also perform the following tasks on the histograms to get additional information on the clients and APs in the distribution:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">View Client or AP details</span>: Click the hyperlinked number to view the details of the clients or APs in a pop-up window.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Sort</span>: Click a column header of the clients or APs table to sort the complete list based on the entries on the active column. You can also use the sort icon that appears when you click on a column for sorting.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Filter</span>: Click the filter icon and select the filter criterion on any column to filter the entries.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Customize column view</span>: Select or deselect the columns to view or hide by doing a right click on the clients or AP table header.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Close pop-up window</span>: Click on the close icon to close the client or AP details pop-up window.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Usage"></a><span class="FM_Navigation">Usage</span></p>
+ <p class="FM_Body">This page displays the usage details of the clients and APs on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_2Heading"><a name="TOC_Clients1"></a><span class="FM_Navigation">Clients</span>&#160;</p>
+ <p class="FM_Body">This section displays the client and WLAN utilization in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can view the trends of the following client usage details in the last 15 minutes:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Number of wireless clients connected to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Number of active wireless clients</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Number of wireless clients that have low usage </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Number of wireless clients associated per WLAN </p>
+</li>
+ </ul>
+ <p class="FM_Body">Additionally, you can click on the hyperlinked number to view the respective client details on the <span class="FM_Navigation">Clients</span>&#160;page.</p>
+ <p class="FM_2Heading"><a name="TOC_APs1"></a><span class="FM_Navigation">APs</span></p>
+ <p class="FM_Body">This section displays the AP utilization in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can view the following AP and radio details:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Number of APs</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Number of APs that are down</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Radios with low usage</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Overall AP usage</p>
+</li>
+ </ul>
+ <p class="FM_Body">You can click on the hyperlinked number to view the respective AP or radio details on the <span class="FM_Navigation">Access Points or Radios</span>&#160;page. Additionally, you can view the trends of the average data bytes transmitted and received by the AP per second and the usage per WLAN in the last 15 minutes.</p>
+ <p class="FM_1Heading"><a name="TOC_Security"></a>Security</p>
+ <p class="FM_Body">This page allows you to monitor the detection and protection of wireless intrusions in your network. </p>
+ <p class="FM_Body">The two top tables—Discovered APs &amp; Clients and Events—contain data as links. When these links are selected they arrange, filter, and display the appropriate information in the lower table. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The term <span style="font-style : italic; ">events</span>&#160;in this document refers to security threats, vulnerabilities, attacks (intrusion or Denial of Service) and other related events.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_1Heading"><a name="TOC_Potential_Issues"></a><span class="FM_Navigation">Potential Issues</span></p>
+ <p class="FM_Body">This page displays the total number of radios and wireless clients that may have potential issues in the network. You can right click on the total number to view the trend of the clients and radios with potential issues in the last 15 minutes. You can also view the number of clients or radios that have a specific potential issue in each radio band. </p>
+ <p class="FM_Body">The potential issues that a client may have are:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Low SNR</span>: Clients that have signal to noise ratio of 30 dBm or lower.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Low speed</span>: Clients that have a connection speed of 36 Mbps or lower.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Low goodput</span>: Clients that have an average data rate of 24 Mbps or lower.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The potential issues that a radio may have are:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">High noise floor</span>: Radios that have a noise floor of -85 dB or greater.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Busy channel</span>: Radios that have a channel utilization of 80% or greater.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">High non-Wi-Fi interference</span>: Radios that have a non-Wi-Fi interference of 20% or greater.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Low goodput</span>: Radios that have an average data rate of 24 Mbps or lower.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">High client association</span>: Radios that have 15 or more clients connected.</p>
+</li>
+ </ul>
+ <p class="FM_Body">You can click on the hyperlinked number to view the details of the respective clients or radios in the bottom pane of the page. You can perform the following tasks on the details table:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Sort</span>: Click a column header of the table to sort the complete list based on the entries on the active column. You can also use the sort icon that appears when you click on a column for sorting.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">View or hide columns</span>: Select or deselect the columns to view or hide by doing a right click on the table header. </p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_WLANs"></a><span class="FM_Navigation">WLANs</span></p>
+ <p class="FM_Body">You can view the WLAN details such as the number of associated APs, radios, and wireless clients as well as the WLAN usage in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can also view the details of the associated APs and clients as tables. You can perform the following tasks on this page:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Sort</span>: Click a column header of the WLAN table to sort the complete list based on the entries on the active column. You can also use the sort icon that appears when you click on a column for sorting.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Filter</span>: Click the filter icon and select the filter criterion on any column of the details table to filter the entries.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Customize column view</span>: Select or deselect the columns to view or hide by doing a right click on the details table header. You can also choose one of the following system defined views that have the appropriate pre-selected columns.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Default Columns</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">To/From Client Stats</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">View WLAN trends: View the trends of the clients connected in the WLAN and the WLAN usage in the last 15 minutes.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">View client summary</span>: Click on the hyperlinked client name on the client details table to view the <span class="FM_Navigation">Client Summary</span>&#160;page. In this page, you can view the client details summary (air quality metrics and from and to clients statistics), bandwidth of the client usage, trend of the client frame loss in the last 15 minutes, and the frame rate distribution of the client.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">View AP or radio summary</span>: Click on the hyperlinked AP name or the radio band on the AP details table to view the <span class="FM_Navigation">Access Points</span>&#160;page. In this page you can view the summary of the AP details such as air quality metrics, from and to clients statistics, and the number of clients associated with the AP under different SNR ranges. Additionally, you can view the details of the associated clients and WLANs.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Access_Points1"></a><span class="FM_Navigation">Access Points</span></p>
+ <p class="FM_Body">You can view the details of all the radios and APs associated with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;by selecting the respective tab. You can also view the trends of the connected wireless clients and the client usage under the 2.4 Ghz and 5 Ghz radio bands in the last 15 minutes.</p>
+ <p class="FM_Body">You can perform the following tasks on this page:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Sort</span>: Click a column header of the AP table to sort the complete list based on the entries on the active column. You can also use the sort icon that appears when you click on a column for sorting.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Filter</span>: Click the filter icon and select the filter criterion on any column of the details table to filter the entries.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Customize column view</span>: Select or deselect the columns to view or hide by doing a right click on the details table header. You can also choose one of the following system defined views that have the appropriate pre-selected columns.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Default Columns</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Air Quality Metrics</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">To/From Client Stats</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">View client details</span>: Click on the number of clients associated with the AP to view the details of the clients on the <span class="FM_Navigation">Clients </span>page.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">View AP or radio summary</span>: Click on the hyperlinked AP name or the radio band on the AP details table to view the summary of the AP details such as air quality metrics, from and to clients statistics, and the number of clients associated with the AP under different SNR ranges. Additionally, you can view the details of the associated clients and WLANs.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Clients2"></a><span class="FM_Navigation">Clients</span></p>
+ <p class="FM_Body">You can view the details of all the wireless clients on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can also view the trends of the connected clients and the client usage under the 2.4 Ghz and 5 Ghz radio bands in the last 15 minutes.</p>
+ <p class="FM_Body">You can perform the following tasks on this page:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">Sort</span>: Click a column header of the AP table to sort the complete list based on the entries on the active column. You can also use the sort icon that appears when you click on a column for sorting.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Filter</span>: Click the filter icon and select the filter criterion on any column of the details table to filter the entries.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Customize column view</span>: Select or deselect the columns to view or hide by doing a right click on the details table header. You can also choose one of the following system defined views that have the appropriate pre-selected columns.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Default Columns</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Air Quality Metrics</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">To/From Client Stats</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">View client summary</span>: Click on the hyperlinked client name on the client details table to view the <span class="FM_Navigation">Client Summary</span>&#160;page. In this page, you can view the client details summary (air quality metrics and from or to clients statistics), bandwidth of the client usage, trend of the client frame loss in the last 15 minutes, and the frame rate distribution of the client.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">View AP details</span>: Click on the hyperlinked AP name to view the <span class="FM_Navigation">Access Points</span> page.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Navigation">View WLAN details</span>: Click on the hyperlinked SSID of the WLAN to view the <span class="FM_Navigation">WLANs</span> page.</p>
+</li>
+ </ul>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

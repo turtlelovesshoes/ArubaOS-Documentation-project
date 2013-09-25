@@ -1,0 +1,1485 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>XML_API</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="xml request, xml, xml api, api server, user entry, authentication command request process, xml response, sample code, actual user management tasks, authentication command, https post, xml request format,"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\XML_API.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 39</p>
+ <p class="FM_ChapterTitle"><a name="TOC_External_User_Management"></a><a name="XREF_83760_Chapter_Title_max"></a>External User Management</p>
+ <p class="FM_Body">This chapter introduces the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;XML API interface and briefly discusses how you can use the simple API calls to perform external user management tasks. A sample code listing at the end of the chapter to help you get started with using the XML API.</p>
+ <p class="FM_Body">Topics in this chapter:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_37029_Overview"><span class="FM_PMS646">“Overview”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_30951_How_the_ArubaOS"><span class="FM_PMS646">“How the ArubaOS XML API Works” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_85770_XML_Request"><span class="FM_PMS646">“XML Request” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_43592_XML_Response"><span class="FM_PMS646">“XML Response”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_24432_Sample_Codes"><span class="FM_PMS646">“Sample Code” </span></a> </p>
+  </li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Overview2"></a><a name="XREF_37029_Overview"></a>Overview</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;allows you to set up customized external captive portal user management using its native XML API interface. The XML API interface allows you to create and execute user management operations on behalf of the clients or users. You can use the XML API interface to add, delete, authenticate, or query a user or a client.</p>
+ <p class="FM_2Heading"><a name="TOC_Before_you_Begin3"></a>Before you Begin</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Enable the External Services Interface software module. This is available in the PEF license.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Ensure that you have connectivity between your captive portal server and the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;via HTTP or HTTPS.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_How_the_ArubaOS_XML_API"></a><a name="XREF_30951_How_the_ArubaOS"></a>How the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> XML API Works</p>
+ <p class="FM_Body">The typical interaction between your external server and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;happens over HTTPS post commands. A typical communication process using the XML API interface happens as follows:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>An API command is issued from your server in XML format to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The XML message or request can be composed using a language of your choice using the format described in the <a href="#XREF_85770_XML_Request"><span class="FM_PMS646">“XML Request” . </span></a> Sample code in <span class="FM_Emphasis">C</span>&#160;gives a simple example. See the <a href="#XREF_24432_Sample_Codes"><span class="FM_PMS646">“Sample Code” </span></a>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;processes the XML request and sends the response to the authentication server in the XML format. The XML request is sent using HTTPS post. The common format of the HTTPS post is <span class="FM_CLI">https://&lt;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ip&gt;/auth/command.xml</span>. See <a href="#XREF_85770_XML_Request"><span class="FM_PMS646">“XML Request” </span></a>&#160;for more information.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>You can use the response and take appropriate action that suit your requirements. The response from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is returned using predefined formats. See the <a href="#XREF_43592_XML_Response"><span class="FM_PMS646">“XML Response” </span></a>&#160;for more information.</p>
+ <p class="FM_1Heading"><a name="TOC_Using_the_XML_API_Server"></a>Using the XML API Server</p>
+ <p class="FM_Body">To use the XML API:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure an external XML API server</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Associate the XML API server to an appropriate AAA profile</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure a user role to direct un-authenticated users to the external captive portal server</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure Captive Portal profile and associate that to an initial role (example <span class="FM_CLI">logon</span>)</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Create an XML request with the appropriate API call</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Process XML response appropriately</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The default logon role of a client or user must have captive-portal enabled.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_XML_API"></a><a name="XREF_15495_Configuring_the"></a>Configuring the XML API Server</p>
+ <p class="FM_Body">Configure an external XML API server in your AAA infrastructure. In this example, <span class="FM_CLI" style="font-weight : bold; ">10.11.12.13</span>&#160;is your server. The XML API interface on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> will receive requests from this server.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Define the XML API server and specify the key for verifying requests from your server</p>
+</li>
+ </ul>
+ <p class="FM_CLI">(host) (config) #aaa xml-api server 10.11.12.13</p>
+ <p class="FM_CLI">(host) (XML API Server &quot;10.11.12.13&quot;) #key $abcd$1234$</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Verify the XML API server configuration</p>
+</li>
+ </ul>
+ <p class="FM_CLI">(host) (config) #show aaa xml-api server</p>
+ <p class="FM_CLI">XML API Server List</p>
+ <p class="FM_CLI">-------------------</p>
+ <p class="FM_CLI">Name &#160;&#160;&#160;&#160;&#160;&#160;&#160;References &#160;Profile Status</p>
+ <p class="FM_CLI">---- &#160;&#160;&#160;&#160;&#160;&#160;&#160;---------- &#160;--------------</p>
+ <p class="FM_CLI">10.11.12.13 1<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&lt;====== Reference Count is incremented for each usage.</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">Total:1</p>
+ <p class="FM_2Heading"><a name="TOC_Associate_the_XML_API"></a>Associate the XML API Server to AAA profile</p>
+ <p class="FM_Body">After you define the XML API server profile associate it to the appropriate AAA profile. If the XML API server is not correctly configured in the appropriate profile, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will respond with the <span class="FM_CLI">client not authorized</span>&#160;error message. You can add XML API server references to the following AAA profile depending on your requirement:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">For wireless users—Associate the XML API server to the AAA profile of the virtual AP profile.</p>
+</li>
+ </ul>
+ <p class="FM_CLI">(host) (config) #aaa profile wirelessusers</p>
+ <p class="FM_CLI">(host) (AAA Profile &quot;wirelessusers&quot;) #xml-api-server 10.11.12.13</p>
+ <p class="FM_CLI">(host) (XML API Server &quot;10.11.12.13&quot;) #key <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>123</p>
+ <p class="FM_CLI">(host) (config) #show aaa profile wirelessusers</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">AAA Profile &quot;wirelessusers&quot;</p>
+ <p class="FM_CLI">---------------------------</p>
+ <p class="FM_CLI">Parameter &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Value</p>
+ <p class="FM_CLI">--------- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-----</p>
+ <p class="FM_CLI">Initial role &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;logon</p>
+ <p class="FM_CLI">MAC Authentication Profile &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">MAC Authentication Default Role &#160;&#160;&#160;&#160;guest</p>
+ <p class="FM_CLI">MAC Authentication Server Group &#160;&#160;&#160;&#160;default</p>
+ <p class="FM_CLI">802.1X Authentication Profile &#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">802.1X Authentication Default Role &#160;guest</p>
+ <p class="FM_CLI">802.1X Authentication Server Group &#160;N/A</p>
+ <p class="FM_CLI">RADIUS Accounting Server Group &#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI"><span class="FM_Red">XML API server &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.11.12.13</span></p>
+ <p class="FM_CLI">RFC 3576 server &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">User derivation rules &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">Wired to Wireless Roaming &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Enabled</p>
+ <p class="FM_CLI">SIP authentication role &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">(host) (config) #wlan virtual-ap wireless-vap</p>
+ <p class="FM_CLI">(host) (Virtual AP profile &quot;wireless-vap&quot;) #aaa-profile wirelessusers</p>
+ <p class="FM_CLI">(host) (config) #show wlan virtual-ap wireless-vap</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">Virtual AP profile &quot;wireless-vap&quot;</p>
+ <p class="FM_CLI">---------------------------------</p>
+ <p class="FM_CLI">Parameter &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Value</p>
+ <p class="FM_CLI">--------- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-----</p>
+ <p class="FM_CLI">Virtual AP enable &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Enabled</p>
+ <p class="FM_CLI">Allowed band &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;all</p>
+ <p class="FM_CLI"><span class="FM_CLI">AAA Profile &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;wirelessusers</span></p>
+ <p class="FM_CLI">802.11K Profile &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;default</p>
+ <p class="FM_CLI">SSID Profile &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;default</p>
+ <p class="FM_CLI">VLAN &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">Forward mode &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;tunnel</p>
+ <p class="FM_CLI">Deny time range &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">Mobile IP &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Enabled</p>
+ <p class="FM_CLI">HA Discovery on-association &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_CLI">DoS Prevention &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_CLI">Station Blacklisting &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Enabled</p>
+ <p class="FM_CLI">Blacklist Time &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3600 sec</p>
+ <p class="FM_CLI">Dynamic Multicast Optimization (DMO) &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_CLI">Dynamic Multicast Optimization (DMO) Threshold &#160;6</p>
+ <p class="FM_CLI">Authentication Failure Blacklist Time &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3600 sec</p>
+ <p class="FM_CLI">Multi Association &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_CLI">Strict Compliance &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_CLI">VLAN Mobility &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_CLI">Remote-AP Operation &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;standard</p>
+ <p class="FM_CLI">Drop Broadcast and Multicast &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_CLI">Convert Broadcast ARP requests to unicast &#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_CLI">Band Steering &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Disabled</p>
+ <p class="FM_CLI">WMM Traffic Management Profile &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">For wired users—Associate the XML API server to the AAA profile of the appropriate wired profile.</p>
+</li>
+ </ul>
+ <p class="FM_CLI">(host) (config) #aaa profile wiredusers</p>
+ <p class="FM_CLI">(host) (AAA Profile &quot;wiredusers&quot;) #xml-api-server 10.11.12.13</p>
+ <p class="FM_CLI">(host) (AAA Profile &quot;wiredusers&quot;) #! </p>
+ <p class="FM_CLI">(host) (config) #aaa authentication wired </p>
+ <p class="FM_CLI">(host) (Wired Authentication Profile) #profile wiredusers</p>
+ <p class="FM_CLI">(host) (Wired Authentication Profile) #show aaa authentication wired</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">Wired Authentication Profile</p>
+ <p class="FM_CLI">----------------------------</p>
+ <p class="FM_CLI">Parameter &#160;&#160;&#160;Value</p>
+ <p class="FM_CLI">--------- &#160;&#160;&#160;-----</p>
+ <p class="FM_CLI"><span class="FM_Red">AAA Profile &#160;wiredusers</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Unknown wired users—Associate the XML API server to the <span class="FM_CLI">default-xml-api</span> AAA profile.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 40.00pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">The <span class="FM_CLI">default-xml-api</span> AAA profile is used only to add or authenticate new users.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_Body">The following example illustrates using the <span class="FM_CLI">default-xml-api</span> AAA profile.</p>
+ <p class="FM_CLI">(host) (config) #aaa profile default-xml-api</p>
+ <p class="FM_CLI">(host) (AAA Profile &quot;default-xml-api&quot;) #xml-api-server 10.11.12.13</p>
+ <p class="FM_CLI">(host) (config) #show aaa profile default-xml-api</p>
+ <p class="FM_CLI">AAA Profile &quot;default-xml-api&quot; (Predefined (changed))</p>
+ <p class="FM_CLI">----------------------------------------------------</p>
+ <p class="FM_CLI">Parameter &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Value</p>
+ <p class="FM_CLI">--------- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-----</p>
+ <p class="FM_CLI">Initial role &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;logon</p>
+ <p class="FM_CLI">MAC Authentication Profile &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">MAC Authentication Default Role &#160;&#160;&#160;&#160;guest</p>
+ <p class="FM_CLI">MAC Authentication Server Group &#160;&#160;&#160;&#160;default</p>
+ <p class="FM_CLI">802.1X Authentication Profile &#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">802.1X Authentication Default Role &#160;guest</p>
+ <p class="FM_CLI">802.1X Authentication Server Group &#160;N/A</p>
+ <p class="FM_CLI">RADIUS Accounting Server Group &#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI"><span class="FM_Red">XML API server &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.11.12.13</span></p>
+ <p class="FM_CLI">RFC 3576 server &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">User derivation rules &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_CLI">Wired to Wireless Roaming &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Enabled</p>
+ <p class="FM_CLI">SIP authentication role &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;N/A</p>
+ <p class="FM_Body">Your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is now ready to receive API calls from your XML API server. </p>
+ <p class="FM_3Heading"><a name="TOC_Set_up_Captive_Portal"></a>Set up Captive Portal profile</p>
+ <p class="FM_Body">Set up a Captive Portal profile with a login page that will redirect users to the external Captive Portal server.</p>
+ <p class="FM_CLI">(host) (config-role) #aaa authentication captive-portal captive-portal-auth</p>
+ <p class="FM_CLI">(host) (Captive Portal Authentication Profile &quot;captive-portal-auth&quot;) #default-role authenticated</p>
+ <p class="FM_CLI">(host) (Captive Portal Authentication Profile &quot;captive-portal-auth&quot;) #login-page https://10.11.12.13/cgi-bin/login.pl</p>
+ <p class="FM_CLI">(host) (Captive Portal Authentication Profile &quot;captive-portal-auth&quot;) #switch-in-redirection-url</p>
+ <p class="FM_3Heading"><a name="TOC_Associate_Captive_Portal"></a>Associate Captive Portal profile to the an initial role</p>
+ <p class="FM_CLI">(host) (Captive Portal Authentication Profile &quot;captive-portal-auth&quot;) #user-role logon &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">(host) (config-role) #captive-portal captive-portal-auth</p>
+ <p class="FM_CLI">(host)(config-role) #session-acl captiveportal</p>
+ <p class="FM_Body">You can either create a new ACL or append specific rules to an exisiting ACLs. To create session ACL for the logon role do the following:</p>
+ <p class="FM_CLI">(host) (config-role) #netdestination xCP <span class="FM_Emphasis">#an alias for the external Captive Portal server</span></p>
+ <p class="FM_CLI">(host) (config-dest) #host 10.11.12.13 <span class="FM_Emphasis">#IP address of the external Captive Portal server</span></p>
+ <p class="FM_CLI">(host) (config-dest) #ip access-list session captiveportal <span class="FM_Emphasis">#append or add rules to session ACL</span></p>
+ <p class="FM_CLI">(host) (config-sess-captiveportal)#user alias xCP svc-https permit</p>
+ <p class="FM_CLI">(host) (config-sess-captiveportal)#user alias xCP svc-http permit</p>
+ <p class="FM_2Heading"><a name="TOC_Creating_an_XML_API"></a>Creating an XML API Request</p>
+ <p class="FM_Body">You can now create an XML request with an appropriate authentication command and send it to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> via HTTPS post. The format of the URL to send the XML request is:</p>
+ <p class="FM_Body"><span class="FM_CLI">https://&lt;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ip/auth/command.xml</span></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ip</span>&#160;is the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> that will receive the authentication request</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_CLI">command.xml</span> is the XML request that contains the details of authentication.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The format of the XML API request is:</p>
+ <p class="FM_CLI">xml=&lt;aruba command=&quot;&lt;authentication_command&gt;&quot;&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;options&gt;Value&lt;/options&gt;</p>
+ <p class="FM_CLI"> &#160;...</p>
+ <p class="FM_CLI"> &#160;&lt;options&gt;Value&lt;/options&gt;</p>
+ <p class="FM_CLI">&lt;/aruba&gt;</p>
+ <p class="FM_Body">You can specify any of the following commands in the XML request:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.57pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 164 &#160;</span>XML API Authentication Command<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Authentication Command</p>
+</th>
+  <th style="width : 323.569pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_CLI">user_add</span></p>
+</td>
+  <td style="width : 323.569pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This command adds the user to the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> user table.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_CLI">user_delete</span></p>
+</td>
+  <td style="width : 323.569pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This command deletes the user from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_CLI">user_authenticate</span></p>
+</td>
+  <td style="width : 323.569pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This command will authentication the user based on the authentication rules defined in the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> configuration.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_CLI">user_blacklist</span></p>
+</td>
+  <td style="width : 323.569pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This command will block a user from connection to your network.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_CLI">user_query</span></p>
+</td>
+  <td style="width : 323.569pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This command will display the current status of the user connected to your network.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The authentication command requires certain mandatory options to successfully execute the authentication tasks. The list of all available options are:</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 165 &#160;</span>Authentication Command Options<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 101.572pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Options</p>
+</th>
+  <th style="width : 228.428pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+  <th style="width : 138.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Range / Defaults</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 101.572pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ipaddr</p>
+</td>
+  <td style="width : 228.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP address of the user in A.B.C.D format.</p>
+</td>
+  <td style="width : 138.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 101.572pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">macaddr</p>
+</td>
+  <td style="width : 228.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">MAC address of the user &#160;aa:bb:cc:dd:ee:ff format.</p>
+</td>
+  <td style="width : 138.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enter MAC address with colon.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 101.572pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">user</p>
+</td>
+  <td style="width : 228.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Name of the user.</p>
+</td>
+  <td style="width : 138.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">64 character string</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 101.572pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">role</p>
+</td>
+  <td style="width : 228.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Role name assigned after authenticating.</p>
+</td>
+  <td style="width : 138.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">64 character string</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 101.572pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">password</p>
+</td>
+  <td style="width : 228.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The password of the user used for authentication.</p>
+</td>
+  <td style="width : 138.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 101.572pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">session_timeout</p>
+</td>
+  <td style="width : 228.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session time-out in minutes. User will be disconnected after this time.</p>
+</td>
+  <td style="width : 138.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 63.00pt;">
+  <td style="width : 101.572pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">authentication</p>
+</td>
+  <td style="width : 228.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Authentication method used to authenticate the message and the sender. You can use any of MD5, SHA-1 or clear text methods of authentication. This option is ignored if shared secret is not configured. It is, however, mandatory if it is configured.</p>
+</td>
+  <td style="width : 138.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 117.00pt;">
+  <td style="width : 101.572pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">key</p>
+</td>
+  <td style="width : 228.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is the encoded SHA1/MD5 hash of shared secret or plaintext shared secret. </p>
+  <p class="FM_TableBody">This option is ignored if shared secret is not configured on the switch. </p>
+  <p class="FM_TableBody">The actual MD5/SHA-1 hash is 16/20 bytes and consists of binary data. It must be encoded as an ASCII based HEX string before sending. &#160;It must be present when the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is configured with an xml-api key for the server. Encoded hash length is 32/40 bytes for MD5/SHA-1.</p>
+</td>
+  <td style="width : 138.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 101.572pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">version </p>
+</td>
+  <td style="width : 228.428pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The version of the XML API interface available in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This field is mandatory is all requests.</p>
+</td>
+  <td style="width : 138.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Current version 1.0</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_2Heading"><a name="TOC_Monitoring_External"></a>Monitoring External Captive Portal Usage Statistics</p>
+ <p class="FM_Body">To check the external captive portal authentication statistics use the <span class="FM_CLI">show aaa xml-api statistics</span>&#160;command. This command displays the number of times an authentication command was executed per client. The command also displays the number of times an authentication event occurred and the number of new authentication events that occurred since the last status check.</p>
+ <p class="FM_CLI">(host) # show aaa xml-api statistics</p>
+ <p class="FM_CLI">ECP Statistics</p>
+ <p class="FM_CLI">--------------</p>
+ <p class="FM_CLI">Statistics &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.10.10.249 </p>
+ <p class="FM_CLI">---------- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;---------- &#160;</p>
+ <p class="FM_CLI">user_authenticate &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">user_add &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">user_delete &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">user_blacklist &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">unknown user &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">unknown role &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">unknown external agent &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">authentication failed &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">invalid command &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">invalid message authentication method &#160;0 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">invalid message digest &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0 (0) &#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">Packets received from unknown clients : 0 (0)</p>
+ <p class="FM_CLI">Packets received with unknown request : 0 (0)</p>
+ <p class="FM_CLI">Requests Received/Success/Failed &#160;&#160;&#160;&#160;&#160;: 5/3/2 (0/0/0)</p>
+ <p class="FM_1Heading"><a name="TOC_XML_Request"></a><a name="XREF_85770_XML_Request"></a>XML Request</p>
+ <p class="FM_Body">You can create XML requests to add, delete, authenticate, blacklist, or query a user. This section provides XML request formats that you can use for each authentication tasks:</p>
+ <p class="FM_2Heading"><a name="TOC_Adding_a_User"></a>Adding a User</p>
+ <p class="FM_Body">This XML requests uses the <span class="FM_CLI">user_add</span>&#160;command to create a new user entry in the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;user table. If the user entry is already present in the user table, the command will modify the entry with the values defined in the XML request.</p>
+ <p class="FM_CLI">xml=&lt;aruba command=&quot;<span class="FM_CLIBold">user_add</span>&quot;&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;ipaddr&gt;IP-address_of_the_user&lt;/ipaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;macaddr&gt;MAC-address_of_the_user&lt;/macaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;name&gt;User_Name&lt;/name&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;role&gt;Role_Name&lt;role&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;session_timeout&gt;Session_timeout&lt;/session_timeout&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;key&gt;Shared_Key&lt;/key&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;authentication&gt;MD5|SHA-1|cleartext&lt;/authentication&gt; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>#select any one</p>
+ <p class="FM_CLI"> &#160;&lt;version&gt;1.0&lt;/version&gt;</p>
+ <p class="FM_CLI">&lt;/aruba&gt;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_Body">The following options are mandatory when you execute the <span class="FM_CLI">user_add</span> command:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">IP Address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Version</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Deleting_a_User"></a>Deleting a User</p>
+ <p class="FM_Body">This XML requests uses the <span class="FM_CLI">user_delete</span>&#160;command to delete an existing user from the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;user table. If the user entry contains multiple attributes these must be specified in the XML request</p>
+ <p class="FM_CLI">xml=&lt;aruba command=&quot;<span class="FM_CLIBold">user_delete</span>&quot;&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;ipaddr&gt;IP-address_of_the_user&lt;/ipaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;macaddr&gt;MAC-address_of_the_user&lt;/macaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;name&gt;User_Name&lt;/name&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;key&gt;Shared_Key&lt;/key&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;authentication&gt;MD5|SHA-1|cleartext&lt;/authentication&gt; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>#select any one</p>
+ <p class="FM_CLI"> &#160;&lt;version&gt;1.0&lt;/version&gt;</p>
+ <p class="FM_CLI">&lt;/aruba&gt;</p>
+ <p class="FM_Body">The following options are mandatory when you execute the <span class="FM_CLI">user_add</span> command:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">IP Address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Version</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Authenticating_a_User"></a>Authenticating a User</p>
+ <p class="FM_Body">This XML requests uses the <span class="FM_CLI">user_authenticate</span>&#160;command to authenticate and derive a new for the user. </p>
+ <p class="FM_CLI">xml=&lt;aruba command=&quot;<span class="FM_CLIBold">user_authenticate</span>&quot;&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;ipaddr&gt;IP-address_of_the_user&lt;/ipaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;macaddr&gt;MAC-address_of_the_user&lt;/macaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;name&gt;User_Name&lt;/name&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;password&gt;Password_for_the_user&lt;/password&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;key&gt;Shared_Key&lt;/key&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;authentication&gt;MD5|SHA-1|cleartext&lt;/authentication&gt; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>#select any one</p>
+ <p class="FM_CLI"> &#160;&lt;version&gt;1.0&lt;/version&gt;</p>
+ <p class="FM_CLI">&lt;/aruba&gt;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_Body">The following options are mandatory when you execute the <span class="FM_CLI">user_authenticate</span> command:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">IP Address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Version</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Name</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Password</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Blacklisting_a_User"></a>Blacklisting a User</p>
+ <p class="FM_Body">This XML requests uses the user_blacklist command to blacklist a user from connecting to your network.</p>
+ <p class="FM_CLI">xml=&lt;aruba command=&quot;<span class="FM_CLIBold">user_blacklist</span>&quot;&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;ipaddr&gt;IP-address_of_the_user&lt;/ipaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;macaddr&gt;MAC-address_of_the_user&lt;/macaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;name&gt;User_Name&lt;/name&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;key&gt;Shared_Key&lt;/key&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;authentication&gt;MD5|SHA-1|cleartext&lt;/authentication&gt; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>#select any one</p>
+ <p class="FM_CLI"> &#160;&lt;version&gt;1.0&lt;/version&gt;</p>
+ <p class="FM_CLI">&lt;/aruba&gt;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_Body">The following options are mandatory when you execute the <span class="FM_CLI">user_blacklist</span> command:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">IP Address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Version</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Querying_a_User_Status"></a>Querying a User Status</p>
+ <p class="FM_Body">This XML requests uses the <span class="FM_CLI">user_query</span>&#160;command to get the status and details of a user connected to your network.</p>
+ <p class="FM_CLI">xml=&lt;aruba command=&quot;<span class="FM_CLIBold">user_query</span>&quot;&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;ipaddr&gt;IP-address_of_the_user&lt;/ipaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;macaddr&gt;MAC-address_of_the_user&lt;/macaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;name&gt;User_Name&lt;/name&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;key&gt;Shared_Key&lt;/key&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;authentication&gt;MD5|SHA-1|cleartext&lt;/authentication&gt; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>#select any one</p>
+ <p class="FM_CLI"> &#160;&lt;version&gt;1.0&lt;/version&gt;</p>
+ <p class="FM_CLI">&lt;/aruba&gt;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_Body">The following options are mandatory when you execute the <span class="FM_CLI">user_blacklist</span> command:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">IP Address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Version</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_XML_Response"></a><a name="XREF_43592_XML_Response"></a>XML Response</p>
+ <p class="FM_Body">For every successful XML request the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will return the processed information as an XML response. There are two types of responses: Default response and Query response.</p>
+ <p class="FM_2Heading"><a name="TOC_Default_Response_Format"></a>Default Response Format</p>
+ <p class="FM_Body">The format of a default XML response from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is:</p>
+ <p class="FM_CLI">&lt;aruba&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;result&gt;Error | Ok&lt;/result&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;code&gt;response_code&lt;/code&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;reason&gt;response_message&lt;/reason&gt;</p>
+ <p class="FM_CLI">&lt;/aruba&gt;</p>
+ <p class="FM_Body">In which,</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Result specifies if the XML result was successful or failure. If the request was successful, the result tag will contain the <span class="FM_CLIBold">Ok </span>string. If the request was a failure, the result tag will contain the <span class="FM_CLIBold">Error</span> string.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Code is an integer number that represents the error in the request. This tag is populated only if there is an error in the request.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Reason is message that contain descriptive information about error.</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_Response_Codes"></a>Response Codes</p>
+ <p class="FM_Body">The following response codes are returned if the XML request return an the Error string.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.43pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 166 &#160;</span>XML Response Codes<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 41.144pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Code</p>
+</th>
+  <th style="width : 247.713pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Reason message</p>
+</th>
+  <th style="width : 179.571pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">unknown user</p>
+  <p class="FM_TableBody">The user specified in the XML request does not exist or is incorrect.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by the user_authenticate, user_delete, user_blacklist, and user_query commands.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">2</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">unknown role</p>
+  <p class="FM_TableBody">The specified role in the XML request does not exist in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by the user_add command.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">3</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">unknown external agent</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by all commands.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">4</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">authentication failed</p>
+  <p class="FM_TableBody">The username and the key does not match.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by commands that contain the shared_key in XML request.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">invalid command</p>
+  <p class="FM_TableBody">The XML request contains a command not supported by <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> XML API interface.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">6</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">invalid message authentication method</p>
+  <p class="FM_TableBody">The authentication method specified in the XML request is not supported by the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> XML API interface.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by commands that contain the authentication method in the XML request.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">7</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">invalid message digest</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by commands that contain the shared_key in the XML request.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">missing message authentication</p>
+  <p class="FM_TableBody">The authentication method is not specified in the XML request.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by all commands that require the authentication method in the XML request.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">9</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">missing or invalid version number</p>
+  <p class="FM_TableBody">The XML request does not contain the version number or the version number is incorrect.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by all commands.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">10</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">internal error</p>
+  <p class="FM_CLI">&nbsp;</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">11</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">client not authorized</p>
+  <p class="FM_TableBody">The shared key in the XML request does not match or the XML API server is not defined in the appropriate AAA profile.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by all commands that require shared key to be specified in the XML request.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">12</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">Cant use VLAN IP</p>
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">—</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">13</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">Invalid IP</p>
+  <p class="FM_TableBody">The XML request contains invalid IP address of the user or client.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by all commands that required IP address to be specified in the XML request.</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">14</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">Cant use Switch IP</p>
+  <p class="FM_TableBody">The XML request contains the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;IP address instead of the client IP address.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by all commands that required IP address to be specified in the XML request.</p>
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 41.144pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">15</p>
+</td>
+  <td style="width : 247.713pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">missing MAC address</p>
+  <p class="FM_TableBody">The XML request does not contain the MAC address of the user or client.</p>
+</td>
+  <td style="width : 179.571pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Returned by all commands that required MAC address to be specified in the XML request.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Query_Command_Response"></a>Query Command Response Format</p>
+ <p class="FM_Body">The response of the XML request with the user_query command contains detailed information about the status of the user or client. The format of the response of a query command is:</p>
+ <p class="FM_CLI">&lt;aruba&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;result&gt;Result&lt;/result&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;code&gt;Code&lt;/code&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;reason&gt;Reason&lt;/reason&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;role&gt;Role&lt;/role&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;type&gt;Type&lt;/type&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;auth_status&gt;Auth_status&lt;/auth_status&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;auth_server&gt;Auth_server&lt;/auth_server&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;auth_method&gt;Auth_method&lt;/auth_method&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;location&gt;Location&lt;/location&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;age&gt;Age&lt;/age&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;essid&gt;Essid&lt;/essid&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;bssid&gt;Bssid&lt;/bssid&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;phy_type&gt;Phy_type&lt;/phytype&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;vlan&gt;Vlan&lt;/vlan&gt;</p>
+ <p class="FM_CLI">&lt;/aruba&gt;</p>
+ <p class="FM_Body">In which, the result, code and reason values are similar to the default response. The following responses, however, are returned only in the result code returns the <span class="FM_CLIBold">OK</span> string.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.43pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 167 &#160;</span>Query Response Code<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 85.715pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Response Code</p>
+</th>
+  <th style="width : 382.712pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Role</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the current role of the authenticated user</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Type</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays is the user or client is <span class="FM_CLIBold">wired</span>&#160;or <span class="FM_CLIBold">wireless</span>.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Auth_status</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the authentication status of the user or client. Available values are:</p>
+  <p class="FM_TableBody"><span class="FM_CLIBold">authenticated</span>&#160;or <span class="FM_CLIBold">unauthenticated</span>.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Auth_server</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the name of the authentication server used for authenticating the user. This information is available only if the user is authenticated by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Auth_method</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the authentication mechanism used to authenticate the user. This information is available only if the user is authenticated by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Location</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the current location of the user / clients. For wireless clients, the location is displayed in the B.F.L format. For wired clients, the location is displayed in the slot/port format.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Age</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the age of user in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The age is displayed in DD:HH:MM format (Day:Hours:Minutes).</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ESSID</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the ESSID to which the user is associated.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">BSSID</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the BSSID of the AP to which the user is associated.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Phy Type</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the physical connection type. One of a, b, or g.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 85.715pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Vlan</p>
+</td>
+  <td style="width : 382.712pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the VLAN ID of the user.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_1Heading"><a name="TOC_Sample_Code"></a><a name="XREF_24432_Sample_Codes"></a>Sample Code</p>
+ <p class="FM_Body">This section lists a sample code that will help you get started in using the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;XML API interface. These codes have been tested in a controlled environment. We recommend that you test this code in a non-production environment before using it for actual user management tasks. </p>
+ <p class="FM_2Heading"><a name="TOC_Using_XML_API_in_C"></a>Using XML API in C Language</p>
+ <p class="FM_Body">The example script is written in the <span class="FM_Emphasis">C</span> language. The example script (<span class="FM_CLI">auth.c</span>) sends an authentication request from your authentication server to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">This is an example code and is provided for illustration purposes. If you plan to use this code in your environment, ensure that the code meets your IT guidelines. Also create an error free executable to successfully execute the script.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 193 &#160;</span><a name="XREF_19015_Figure_2"></a>Authentication Script Listing</p>
+ <p class="FM_CLI">##### <span style="font-style : italic; ">auth.c listing</span></p>
+ <p class="FM_CLI">##### Authentication Script Example -- Start --</p>
+ <p class="FM_CLI">#include &lt;stdio.h&gt;</p>
+ <p class="FM_CLI">#include &lt;sys/types.h&gt;</p>
+ <p class="FM_CLI">#include &lt;sys/socket.h&gt;</p>
+ <p class="FM_CLI">#include &lt;netinet/in.h&gt;</p>
+ <p class="FM_CLI">#include &lt;getopt.h&gt;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">char *command, *ipaddr, *macaddr;</p>
+ <p class="FM_CLI">char *name, *password, *role;</p>
+ <p class="FM_CLI">char *tout, *secret;</p>
+ <p class="FM_CLI">char *auth, *key, enchashbuf[41];</p>
+ <p class="FM_CLI">unsigned char hashbuf[20];</p>
+ <p class="FM_CLI">char *version;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">char post[4096], cmdbuf[512], encbuf[1024];</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">#define DEBUG</p>
+ <p class="FM_CLI">#ifdef DEBUG</p>
+ <p class="FM_CLI">#define debug(x...)<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, x)</p>
+ <p class="FM_CLI">#else</p>
+ <p class="FM_CLI">#define debug(x...)</p>
+ <p class="FM_CLI">#endif</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">extern int cgi_escape_url(char *t, int tl, char *s, int sl, int b_newline);</p>
+ <p class="FM_CLI">static void encode_message_digest (unsigned char *md, int mdlen, char *output);</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">static void usage (void)</p>
+ <p class="FM_CLI">{</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;Usage: ecp [options] &lt;switch&gt; &lt;command&gt; [&lt;secret&gt;]\n&quot;);</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  \n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot; &#160;&lt;switch&gt;     Switch IP address.\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot; &#160;&lt;command&gt;    One of add, del, or authenticate.\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot; &#160;&lt;secret&gt;     Shared secret.\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  \n&quot;);</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  -i ipaddr    User IP address in A.B.C.D format.\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  -m macaddr   User MAC address in aa:bb:cc:dd:ee:ff format.\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  -n name      User name.\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  -p passwd    User password.\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  -r role      User role.\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  -t timeout   User session timeout.\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  -v version   API version number. Default is 1.0\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fprintf(stderr, &quot;  -a method    one of md5, sha-1 or cleartext.\n&quot;);</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>exit(1);</p>
+ <p class="FM_CLI">}</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">main(int argc, char **argv)</p>
+ <p class="FM_CLI">{</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>char c, *p;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>int fd, len, postlen;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>struct sockaddr_in sa;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>while ((c = getopt(argc, argv, &quot;a:i:m:n:p:r:t:v:&quot;)) != EOF) switch(c) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>case 'i':<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>/* ipaddr */</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>ipaddr = optarg;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>case 'm':<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>/* macaddr */</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>macaddr = optarg;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>case 'n':<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>/* name */</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>name = optarg;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>case 'p':<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>/* password */</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>password = optarg;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>case 'r':<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>/* role */</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>role = optarg;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>case 't':<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>/* session timeout */</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>tout = optarg;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>case 'v':<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>/* version */</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>version = optarg;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>case 'a':<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>/* authentication */</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>auth = optarg;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (!strcasecmp(auth, &quot;sha-1&quot;) &amp;&amp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>!strcasecmp(auth, &quot;md5&quot;))</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>usage();</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>default:</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>usage();</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>argc -= (optind - 1);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>argv += (optind - 1);</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if ((argc &lt; 3)) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>usage();</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (version == NULL)</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>version = &quot;1.0&quot;;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>debug(&quot;server=%s, command=%s, version=%s, secret=%s\n&quot;,</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>argv[1], argv[2], version, argv[3]?argv[3]:&quot;&lt;&gt;&quot;);</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (argv[3]) secret = argv[3];</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>p = cmdbuf;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;xml=&lt;aruba command=‘%s’&gt;&quot;, argv[2]);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>p += strlen(p);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (ipaddr) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;&lt;ipaddr&gt;%s&lt;/ipaddr&gt;&quot;, ipaddr);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>p += strlen(p);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (macaddr) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;&lt;macaddr&gt;%s&lt;/macaddr&gt;&quot;, macaddr);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>p += strlen(p);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (name) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;&lt;name&gt;%s&lt;/name&gt;&quot;, name);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>p += strlen(p);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (password) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;&lt;password&gt;%s&lt;/password&gt;&quot;, password);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>p += strlen(p);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (role) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;&lt;role&gt;%s&lt;/role&gt;&quot;, role);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>p += strlen(p);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (tout) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;&lt;session timeout&gt;%s&lt;/session timeout&gt;&quot;, tout);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>p += strlen(p);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (secret) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (auth == NULL) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>key = secret;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>auth = &quot;cleartext&quot;;</p>
+ <p class="FM_CLI">#ifndef OPENSSL_NO_SHA1</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>} else if (!strcasecmp(auth, &quot;sha-1&quot;)) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>key = enchashbuf;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>SHA1(secret, strlen(secret), hashbuf);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>encode_message_digest(hashbuf, 20, enchashbuf);</p>
+ <p class="FM_CLI">#endif</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>} else if (!strcasecmp(auth, &quot;md5&quot;)) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>key = enchashbuf;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>md5_calc(hashbuf, secret, strlen(secret));</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>encode_message_digest(hashbuf, 16, enchashbuf);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>debug(&quot;Message authentication is %s (%s)\n&quot;, auth, key);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;&lt;authentication&gt;%s&lt;/authentication&gt;&lt;key&gt;%s&lt;/key&gt;&quot;, </p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>auth, key);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>p += strlen(p);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>debug(&quot;\n&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;&lt;version&gt;%s&lt;/version&gt;&quot;, version);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(p, &quot;&lt;/authresponse&gt;&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>cgi_escape_url(encbuf, sizeof(encbuf), cmdbuf, strlen(cmdbuf), 0);</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>postlen = sprintf(post, </p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;POST /auth/command.xml HTTP/1.0\r\n&quot;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;User-Agent: ecp\r\n&quot;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;Host: %s\r\n&quot;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;Pragma: no-cache\r\n&quot;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;Content-Length: %d\r\n&quot;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>/* &quot;Content-Type: application/x-www-form-urlencoded\r\n&quot; */</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;Content-Type: application/xml\r\n&quot;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;\r\n&quot;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;%s&quot;,</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>argv[1], strlen(encbuf), encbuf);</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>inet_aton(argv[1], &amp;sa.sin_addr);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sa.sin_family = AF_INET;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sa.sin_port = htons(80);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>fd = socket(AF_INET, SOCK_STREAM, 0);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (fd &lt; 0) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>perror(&quot;socket&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>exit(1);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (connect(fd, (struct sockaddr *) &amp;sa, sizeof(sa)) &lt; 0) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>perror(&quot;connect&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>exit(1);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>if (write(fd, post, postlen) != postlen) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>perror(&quot;write&quot;);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>exit(1);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>while ((len = read(fd, post, sizeof(post))) &gt; 0)</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>write(1, post, len);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>close(fd);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>exit(0);</p>
+ <p class="FM_CLI">}</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">static void encode_message_digest (unsigned char *md, int mdlen, char *output)</p>
+ <p class="FM_CLI">{</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>int i;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>for (i=0; i&lt;mdlen; i++) {</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>sprintf(output, &quot;%02x&quot;, md[i]);</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>output += 2;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLI">}</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">}</p>
+ <p class="FM_CLI">##### Authentication Script Example -- END --</p>
+ <p class="FM_3Heading"><a name="TOC_Request_and_Response"></a>Request and Response</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;processes the authentication task and sends a response to the authentication server in the XML format to the authentication server. The XML response contains the status of the request and a code in case of an error. The example script is listed in <a href="#XREF_19015_Figure_2"><span class="FM_PMS646">Figure 193</span></a>.</p>
+ <p class="FM_Body">Request format: <span style="font-family : Courier New; font-size  : 9.0pt; ">&lt;script_name&gt; [options] &lt;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ip&gt; &lt;command&gt; &lt;secret_key&gt;</span></p>
+ <p class="FM_3Heading"><a name="TOC_XML_API_Request"></a>XML API Request Parameters</p>
+ <p class="FM_Body">The <a href="#XREF_29314_Table_3_XML_API"><span class="FM_PMS646">Table 168 </span></a>list all parameter that you can use in a request.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.24pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 168 &#160;</span><a name="XREF_29314_Table_3_XML_API"></a>XML API Request Parameters and Descriptions<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 81.922pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 386.321pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 81.922pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">script_name</p>
+</td>
+  <td style="width : 386.321pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The name of the script executable.</p>
+</td>
+</tr>
+  <tr style=" height : 139.00pt;">
+  <td style="width : 81.922pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Options</p>
+</td>
+  <td style="width : 386.321pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; ">
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">-i &lt;ip_addr&gt;</span>—Specify the client’s IP address.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">-m &lt;mac_addr&gt;</span>—Specify the client’s MAC address.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">-n &lt;name&gt;</span>—Specify the client’s user name.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">-p &lt;passwd&gt;</span>—Specify the client password.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">-r role</span>—Specify the current user role of the client.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">-t timeout</span>—User session timeout.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">-v version</span>—API version number. Default is 1.0</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">-a method</span>—Specify the encryption method to send the secret key. You can specify MD5 or SHA-1 or cleartext as the encryption method. By default, cleartext method is used to send the key.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">-s sessid</span>—Active session Id</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 81.922pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI"><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-ip</p>
+</td>
+  <td style="width : 386.321pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> that will receive the authentication requests.</p>
+</td>
+</tr>
+  <tr style=" height : 93.00pt;">
+  <td style="width : 81.922pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_Emphasis">command</span></p>
+</td>
+  <td style="width : 386.321pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The authentication command sent to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can send one of the following commands per request:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">add</span>: Adds the client to your network.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">delete</span>: Deletes the client from your network</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">query</span>: Fetches information about the client</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">blacklist</span>: Blacklists or block the client from connecting to your network</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span class="FM_CLI">authenticate</span>: Authenticates the client and assigns the default authenticated role.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 81.922pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">secret_key</p>
+</td>
+  <td style="width : 386.321pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The password used to validate the authentication request from your authentication server. See <a href="#XREF_15495_Configuring_the"><span class="FM_PMS646">“Configuring the XML API Server” </span></a> for more information.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_XMl_API_Response"></a>XMl API Response</p>
+ <p class="FM_Body">The response message from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is sent in an XML format. The default format of the response is:</p>
+ <p class="FM_CLI">[Message header]</p>
+ <p class="FM_CLI">Displays the request parameters and other standard header details.</p>
+ <p class="FM_CLI">..</p>
+ <p class="FM_CLI">...</p>
+ <p class="FM_CLI">..</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">&lt;response&gt;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&lt;status&gt;Status Message&lt;/status&gt;</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&lt;code&gt;Code in case of an error&lt;/code&gt;</p>
+ <p class="FM_CLI">&lt;/response&gt;</p>
+ <p class="FM_3Heading"><a name="TOC_Adding_a_Client"></a>Adding a Client</p>
+ <p class="FM_Body">This command will add a client on your network.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 194 &#160;</span>Adding a client—request and response</p>
+ <p class="FM_CLI">john@linux:/home/john/tools/xml-api# ./auth -i 10.10.10.249 -m 00:19:d2:01:0b:aa -r logon 10.11.12.13 add $abcd$1234$</p>
+ <p class="FM_Body">The commands sends the following information in the authentication request to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Client IP address: <span class="FM_CLI" style="font-weight : bold; ">10.10.10.249</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Client MAC address: <span class="FM_CLI" style="font-weight : bold; ">00:19:d2:01:0b:aa</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication server IP address: <span class="FM_CLI" style="font-weight : bold; ">10.11.12.13</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication command: <span class="FM_CLI" style="font-weight : bold; ">add</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Key to validate authentication request: <span class="FM_CLI" style="font-weight : bold; ">$abcd$1234$</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Verification key is sent in cleartext format</p>
+</li>
+ </ul>
+ <p class="FM_4Heading">Response from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <p class="FM_CLI">server=10.11.12.13, command=add, version=1.0, secret=$abcd$1234$ sessid=</p>
+ <p class="FM_CLI">Message authentication is cleartext ($abcd$1234$)</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">HTTP/1.1 200 OK</p>
+ <p class="FM_CLI">Date: Tue, 03 Aug 2010 23:32:16 GMT</p>
+ <p class="FM_CLI">Server:</p>
+ <p class="FM_CLI">Connection: close</p>
+ <p class="FM_CLI">Content-Type: text/xml</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">&lt;authresponse&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;status&gt;Ok&lt;/status&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;code&gt;0&lt;/code&gt;</p>
+ <p class="FM_CLI">&lt;/authresponse&gt;</p>
+ <p class="FM_4Heading">View the updated details of the client on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <div align="left"><img alt="XML_API00167.jpg" id="image0" src="images/XML_API00167.jpg" />
+ </div>
+ <p class="FM_4Heading"></p>
+ <p class="FM_3Heading"><a name="TOC_Deleting_a_Client"></a>Deleting a Client</p>
+ <p class="FM_Body">This command will delete a client from your network.Deleting a client—request and response</p>
+ <p class="FM_CLI">john@linux:/home/john/tools/xml-api# ./auth -i 10.10.10.248 10.11.12.13 delete $abcd$1234$</p>
+ <p class="FM_Body">This commands sends the following information in the request to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Client IP address: <span class="FM_CLI" style="font-weight : bold; ">10.10.10.248</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication server IP address: <span class="FM_CLI" style="font-weight : bold; ">10.11.12.13</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication command: <span class="FM_CLI" style="font-weight : bold; ">delete</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Key to validate authentication request: <span class="FM_CLI" style="font-weight : bold; ">$abcd$1234$</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Key is sent in cleartext format</p>
+</li>
+ </ul>
+ <p class="FM_4Heading">Response from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <p class="FM_CLI">server=10.11.12.13, command=delete, version=1.0, secret=$abcd$1234$ sessid=</p>
+ <p class="FM_CLI">Message authentication is cleartext ($abcd$1234$)</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">HTTP/1.1 200 OK</p>
+ <p class="FM_CLI">Date: Tue, 03 Aug 2010 23:30:32 GMT</p>
+ <p class="FM_CLI">Server:</p>
+ <p class="FM_CLI">Content-Length: 56</p>
+ <p class="FM_CLI">Connection: close</p>
+ <p class="FM_CLI">Content-Type: text/xml</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">&lt;authresponse&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;status&gt;Ok&lt;/status&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;code&gt;0&lt;/code&gt;</p>
+ <p class="FM_CLI">&lt;/authresponse&gt;</p>
+ <p class="FM_3Heading"><a name="TOC_Authenticating_a_Client"></a>Authenticating a Client</p>
+ <p class="FM_Body">This command will authenticate and change the role of a client. To illustrate the authentication command request process this section displays status of the client before and after the authentication command request. </p>
+ <p class="FM_4Heading">Status of the client before authentication</p>
+ <p class="FM_Body">The following <span class="FM_CLI">show user</span>&#160;command shows the role of the client is <span class="FM_CLI">logon</span>&#160;before the authentication request is processed by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <p class="FM_CLI"></p>
+ <div align="left"><img alt="XML_API00170.jpg" id="image1" src="images/XML_API00170.jpg" />
+ </div>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_Body">The following command shows the captive portal status of the logon role of the client. </p>
+ <p class="FM_CLI">(host) (config-role) #show rights logon | include &quot;Captive Portal profile&quot;</p>
+ <p class="FM_CLI"> Captive Portal profile = default</p>
+ <p class="FM_4Heading">Sending the authentication command</p>
+ <p class="FM_Body">Use the <span class="FM_CLI">authenticate</span> keyword in the script to send the authentication command request.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 195 &#160;</span>Authenticating the client—request and response</p>
+ <p class="FM_CLI">john@linux:/home/john/tools/xml-api# ./auth -i 10.10.10.248 -n john -p password 10.11.23.24 authenticate $abcd$1234$</p>
+ <p class="FM_Body">This commands sends the following information in the request to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Client IP address: <span class="FM_CLI" style="font-weight : bold; ">10.10.10.248</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Client username: <span class="FM_CLI" style="font-weight : bold; ">john</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Client password: <span class="FM_CLI" style="font-weight : bold; ">password</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication server IP address: <span class="FM_CLI" style="font-weight : bold; ">10.11.12.13</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication command: <span class="FM_CLI" style="font-weight : bold; ">authenticate</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Key to validate authentication request: <span class="FM_CLI" style="font-weight : bold; ">$abcd$1234$</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Key is sent in cleartext format</p>
+</li>
+ </ul>
+ <p class="FM_4Heading">Response from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <p class="FM_CLI">server=10.11.12.13, command=authenticate, version=1.0, secret=$abcd$1234$ sessid=</p>
+ <p class="FM_CLI">Message authentication is cleartext ($abcd$1234$)</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">HTTP/1.1 200 OK</p>
+ <p class="FM_CLI">Date: Tue, 03 Aug 2010 23:23:42 GMT</p>
+ <p class="FM_CLI">Server:</p>
+ <p class="FM_CLI">Connection: close</p>
+ <p class="FM_CLI">Content-Type: text/xml</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">&lt;authresponse&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;status&gt;Ok&lt;/status&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;code&gt;0&lt;/code&gt;</p>
+ <p class="FM_CLI">&lt;/authresponse&gt;</p>
+ <p class="FM_4Heading">Status of the client after authentication</p>
+ <p class="FM_CLI"><span style="font-family : ITC Century Std Book; font-size  : 10.0pt; ">The following </span><span class="FM_CLI">show user</span><span style="font-family : ITC Century Std Book; font-size  : 10.0pt; ">&#160;command shows the role of the client is change to </span><span class="FM_CLI">guest</span><span style="font-family : ITC Century Std Book; font-size  : 10.0pt; ">&#160;after the authentication request is processed by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </span></p>
+ <p class="FM_CLI"></p>
+ <div align="left"><img alt="XML_API00173.jpg" id="image2" src="images/XML_API00173.jpg" />
+ </div>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Querying_Client"></a>Querying Client Information</p>
+ <p class="FM_Body">This command will fetch a all details about a client connected in your network. Querying Client Information—request and response</p>
+ <p class="FM_CLI">john@linux:/home/john/tools/xml-api# ./auth -i 10.10.10.249 10.11.12.13 query $abcd$1234$</p>
+ <p class="FM_Body">This commands sends the following information in the request to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Client IP address: <span class="FM_CLI" style="font-weight : bold; ">10.10.10.249</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Client username: <span class="FM_CLI" style="font-weight : bold; ">john</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Client password: <span class="FM_CLI" style="font-weight : bold; ">password</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication server IP address: <span class="FM_CLI" style="font-weight : bold; ">10.11.12.13</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication command: <span class="FM_CLI" style="font-weight : bold; ">query</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Key to validate authentication request: <span class="FM_CLI" style="font-weight : bold; ">$abcd$1234$</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Key is sent in cleartext format</p>
+</li>
+ </ul>
+ <p class="FM_Body">Response from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <p class="FM_CLI">server=10.11.12.13, command=query, version=1.0, secret=$abcd$1234$ sessid=</p>
+ <p class="FM_CLI">Message authentication is cleartext ($abcd$1234$)</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">HTTP/1.1 200 OK</p>
+ <p class="FM_CLI">Date: Tue, 03 Aug 2010 23:34:30 GMT</p>
+ <p class="FM_CLI">Server:</p>
+ <p class="FM_CLI">Connection: close</p>
+ <p class="FM_CLI">Content-Type: text/xml</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">&lt;authresponse&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;status&gt;Ok&lt;/status&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;code&gt;0&lt;/code&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;macaddr&gt;00:19:d2:01:0b:aa&lt;/macaddr&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;name&gt;john&lt;/name&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;role&gt;logon&lt;/role&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;type&gt;Wireless&lt;/type&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;vlan&gt;1&lt;/vlan&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;location&gt;N/A&lt;/location&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;age&gt;00:00:02&lt;/age&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;auth_status&gt;Unauthenticated&lt;/auth_status&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;essid&gt;&lt;/essid&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;bssid&gt;00:00:00:00:00:00&lt;/bssid&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;phy_type&gt;b&lt;/phy_type&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;mobility_state&gt;Wireless&lt;/mobility_state&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;in_packets&gt;0&lt;/in_packets&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;in_octets&gt;0&lt;/in_octets&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;out_packets&gt;0&lt;/out_packets&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;out_octets&gt;0&lt;/out_octets&gt;</p>
+ <p class="FM_CLI">&lt;/authresponse&gt;</p>
+ <p class="FM_Body">The output of the <span class="FM_CLI">show user</span>&#160;command displays the client information. </p>
+ <div align="left"><img alt="XML_API00176.jpg" id="image3" src="images/XML_API00176.jpg" />
+ </div>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Blacklisting_a_Client"></a>Blacklisting a Client</p>
+ <p class="FM_Body">This command will blacklist a client and restrict it from connecting to your network. The <span class="FM_CLI">show user-table</span>&#160;lists the client connected on your network before processing the request to blacklist the client.</p>
+ <div align="left"><img alt="XML_API00179.jpg" id="image4" src="images/XML_API00179.jpg" />
+ </div>
+ <p class="FM_Body"></p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 196 &#160;</span>Blacklisting a Client—request and response</p>
+ <p class="FM_CLI">john@linux:/home/john/tools/xml-api# ./auth -i 10.10.10.248 10.11.12.13 blacklist $abcd$1234$</p>
+ <p class="FM_Body">This commands sends the following information in the request to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Client IP address: <span class="FM_CLI" style="font-weight : bold; ">10.10.10.248</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication server IP address: <span class="FM_CLI" style="font-weight : bold; ">10.11.12.13</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Authentication command: <span class="FM_CLI" style="font-weight : bold; ">blacklist</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Key to validate authentication request: <span class="FM_CLI" style="font-weight : bold; ">$abcd$1234$</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Key is sent in cleartext format</p>
+</li>
+ </ul>
+ <p class="FM_4Heading">Response from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <p class="FM_CLI">server=10.11.12.13, command=blacklist, version=1.0, secret=$abcd$1234$ sessid=</p>
+ <p class="FM_CLI">Message authentication is cleartext ($abcd$1234$)</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">HTTP/1.1 200 OK</p>
+ <p class="FM_CLI">Date: Tue, 03 Aug 2010 23:29:11 GMT</p>
+ <p class="FM_CLI">Server:</p>
+ <p class="FM_CLI">Content-Length: 56</p>
+ <p class="FM_CLI">Connection: close</p>
+ <p class="FM_CLI">Content-Type: text/xml</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">&lt;authresponse&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;status&gt;Ok&lt;/status&gt;</p>
+ <p class="FM_CLI"> &#160;&lt;code&gt;0&lt;/code&gt;</p>
+ <p class="FM_CLI">&lt;/authresponse&gt;</p>
+ <p class="FM_Body">The <span class="FM_CLI">show user-table</span> command does not list the blacklisted client. You can use the show ap blacklist-clients command on your controller to view the list of blacklisted clients</p>
+ <div align="left"><img alt="XML_API00182.jpg" id="image5" src="images/XML_API00182.jpg" />
+ </div>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

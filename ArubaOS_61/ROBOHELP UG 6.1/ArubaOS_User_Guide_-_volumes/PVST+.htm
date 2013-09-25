@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>PVST+</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="keywords" content="PVST, protocols, native lan, enable pvst, pvst+, Per-VLAN Spanning Tree Plus,  load balancing of VLANs across multiple ports"/>
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\PVST+.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 26</p>
+ <p class="FM_ChapterTitle"><a name="TOC_PVST"></a>PVST+</p>
+ <p class="FM_Body">PVST+ (Per-VLAN Spanning Tree Plus) provides for load balancing of VLANs across multiple ports resulting in optimal usage of network resources. PVST+ also ensures interoperability with industry accepted PVST+ protocols. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">By default, PVST+ is disable.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_1Heading"><a name="TOC_Interoperability_and"></a>Interoperability and Best Practices</p>
+ <p class="FM_Body">The interoperability between RSTP and PVST+ are:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">When the access port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the trunk port terminate on one Layer 2 switch running PVST+, PVST+ will send untagged STP BPDUs on the access port; it also transmits untagged STP BPDUs (in addition to the other PVST+ BPDUs) on the native VLAN trunk port. If the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is the root, it will detect a loop on the native VLAN.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">If PVST+ is not on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, best practices recommends disabling RSTP on the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to avoid a looping issue.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">For VLAN load balancing when <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;are connected to armed mode, the VLAN priorities on two ports and bridge priorities must be configured so that one set of VLANs are active on one link and the other set of VLANs are active on the other link. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Supported instances are 64 on the <?rh-udv_start name="M3"  ?>M3<?rh-udv_end ?>&#160;and <?rh-udv_start name="3000MC_Series"  ?>3000 Series<?rh-udv_end ?>; 32 on the <?rh-udv_start name="600_Series_Controller"  ?>600 Series<?rh-udv_end ?></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Configure_using_the_CLI"></a>Configure using the CLI</p>
+ <p class="FM_Body">PVST+ is disabled by default. Enable PVST+, ensure a VLAN instance is configured, and then configure PVST+.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enable PVST+:</p>
+ <p class="FM_CLIIndented">spanning-tree mode rapid-pvst</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure PVST+ forward time; the following command sets the time VLAN 2 spends in the listening and learning state (3 seconds).</p>
+ <p class="FM_CLIIndented">spanning-tree vlan 2 forward-time 3</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure PVST+ hello time; the following command sets the time VLAN 2 waits to transmit BPDUs to four seconds:</p>
+ <p class="FM_CLIIndented">spanning-tree vlan 2 hello-time 4</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure PVST+ max age; the following command sets the time VLAN 2 waits to receive a hello packet to 30 seconds:</p>
+ <p class="FM_CLIIndented">spanning-tree vlan 2 max-age 30</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure PVST+ priority: the following command sets the VLAN 2 priority to 10, making it more likely to become the root bridge:</p>
+ <p class="FM_CLIIndented">spanning-tree vlan 2 priority 10</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure PVST+ on a range of VLANs using the VLAN IDs (coma separated or hyphen separated)</p>
+ <p class="FM_CLIIndented">spanning-tree vlan range 2-6,11</p>
+ <p class="FM_1Heading"><a name="TOC_Configure_using_the_WebUI"></a>Configure using the WebUI</p>
+ <p class="FM_Body">From the WebUI, add a VLAN instance and enable PVST+</p>
+ <div align="left"><img alt="PVST_3.jpg" id="image0" src="images/PVST_3.jpg" />
+ </div>
+ <p class="FM_Body">&#160;</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

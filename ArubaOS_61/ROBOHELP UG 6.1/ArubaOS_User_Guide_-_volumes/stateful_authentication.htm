@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>stateful_authentication</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="stateful ntlm authentication, ntlm authentication, radius server, wispr aaa server, authentication message, partner isp, widow pane, wispr, stateful authentication"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\stateful_authentication.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_Anchor"><a name="XREF_98100_Title_of_Chapter"></a>&nbsp;</p>
+ <p class="FM_ChapterNumber"><a name="TOC_Chapter_14"></a>Chapter 14</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Stateful_and_WISPr"></a><a name="XREF_28165_Stateful_and_WISPr"></a>Stateful and WISPr Authentication</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;supports stateful 802.1x authentication, stateful NTLM authentication and authentication for Wireless Internet Service Provider roaming (WISPr). Stateful authentication differs from 802.1x authentication in that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;does not manage the authentication process directly, but monitors the authentication messages between a user and an external authentication server, and then assigns a role to that user based upon the information in those authentication messages. WISPr authentication allows clients to roam between hotspots using different ISPs.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_50056_Stateful"><span class="FM_PMS646">“Stateful Authentication Overview” </span></a></p>
+  </li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_59572_WISPr"><span class="FM_PMS646">“WISPr Authentication Overview” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_73813_Important_Things"><span class="FM_PMS646">“Important Points to Remember” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_39579_Stateful_802_1x"><span class="FM_PMS646">“Configuring Stateful 802.1x Authentication”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_14145_Stateful_NTLM"><span class="FM_PMS646">“Configuring Stateful NTLM Authentication” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_12826_Configuring_WISPr"><span class="FM_PMS646">“Configuring WISPr Authentication” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Stateful_Authentication"></a><a name="IX_stateful_authentication"></a><a name="XREF_50056_Stateful"></a>Stateful Authentication Overview</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> supports two different types of stateful authentication, stateful 802.1x and stateful NTLM.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Stateful 802.1x authentication</span>: This feature allows the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to learn the identity and role of a user connected to a third-party AP, and is useful for authenticating users to networks with APs from multiple vendors. When an 802.1x-capable access point sends a authentication request to a RADIUS server, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;inspects this request and the associated response to learn the authentication state of the user. It then applies an identity-based user role through the Policy Enforcement Firewall.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Stateful NTLM authentication</span>: NT LAN Manager (NTLM) is a suite of Microsoft authentication and session security protocols. You can use stateful NTLM authentication to configure a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to monitor the NTLM authentication messages between a client and a Windows authentication server. If the client successfully authenticates via an NTLM authentication server, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can recognize that the client has been authenticated and assign that client a specified user role. </p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">The default Windows authentication method changed from the older NTLM protocol to the newer Kerberos protocol, starting with Windows 2000. Therefore, stateful NTLM authentication is most useful for networks with legacy, pre-Windows 2000 clients. Note also that unlike other types of authentication, all users authenticated via stateful NTLM authentication must be assigned to the user role specified in the Stateful NTLM Authentication profile. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>’s stateful NTLM authentication does not support placing users in various roles based upon group membership or other role-derivation attributes.</p>
+ <p class="FM_1Heading"><a name="TOC_WISPr_Authentication"></a><a name="IX_WISPr_authentication"></a><a name="XREF_59572_WISPr"></a>WISPr Authentication Overview</p>
+ <p class="FM_Body">WISPr authentication allows a “smart client” to authenticate on the network when they roam between Wireless Internet Service Providers, even if the wireless hotspot uses an ISP for which the client may not have an account. </p>
+ <p class="FM_Body">If you are a hotspot operator using WISPr authentication, and a client that has an account with your ISP attempts to access the Internet at your hotspot, then your ISP’s WISPr AAA server authenticates that client directly, and allows the client access on the network. If, however, the client only has an account with a <span style="font-style : italic; ">partner</span>&#160;ISP, then your ISP’s WISPr AAA server will forward that client’s credentials to the partner ISP’s WISPr AAA server for authentication. Once the client has been authenticated on the partner ISP, it will be authenticated on your hotspot’s own ISP, as per their service agreements. Once your ISP sends an authentication message to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> assigns the default WISPr user role to that client.</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;supports the following smart clients, which enable client authentication and roaming between hotspots by embedding iPass Generic Interface Specification (GIS) <span style="font-style : italic; ">redirect</span>, <span style="font-style : italic; ">proxy</span>, <span style="font-style : italic; ">authentication</span>&#160;and <span style="font-style : italic; ">logoff</span>&#160;messages within HTLM messages to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">iPass</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Bongo</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Trustive</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">weRoam</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">AT&amp;T</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Important_Points_to1"></a><a name="XREF_73813_Important_Things"></a>Important Points to Remember</p>
+ <p class="FM_Body">Before you can configure a stateful authentication feature, you should have defined a user role you want to assign to the authenticated users, and created a server group that includes a RADIUS authentication server for stateful 802.1x authentication or a Windows server for stateful NTLM authentication. For details on performing these tasks, see the following sections of this User Guide:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="Firewall_Roles.htm#XREF_45383_Roles_and_Policies"><span class="FM_PMS646">“Roles and Policies”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="AAA_Servers.htm#XREF_35178_Configuring"><span class="FM_PMS646">“Configuring a RADIUS Server” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="AAA_Servers.htm#XREF_57442_Configuring_a"><span class="FM_PMS646">“Configuring a Windows Server” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="AAA_Servers.htm#XREF_40223_Configuring_Server"><span class="FM_PMS646">“Server Groups”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_Body">You can use the default stateful NTLM authentication and WISPr authentication profiles to manage the settings for these features, or you can create additional profiles as desired. Note, however, that unlike most other types of authentication, stateful 802.lx authentication uses only a single Stateful 802.1x profile. This profile can be enabled or disabled, but you can not configure more than one instance of a Stateful 802.1x profile. </p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Stateful_802"></a><a name="XREF_39579_Stateful_802_1x"></a>Configuring Stateful 802.1x Authentication</p>
+ <p class="FM_Body">When you configure 802.1x authentication for clients on non-<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs, you must specify the group of RADIUS servers that will perform the user authentication, and select the role to be assigned to those users who successfully complete authentication. When the user logs off or shuts down the client machine, <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;will note the deauthentication message from the RADIUS server, and will change the user’s role from the specified authenticated role back to the logon role. For details on defining a RADIUS server used for stateful 802.1x authentication, see <a href="VIA-EndUserInstructions.htm#XREF_83760_Chapter_Title_max"><span class="FM_PMS646">“Configuring a RADIUS Server” </span></a></p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI65"></a>In the WebUI</p>
+ <p class="FM_Body">To configure the Stateful 802.1x Authentication profile via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; L2 Authentication </span>window.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Profiles list, select <span style="font-weight : bold; ">Stateful 802.1x Authentication Profile</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Default Role</span>&#160;drop-down list, and select the role that will be assigned to stateful 802.1x authenticated users.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Specify the timeout period for authentication requests, from 1-20 seconds. The default value is 10 seconds.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Mode</span> checkbox to enable stateful 802.1x authentication.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI67"></a>In the CLI</p>
+ <p class="FM_Body">Use the following commands to configure stateful 802.1x authentication via the command-line interface. The first set of commands defines the RADIUS server used for 802.1x authentication, and the second set assigns that server to a server group. The third set of commands associates that server group with the stateful 802.1x authentication profile, then sets the authentication role and timeout period.</p>
+ <p class="FM_CLI">aaa authentication-server radius &lt;server-name&gt;</p>
+ <p class="FM_CLIIndented">acctport &lt;port&gt; </p>
+ <p class="FM_CLIIndented">authport &lt;port&gt; </p>
+ <p class="FM_CLIIndented">clone &lt;server&gt; </p>
+ <p class="FM_CLIIndented">enable </p>
+ <p class="FM_CLIIndented">host &lt;ipaddr&gt; </p>
+ <p class="FM_CLIIndented">key &lt;psk&gt; </p>
+ <p class="FM_CLIIndented">nas-identifier &lt;string&gt; </p>
+ <p class="FM_CLIIndented">nas-ip &lt;ipaddr&gt; </p>
+ <p class="FM_CLIIndented">retransmit &lt;number&gt; </p>
+ <p class="FM_CLIIndented">timeout &lt;seconds&gt; </p>
+ <p class="FM_CLIIndented">use-md5</p>
+ <p class="FM_CLIIndented">!</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLI">aaa server-group group &lt;server-group&gt; </p>
+ <p class="FM_CLIIndented">auth-server &lt;server-name&gt;</p>
+ <p class="FM_CLIIndented">!</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">aaa authentication stateful-dot1x</p>
+ <p class="FM_CLIIndented">server-group &lt;server-group&gt;</p>
+ <p class="FM_CLIIndented">default-role &lt;role&gt; </p>
+ <p class="FM_CLIIndented">enable </p>
+ <p class="FM_CLIIndented">timeout &lt;seconds&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Stateful"></a><a name="XREF_14145_Stateful_NTLM"></a>Configuring Stateful NTLM Authentication</p>
+ <p class="FM_Body">The Stateful NTLM Authentication profile requires that you specify a server group which includes the servers performing NTLM authentication, and the role to be assigned to users who are successfully authenticated. For details on defining a windows server used for NTLM authentication, see <a href="AAA_Servers.htm#XREF_57442_Configuring_a"><span class="FM_PMS646">“Configuring a Windows Server” </span></a>.</p>
+ <p class="FM_Body">When the user logs off or shuts down the client machine, the user will remain in the authenticated role until the user ages out, that is, until the user has sent no traffic for the amount of time specified in the User Idle Timeout setting in the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Advanced</span> page.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI66"></a>In the WebUI</p>
+ <p class="FM_Body">To create and configure a new instance of a stateful NTLM authentication profile via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; L3 Authentication </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profiles</span>&#160;list, expand the <span style="font-weight : bold; ">Stateful NTLM Authentication Profile</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To define settings for an <span style="font-style : italic; ">existing</span>&#160;profile, click that profile name in the profiles list. </p>
+ <p class="FM_BodyinBulletStep">To create and define settings for a <span style="font-style : italic; ">new</span>&#160;Stateful NTLM Authentication profile, select an existing profile, then click the <span style="font-weight : bold; ">Save As </span>button in the right window pane. Enter a name for the new profile in the entry field. at the top of the right window pane.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Default Role</span>&#160;drop-down list, and select the role to be assigned to all users after they complete stateful NTLM authentication.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Specify the timeout period for authentication requests, from 1-20 seconds. The default value is 10 seconds.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Mode</span> checkbox to enable stateful NTLM authentication.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profiles</span>&#160;list, select the <span style="font-weight : bold; ">Server Group</span> entry below the Stateful NTLM Authentication profile.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Server Group</span>&#160;drop-down list and select the group of Windows servers you want to use for stateful NTLM authentication.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI68"></a>In the CLI</p>
+ <p class="FM_Body">Use the following commands to configure stateful NTLM authentication via the command-line interface. The first set of commands defines the Windows server used for NTLM authentication, the second set adds that server to a server group, and the third set of commands associates that server group with the stateful NTLM authentication profile then defines the profile settings.</p>
+ <p class="FM_CLI">aaa authentication-server windows &lt;windows_server_name&gt;</p>
+ <p class="FM_CLIIndented">host &lt;ipaddr&gt;</p>
+ <p class="FM_CLIIndented">enable </p>
+ <p class="FM_CLIIndented">!</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLI">aaa server-group group &lt;server-group&gt; </p>
+ <p class="FM_CLIIndented">auth-server &lt;windows_server_name&gt;</p>
+ <p class="FM_CLIIndented">!</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLI">aaa authentication stateful-ntlm</p>
+ <p class="FM_CLIIndented">default-role &lt;role&gt; </p>
+ <p class="FM_CLIIndented">enable </p>
+ <p class="FM_CLIIndented">server-group &lt;server-group&gt;</p>
+ <p class="FM_CLIIndented">timeout &lt;seconds&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_WISPr"></a><a name="XREF_12826_Configuring_WISPr"></a>Configuring WISPr Authentication</p>
+ <p class="FM_Body">A WISPr authentication profile includes parameters to define RADIUS attributes, the default role for authenticated WISPr users, maximum numbers of authenticated failures and logon wait times. The WISPr-Location-ID sent from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the WISPr RADIUS server will be the concatenation of the ISO Country Code, E.164 Country Code, E.164 Area Code and SSID/Zone parameters configured in this profile</p>
+ <p class="FM_Body"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>The parameters to define WISPr RADIUS attributes are specific to the RADIUS server your ISP uses for WISPr authentication; contact your ISP to determine these values. You can find a list of ISO and ITU country and area codes at the ISO and ITU websites<span class="FM_PMS646"><a href="802.1x.htm#XREF_67860_Authentication"> (www.iso.or</span></a><span style="color   : #0000ff; ">g</span><a href="http://www.itu.int/">&#160;and </a><span class="FM_PMS646">http://www.itu.int</span>.)</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI67"></a>In the WebUI</p>
+ <p class="FM_Body">This section describes how to create and configure a new instance of a WISPr authentication profile in the WebUI.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; L3 Authentication </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profiles</span>&#160;list, expand the <span style="font-weight : bold; ">WISPr Authentication Profile</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To define settings for an <span style="font-style : italic; ">existing</span>&#160;profile, click that profile name in the profiles list. </p>
+ <p class="FM_BodyinBulletStep">To create and define settings for a <span style="font-style : italic; ">new</span>&#160;WISPr Authentication profile, select an existing profile, then click the <span style="font-weight : bold; ">Save As </span>button in the right window pane. Enter a name for the new profile in the entry field. at the top of the right window pane.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Define values for the following parameters</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 62 &#160;</span>WISPr Authentication Profile Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 162.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 306.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Default Role</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Default role assigned to users that complete WISPr authentication.</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logon wait minimum wait</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s CPU utilization has surpassed the <span style="font-weight : bold; ">Login wait CPU utilization threshold value,</span>&#160;the <span style="font-weight : bold; ">Logon wait minimum wait</span>&#160;parameter defines the minimum number of seconds a user will have to wait to retry a login attempt. Range: 1–10 seconds. Default: 5 seconds.</p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logon wait maximum wait</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s CPU utilization has surpassed the <span style="font-weight : bold; ">Login wait CPU utilization threshold</span> value, the<span style="font-weight : bold; "> Logon wait maximum wait</span>&#160;parameter defines the maximum number of seconds a user will have to wait to retry a login attempt. Range: 1–10 seconds. Default: 10 seconds.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logon wait CPU utilization threshold</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Percentage of CPU utilization at which the maximum and minimum login wait times are enforced. Range: 1–100%. Default: 60%.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">WISPr Location-ID ISO Country Code</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The ISO Country Code section of the WISPr Location ID.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">WISPr Location-ID E.164 Country Code</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The E.164 Country Code section of the WISPr Location ID. </p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">WISPr Location-ID E.164 Area Code</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The E.164 Area Code section of the WISPr Location ID. </p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">WISPr Location-ID SSID/Zone</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The SSID/Zone section of the WISPr Location ID.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">WISPr Operator Name</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A name identifying the hotspot operator.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 162.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">WISPr Location Name</p>
+</td>
+  <td style="width : 306.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A name identifying the hotspot location. If no name is defined, the parameter will use the name of the AP to which the user has associated.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profiles</span>&#160;list, select the <span style="font-weight : bold; ">Server Group</span> entry below the WISPr Authentication profile.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Server Group</span>&#160;drop-down list and select the group of RADIUS servers you want to use for WISPr authentication.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">A Boingo smart client uses a NAS identifier in the format &lt;CarrierID&gt;_&lt;VenueID&gt; for location identification. To support Boingo clients, you must also configure the NAS identifier parameter in the Radius server profile for the WISPr server</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI69"></a>In the CLI</p>
+ <p class="FM_Body">Use the following CLI commands to configure WISPr authentication. The first set of commands defines the RADIUS server used for WISPr authentication, the second set adds that server to a server group, and the third set of commands associates that server group with the WISPR authentication profile then defines the profile settings.</p>
+ <p class="FM_CLI">aaa authentication-server radius &lt;rad_server_name&gt;</p>
+ <p class="FM_CLIIndented">host 172.4.77.214</p>
+ <p class="FM_CLIIndented">key qwERtyuIOp</p>
+ <p class="FM_CLIIndented">enable</p>
+ <p class="FM_CLIIndented">nas-identifier corp_venue1</p>
+ <p class="FM_CLIIndented">!</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLI">aaa server-group group &lt;server-group&gt; </p>
+ <p class="FM_CLIIndented">auth-server &lt;radius_server_name&gt;</p>
+ <p class="FM_CLIIndented">!</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLI">aaa authentication wispr</p>
+ <p class="FM_CLIIndented">default-role &lt;role&gt;</p>
+ <p class="FM_CLIIndented">logon-wait {cpu-threshold|maximum-delay|minimum-delay}</p>
+ <p class="FM_CLIIndented">server-group &lt;server-group&gt;</p>
+ <p class="FM_CLIIndented">wispr-location-id-ac &lt;wispr-location-id-ac&gt;</p>
+ <p class="FM_CLIIndented">wispr-location-id-cc &lt;wispr-location-id-cc&gt;</p>
+ <p class="FM_CLIIndented">wispr-location-id-isocc &lt;wispr-location-id-isocc&gt;</p>
+ <p class="FM_CLIIndented">wispr-location-id-network &lt;wispr-location-id-network&gt;</p>
+ <p class="FM_CLIIndented">wispr-location-name-location &lt;wispr-location-name-location&gt;</p>
+ <p class="FM_CLIIndented">wispr-location-name-operator-name &lt;wispr-location-name-location&gt;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

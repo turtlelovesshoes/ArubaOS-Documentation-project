@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Preface</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Preface.fm" />
+ <meta name="keywords" content="network parameters, preface, standard web browser, diagnose wlan issue,easy-to-follow configuration task, remotw management console, webui dashboard, telnet session, angle brackets, dashboard monitoring, configuration wizard,">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+ <h1>About this Guide</h1>
+ <p class="FM_Body">This User Guide describes the features supported by <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;and provides instructions and examples for configuring <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> and Access Points (APs). This chapter covers:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_49004_Audience"><span class="FM_PMS646">“Audience” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_77492_Fundamentals"><span class="FM_PMS646">“Fundamentals” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_74064_Related_Documents"><span class="FM_PMS646">“Related Documents” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_28259_Conventions"><span class="FM_PMS646">“Conventions” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_43794_Contacting_Support"><span class="FM_PMS646">“Contacting Support”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading" style="margin-top  : 16.000pt;"><a name="TOC_Audience"></a><a name="XREF_49004_Audience"></a>Audience</p>
+ <p class="FM_Body">This guide is intended for system administrators responsible for configuring and maintaining wireless networks and assumes you are knowledgeable in Layer 2 and Layer 3 networking technologies.</p>
+ <p class="FM_1Heading" style="margin-top  : 16.000pt;"><a name="TOC_Fundamentals"></a><a name="XREF_77492_Fundamentals"></a>Fundamentals</p>
+ <p class="FM_Body">Throughout this document reference are made to <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>; <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;categories are based on architecture:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">MIPS <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>—<?rh-udv_start name="6000MC"  ?>6000<?rh-udv_end ?>, <?rh-udv_start name="3000MC_Series"  ?>3000 Series<?rh-udv_end ?>, <?rh-udv_start name="600_Series_controller"  ?>600 Series<?rh-udv_end ?></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">PPC <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>—<?rh-udv_start name="200MC"  ?>200<?rh-udv_end ?>, <?rh-udv_start name="800_Series"  ?>800<?rh-udv_end ?>, <?rh-udv_start name="2400MC"  ?>2400<?rh-udv_end ?>, and <?rh-udv_start name="SC1_SC2"  ?>SC1/SC2<?rh-udv_end ?>&#160;<?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></p>
+</li>
+ </ul>
+ <p class="FM_Body">Configuring your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and AP is accomplished using either the Web User Interface (WebUI) or the command line interface (CLI). </p>
+ <p class="FM_2Heading" style="margin-top  : 12.000pt;"><a name="TOC_WebUI"></a>WebUI</p>
+ <p class="FM_Body"><a name="IX_WebUI"></a>Each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;supports up to 22 simultaneous WebUI connections. The WebUI is accessible through a standard Web browser from a remote management console or workstation. The WebUI includes configuration wizards that step you through easy-to-follow configuration tasks. The wizards are:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a name="IX_AP"></a>AP Wizard—basic AP configuration</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;Wizard—basic <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configuration </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a name="IX_WLAN"></a>LAN Wizard—creating and configuring new WLAN(s) associated with the “default” ap-group</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a name="IX_license"></a>License Wizard—installation and activation of software licenses</p>
+</li>
+ </ul>
+ <p class="FM_Body">In addition to the wizards, the WebUI includes a Dashboard monitoring feature that provides enhanced visibility into your wireless network’s performance and usage. This allows you to easily locate and diagnose WLAN issues. For details on the WebUI Dashboard, see <a href="Network_Parameters.htm#XREF_54310_Creating_and"><span class="FM_PMS646">Chapter 13, “Dashboard Monitoring” </span></a>.</p>
+ <p class="FM_2Heading" style="margin-top  : 12.000pt;"><a name="TOC_CLI"></a>CLI</p>
+ <p class="FM_Body">The CLI is a text-based interface accessible from a local console connected to the serial port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> or through a Telnet or Secure Shell (SSH) session.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">By default, you access the CLI from the serial port or from an SSH session. You must explicitly enable Telnet on your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in order to access the CLI via a Telnet session.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">When entering commands remember that:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">commands are not case sensitive</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">the space bar will complete your partial keyword</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">the backspace key will erase your entry one letter at a time</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">the question mark ( ? ) will list available commands and options</p>
+</li>
+ </ul>
+ <p class="FM_1Heading" style="margin-top  : 16.000pt;"><a name="TOC_Related_Documents"></a><a name="XREF_74064_Related_Documents"></a>Related Documents</p>
+ <p class="FM_Body">The following items are part of the complete documentation for the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> user-centric network:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1" style="font-style : italic;"><span class="FM_Emphasis" style="font-style : italic; "><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Installation Guides</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1" style="font-style : italic;"><span class="FM_Emphasis" style="font-style : italic; "><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>Access Point Installation Guides</span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1" style="font-style : italic;"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> Quick Start Guide</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1" style="font-style : italic;"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> User Guide</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1" style="font-style : italic;"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>Command Line Reference Guide</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1" style="font-style : italic;"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> MIB Reference Guide</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1" style="font-style : italic;"><span class="FM_Emphasis" style="font-style : italic; ">Release Notes</span></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Conventions"></a><a name="XREF_28259_Conventions"></a>Conventions</p>
+ <p class="FM_Body">The following conventions are used throughout this manual to emphasize important concepts:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.48pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 1 &#160;</span>Typographical Conventions<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 124.916pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Type Style</p>
+</th>
+  <th style="width : 341.562pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 124.916pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="font-style : italic;"><span class="FM_Emphasis" style="font-style : italic; ">Italics</span></p>
+</td>
+  <td style="width : 341.562pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This style is used to emphasize important terms and to mark the titles of books.</p>
+</td>
+</tr>
+  <tr style=" height : 69.00pt;">
+  <td style="width : 124.916pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="font-family : Courier New; font-size  : 9.0pt; ">System items</span></p>
+</td>
+  <td style="width : 341.562pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This fixed-width font depicts the following:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Sample screen output</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">System prompts</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Filenames, software devices, and specific commands when mentioned in the text</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 124.916pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="font-family : Courier New; font-weight : bold;"><span class="FM_CLIBold" style="font-family : Courier New; font-weight : bold; font-size  : 9.0pt; ">Commands</span></p>
+</td>
+  <td style="width : 341.562pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">In the command examples, this bold font depicts text that you must type exactly as shown.</p>
+</td>
+</tr>
+  <tr style=" height : 87.00pt;">
+  <td style="width : 124.916pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span class="FM_CLI">&lt;</span><span class="FM_Emphasis">Arguments</span><span class="FM_CLI">&gt;</span></p>
+</td>
+  <td style="width : 341.562pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">In the command examples, italicized text within angle brackets represents items that you should replace with information appropriate to your specific situation. For example:</p>
+  <p class="FM_CLI"># <span class="FM_CLIBold">send</span> &lt;<span class="FM_Emphasis">text message</span>&gt;</p>
+  <p class="FM_TableBody">In this example, you would type “send” at the system prompt exactly as shown, followed by the text of the message you wish to send. Do not type the angle brackets.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 124.916pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="font-family : Courier New; font-size  : 9.0pt; ">[Optional]</span></p>
+</td>
+  <td style="width : 341.562pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">In the command examples, items enclosed in brackets are optional. Do not type the brackets.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 124.916pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="font-family : Courier New;"><span class="FM_CLI" style="font-family : Courier New; font-size  : 9.0pt; ">{Item A | Item B}</span></p>
+</td>
+  <td style="width : 341.562pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">In the command examples, items within curled braces and separated by a vertical bar represent the available choices. Enter only one choice. Do not type the braces or bars.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The following informational icons are used throughout this guide:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 71.439pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.562pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; border-top:grey solid 1px; border-bottom:grey solid 1px; border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Indicates helpful suggestions, pertinent information, and important things to remember.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor" style="margin-bottom : 6.000pt;"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 71.439pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconCaution"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+  <td style="width : 468.562pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; border-top:grey solid 1px; border-bottom:grey solid 1px; border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Indicates a risk of damage to your hardware or loss of data.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor" style="margin-bottom : 6.000pt;"></p>
+ <p class="FM_Anchor" style="margin-bottom : 6.000pt;"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.74pt;" cellspacing="0">
+  <tr style=" height : 41.00pt;">
+  <td style="width : 71.439pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconWarning"><img src="images/graphics/warning.jpg" width="59" height="60" /></p>
+</td>
+  <td style="width : 469.305pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; border-top:grey solid 1px; border-bottom:grey solid 1px; ">
+  <p class="FM_zTextNote">Indicates a risk of personal injury or death.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor" style="margin-bottom : 6.000pt;"></p>
+ <p class="FM_1Heading"><a name="TOC_Contacting_Support"></a><a name="XREF_43794_Contacting_Support"></a>Contacting Support</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft; width: 468.10pt;" cellspacing="0">
+  <tr style=" height : 23.00pt;">
+  <td style="width : 135.221pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Main Site</p>
+</td>
+  <td style="width : 332.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="color   : #548baf;"><span class="FM_PMS646" style="color   : #548baf; "><a href="http://www.arubanetworks.com">arubanetworks.com</span><a href="http://www.arubanetworks.com"></a></a></p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 135.221pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Support Site</p>
+</td>
+  <td style="width : 332.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="color   : #548baf;"><span class="FM_PMS646" style="color   : #548baf; "><a href="https://support.arubanetworks.com">support.arubanetworks.com</span><a href="https://support.arubanetworks.com"></a></a></p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 135.221pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">North American Telephone</p>
+</td>
+  <td style="width : 332.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="color   : #548baf;">1-800-943-4526 (Toll Free)</p>
+  <p class="FM_TableBody" style="color   : #548baf;">1-408-754-1200 </p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 135.221pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">International Telephones </p>
+</td>
+  <td style="width : 332.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="color   : #548baf;"><span class="FM_PMS646" style="color   : #548baf; "><a href="http://www.arubanetworks.com/support-services/aruba-support-program/contact-support">arubanetworks.com/support-services/aruba-support-program/contact-support/</span><a href="http://www.arubanetworks.com/support-services/aruba-support-program/contact-support"></a></a></p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 135.221pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Software Licensing Site</p>
+</td>
+  <td style="width : 332.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="color   : #548baf;"><span class="FM_PMS646" style="color   : #548baf; "><a href="https://licensing.arubanetworks.com/login.php">licensing.arubanetworks.com/login.php</span><a href="https://licensing.arubanetworks.com/login.php"></a></a></p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 135.221pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Wireless Security Incident<br />Response Team (WSIRT)</p>
+</td>
+  <td style="width : 332.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="color   : #548baf;"><span class="FM_PMS646" style="color   : #548baf; "><a href="http://www.arubanetworks.com/support/wsirt.php">arubanetworks.com/support/wsirt.php</span><a href="http://www.arubanetworks.com/support/wsirt.php"></a></a></p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td colspan="2" style="width : 468.096pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><span style="font-weight : bold; ">Support Emails</span>&#160;</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 135.221pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Americas and APAC</p>
+</td>
+  <td style="width : 332.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="color   : #548baf;"><span class="FM_PMS646" style="color   : #548baf; ">support@arubanetworks.com</span></p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 135.221pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">EMEA</p>
+</td>
+  <td style="width : 332.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="color   : #548baf;"><span class="FM_PMS646" style="color   : #548baf; ">emea_support@arubanetworks.com</span></p>
+</td>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 135.221pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">WSIRT Email<br />Please email details of any securityproblem found in an Aruba product.</p>
+</td>
+  <td style="width : 332.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody" style="color   : #548baf;"><span class="FM_PMS646" style="color   : #548baf; ">wsirt@arubanetworks.com</span></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft; width: 424.33pt;" cellspacing="0">
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body" style="margin-top  : 9.000pt; margin-bottom : 9.000pt; font-family : Univers 67 Condensed Bold; font-size  : 16.0pt;">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

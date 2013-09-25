@@ -1,0 +1,1372 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Captive_Portal</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Captive_Portal.fm" />
+ <meta name="keywords" content="captive portal, captive portal authentication profile, captive portal page, base operating system ">
+  <link rel="stylesheet" href="css/Full.css" type="text/css" />
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 15</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Captive_Portal"></a><a name="XREF_78468_Captive_Portal"></a>Captive Portal</p>
+ <p class="FM_Body"><a name="IX_configuring_25"></a>Captive portal is one of the methods of authentication supported by <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>. A captive portal presents a web page which requires user action before network access is granted. The required action can be simply viewing and agreeing to an acceptable use policy, or entering a user ID and password which must be validated against a database of authorized users.</p>
+ <p class="FM_Body">You can also configure captive portal to allow clients to download the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;VPN dialer for Microsoft VPN clients if the VPN is to be terminated on the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. For more information about the VPN dialer, see <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 17, “Virtual Private Networks”</span></a>.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_70244_Captive_Portal"><span class="FM_PMS646">“Captive Portal Overview”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_83172_Captive_Portal_in"><span class="FM_PMS646">“Captive Portal in the Base ArubaOS” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_29982_Captive_Portal"><span class="FM_PMS646">“Captive Portal with the PEFNG License” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_77275_Example"><span class="FM_PMS646">“Example Authentication with Captive Portal” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_81699_Guest_VLANs"><span class="FM_PMS646">“Configuring Guest VLANs” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_99347_Captive_Portal"><span class="FM_PMS646">“Captive Portal Authentication”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_12010_Optional_Captive"><span class="FM_PMS646">“Optional Captive Portal Configurations”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF__Toc80169189"><span class="FM_PMS646">“Personalizing the Captive Portal Page”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_12090_Creating_Walled"><span class="FM_PMS646">“Creating Walled Garden Access”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Captive_Portal_Overview"></a><a name="XREF_70244_Captive_Portal"></a>Captive Portal Overview</p>
+ <p class="FM_Body">You can configure captive portal for guest users, where no authentication is required, or for registered users who must be authenticated against an external server or the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 538.88pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 466.877pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">While you can use captive portal to authenticate users, it does not provide for encryption of user data and should not be used in networks where data security is required. Captive portal is most often used for guest access, access to open systems (such as public hot spots), or as a way to connect to a VPN.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You can use captive portal for guest and registered users at the same time. The default captive portal web page provided with <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;displays login prompts for both registered users and guests. (You can customize the default captive portal page, as described in <a href="#XREF__Toc80169189"><span class="FM_PMS646">“Personalizing the Captive Portal Page” </span></a>) </p>
+ <p class="FM_Body">You can also load up to 16 different customized login pages into the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The login page displayed is based on the SSID to which the client associates.</p>
+ <p class="FM_2Heading"><a name="TOC_Policy_Enforcement"></a>Policy Enforcement Firewall Next Generation (PEFNG) License</p>
+ <p class="FM_Body">You can use captive portal with or without the PEFNG license installed in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The PEFNG license provides identity-based security to wired and wireless clients through user roles and firewall rules. You must purchase and install the PEFNG license on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to use identity-based security features.</p>
+ <p class="FM_Body">There are differences in how captive portal functions work and how you configure captive portal, depending on whether the license is installed. Later sections in this chapter describe how to configure captive portal in the base operating system (without the PEFNG license) and with the license installed.</p>
+ <p class="FM_2Heading"><a name="TOC_Controller_Server"></a><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Server Certificate</p>
+ <p class="FM_Body">The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is designed to provide secure services through the use of digital certificates. A server certificate installed in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;verifies the authenticity of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for captive portal.</p>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;ship with a demonstration digital certificate. Until you install a customer-specific server certificate in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, this demonstration certificate is used by default for all secure HTTP connections such as captive portal. This certificate is included primarily for the purposes of feature demonstration and convenience and is not intended for long-term use in production networks. Users in a production environment are urged to obtain and install a certificate issued for their site or domain by a well-known certificate authority (CA). You can generate a Certificate Signing Request (CSR) on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to submit to a CA. For information on how to generate a CSR and how to import the CA-signed certificate into the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, see <a href="Network_Parameters.htm#XREF_54310_Creating_and"><span class="FM_PMS646">“Managing Certificates”</span></a>&#160;in <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 33, “Management Access” </span></a>.</p>
+ <p class="FM_Body">Once you have imported a server certificate into the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can select the certificate to be used with captive portal as described in the following sections.</p>
+ <p class="FM_Body">To select a certificate for captive portal using the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt; General</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Captive Portal Certificate, select the name of the imported certificate from the drop-down list.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To select a certificate for captive portal using the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">web-server</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;captive-portal-cert &lt;certificate&gt;</p>
+ <p class="FM_Body">To specify a different server certificate for captive portal with the CLI, use the <span style="font-weight : bold; ">no</span>&#160;command to revert back to the default certificate <span style="font-style : italic; ">before</span> you specify the new certificate:</p>
+ <p class="FM_CLIIndented">web-server</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>captive-portal-cert ServerCert1</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>no captive-portal-cert</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>captive-portal-cert ServerCert2</p>
+ <p class="FM_1Heading"><a name="TOC_Captive_Portal_in_the"></a><a name="XREF_83172_Captive_Portal_in"></a>Captive Portal in the Base <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?></p>
+ <p class="FM_Body">The base operating system (<?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;without any licenses) allows full network access to all users who connect to an ESSID, both guest and registered users. In the base operating system, you cannot configure or customize user roles; this function is only available by installing the PEFNG license. Captive portal allows you to control or identify who has access to network resources. </p>
+ <p class="FM_Body">When you create a captive portal profile in the base operating system, an implicit user role is automatically created with same name as the captive portal profile. This implicit user role allows only DNS and DHCP traffic between the client and network and directs all HTTP or HTTPS requests to the captive portal. You cannot directly modify the implicit user role or its rules. Upon authentication, captive portal clients are allowed full access to their assigned VLAN.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 538.88pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 466.877pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote"><a name="IX_wizard_wlan"></a>The WLAN Wizard within the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;WebUI allows for basic captive portal configuration for WLANs associated with the “default” ap-group: <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Wizards &gt; WLAN Wizard</span>. Follow the steps in the workflow pane within the wizard and refer to the help tab for assistance. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">What follows are the tasks for configuring captive portal in the base <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>. The example server group and profile names appear inside quotation marks. </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Create the Server Group name. In this example, the server group name is “cp-srv”.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">If you are configuring captive portal for registered users, configure the server(s) and create the server group. For more information about configuring authentication servers and server groups, see <a href="Management_Utilities.htm#XREF_16302_Management_Access"><span class="FM_PMS646">Chapter 9, “Authentication Servers” </span></a>.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a name="XREF_40282_2_Create_Captive"></a>Create Captive Portal Authentication Profile. In this example, the profile name is “c-portal”.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure an instance of the captive portal authentication profile. Creating the captive portal profile automatically creates an implicit user role and ACL with the same name. Creating the profile “c-portal” creates an implicit user role called “c-portal”. That user role allows only DNS and DHCP traffic between the client and network and directs all HTTP or HTTPS requests to the captive portal.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a name="XREF_20941_3_Create_an_AAA"></a>Create an AAA Profile. In this example, the profile name is “aaa_c-portal”.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure an instance of the AAA profile. For the initial role, enter the implicit user role that was created in <a href="#XREF_40282_2_Create_Captive"><span class="FM_PMS646">step&#160;l</span></a>. The initial role in the profile “aaa_c-portal” must be set to “c-portal”.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Create SSID Profile. In this example, the profile name is “ssid_c-portal”. </p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure an instance of the virtual AP profile which you apply to an AP group or AP name. Specify the AAA profile you created in <a href="#XREF_20941_3_Create_an_AAA"><span class="FM_PMS646">step&#160;l</span></a>. </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Create a Virtual AP Profile. In this example, the profile name is “vp_c-portal”. </p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure an instance of the SSID profile for the virtual AP.</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">The following sections present the procedure for configuring the captive portal authentication profile, the AAA profile, and the virtual AP profile using the WebUI or the command line (CLI). Configuring the VLAN and authentication servers and server groups are described elsewhere in this document.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 538.88pt;" cellspacing="0">
+  <tr style=" height : 67.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 466.877pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">In <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;2.5.2 and later 2.5.x releases, captive portal users in the base operating system are placed into the predefined <span style="font-style : italic; ">cpbase</span>&#160;initial user role before authentication. The <span style="font-style : italic; ">cpbase</span>&#160;role is not supported in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;3.x. You need to create new captive portal profiles in the base operating system, as described in this section, which automatically generates the required policies and roles.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Captive"></a>Configuring Captive Portal via the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; L3 Authentication </span>page. Select Captive Portal Authentication Profile.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Captive Portal Authentication Profile Instance list, enter the name of the profile (for example, <span style="font-weight : bold; ">c-portal</span>), then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the captive portal authentication profile you just created.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>You can enable user login and/or guest login, and configure other captive portal profile parameters as described in <a href="VirtualAPs.htm#XREF_15337_Access_Points"><span class="FM_PMS646">Table 63</span></a>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To specify authentication servers, select Server Group under the captive portal authentication profile you just configured. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the server group (for example, <span style="font-weight : bold; ">cp-srv</span>) from the drop-down menu. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">AAA Profiles</span> tab.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the AAA Profiles Summary, click <span style="font-weight : bold; ">Add</span>&#160;to add a new profile. Enter the name of the profile (for example, <span style="font-weight : bold; ">aaa_c-portal</span>), then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the AAA profile you just created.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Initial Role, select the captive portal authentication profile (for example, <span style="font-weight : bold; ">c-portal</span>) you created previously.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 538.88pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 466.877pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">The Initial Role must be exactly the same as the name of the captive portal authentication profile you created.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepSubNext"></p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration</span>&#160;page. Select either the AP Group or AP Specific tab. Click <span style="font-weight : bold; ">Edit</span> for the applicable AP group name or AP name.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Profiles, select Wireless LAN, then select Virtual AP. </p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To create a new virtual AP profile, select NEW from the Add a profile drop-down menu. Enter the name for the virtual AP profile (for example, <span style="font-weight : bold; ">vp_c-portal</span>), then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Profile Details entry for the new virtual AP profile, select the AAA profile you previously created from the AAA Profile drop-down menu. A pop-up window displays the configured AAA profile parameters. Click <span style="font-weight : bold; ">Apply</span> in the pop-up window.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the SSID profile drop-down menu, select NEW. A pop-up window allows to you configure the SSID profile.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name for the SSID profile (for example, <span style="font-weight : bold; ">ssid_c-portal</span>).</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the Network Name for the SSID (for example, <span style="font-weight : bold; ">c-portal-ap</span>).</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> in the pop-up window.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>At the bottom of the Profile Details page, click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click on the new virtual AP name in the Profiles list or in Profile Details to display configuration parameters. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Make sure Virtual AP enable is selected. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For VLAN, select the VLAN to which users are assigned (for example, <span style="font-weight : bold; ">20</span>). </p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Captive1"></a>Configuring Captive Portal via the CLI</p>
+ <p class="FM_Body">To configure captive portal in the base operating system via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">aaa authentication captive-portal c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;server-group cp-srv</p>
+ <p class="FM_CLIIndented">aaa profile aaa_c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;initial-role c-portal</p>
+ <p class="FM_CLIIndented">wlan ssid-profile ssid_c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;essid c-portal-ap</p>
+ <p class="FM_CLIIndented">wlan virtual-ap vp_c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;aaa-profile aaa_c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ssid-profile ssid_c-portal<br />&nbsp;&nbsp;&nbsp;vlan 20</p>
+ <p class="FM_1Heading"><a name="TOC_Captive_Portal_with_the"></a><a name="XREF_29982_Captive_Portal"></a>Captive Portal with the PEFNG License</p>
+ <p class="FM_Body">The PEFNG license provides identity-based security for wired and wireless users. There are two user roles that are important for captive portal:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Default user role, which you specify in the captive portal authentication profile, is the role granted to clients upon captive portal authentication. This can be the predefined <span style="font-weight : bold; ">guest</span> system role.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Initial user role, which you specify in the AAA profile, directs clients who associate to the SSID to captive portal whenever the user initiates a Web browser connection. This can be the predefined <span style="font-weight : bold; ">logon</span>&#160;system role.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">The captive portal authentication profile specifies the captive portal login page and other configurable parameters. The initial user role configuration must include the applicable captive portal authentication profile instance. </p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 539.81pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 467.814pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">MAC-based authentication, if enabled on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, takes precedence over captive portal authentication. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body">The following are the basic tasks for configuring captive portal using role-based access provided by the Policy Enforcement Firewall software module. Note that you must install the PEFNG license before proceeding (see <a href="Internal_Captive_Portal.htm#XREF_98100_Title_of_Chapter"><span class="FM_PMS646">Chapter 35, “Software Licenses” </span></a>).</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Configure the user role for a default user.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure user roles and policies for guest or registered captive portal users. (See <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 12, “Roles and Policies” </span></a> for more information about configuring policies and user roles.)</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Create a server group.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">If you are configuring captive portal for registered users, configure the server(s) and create the server group. (See <a href="Management_Utilities.htm#XREF_16302_Management_Access"><span class="FM_PMS646">Chapter 9, “Authentication Servers” </span></a>for more information about configuring authentication servers and server groups.)</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 539.81pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 467.814pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote"><span style="color   : #000000; ">If you are using the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database for user authentication, use the predefined “Internal” server group. You need to configure entries in the internal database, as described in </span><a href="Management_Utilities.htm#XREF_16302_Management_Access"><span class="FM_PMS646">Chapter 9, “Authentication Servers” </span></a><span style="color   : #000000; ">.</span></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_BodyinBulletStep"></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Create the captive portal authentication profile.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure an instance of the captive portal authentication profile. Specify the default user role for captive portal users.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Configure the initial user role.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure the initial user role for captive portal. You need to include the predefined <span style="font-weight : bold; ">captiveportal</span> policy, which directs clients to the captive portal, in the initial user role configuration.</p>
+ <p class="FM_BodyinBulletStep">You also need to specify the captive portal authentication profile instance in the initial user role configuration. For example, if you are using the predefined <span style="font-weight : bold; ">logon</span>&#160;system role for the initial role, you need to edit the role to specify the captive portal authentication profile instance.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Create the AAA Profile.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure an instance of the AAA profile. Specify the initial user role.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Create the SSID Profile “ssid_c-portal”.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure an instance of the virtual AP profile that you apply to an AP group or AP name. Specify the AAA profile you just created.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Create the Virtual AP Profile “vp_c-portal”.</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Create and configure an instance of the SSID profile for the virtual AP. </p>
+ <p class="FM_Body">The following sections present the WebUI and Command Line (CLI) procedures for configuring the captive portal authentication profile, initial user role, the AAA profile, and the virtual AP profile. Other chapters within this document detail the configuration of the user roles and policies, authentication servers, and server groups.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Captive2"></a>Configuring Captive Portal via the WebUI</p>
+ <p class="FM_Body">To configure captive portal with PEFNG license via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; L3 Authentication </span>page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select Captive Portal Authentication Profile.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Captive Portal Authentication Profile Instance list, enter the name of the profile (for example, <span style="font-weight : bold; ">c-portal</span>), then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the captive portal authentication profile you just created.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the default role (for example, <span style="font-weight : bold; ">employee</span>) for captive portal users.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enable guest login and/or user login, as well as other parameters (refer to <a href="VirtualAPs.htm#XREF_15337_Access_Points"><span class="FM_PMS646">Table 63</span></a>).</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To specify the authentication servers, select Server Group under the captive portal authentication profile you just configured.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the server group (for example, <span style="font-weight : bold; ">cp-srv</span>) from the drop-down menu.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">AAA Profiles</span> tab.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the AAA Profiles Summary, click <span style="font-weight : bold; ">Add</span>&#160;to add a new profile. Enter the name of the profile (for example, <span style="font-weight : bold; ">aaa_c-portal</span>), then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Set the Initial role to a role that you will configure with the captive portal authentication profile.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt; Access Control</span>&#160;page to configure the initial user role to use captive portal authentication. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To edit the predefined logon role, select the <span style="font-weight : bold; ">System Roles</span>&#160;tab, then click <span style="font-weight : bold; ">Edit</span> for the logon role.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure a new role, first configure policy rules in the <span style="font-weight : bold; ">Policies</span>&#160;tab, then select the <span style="font-weight : bold; ">User Roles</span>&#160;tab to add a new user role and assign policies.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To specify the captive portal authentication profile, scroll down to the bottom of the page. Select the profile from the Captive Portal Profile drop-down menu, and click <span style="font-weight : bold; ">Change</span>. </p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration</span>&#160;page to configure the virtual AP profile. </p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select either the AP Group or AP Specific tab. Click <span style="font-weight : bold; ">Edit</span> for the applicable AP group name or AP name.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Profiles, select Wireless LAN, then select Virtual AP. </p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select NEW from the Add a profile drop-down menu to create a new virtual AP profile. Enter the name for the virtual AP profile (for example, <span style="font-weight : bold; ">vp_c-portal</span>), then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Profile Details entry for the new virtual AP profile, select the AAA profile you previously configured. A pop-up window displays the configured AAA profile parameters. Click <span style="font-weight : bold; ">Apply</span>&#160;in the pop-up window.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the SSID profile drop-down menu, select NEW. A pop-up window allows you to configure the SSID profile.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name for the SSID profile (for example, <span style="font-weight : bold; ">ssid_c-portal</span>).</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the Network Name for the SSID (for example, <span style="font-weight : bold; ">c-portal-ap</span>).</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> in the pop-up window.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>At the bottom of the Profile Details page, click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click on the new virtual AP name in the Profiles list or in Profile Details to display configuration parameters. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Make sure Virtual AP enable is selected. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For VLAN, select the VLAN to which users are assigned (for example, <span style="font-weight : bold; ">20</span>). </p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Captive3"></a>Configuring Captive Portal via the CLI</p>
+ <p class="FM_Body">To configure captive portal with the PEFNG license via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">aaa authentication captive-portal c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;default-role employee</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;server-group cp-srv</p>
+ <p class="FM_CLIIndented">user-role logon</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;captive-portal c-portal</p>
+ <p class="FM_CLIIndented">aaa profile aaa_c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;initial-role logon</p>
+ <p class="FM_CLIIndented">wlan ssid-profile ssid_c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;essid c-portal-ap</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;vlan 20</p>
+ <p class="FM_CLIIndented">wlan virtual-ap vp_c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;aaa-profile aaa_c-portal</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ssid-profile ssid_c-portal</p>
+ <p class="FM_1Heading"><a name="TOC_Example_Authentication"></a><a name="XREF_77275_Example"></a>Example Authentication with Captive Portal</p>
+ <p class="FM_Body"><a name="IX_captive_portal"></a>In the following example:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Guest clients associate to the <span style="font-weight : bold; ">guestnet</span>&#160;SSID which is an open wireless LAN. Guest clients are placed into VLAN 900 and assigned IP addresses by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal DHCP server. The user has no access to network resources beyond DHCP and DNS until they open a web browser and log in with a guest account using captive portal.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Guest users are given a login and password from guest accounts created in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database. The temporary guest accounts are created and administered by the site receptionist.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Guest users must enter their assigned login and password into the captive portal login before they are given access to use web browsers (HTTP and HTTPS), POP3 email clients, and VPN clients (IPsec, PPTP, and L2TP) on the Internet and only during specified working hours. Guest users are prohibited from accessing internal networks and resources. All traffic to the Internet is source-NATed.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 539.81pt;" cellspacing="0">
+   <tr style=" height : 40.00pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 467.814pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zTextNote">This example assumes a Policy Enforcement Firewall Next Generation (PEFNG) license is installed in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_Body">In this example, you create two user roles:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">guest-logon</span>&#160;is a user role assigned to any client who associates to the guestnet SSID. Normally, any client that associates to an SSID will be placed into the <span style="font-style : italic; ">logon</span>&#160;system role. The <span style="font-weight : bold; ">guest-logon</span>&#160;user role is more restrictive than the logon role.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">auth-guest</span>&#160;is a user role granted to clients who successfully authenticate via the captive portal. </p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Creating_a_Guest_logon"></a>Creating a Guest-logon User Role</p>
+ <p class="FM_Body">The <span style="font-weight : bold; ">guest-logon</span> user role consists of the following ordered policies:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">captiveportal</span> is a predefined policy that allows captive portal authentication.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">guest-logon-access</span> is a policy that you create with the following rules:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Allows DHCP exchanges between the user and the DHCP server during business hours while blocking other users from responding to DHCP requests.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Allows ICMP exchanges between the user and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> during business hours.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">block-internal-access</span> is a policy that you create that denies user access to the internal networks.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 539.81pt;" cellspacing="0">
+   <tr style=" height : 54.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 467.814pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zTextNote">The <span style="font-weight : bold; ">guest-logon</span>&#160;user role configuration needs to include the name of the captive portal authentication profile instance. You can modify the user role configuration after you create the captive portal authentication profile instance.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Creating_an_Auth_guest"></a>Creating an Auth-guest User Role</p>
+ <p class="FM_Body">The <span style="font-weight : bold; ">auth-guest</span> user role consists of the following ordered policies:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">cplogout</span> is a predefined policy that allows captive portal logout.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">guest-logon-access</span> is a policy that you create with the following rules:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Allows DHCP exchanges between the user and the DHCP server during business hours while blocking other users from responding to DHCP requests.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Allows DNS exchanges between the user and the public DNS server during business hours. Traffic is source-NATed using the IP interface of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for the VLAN.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">block-internal-access</span> is a policy that you create that denies user access to the internal networks.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">auth-guest-access</span> is a policy that you create with the following rules:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Allows DHCP exchanges between the user and the DHCP server during business hours while blocking other users from responding to DHCP requests.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Allows DNS exchanges between the user and the public DNS server during business hours. Traffic is source-NATed using the IP interface of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for the VLAN.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Allows HTTP/S traffic from the user during business hours. Traffic is source-NATed using the I interface of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for the VLAN.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">drop-and-log</span> is a policy that you create that denies all traffic and logs the attempted network access.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Policies_and"></a>Configuring Policies and Roles in the WebUI </p>
+ <p class="FM_3Heading"><a name="TOC_Time_Range"></a>Time Range</p>
+ <p class="FM_Body">To create a time range via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Time Ranges</span>&#160;page to define the time range “working-hours”.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Name, enter <span style="font-weight : bold; ">working-hours</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Type, select <span style="font-weight : bold; ">Periodic</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Start Day, click <span style="font-weight : bold; ">Weekday</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Start Time, enter <span style="font-weight : bold; ">07:30</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>For End Time, enter <span style="font-weight : bold; ">17:00</span>.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To create the guest-logon-access policy via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies </span>page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span class="FM_Bold" style="font-weight : bold; ">Add</span> to add the guest-logon-access policy.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Name, enter <span style="font-weight : bold; ">guest-logon-access</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Type, select <span style="font-weight : bold; ">IPv4 Session</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, select <span style="font-weight : bold; ">Add</span> to add rules for the policy.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">user</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">udp</span>. Enter <span style="font-weight : bold; ">68</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">drop</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">service</span>. Select <span style="font-weight : bold; ">svc-dhcp</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">permit</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Time Range, select <span style="font-weight : bold; ">working-hours</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Aliases"></a>Aliases</p>
+ <p class="FM_Body">The following step defines an alias representing the public DNS server addresses. Once defined, you can use the alias for other rules and policies.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies </span>page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span class="FM_Bold" style="font-weight : bold; ">Add</span> to add the guest-logon-access policy.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Name, enter <span style="font-weight : bold; ">guest-logon-access</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Type, select <span style="font-weight : bold; ">IPv4 Session</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">user</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">alias</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the alias selection, click <span style="font-weight : bold; ">New</span>. For Destination Name, enter “Public DNS”. Click <span style="font-weight : bold; ">Add</span>&#160;to add a rule. For Rule Type, select <span style="font-weight : bold; ">host</span>. For IP Address, enter 64.151.103.120. Click <span style="font-weight : bold; ">Add</span>. For Rule Type, select <span style="font-weight : bold; ">host</span>. For IP Address, enter 216.87.84.209. Click <span style="font-weight : bold; ">Add</span>. Click <span style="font-weight : bold; ">Apply</span>. The alias “Public DNS” appears in the Destination menu</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select Public DNS.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">svc-dns</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">src-nat</span>.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Time Range, select <span style="font-weight : bold; ">working-hours</span>.</p>
+ <p class="FM_StepSubNext">h.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Auth_Guest_Access_Policy"></a>Auth-Guest-Access Policy</p>
+ <p class="FM_Body">To configure the auth-guest-access policy via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies </span>page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span class="FM_Bold" style="font-weight : bold; ">Add</span> to add the guest-logon-access policy.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Name, enter <span style="font-weight : bold; ">auth-guest-access</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Type, select <span style="font-weight : bold; ">IPv4 Session</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, select <span style="font-weight : bold; ">Add</span> to add rules for the policy.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">user</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">udp</span>. Enter <span style="font-weight : bold; ">68</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">drop</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">service</span>. Select <span style="font-weight : bold; ">svc-dhcp</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">permit</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Time Range, select <span style="font-weight : bold; ">working-hours</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">user</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">alias</span>. Select <span style="font-weight : bold; ">Public DNS</span> from the drop-down menu.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">service</span>. Select <span style="font-weight : bold; ">svc-dns</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">src-nat</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Time Range, select <span style="font-weight : bold; ">working-hours</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">user</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">service</span>. Select <span style="font-weight : bold; ">svc-http</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">src-nat</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Time Range, select <span style="font-weight : bold; ">working-hours</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">user</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">service</span>. Select <span style="font-weight : bold; ">svc-https</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">src-nat</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Time Range, select <span style="font-weight : bold; ">working-hours</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Block_Internal_Access"></a>Block-Internal-Access Policy</p>
+ <p class="FM_Body">To create the block-internal-access policy via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies </span>page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span class="FM_Bold" style="font-weight : bold; ">Add</span> to add the block-internal-access policy.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Name, enter <span style="font-weight : bold; ">block-internal-access</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Type, select <span style="font-weight : bold; ">IPv4 Session</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, select <span style="font-weight : bold; ">Add</span> to add rules for the policy.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">user</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">alias</span>.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 538.88pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 466.877pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">The following step defines an alias representing all internal network addresses. Once defined, you can use the alias for other rules and policies.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the alias selection, click <span style="font-weight : bold; ">New</span>. For Destination Name, enter “Internal Network”. Click <span style="font-weight : bold; ">Add</span>&#160;to add a rule. For Rule Type, select <span style="font-weight : bold; ">network</span>. For IP Address, enter 10.0.0.0. For Network Mask/Range, enter 255.0.0.0. Click <span style="font-weight : bold; ">Add</span>&#160;to add the network range. Repeat these steps to add the network ranges 172.16.0.0 255.255.0.0 and 192.168.0.0 255.255.0.0. Click <span style="font-weight : bold; ">Apply</span>. The alias “Internal Network” appears in the Destination menu</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select Internal Network.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">drop</span>.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Drop_and_Log_Policy"></a>Drop-and-Log Policy</p>
+ <p class="FM_Body">To create the drop-and-log policy via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies </span>page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span class="FM_Bold" style="font-weight : bold; ">Add</span> to add the drop-and-log policy.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Name, enter <span style="font-weight : bold; ">drop-and-log</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Policy Type, select <span style="font-weight : bold; ">IPv4 Session</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Rules, select <span style="font-weight : bold; ">Add</span> to add rules for the policy.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Source, select <span style="font-weight : bold; ">user</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Destination, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Service, select <span style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Action, select <span style="font-weight : bold; ">drop</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Log</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click Apply.</p>
+ <p class="FM_3Heading"><a name="TOC_Guest_logon_Role"></a>Guest-logon Role</p>
+ <p class="FM_Body">To create the guest-logon role via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; User Roles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Role Name, enter guest-logon.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Choose from Configured Policies, select captiveportal from the drop-down menu.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Choose from Configured Policies, select guest-logon-access from the drop-down menu.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>For Choose from Configured Policies, select block-internal-access from the drop-down menu.</p>
+ <p class="FM_StepNext">12.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_StepNext">13.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Guest_Logon_Role1"></a>Guest-Logon Role</p>
+ <p class="FM_Body">To create the guest-logon role via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; User Roles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Role Name, enter auth-guest.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Choose from Configured Policies, select cplogout from the drop-down menu.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Choose from Configured Policies, select guest-logon-access from the drop-down menu.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>For Choose from Configured Policies, select block-internal-access from the drop-down menu.</p>
+ <p class="FM_StepNext">12.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_StepNext">13.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">14.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>For Choose from Configured Policies, select auth-guest-access from the drop-down menu.</p>
+ <p class="FM_StepNext">15.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_StepNext">16.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Under Firewall Policies, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">17.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>For Choose from Configured Policies, select drop-and-log from the drop-down menu.</p>
+ <p class="FM_StepNext">18.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Done</span>.</p>
+ <p class="FM_StepNext">19.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Policies_and1"></a>Configuring Policies and Roles in the CLI</p>
+ <p class="FM_3Heading"><a name="TOC_Time_Range1"></a>Time Range</p>
+ <p class="FM_Body">To create a time range via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">time-range working-hours periodic</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;weekday 07:30 to 17:00</p>
+ <p class="FM_3Heading"><a name="TOC_Aliases1"></a>Aliases</p>
+ <p class="FM_Body">To create aliases via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">netdestination “Internal Network”<br />&nbsp;&nbsp;&nbsp;network 10.0.0.0 255.0.0.0<br />&nbsp;&nbsp;&nbsp;network 172.16.0.0 255.255.0.0</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;network 192.168.0.0 255.255.0.0</p>
+ <p class="FM_CLIIndented">netdestination “Public DNS”</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;host 64.151.103.120</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;host 216.87.84.209</p>
+ <p class="FM_3Heading"><a name="TOC_Guest_Logon_Access_Policy"></a>Guest-Logon-Access Policy</p>
+ <p class="FM_Body">To create a guest-logon-access policy via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">ip access-list session guest-logon-access</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any udp 68 deny</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;any any svc-dhcp permit time-range working-hours</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user alias “Public DNS” svc-dns src-nat time-range working-hours</p>
+ <p class="FM_3Heading"><a name="TOC_Auth_Guest_Access_Policy1"></a>Auth-Guest-Access Policy</p>
+ <p class="FM_Body">To create an auth-guest-access policy via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">ip access-list session auth-guest-access</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any udp 68 deny</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;any any svc-dhcp permit time-range working-hours</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user alias “Public DNS” svc-dns src-nat time-range working-hours</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any svc-http src-nat time-range working-hours</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any svc-https src-nat time-range working-hours</p>
+ <p class="FM_3Heading"><a name="TOC_Block_Internal_Access1"></a>Block-Internal-Access Policy</p>
+ <p class="FM_Body">To create a block-internal-access policy via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">ip access-list session block-internal-access</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user alias “Internal Network” any deny</p>
+ <p class="FM_3Heading"><a name="TOC_Drop_and_Log_Policy1"></a>Drop-and-Log Policy</p>
+ <p class="FM_Body">To create a drop-and-log policy via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">ip access-list session drop-and-log</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any any deny log</p>
+ <p class="FM_3Heading"><a name="TOC_Guest_Logon_Role2"></a>Guest-Logon Role</p>
+ <p class="FM_Body">To create a guest-logon-role via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">user-role guest-logon<br />&nbsp;&nbsp;&nbsp;session-acl captiveportal position 1<br />&nbsp;&nbsp;&nbsp;session-acl guest-logon-access position 2</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;session-acl block-internal-access position 3</p>
+ <p class="FM_3Heading"><a name="TOC_Auth_Guest_Role"></a>Auth-Guest Role</p>
+ <p class="FM_Body">To create an auth-guest role via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">user-role auth-guest<br />&nbsp;&nbsp;&nbsp;session-acl cplogout position 1<br />&nbsp;&nbsp;&nbsp;session-acl guest-logon-access position 2</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;session-acl block-internal-access position 3</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;session-acl auth-guest-access position 4</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;session-acl drop-and-log position 5</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Guest_VLANs"></a><a name="XREF_81699_Guest_VLANs"></a>Configuring Guest VLANs</p>
+ <p class="FM_Body">Guests using the WLAN are assigned to VLAN 900 and are given IP addresses via DHCP from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI68"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; VLANs</span> page.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For VLAN ID, enter 900.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt; IP Interfaces </span>page.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Edit</span> for VLAN 900.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For IP Address, enter 192.168.200.20.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Net Mask, enter 255.255.255.0.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">DHCP Server</span> tab.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select Enable DHCP Server.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> under Pool Configuration.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Pool Name, enter <span style="font-weight : bold; ">guestpool</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Default Router, enter 192.168.200.20.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For DNS Server, enter 64.151.103.120.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>For Lease, enter 4 hours.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Network, enter 192.168.200.0. For Netmask, enter 255.255.255.0.</p>
+ <p class="FM_StepSubNext">h.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Done.</span></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI70"></a>In the CLI</p>
+ <p class="FM_CLIIndented">vlan 900</p>
+ <p class="FM_CLIIndented">interface vlan 900</p>
+ <p class="FM_CLIIndented">ip address 192.168.200.20 255.255.255.0</p>
+ <p class="FM_CLIIndented">ip dhcp pool &quot;guestpool&quot;</p>
+ <p class="FM_CLIIndented">default-router 192.168.200.20</p>
+ <p class="FM_CLIIndented">dns-server 64.151.103.120</p>
+ <p class="FM_CLIIndented">lease 0 4 0</p>
+ <p class="FM_CLIIndented">network 192.168.200.0 255.255.255.0</p>
+ <p class="FM_1Heading"><a name="TOC_Captive_Portal1"></a><a name="XREF_99347_Captive_Portal"></a>Captive Portal Authentication</p>
+ <p class="FM_Body">In this section, you create an instance of the captive portal authentication profile and the AAA profile. For the captive portal authentication profile, you specify the previously-created <span style="font-weight : bold; ">auth-guest</span>&#160;user role as the default user role for authenticated captive portal clients and the authentication server group (“Internal”).</p>
+ <p class="FM_Body">To configure captive portal authentication via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; L3 Authentication </span>page. In the Profiles list, select Captive Portal Authentication Profile.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Captive Portal Authentication Profile Instance list, enter <span style="font-weight : bold; ">guestnet</span>&#160;for the name of the profile, then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the captive portal authentication profile you just created.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Default Role, select <span style="font-weight : bold; ">auth-guest</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select User Login.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Deselect (uncheck) Guest Login.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Server Group</span>&#160;under the <span style="font-weight : bold; ">guestnet</span> captive portal authentication profile you just created.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">internal</span>&#160;from the Server Group drop-down menu. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To configure captive portal authentication via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">aaa authentication captive-portal guestnet</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;default-role auth-guest</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user-logon</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;no guest-logon</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;server-group internal</p>
+ <p class="FM_2Heading"><a name="TOC_Modifying_the_Initial"></a>Modifying the Initial User Role</p>
+ <p class="FM_Body">The captive portal authentication profile specifies the captive portal login page and other configurable parameters. The initial user role configuration must include the applicable captive portal authentication profile instance. Therefore, you need to modify the <span style="font-weight : bold; ">guest-logon</span>&#160;user role configuration to include the <span style="font-weight : bold; ">guestnet</span> captive portal authentication profile.</p>
+ <p class="FM_Body">To modify the guest-logon role via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; User Roles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Edit</span> for the guest-logon role.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Scroll down to the bottom of the page. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the captive portal authentication profile you just created from the Captive Portal Profile drop-down menu, and click <span style="font-weight : bold; ">Change</span>. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To modify the guest-logon role via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">user-role guest-logon<br />&nbsp;&nbsp;&nbsp;captive-portal guestnet</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_AAA1"></a>Configuring the AAA Profile</p>
+ <p class="FM_Body">In this section, you configure the <span style="font-weight : bold; ">guestnet</span>&#160;AAA profile, which specifies the previously-created <span style="font-weight : bold; ">guest-logon</span> role as the initial role for clients who associate to the WLAN.</p>
+ <p class="FM_Body">To configure the AAA profile via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; AAA Profiles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the AAA Profiles Summary, click <span style="font-weight : bold; ">Add</span>&#160;to add a new profile. Enter <span style="font-weight : bold; ">guestnet</span>&#160;for the name of the profile, then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Initial role, select guest-logon.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To configure the AAA profile via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">aaa profile guestnet</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;initial-role guest-logon</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_WLAN1"></a>Configuring the WLAN</p>
+ <p class="FM_Body">In this section, you create the <span style="font-weight : bold; ">guestnet</span>&#160;virtual AP profile for the WLAN. The <span style="font-weight : bold; ">guestnet</span>&#160;virtual AP profile contains the SSID profile <span style="font-weight : bold; ">guestnet</span>&#160;(which configures opensystem for the SSID) and the AAA profile <span style="font-weight : bold; ">guestnet</span>.</p>
+ <p class="FM_Body">To configure the guest WLAN via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select either AP Group or AP Specific tab. Click <span style="font-weight : bold; ">Edit</span> for the AP group or AP name.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure the virtual AP profile, navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration</span>&#160;page. Select either the AP Group or AP Specific tab. Click <span style="font-weight : bold; ">Edit</span>&#160;for the applicable AP group name or AP name.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Profiles, select Wireless LAN, then select Virtual AP. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To create a new virtual AP profile, select NEW from the Add a profile drop-down menu. Enter the name for the virtual AP profile (for example, <span style="font-weight : bold; ">guestnet</span>), and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Profile Details entry for the new virtual AP profile, select the AAA profile you previously configured. A pop-up window displays the configured AAA profile parameters. Click <span style="font-weight : bold; ">Apply</span>&#160;in the pop-up window.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the SSID profile drop-down menu, select NEW. A pop-up window allows you to configure the SSID profile.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name for the SSID profile (for example, <span style="font-weight : bold; ">guestnet</span>).</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the Network Name for the SSID (for example, <span style="font-weight : bold; ">guestnet</span>).</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Network Authentication, select None.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>For Encryption, select Open.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> in the pop-up window.</p>
+ <p class="FM_StepSubNext">h.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>At the bottom of the Profile Details page, click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click on the new virtual AP name in the Profiles list or in Profile Details to display configuration parameters.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Make sure Virtual AP enable is selected. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For VLAN, select the ID of the VLAN in which captive portal users are placed (for example, VLAN <span style="font-weight : bold; ">900)</span>. </p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To configure the guest WLAN via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">wlan ssid-profile guestnet</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;essid guestnet</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;opmode opensystem</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">aaa profile guestnet</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;initial-role guest-logon</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">wlan virtual-ap guestnet</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;vlan 900</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;aaa-profile guestnet</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;ssid-profile guestnet</p>
+ <p class="FM_2Heading"><a name="TOC_User_Account"></a>User Account Administration</p>
+ <p class="FM_Body">Temporary user accounts are created in the internal database on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can create a user role which will allow a receptionist to create temporary user accounts. Guests can use the accounts to log into a captive portal login page to gain Internet access.</p>
+ <p class="FM_Body">See <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">“Creating Guest Accounts” </span></a>&#160;for more information about configuring guest provisioning users and administering guest accounts.</p>
+ <p class="FM_2Heading"><a name="TOC_Captive_Portal2"></a><a name="XREF_23596_Captive_Portal"></a>Captive Portal Configuration Parameters</p>
+ <p class="FM_Body"><a href="VirtualAPs.htm#XREF_15337_Access_Points"><span class="FM_PMS646">Table 63</span></a> describes configuration parameters on the WebUI Captive Portal Authentication profile page.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.75pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.752pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">In the CLI, you configure these options with the <span style="font-weight : bold; ">aaa authentication captive-portal</span> commands.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.17pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 63 &#160;</span><a name="XREF_78320_Table11_1_Captive"></a>Captive Portal Authentication Profile Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 74.350pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 393.823pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Black List </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Name of an existing black list on an IPv4 or IPv6 network destination. The black list contains websites (unauthenticated) that a guest cannot access.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Default Guest Role </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Role assigned to guest.</p>
+  <p class="FM_TableBody">Default: guest</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Default Role </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Role assigned to the Captive Portal user upon login. When both user and guest logon are enabled, the default role applies to the user logon; users logging in using the guest interface are assigned the guest role.</p>
+  <p class="FM_TableBody">Default: guest</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Show Welcome Page </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Displays the configured welcome page before the user is redirected to their original URL. If this option is disabled, redirection to the web URL happens immediately after the user logs in.</p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Guest Login </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables Captive Portal logon without authentication.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Login Page </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">URL of the page that appears for the user logon. This can be set to any URL.</p>
+  <p class="FM_TableBody">Default: /auth/index.html</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logon wait maximum wait </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Configure parameters for the logon wait interval </p>
+  <p class="FM_TableBody">Default: 10 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logon wait CPU utilization threshold </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">CPU utilization percentage above which the Logon wait interval is applied when presenting the user with the logon page.</p>
+  <p class="FM_TableBody">Default: 60%</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logon wait minimum wait </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Minimum time, in seconds, the user will have to wait for the logon page to pop up if the CPU load is high. This works in conjunction with the Logon wait CPU utilization threshold parameter.</p>
+  <p class="FM_TableBody">Default: 5 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logout popout window </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables a pop-up window with the Logout link for the user to logout after logon. If this is disabled, the user remains logged in until the user timeout period has elapsed or the station reloads.</p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max Authentication failures </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum number of authentication failures before the user is blacklisted.</p>
+  <p class="FM_TableBody">Default: 0</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use HTTP for authentication </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use HTTP protocol on redirection to the Captive Portal page. If you use this option, modify the captive portal policy to allow HTTP traffic.</p>
+  <p class="FM_TableBody">Default: disabled (HTTPS is used)</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Redirect Pause </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time, in seconds, that the system remains in the initial welcome page before redirecting the user to the final web URL. If set to 0, the welcome page displays until the user clicks on the indicated link.</p>
+  <p class="FM_TableBody">Default: 10 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">server group </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Name of the group of servers used to authenticate Captive Portal users. </p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Show FDQN </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allows the user to see and select the fully-qualified domain name (FQDN) on the login page. The FQDNs shown are specified when configuring individual servers for the server group used with captive portal authentication.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Show Acceptable Use Policy Page</p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Show the acceptable use policy page before the logon page. </p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allow only one active user session </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allows only one active user session at a time.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 55.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Add switch IP address in redirection URL</p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Sends the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address in the redirection URL when external captive portal servers are used. An external captive portal server can determine the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from which a request originated by parsing the ‘switchip’ variable in the URL.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use CHAP (non-standard)</p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use CHAP protocol. You should not use this option unless instructed to do so by an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;representative.</p>
+  <p class="FM_TableBody">Default: Disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">User Logon </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables Captive Portal with authentication of user credentials.</p>
+  <p class="FM_TableBody">Default: Enabled</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">User VLAN Redirection-url</p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Sends the user’s VLAN ID in the redirection URL when external captive portal servers are used. </p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Welcome Page </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">URL of the page that appears after logon and before redirection to the web URL. This can be set to any URL.</p>
+  <p class="FM_TableBody">Default: /auth/welcome.html</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 74.350pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">White List </p>
+</td>
+  <td style="width : 393.823pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Name of an existing white list on an IPv4 or IPv6 network destination. The white list contains authenticated websites that a guest can access.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_1Heading"><a name="TOC_Optional_Captive_Portal"></a><a name="XREF_12010_Optional_Captive"></a>Optional Captive Portal Configurations</p>
+ <p class="FM_Body">The following are optional captive portal configurations:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_62580_Per_SSID_Captive"><span class="FM_PMS646">“Per-SSID Captive Portal Page”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_37625_Changing_the"><span class="FM_PMS646">“Changing the Protocol to HTTP” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_66378_Proxy_Server"><span class="FM_PMS646">“Proxy Server Redirect” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_55222_Redirecting"><span class="FM_PMS646">“Redirecting Clients on Different VLANs”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_47444_Web_Client"><span class="FM_PMS646">“Web Client Configuration with Proxy Script” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Per_SSID_Captive_Portal"></a><a name="XREF_62580_Per_SSID_Captive"></a>Per-SSID Captive Portal Page</p>
+ <p class="FM_Body"><a name="IX_per_SSID_configuration"></a>You can upload custom login pages for captive portal into the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;through the WebUI (refer to <a href="Internal_Captive_Portal.htm#XREF_98100_Title_of_Chapter"><span class="FM_PMS646">Appendix E, “Internal Captive Portal”</span></a>). The SSID to which the client associates determines the captive portal login page displayed.</p>
+ <p class="FM_Body">You specify the captive portal login page in the captive portal authentication profile, along with other configurable parameters. The initial user role configuration must include the applicable captive portal authentication profile instance. (In the case of captive portal in the base operating system, the initial user role is automatically created when you create the captive portal authentication profile instance.) You then specify the initial user role for captive portal in the AAA profile for the WLAN.</p>
+ <p class="FM_Body">When you have multiple captive portal login pages loaded in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you must configure a unique initial user role and user role, and captive portal authentication profile, AAA profile, SSID profile, and virtual AP profile for each WLAN that will use captive portal. For example, if you want to have different captive portal login pages for the engineering, business and faculty departments, you need to create and configure according to <a href="#XREF_67891_Table_2"><span class="FM_PMS646">Table 64</span></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.50pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 64 &#160;</span>Captive Portal login Pages<a name="XREF_67891_Table_2"></a><?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 111.964pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Entity </p>
+</th>
+  <th style="width : 118.928pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Engineering</p>
+</th>
+  <th style="width : 119.678pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Business</p>
+</th>
+  <th style="width : 115.929pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Faculty</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 111.964pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Captive portal login page</p>
+</td>
+  <td style="width : 118.928pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">/auth/eng-login.html</p>
+</td>
+  <td style="width : 119.678pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">/auth/bus-login.html</p>
+</td>
+  <td style="width : 115.929pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">/auth/fac-login.html</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 111.964pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Captive portal user role</p>
+</td>
+  <td style="width : 118.928pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">eng-user</p>
+</td>
+  <td style="width : 119.678pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">bus-user</p>
+</td>
+  <td style="width : 115.929pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">fac-user</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 111.964pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Captive portal authentication profile</p>
+</td>
+  <td style="width : 118.928pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">eng-cp</p>
+  <p class="FM_TableBody">(Specify /auth/eng-login.html and eng-user)</p>
+</td>
+  <td style="width : 119.678pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">bus-cp</p>
+  <p class="FM_TableBody">(Specify /auth/bus-login.html and bus-user)</p>
+</td>
+  <td style="width : 115.929pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">fac-cp</p>
+  <p class="FM_TableBody">(Specify /auth/bus-login.html and fac-user)</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 111.964pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Initial user role</p>
+</td>
+  <td style="width : 118.928pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">eng-logon</p>
+  <p class="FM_TableBody">(Specify the eng-cp profile)</p>
+</td>
+  <td style="width : 119.678pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">bus-logon</p>
+  <p class="FM_TableBody">(Specify the bus-cp profile)</p>
+</td>
+  <td style="width : 115.929pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">fac-logon</p>
+  <p class="FM_TableBody">(Specify the fac-logon profile)</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 111.964pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AAA profile</p>
+</td>
+  <td style="width : 118.928pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">eng-aaa</p>
+  <p class="FM_TableBody">(Specify the eng-logon user role)</p>
+</td>
+  <td style="width : 119.678pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">bus-aaa</p>
+  <p class="FM_TableBody">(Specify the bus-logon user role)</p>
+</td>
+  <td style="width : 115.929pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">fac-aaa</p>
+  <p class="FM_TableBody">(Specify the fac-logon user role)</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 111.964pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">SSID profile</p>
+</td>
+  <td style="width : 118.928pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">eng-ssid</p>
+</td>
+  <td style="width : 119.678pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">bus-ssid</p>
+</td>
+  <td style="width : 115.929pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">fac-ssid</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 111.964pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Virtual AP profile</p>
+</td>
+  <td style="width : 118.928pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">eng-vap</p>
+</td>
+  <td style="width : 119.678pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">bus-vap</p>
+</td>
+  <td style="width : 115.929pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">fac-vap</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Changing_the_Protocol_to"></a><a name="XREF_37625_Changing_the"></a>Changing the Protocol to HTTP</p>
+ <p class="FM_Body"><a name="IX_changing_to_HTTP_protocol"></a>By default, the HTTPS protocol is used on redirection to the Captive Portal page. If you need to use HTTP instead, you need to do the following:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Modify the captive portal authentication profile to enable the HTTP protocol.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Emphasis">For captive portal with role-based access only</span>—Modify the <span style="font-weight : bold; ">captiveportal </span>policy to permit HTTP traffic instead of HTTPS traffic.</p>
+</li>
+ </ul>
+ <p class="FM_Body">In the base operating system, the implicit ACL captive-portal-profile is automatically modified.</p>
+ <p class="FM_Body">To change the protocol to HTTP via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Edit the captive portal authentication profile by navigating to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt; Authentication &gt; L3 Authentication </span>page. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enable (select) “Use HTTP for authentication”.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(For captive portal with role-based access only) Edit the <span style="font-weight : bold; ">captiveportal</span>&#160;policy by navigating to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies</span>&#160;page. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Delete the rule for “user mswitch svc-https dst-nat”. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Add a new rule with the following values and move this rule to the top of the rules list:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSubSteps">source is user</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSubSteps">destination is the mswitch alias</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSubSteps">service is svc-http</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSubSteps">action is dst-nat</p>
+</li>
+ </ul>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To change the protocol to HTTP via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented">aaa authentication captive-portal <span style="font-style : italic; ">profile</span>&#160;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;protocol-http</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">(For captive portal with role-based access only)</p>
+ <p class="FM_CLIIndented"><span class="FM_System">ip access-list session captiveportal</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">&nbsp;&nbsp;&nbsp;no user alias mswitch svc-https dst-nat<br />&nbsp;&nbsp;&nbsp;user alias mswitch svc-http dst-nat</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any svc-http dst-nat 8080</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any svc-https dst-nat 8081</p>
+ <p class="FM_2Heading"><a name="TOC_Proxy_Server_Redirect"></a><a name="XREF_66378_Proxy_Server"></a>Proxy Server Redirect</p>
+ <p class="FM_Body"><a name="IX_proxy_Web_server"></a>You can configure captive portal to work with proxy Web servers. When proxy Web servers are used, browser proxy server settings for end users are configured for the proxy server’s IP address and TCP port. When the user opens a Web browser, the HTTP/S connection request must be redirected from the proxy server to the captive portal on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">To configure captive portal to work with a proxy server:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">(For captive portal with base operating system) Modify the captive portal authentication profile to specify the proxy server’s IP address and TCP port.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">(For captive portal with role-based access) Modify the <span style="font-weight : bold; ">captiveportal</span>&#160;policy to have traffic for the proxy server’s port destination NATed to port 8088 on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The base operating system automatically modifies the implicit ACL <span style="font-style : italic; ">captive-portal-profile</span>.</p>
+ <p class="FM_Body">The following sections describe how use the WebUI and CLI to configure the captive portal with a proxy server.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">When HTTPS traffic is redirected from a proxy server to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the user’s browser will display a warning that the subject name on the certificate does not match the hostname to which the user is connecting.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">To redirect proxy server traffic using the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For captive portal with <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;base operating system, edit the captive portal authentication profile by navigating to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; L3 Authentication </span>page. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Proxy Server, enter the IP address and port for the proxy server.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For captive portal with role-based access, edit the <span style="font-weight : bold; ">captiveportal</span>&#160;policy by navigating to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies</span>&#160;page. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Add a new rule with the following values:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Source is user</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Destination is any</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Service is TCP</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Port is the TCP port on the proxy server</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Action is dst-nat</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>IP address is the IP address of the proxy port</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Port is the port on the proxy server</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>&#160;to add the rule. Use the up arrows to move this rule just below the rule that allows HTTP(S) traffic.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_Body">To redirect proxy server traffic via the command-line interface, access the CLI in config mode and issue the following commands.</p>
+ <p class="FM_Body">For captive portal with <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> base operating system:</p>
+ <p class="FM_CLIIndented">aaa authentication captive-portal <span style="font-style : italic; ">profile</span>&#160;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;proxy host <span style="font-style : italic; ">ipaddr</span>&#160;port <span style="font-style : italic; ">port</span></p>
+ <p class="FM_Body">For captive portal with role-based access:</p>
+ <p class="FM_CLIIndented"><span class="FM_System">ip access-list session captiveportal</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user alias mswitch svc-https permit<br /><span style="font-weight : bold; ">&nbsp;&nbsp;&nbsp;user any tcp </span><span style="font-style : italic; font-weight : bold; ">port</span><span style="font-weight : bold; "> dst-nat 8088</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any svc-http dst-nat 8080</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any svc-https dst-nat 8081</p>
+ <p class="FM_2Heading"><a name="TOC_Redirecting_Clients_on"></a><a name="XREF_55222_Redirecting"></a>Redirecting Clients on Different VLANs</p>
+ <p class="FM_Body"><a name="IX_different_VLAN_clients"></a>You can redirect wireless clients that are on different VLANs (from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address) to the captive portal on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. To do this:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Specify the redirect address for the captive portal.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For captive portal with the PEFNG license only, you need to modify the captiveportal policy that is assigned to the user. To do this:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Create a network destination alias to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;interface. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Modify the rule set to allow HTTPS to the new alias instead of the mswitch alias.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">In the base operating system, the implicit ACL <span style="font-style : italic; ">captive-portal-profile </span>is automatically modified.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepSubNext"></p>
+ <p class="FM_Body">This example shows how to use the command-line interface to create a network destination called cp-redirect and use that in the captiveportal policy:</p>
+ <p class="FM_CLIIndented">ip cp-redirect-address <span style="font-style : italic; ">ipaddr</span></p>
+ <p class="FM_Body">For captive portal with PEFNG license:</p>
+ <p class="FM_CLIIndented">netdestination cp-redirect <span class="FM_Emphasis">ipaddr</span></p>
+ <p class="FM_CLIIndented"><span class="FM_System">ip access-list session captiveportal</span></p>
+ <p class="FM_CLIIndented"><span style="font-weight : bold; ">&nbsp;&nbsp;&nbsp;user </span>alias<span style="font-weight : bold; "> cp-redirect svc-https permit<br /></span>&nbsp;&nbsp;&nbsp;user any svc-http dst-nat 8080</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any svc-https dst-nat 8081</p>
+ <p class="FM_2Heading"><a name="TOC_Web_Client_Configuration"></a><a name="XREF_47444_Web_Client"></a>Web Client Configuration with Proxy Script</p>
+ <p class="FM_Body">If the web client proxy configuration is distributed through a proxy script (a <span class="FM_System" style="font-family : Courier New; ">.pac</span>&#160;file), you need to configure the <span style="font-weight : bold; ">captiveportal</span>&#160;policy to allow the client to download the file. Note that in order modify the captiveportal policy, you must have the PEFNG license installed in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">To allow clients to download proxy script via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Edit the <span style="font-weight : bold; ">captiveportal</span>&#160;policy by navigating to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Access Control &gt; Policies</span>&#160;page. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Add a new rule with the following values:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet2">Source is user</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Destination is host</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Host IP is the IP address of the proxy server</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Service is svc-https or svc-http</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Action is permit</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>&#160;to add the rule. Use the up arrows to move this rule above the rules that perform destination NAT.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">To allow clients to download proxy script via the command-line interface, access the CLI in config mode and issue the following commands:</p>
+ <p class="FM_CLIIndented"><span class="FM_System">ip access-list session captiveportal</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user alias mswitch svc-https permit</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any tcp port dst-nat 8088</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user host <span style="font-style : italic; ">ipaddr</span> svc-https permit</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any svc-http dst-nat 8080</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;user any svc-https dst-nat 8081</p>
+ <p class="FM_1Heading"><a name="TOC_Personalizing_the"></a><a name="IX_customizing"></a><a name="XREF__Toc80169189"></a>Personalizing the Captive Portal Page</p>
+ <p class="FM_Body"><a name="IX_default_page"></a>The following can be personalized on the default captive portal page:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Captive portal background</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Page text </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acceptance Use Policy</p>
+</li>
+ </ul>
+ <p class="FM_Body">The background image and text should be visible to users with a browser window on a 1024 by 768 pixel screen. The background should not clash if viewed on a much larger monitor. A good option is to have the background image at 800 by 600 pixels, and set the background color to be compatible. The maximum image size for the background can be around 960 by 720 pixels, as long as the image can be cropped at the bottom and right edges. Leave space on the left side for the login box.</p>
+ <p class="FM_Body">You can create your own web pages and install them in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for use with captive portal. See <a href="Internal_Captive_Portal.htm#XREF_98100_Title_of_Chapter"><span class="FM_PMS646">Appendix E, “Internal Captive Portal”</span></a></p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt;&#160;Captive Portal &gt; Customize Login Page</span> page.</p>
+ <p class="FM_BodyinBulletStep">You can choose one of three page designs. To select an existing design, click the first or the second page design present.</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="maint_captive_customizelogin.jpg" id="image0" src="images/maint_captive_customizelogin.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To customize the page background:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">YOUR CUSTOM BACKGROUND</span>&#160;page. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under <span style="font-weight : bold; ">Additional options</span><span style="font-style : italic; ">, </span>enter the location of the JPEG image in the Upload your own custom background field.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Set the background color in the Custom page background color field. The color code must a hexadecimal value in the format #hhhhhh.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To view the page background changes, click <span style="font-weight : bold; ">Submit</span><span style="font-style : italic; ">&#160;</span>at the bottom on the page and then click the <span style="font-weight : bold; ">View CaptivePortal</span><span style="font-style : italic; ">&#160;</span>link. The <span style="font-weight : bold; ">User Agreement Policy </span>page appears and displays the Captive Portal page as it will be seen by users</p>
+ <div align="left"><img alt="WIRELESS_captivePortalSplash.jpg" id="image1" src="images/WIRELESS_captivePortalSplash.jpg" />
+ </div>
+ <p class="FM_StepSubNext"><span style="font-family : ITC Century Std Light; font-size  : 2.0pt; "></span></p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To customize the captive portal background text:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the text that needs to be displayed in the<span class="FM_Button" style="font-family : Arial; font-weight : bold; ">&#160;</span><span style="font-weight : bold; ">Page Text (in HTML format)</span><span style="font-style : italic; ">&#160;</span>message box. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To view the background text changes, click <span style="font-weight : bold; ">Submit</span><span style="font-style : italic; ">&#160;</span>at the bottom on the page and then click the <span style="font-weight : bold; ">View CaptivePortal</span><span style="font-style : italic; ">&#160;</span>link. The <span style="font-weight : bold; ">User Agreement Policy </span>page appears. </p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Accept</span>. This displays the Captive Portal page as it will be seen by users.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To customize the text under the <span style="font-weight : bold; ">Acceptable Use Policy</span>:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the policy information in the <span style="font-weight : bold; ">Policy Text </span>text box. Use this only in the case of guest logon. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To view the use policy information changes, click <span style="font-weight : bold; ">Submit</span><span style="font-style : italic; ">&#160;</span>at the bottom on the page and then click the <span style="font-weight : bold; ">View CaptivePortal</span><span style="font-style : italic; ">&#160;</span>link. The <span style="font-weight : bold; ">User Agreement Policy </span>page appears. The text you entered appears in the <span style="font-weight : bold; ">Acceptable Use Policy</span> text box.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Accept</span>. This displays the Captive Portal page as it will be seen by users.</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="Ch7_pg96_-_Login_page.jpg" id="image2" src="images/Ch7_pg96_-_Login_page.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_1Heading"><a name="TOC_Creating_Walled_Garden"></a><a name="XREF_12090_Creating_Walled"></a>Creating Walled Garden Access</p>
+ <p class="FM_Body">On the Internet, a walled garden typically controls a user’s access to web content and services. The walled garden directs the user’s navigation within particular areas to allow access to a selection of websites or prevent access to other websites.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The Walled Garden feature can be used with the PEFNG or PEFV licenses.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Creating_Walled_Garden1"></a>Creating Walled Garden Access</p>
+ <p class="FM_Body">Walled garden access is needed when an external or internal captive portal is used. A common example could be a hotel environment where unauthenticated users are allowed to navigate to a designated login page (for example, a hotel website) and all its contents.</p>
+ <p class="FM_Body">Users who do not sign up for Internet service can view “allowed” websites (typically hotel property websites). The website names must be DNS-based (not IP address based) and support the option to define wildcards. This works for client devices with or without HTTP proxy settings.</p>
+ <p class="FM_Body">When a user attempts to navigate to other websites not configured in the white list walled garden profile, the user is redirected back to the login page. In addition, the black listed walled garden profile is configured to explicitly block navigation to websites from unauthenticated users.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_WebUi_to5"></a>Using the WebUi to create Walled Garden access</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span style="font-weight : bold; ">Advanced Services &gt;&#160;Stateful Firewall &gt; Destination</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to add a destination name.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP version, IPv4 or IPv6, from the <span style="font-weight : bold; ">IP Version </span>drop-down menu. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Destination Name</span>&#160;field, enter a name and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">name</span>&#160;from the <span style="font-weight : bold; ">Rule Type</span>&#160;drop-down menu and add a hostname or wildcard with domain name to which an unauthenticated user is redirected.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; L3 Authentication.</span></p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select<span style="font-weight : bold; "> Captive Portal Authentication Profile</span>.</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To allow users to access a domain, enter the destination name that contains the allowed domain names in the <span style="font-weight : bold; ">White List</span>&#160;field. This stops unauthenticated users from viewing specific domains such as a hotel website.</p>
+ <p class="FM_BodyinBulletStep">A rule in the white list must explicitly permit a traffic session before it is forwarded to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The last rule in the white list denies everything else.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>To deny users access to a domain, enter the destination name that contains prohibited domain names in the <span style="font-weight : bold; ">Black List</span> field. This prevents unauthenticated users from viewing specific websites.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_CLI_to_create"></a>Using the CLI to create walled garden access</p>
+ <p class="FM_Body">This example configures a destination named Mywhite-list and adds the domain names, google.com and cnn.com to that destination. It then adds the destination name Mywhite-list (which contains the allowed domain names google.com and cnn.com) to the white list. </p>
+ <p class="FM_CLI">(host)(config)# netdestination &quot;Mywhite-list&quot;</p>
+ <p class="FM_CLI">(host)(config)#name google.com </p>
+ <p class="FM_CLI">(host)(config)#name cnn.com </p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">(host) (config) #aaa authentication captive-portal default</p>
+ <p class="FM_Body">(host)(Captive Portal Authentication Profile &quot;default&quot;)#white-list Mywhite-list</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

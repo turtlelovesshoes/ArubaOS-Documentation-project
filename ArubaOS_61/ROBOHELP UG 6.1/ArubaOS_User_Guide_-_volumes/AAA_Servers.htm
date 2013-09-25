@@ -1,0 +1,1564 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>AAA_Servers</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\AAA_Servers.fm" />
+ <meta name="keywords" content="server group,internal database, server derivation rule, authentication request, global nas ip, enter parameter, match fqdn rule">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+<style>
+	.highlight{
+		border:orange 3px solid;
+		
+		}
+	.wordhighlight{
+		background:#FF0;
+		}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<div>
+<form id="searchbox">
+	Serarch: <input type="text" id="word"/><br/>
+    <input type="button" value="Go"/>
+
+</form>
+</div>
+<div>
+	Result List:<br/>
+	<ul id="resultlist">
+	<li>results here</li>
+	</ul>
+</div>
+<div id="SearchBox">
+ <p class="FM_Anchor"><a name="XREF_98100_Title_of_Chapter"></a>&nbsp;</p>
+ <p class="FM_ChapterNumber"><a name="TOC_Chapter_9"></a>Chapter 9</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Authentication_Servers"></a><a name="XREF_63978_Authentication"></a>Authentication Servers</p>
+ <p class="FM_Body">The <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;software allows you to use an external authentication server or the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;internal user database to authenticate clients who need to access the wireless network.</p>
+ <p class="FM_1Heading"><a name="TOC_Important_Points_to"></a>Important Points to Remember</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">In order for an external authentication server to process requests from the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you must configure the server to recognize the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Refer to the vendor documentation for information on configuring the authentication server. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Instructions on how to configure Microsoft’s IAS and Active Directory can be viewed at:</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">Microsoft’s IAS</p>
+ <p class="FM_BodyinBulletStep"><span class="FM_PMS646"><a href="http://technet2.microsoft.com/windowsserver/en/technologies/ias.mspx">http://technet2.microsoft.com/windowsserver/en/technologies/ias.mspx </span></a></p>
+ <p class="FM_BodyinBulletStep">Active Directory</p>
+ <p class="FM_BodyinBulletStep"><span class="FM_PMS646"><a href="http://technet2.microsoft.com/windowsserver/en/technologies/featured/ad/default.mspx">http://technet2.microsoft.com/windowsserver/en/technologies/featured/ad/default.mspx</span></a></p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_93834_Servers_and_Server"><span class="FM_PMS646">“Servers and Server Groups”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_78268_Configuring_Servers"><span class="FM_PMS646">“Configuring Servers”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_89217_Adding_Users_to"><span class="FM_PMS646">“Internal Database”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_40223_Configuring_Server"><span class="FM_PMS646">“Server Groups”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Servers_and_Server_Groups"></a><a name="XREF_93834_Servers_and_Server"></a>Servers and Server Groups</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> supports the following external authentication servers:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">RADIUS (Remote Authentication Dial-In User Service)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">(Lightweight Directory Access Protocol)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">TACACS+ (Terminal Access <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> Access Control System)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Windows (For stateful NTLM authentication)</p>
+</li>
+ </ul>
+ <p class="FM_Body">Additionally, you can use the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database to authenticate users. You create entries in the database for users and their passwords and default role.</p>
+ <p class="FM_Body"><a name="IX_configuring_9"></a><a name="IX_configuring_8"></a>You can create <span style="font-style : italic; ">groups</span>&#160;of servers for specific types of authentication. For example, you can specify one or more RADIUS servers to be used for 802.1x authentication. The list of servers in a server group is an ordered list. This means that the first server in the list is always used unless it is unavailable, in which case the next server in the list is used. You can configure servers of different types in one group — for example, you can include the internal database as a backup to a RADIUS server.</p>
+ <p class="FM_Body"><a href="#XREF_36120_Figure2_1_Server"><span class="FM_PMS646">Figure 42</span></a> graphically represents a server group named “Radii” that consists of two RADIUS servers, Radius-1 and Radius-2. The server group is assigned to the server group for 802.1x authentication.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 42 &#160;</span>Server <span style="font-family : Univers Extended; font-style : normal; "><a name="XREF_36120_Figure2_1_Server"></a></span>Group</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="AAA_Servers00049.jpg" id="image0" src="images/AAA_Servers00049.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">Server names are unique. You can configure the same server in multiple server groups. You must configure the server before you can add it to a server group.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">If you are using the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database for user authentication, use the predefined “Internal” server group.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You can also include conditions for server-derived user roles or VLANs in the server group configuration. The server derivation rules apply to all servers in the group.</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Servers"></a><a name="XREF_78268_Configuring_Servers"></a>Configuring Servers</p>
+ <p class="FM_Body">This section describes how to configure RADIUS, LDAP, TACACS+ and Windows external authentication servers and the internal database on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_a_RADIUS"></a><a name="XREF_35178_Configuring"></a><a name="XREF_25760_Configuring_a"></a>Configuring a RADIUS Server</p>
+ <p class="FM_Body"><a name="IX_configuring_10"></a><a href="#XREF_55084_Table2_3_RADIUS"><span class="FM_PMS646">Table 45</span></a> describes the parameters you configure for a RADIUS server.&#160;</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.04pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 45 &#160;</span><a name="XREF_55084_Table2_3_RADIUS"></a>RADIUS Server Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 88.821pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 377.220pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Host</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP address or fully qualified domain name (FQDN) of the authentication server. The maximum supported FQDN length is 63 characters.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Key</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Shared secret between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the authentication server. The maximum length is 128 characters.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Authentication Port</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Authentication port on the server.</p>
+  <p class="FM_TableBody">Default: 1812</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Accounting Port</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Accounting port on the server</p>
+  <p class="FM_TableBody">Default: 1813</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Retransmits</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum number of retries sent to the server by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;before the server is marked as down.</p>
+  <p class="FM_TableBody">Default: 3</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Timeout</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum time, in seconds, that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;waits before timing out the request and resending it.</p>
+  <p class="FM_TableBody">Default: 5 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">NAS ID</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Network Access Server (NAS) identifier to use in RADIUS packets.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 87.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">NAS IP</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">NAS IP address to send in RADIUS packets.</p>
+  <p class="FM_TableBody">You can configure a “global” NAS IP address that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;uses for communications with all RADIUS servers. If you do not configure a server-specific NAS IP, the global NAS IP is used. To set the global NAS IP in the WebUI, navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt; Authentication &gt; Advanced</span>&#160;page. To set the global NAS IP in the CLI, enter the <span style="font-weight : bold; ">ip radius nas-ip</span>&#160;<span style="font-style : italic; ">ipaddr</span> command.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 101.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Source Interface</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enter a VLAN number ID.</p>
+  <p class="FM_TableBody">Allows you to use source IP addresses to differentiate RADIUS requests.</p>
+  <p class="FM_TableBody">Associates a VLAN interface with the RADIUS server to allow the server-specific source interface to override the global configuration.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">If you associate a Source Interface (by entering a VLAN number) with a configured server, then the source IP address of the packet will be that interface’s IP address. </p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">If you do not associate the Source Interface with a configured server (leave the field blank), the IP address of the global Source Interface will be used.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use MD5</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use MD5 hash of cleartext password.</p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 88.821pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mode</p>
+</td>
+  <td style="width : 377.220pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables or disables the server.</p>
+  <p class="FM_TableBody">Default: enabled</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI40"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Radius Server</span> to display the Radius Server List.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure a RADIUS server, enter the name for the server and click <span class="FM_Bold" style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name to configure server parameters. Enter parameters as described in <a href="#XREF_55084_Table2_3_RADIUS"><span class="FM_PMS646">Table 45</span></a>. Select the <span class="FM_Bold" style="font-weight : bold; ">Mode</span> checkbox to activate the authentication server.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span> to apply the configuration.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The configuration does not take effect until you perform this step.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI41"></a>In the CLI</p>
+ <p class="FM_CLIIndented">aaa authentication-server radius &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;host &lt;<span style="font-style : italic; ">ipaddr</span>&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;key &lt;<span style="font-style : italic; ">key</span>&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;enable</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_RADIUS_Server"></a><a name="IX_RADIUS_Server_1"></a><a name="IX_Fully_Qualified_Domain"></a><a name="IX_RADIUS_Server"></a>RADIUS Server Authentication Codes</p>
+ <p class="FM_Body">A configured RADIUS server will return the following standard response codes</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.50pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 46 &#160;</span>RADIUS Authentication Response Codes<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 63.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Code</p>
+</th>
+  <th style="width : 402.751pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">0</p>
+</td>
+  <td style="width : 402.751pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Authentication OK.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1</p>
+</td>
+  <td style="width : 402.751pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Authentication failed—user/password combination not correct.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">2</p>
+</td>
+  <td style="width : 402.751pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Authentication request timed out—No response from server.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">3</p>
+</td>
+  <td style="width : 402.751pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Internal authentication error.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">4</p>
+</td>
+  <td style="width : 402.751pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Bad Response from RADIUS server. Verify shared secret is correct.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">5</p>
+</td>
+  <td style="width : 402.751pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No RADIUS authentication server is configured.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 63.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">6</p>
+</td>
+  <td style="width : 402.751pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Challenge from server. (This does not necessarily indicate an error condition.)</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body">.</p>
+ <p class="FM_2Heading"><a name="TOC_RADIUS_Server_Fully"></a>RADIUS Server Fully Qualified Domain Names</p>
+ <p class="FM_Body">If you define a RADIUS server using the FQDN of the server rather than its IP address, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will periodically generate a DNS request and cache the IP address returned in the DNS response. To view the IP address that currently correlate to each RADIUS server FQDN, access the command-line interface in config mode and issue the following command:</p>
+ <p class="FM_CLIIndented">show aaa fqdn-server-names</p>
+ <p class="FM_2Heading"><a name="TOC_Set_a_DNS_Query_Interval"></a>Set a DNS Query Interval</p>
+ <p class="FM_Body">If you define a RADIUS server using the FQDN of the server rather than its IP address, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will periodically generate a DNS request and cache the IP address returned in the DNS response. By default, DNS requests are sent every 15 minutes.</p>
+ <p class="FM_Body">You can use either the WebUI or the CLI to configure how often the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;should generate a DNS request to cache the IP address for a RADIUS server identified via its fully qualified domain name (FQDN).</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI41"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Advanced</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the DNS Query Interval (min) field, enter a new DNS query interval, from 1-1440 minutes, inclusive.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click Apply to save your changes.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI42"></a>In the CLI</p>
+ <p class="FM_CLI">aaa dns-query-period &lt;minutes&gt;</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_an_LDAP"></a><a name="XREF_37603_Configuring_an"></a>Configuring an LDAP Server</p>
+ <p class="FM_Body"><a name="IX_configuring_11"></a><a href="#XREF_91464_Table2_4_LDAP"><span class="FM_PMS646">Table 47</span></a> describes the parameters you configure for an LDAP server.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 47 &#160;</span><a name="XREF_91464_Table2_4_LDAP"></a>LDAP Server Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 102.816pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 365.184pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Host</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP address of the LDAP server.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Admin-DN</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Distinguished name for the admin user who has read/search privileges across all the entries in the LDAP database (the user does need write privileges but should be able to search the database, and read attributes of other users in the database).</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Admin Password</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Password for the admin user.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allow Clear-Text</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Allows clear-text (unencrypted) communication with the LDAP server.</p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Authentication Port</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Port number used for authentication.</p>
+  <p class="FM_TableBody">Default: 389</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Base-DN</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Distinguished Name of the node that contains the entire user database.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Filter</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A string that is used to search for users in the LDAP database (default filter string is: ì(objectclass=*)î ).</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Key Attribute</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">A string that is used to search for a LDAP server. For Active Directory, the value is sAMAccountName.</p>
+  <p class="FM_TableBody">Default: sAMAccountName</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Timeout</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Timeout period of a LDAP request, in seconds. </p>
+  <p class="FM_TableBody">Default: 20 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mode</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables or disables the server.</p>
+  <p class="FM_TableBody">Default: enabled</p>
+</td>
+</tr>
+  <tr style=" height : 123.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Preferred Connection Type</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Preferred type of connection between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the LDAP server. The default order of connection type is:</p>
+  <p class="FM_TableStep1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>ldap-s</p>
+  <p class="FM_TableStepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>start-tls</p>
+  <p class="FM_TableStepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>clear-text</p>
+  <p class="FM_TableBody">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;first tries to contact the LDAP server using the preferred connection type, and only attempts to use a lower-priority connection type if the first attempt is not successful. </p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>If you select <span style="font-weight : bold; ">clear-text</span>&#160;as the preferred connection type, you must also enable the <span style="font-weight : bold; ">allow-cleartext</span>&#160;option. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI42"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">LDAP Server</span> to display the LDAP Server List.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure an LDAP server, enter the name for the server and click <span class="FM_Bold" style="font-weight : bold; ">Add</span>. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name to configure server parameters. Enter parameters as described in <a href="#XREF_91464_Table2_4_LDAP"><span class="FM_PMS646">Table 47</span></a>. Select the <span class="FM_Bold" style="font-weight : bold; ">Mode</span> checkbox to activate the authentication server.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span> to apply the configuration.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The configuration does not take effect until you perform this step.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI43"></a>In the CLI</p>
+ <p class="FM_CLIIndented">aaa authentication-server ldap &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;host &lt;ipaddr&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;<span style="font-style : italic; ">(enter parameters as described in </span><a href="#XREF_91464_Table2_4_LDAP"><span class="FM_PMS646">Table 47</span></a><span style="font-style : italic; ">)</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;enable</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_a_TACACS"></a><a name="XREF_82948_Configuring_a"></a>Configuring a TACACS+ Server</p>
+ <p class="FM_Body"><a name="IX_configuring_12"></a><a href="#XREF_71019_Table2_3_TACACS"><span class="FM_PMS646">Table 48</span></a>&#160;defines the TACACS+ server parameters. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 48 &#160;</span><a name="XREF_71019_Table2_3_TACACS"></a>TACACS+ Server Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 102.816pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 365.184pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Host</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP address of the server.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Key</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Shared secret to authenticate communication between the TACACS+ client and server.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP Port</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">TCP port used by server.</p>
+  <p class="FM_TableBody">Default: 49</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Retransmits</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum number of times a request is retried.</p>
+  <p class="FM_TableBody">Default: 3</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Timeout</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Timeout period for TACACS+ requests, in seconds.</p>
+  <p class="FM_TableBody">Default: 20 seconds</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mode</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables or disables the server.</p>
+  <p class="FM_TableBody">Default: enabled</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session Authorization</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables or disables session authorization. Session authorization turns on the optional authorization session for admin users.</p>
+  <p class="FM_TableBody">Default: disabled</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI43"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">TACACS Server</span> to display the TACACS Server List.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure a TACACS+ server, enter the name for the server and click <span class="FM_Bold" style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name to configure server parameters. Enter parameters as described in <a href="#XREF_71019_Table2_3_TACACS"><span class="FM_PMS646">Table 48</span></a>. Select the <span class="FM_Bold" style="font-weight : bold; ">Mode</span> checkbox to activate the authentication server.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span> to apply the configuration.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The configuration does not take effect until you perform this step.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI44"></a>In the CLI</p>
+ <p class="FM_Body">The following command configures, enables a TACACS+ server and enables session authorization:</p>
+ <p class="FM_CLI"><a name="XREF_21559_aaa_authentication"></a>aaa authentication-server tacacs &lt;name&gt;</p>
+ <p class="FM_CLIIndented">clone default</p>
+ <p class="FM_CLIIndented">host &lt;<span style="font-style : italic; ">ipaddr</span>&gt;</p>
+ <p class="FM_CLIIndented">key &lt;<span style="font-style : italic; ">key</span>&gt;</p>
+ <p class="FM_CLIIndented">enable</p>
+ <p class="FM_CLIIndented">session-authorization</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_a_Windows"></a><a name="IX_Windows_authentication"></a><a name="XREF_57442_Configuring_a"></a>Configuring a Windows Server</p>
+ <p class="FM_Body"><a name="IX_configuring_13"></a><a href="#XREF_14258_Table_45_Windows"><span class="FM_PMS646">Table 49</span></a>&#160;defines parameters for a Windows server used for stateful NTLM authentication. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 49 &#160;</span><a name="XREF_14258_Table_45_Windows"></a>Windows Server Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 102.816pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 365.184pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Host</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP address of the server.</p>
+  <p class="FM_TableBody">Default: N/A</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Mode</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enables or disables the server.</p>
+  <p class="FM_TableBody">Default: enabled</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 102.816pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Windows Domain</p>
+</td>
+  <td style="width : 365.184pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Name of the Windows Domain assigned to the server.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI44"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Windows Server</span> to display the Windows Server List.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure a Windows server, enter the name for the server and click <span class="FM_Bold" style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name of the server to configure its parameters. Enter the parameters as described in <a href="#XREF_14258_Table_45_Windows"><span class="FM_PMS646">Table 49</span></a>. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span class="FM_Bold" style="font-weight : bold; ">Mode</span> checkbox to activate the authentication server.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span> to apply the configuration.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The configuration does not take effect until you perform this step.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI45"></a>In the CLI</p>
+ <p class="FM_CLIIndented">aaa authentication-server windows &lt;<span style="font-style : italic; ">windows-server-name&gt;</span></p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;host &lt;ipaddr&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;enable</p>
+ <p class="FM_1Heading"><a name="TOC_Internal_Database"></a><a name="XREF_89217_Adding_Users_to"></a>Internal Database</p>
+ <p class="FM_Body"><a name="IX_configuring_14"></a>You can create entries, in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database, to use to authenticate clients. The internal database contains a list of clients along with the password and default role for each client. When you configure the internal database as an authentication server, client information in incoming authentication requests is checked against the internal database.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_Internal"></a>Configuring the Internal Database</p>
+ <p class="FM_Body">By default, the internal database in the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is used for authentication. You can choose to use the internal database in a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;by entering the CLI command <span style="font-weight : bold; ">aaa authentication-server internal use-local-switch</span>. If you use the internal database in a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you need to add clients on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Anchor">.</p>
+ <p class="FM_Body"><a href="#XREF_88702_Table2_4_Internal"><span class="FM_PMS646">Table 50</span></a> defines the required and optional parameters used in the internal database.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 50 &#160;</span><a name="XREF_88702_Table2_4_Internal"></a>Internal Database Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 95.936pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameters</p>
+</th>
+  <th style="width : 372.064pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 95.936pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">User Name</p>
+</td>
+  <td style="width : 372.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">(Required) Enter a user name or select <span style="font-weight : bold; ">Generate</span>&#160;to automatically generate a user name. An entered username can be up to 64 characters in length.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 95.936pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Password</p>
+</td>
+  <td style="width : 372.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">(Required) Enter a password or select <span style="font-weight : bold; ">Generate</span>&#160;to automatically generate a password string. An entered password must be a minimum of 6 characters and can be up to 128 characters in length.</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 95.936pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Role</p>
+</td>
+  <td style="width : 372.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Role for the client.</p>
+  <p class="FM_TableBody">In order for this role to be assigned to a client, you need to configure a server derivation rule, as described in <a href="#XREF_42358_Configuring_Server"><span class="FM_PMS646">“Configuring Server-Derivation Rules”</span></a>. (A user role assigned through a server-derivation rule takes precedence over the default role configured for an authentication method.)</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 95.936pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">E-mail</p>
+</td>
+  <td style="width : 372.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">(Optional) E-mail address of the client.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 95.936pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Enabled</p>
+</td>
+  <td style="width : 372.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select this checkbox to enable the user as soon as the user entry is created.</p>
+</td>
+</tr>
+  <tr style=" height : 89.00pt;">
+  <td style="width : 95.936pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Expiration</p>
+</td>
+  <td style="width : 372.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select one of the following options:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Entry does not expire: No expiration on user entry</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Set Expiry time (mins): Enter the number of minutes the user will be authenticated before their user entry expires. </p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Set Expiry Date (mm/dd/yyyy) Expiry Time (hh:mm): To select a specific expiration date and time, enter the expiration date in mm/dd/yyyy format, and the expiration time in hh:mm format.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 95.936pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Static Inner IP Address (for RAPs only)</p>
+</td>
+  <td style="width : 372.064pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Assign a static inner IP address to a Remote AP. If this database entry is not for a remote AP, leave this field empty.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI45"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt;&#160;Servers &gt; </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select<span style="font-weight : bold; "> Internal DB</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add User</span>&#160;in the <span style="font-weight : bold; ">Users</span> section. The user configuration page displays.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the information for the client, as described in the table above.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Enabled</span> to activate this entry on creation.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>&#160;to apply the configuration. The configuration does not take effect until you perform this step</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>At the Servers page, click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The Internal DB Maintenance window also includes a <span style="font-weight : bold; ">Guest User Page</span>&#160;feature that allows you to create user entries for guests only. For details on creating guest users, see <a href="802.1x.htm#XREF_67860_Authentication"><span class="FM_PMS646">“Guest Provisioning User Tasks”</span></a>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI46"></a>In the CLI</p>
+ <p class="FM_Body">Enter the following command in enable mode:</p>
+ <p class="FM_CLIIndented">local-userdb add {generate-username|username &lt;<span style="font-style : italic; ">name&gt;</span>} {generate-password|password &lt;<span style="font-style : italic; ">password&gt;</span>}L</p>
+ <p class="FM_2Heading"><a name="TOC_RAP_Static_Inner_IP"></a><a name="IX_RAP_Static_Inner_IP"></a>RAP Static Inner IP Address</p>
+ <p class="FM_Body">The RAP static inner IP address feature assigns a static inner IP address to a remote access point (RAP). A new <span style="font-style : italic; ">IP address </span>parameter is added to the existing configuration commands:<span class="FM_CLI"> local-userdb add</span>, <span class="FM_CLI">local-userdb modify</span>, <span class="FM_CLI">local-userdb-ap add</span>, and <span class="FM_CLI">local-userdb-ap modify</span><span class="FM_CLI" style="font-weight : bold; ">.</span></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI46"></a>In the WebUI</p>
+ <p class="FM_Body">To view <span style="font-style : italic; ">IP address</span>&#160;parameter in the local database, navigate to the <span style="font-weight : bold; ">Configuration</span>&#160;&gt; <span style="font-weight : bold; ">Security</span>&#160;&gt; <span style="font-weight : bold; ">Authentication</span>&#160;&gt; <span style="font-weight : bold; ">Servers</span>&#160;&gt; <span style="font-weight : bold; ">Internal DB</span> page.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 43 &#160;</span></p>
+ <div align="left"><img alt="local_db_static_inner_ip_RAP.jpg" id="image1" src="images/local_db_static_inner_ip_RAP.jpg" />
+ </div>
+ <p class="FM_FigureTitle">IP-Address parameter in the local database</p>
+ <p class="FM_Body">To view IP-address parameter in the RAP Whitelist, navigate to the <span style="font-weight : bold; ">Wireless</span>&#160;&gt; <span style="font-weight : bold; ">AP Installation</span>&#160;&gt; <span style="font-weight : bold; ">RAP Whitelist</span> page.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 44 &#160;</span></p>
+ <div align="left"><img alt="Rap_White_list.jpg" id="image2" src="images/Rap_White_list.jpg" />
+ </div>
+ <p class="FM_FigureTitle">IP-Address parameter in the RAP Whitelist</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You cannot configure the IP-Address parameter using the WebUI.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI47"></a>In the CLI</p>
+ <p class="FM_CLIIndented">local-userdb add {generate-username|username &lt;name&gt;} {generate-password|password</p>
+ <p class="FM_CLIIndented">&lt;password&gt;} {remote-ip&lt;remote-ip&gt;}</p>
+ <p class="FM_CLIIndented">local-userdb modify {username &lt; name&gt;} {remote-ip&lt;remote-ip&gt;}</p>
+ <p class="FM_CLIIndented">local-userdb-ap add {mac-address &lt;address&gt;} {ap-group|&lt;ap_grup&gt;} {remote-ip&lt;remote-ip&gt;}</p>
+ <p class="FM_CLIIndented">local-userdb-ap modify {mac-address &lt;address&gt;} {remote-ip&lt;remote-ip&gt;}</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_Body">The output of <span class="FM_CLIBold">show local-userdb</span>&#160;command: </p>
+ <div align="left"><img alt="AAA_Servers00052.jpg" id="image3" src="images/AAA_Servers00052.jpg" />
+ </div>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The output of <span class="FM_CLIBold">show local-userdb-ap</span> command:</p>
+ <div align="left"><img alt="AAA_Servers00055.jpg" id="image4" src="images/AAA_Servers00055.jpg" />
+ </div>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Managing_Internal"></a>Managing Internal Database Files</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;allows you to import and export tables of user information to and from the internal database. These files should not be edited once they are exported. <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;only supports the importing of database files that were created during the export process. Note that importing a file into the internal database overwrite and removes all existing entries. </p>
+ <p class="FM_3Heading"><a name="TOC_Exporting_Files_in_the"></a>Exporting Files in the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt;&#160;Servers &gt; </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select<span style="font-weight : bold; "> Internal DB</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Export</span>&#160;in the <span style="font-weight : bold; ">Internal DB Maintenance</span> section. A popup window opens.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name of the file you want to export</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Importing_Files_in_the"></a>Importing Files in the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt;&#160;Servers &gt; </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Internal DB</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Import</span>&#160;in the <span style="font-weight : bold; ">Internal DB Maintenance</span> section. A popup window opens.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name of the file you want to import</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI48"></a>In the CLI</p>
+ <p class="FM_Body">Enter the following command in enable mode:</p>
+ <p class="FM_CLIIndented">local-userdb export &lt;filename&gt;</p>
+ <p class="FM_CLIIndented">local-userdb import &lt;filename&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_2Heading"><a name="TOC_Internal_Database1"></a>Internal Database Utilities</p>
+ <p class="FM_Body">The local internal database also includes utilities to clear all users from the database and to restart the internal database to repair internal errors. Under normal circumstances, neither of these utilities are necessary. </p>
+ <p class="FM_3Heading"><a name="TOC_Deleting_All_Users"></a>Deleting All Users </p>
+ <p class="FM_Body">Issue this command to remove users from the internal database after you have moved your user database from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal server to an external server.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt;&#160;Servers &gt; </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Internal DB</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Delete All Users </span>in the <span style="font-weight : bold; ">Internal DB Maintenance</span>&#160;section. A popup window open and asks you to confirm that you want to remove all users.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Repairing_the_Internal"></a>Repairing the Internal Database</p>
+ <p class="FM_Body">Use this utility under the supervision of <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;technical support to recreate the internal database. This may clear internal database errors, but will also remove all information from the database. Make sure you export your current user information before you start the repair procedure.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt;&#160;Servers &gt; </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Internal DB</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Repair Database </span>in the <span style="font-weight : bold; ">Internal DB Maintenance</span>&#160;section. A popup window open and asks you to confirm that you want to recreate the database.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_1Heading"><a name="TOC_Server_Groups"></a><a name="XREF_40223_Configuring_Server"></a>Server Groups</p>
+ <p class="FM_Body"><a name="IX_configuring_15"></a>You can create <span style="font-style : italic; ">groups</span>&#160;of servers for specific types of authentication — for example, you can specify one or more RADIUS servers to be used for 802.1x authentication. You can configure servers of different types in one group — for example, you can include the internal database as a backup to a RADIUS server. </p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Server_Groups"></a>Configuring Server Groups</p>
+ <p class="FM_Body">Server names are unique. You can configure the same server in more than one server group. The server must be configured before you can include it in a server group.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI47"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Server Group</span> to display the Server Group list.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name of the new server group and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name to configure the server group.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Servers, click <span style="font-weight : bold; ">New</span>&#160;to add a server to the group. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select a server from the drop-down menu and click <span style="font-weight : bold; ">Add Server</span>. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Repeat the above step to add other servers to the group.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI49"></a>In the CLI</p>
+ <p class="FM_CLIIndented">aaa server-group &lt;<span style="font-style : italic; ">name</span>&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;auth-server &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Server_List"></a><a name="XREF_23691_Server_List_Order"></a>Configuring Server List Order and Fail-Through</p>
+ <p class="FM_Body"><a name="IX_fail_through"></a><a name="IX_order_of_servers"></a>The list of servers in a server group is an ordered list. By default, the first server in the list is always used unless it is unavailable, in which case the next server in the list is used. You can configure the order of servers in the server group. In the WebUI, use the up or down arrows to order the servers (the top server is the first server in the list). In the CLI, use the <span style="font-weight : bold; ">position</span>&#160;parameter to specify the relative order of servers in the list (the lowest value denotes the first server in the list).</p>
+ <p class="FM_Body">As mentioned previously, the first available server in the list is used for authentication. If the server responds with an authentication failure, there is no further processing for the user or client for which the authentication request failed. You can optionally enable <span style="font-style : italic; ">fail-through</span>&#160;authentication for the server group so that if the first server in the list returns an authentication deny, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;attempts authentication with the next server in the ordered list. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;attempts authentication with each server in the list until either there is a successful authentication or the list of servers in the group is exhausted. This feature is useful in environments where there are multiple, independent authentication servers; users may fail authentication on one server but can be authenticated on another server.</p>
+ <p class="FM_Body">Before enabling fail-through authentication, note the following:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">This feature is not supported for 802.1x authentication with a server group that consists of external EAP-compliant RADIUS servers. You can, however, use fail-through authentication when the 802.1x authentication is terminated on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> (AAA FastConnect).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Enabling this feature for a large server group list may cause excess processing load on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends that you use server selection based on domain matching whenever possible (see <a href="#XREF_24030_Server_Selection"><span class="FM_PMS646">“Configuring Dynamic Server Selection”</span></a>).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Certain servers, such as the RSA RADIUS server, lock out the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;if there are multiple authentication failures. Therefore you should not enable fail-through authentication with these servers.</p>
+</li>
+ </ul>
+ <p class="FM_Body">In the following example, you create a server group ‘corp-serv’ with two LDAP servers (ldap-1 and ldap-2), each of which contains a subset of the usernames and passwords used in the network. When fail-through authentication is enabled, users that fail authentication on the first server in the server list should be authenticated with the second server.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI48"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">LDAP Server</span> to display the LDAP Server List.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter ldap-1 for the server name and click <span class="FM_Bold" style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter ldap-2 for the server name and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a name="XREF_90415_5_Under_the"></a>Under the Servers tab, select ldap-1 to configure server parameters. Enter the IP address for the server. Select the <span class="FM_Bold" style="font-weight : bold; ">Mode</span>&#160;checkbox to activate the authentication server. Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Repeat <a href="#XREF_90415_5_Under_the"><span class="FM_PMS646">step&#160;5</span></a>&#160;to configure ldap-2. </p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Display the Server Group list: Under the Servers tab, select <span style="font-weight : bold; ">Server Group</span>.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter <span style="font-weight : bold; ">corp-serv</span>&#160;as the new server group and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">corp-serv</span>, under the Server tab, to configure the server group. </p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Select <span style="font-weight : bold; ">Fail Through</span>.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span><a name="XREF_95427_11_Under_Servers"></a>Under Servers, click <span style="font-weight : bold; ">New</span>&#160;to add a server to the group. Select ldap-1 from the drop-down menu and click <span style="font-weight : bold; ">Add Server</span>. </p>
+ <p class="FM_StepNext">12.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Repeat <a href="#XREF_95427_11_Under_Servers"><span class="FM_PMS646">step&#160;11</span></a> to add ldap-2 to the group.</p>
+ <p class="FM_StepNext">13.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI50"></a>In the CLI</p>
+ <p class="FM_CLIIndented">aaa authentication-server ldap ldap-1</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;host 10.1.1.234</p>
+ <p class="FM_CLIIndented">aaa authentication-server ldap ldap-2</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;host 10.2.2.234</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">aaa server-group corp-serv</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;auth-server ldap-1 position 1</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;auth-server ldap-2 position 2</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;allow-fail-through</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Dynamic"></a><a name="XREF_24030_Server_Selection"></a>Configuring Dynamic Server Selection</p>
+ <p class="FM_Body"><a name="IX_FQDN_server_selection"></a><a name="IX_server_selection"></a>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can dynamically select an authentication server from a server group based on the user information sent by the client in an authentication request. For example, an authentication request can include client or user information in one of the following formats:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">&lt;domain&gt;\&lt;user&gt; — for example, corpnet.com\darwin</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">&lt;user&gt;@&lt;domain&gt; — for example, darwin@corpnet.com</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">host/&lt;pc-name&gt;.&lt;domain&gt; — for example, host/darwin-g.finance.corpnet.com (this format is used with 802.1x machine authentication in Windows environments)</p>
+</li>
+ </ul>
+ <p class="FM_Body">When you configure a server in a server group, you can optionally associate the server with one or more match rules. A match rule for a server can be one of the following:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The server is selected if the client/user information <span style="font-style : italic; ">contains</span> a specified string.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The server is selected if the client/user information <span style="font-style : italic; ">begins </span>with a specified string.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The server is selected if the client/user information <span style="font-style : italic; ">exactly</span> matches a specified string.</p>
+</li>
+ </ul>
+ <p class="FM_Body">You can configure multiple match rules for the same server. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;compares the client/user information with the match rules configured for each server, starting with the first server in the server group. If a match is found, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;sends the authentication request to the server with the matching rule. If no match is found before the end of the server list is reached, an error is returned and no authentication request for the client/user is sent. </p>
+ <p class="FM_Body">For example, <a href="#XREF_95472_Figure_2_Domain"><span class="FM_PMS646">Figure 45</span></a>&#160;depicts a network consisting of several subdomains in corpnet.com. The server radius-1 provides 802.1x machine authentication to PC clients in xyz.corpnet.com, sales.corpnet.com, and hq.corpnet.com. The server radius-2 provides authentication for users in abc.corpnet.com.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 45 &#160;</span><a name="XREF_95472_Figure_2_Domain"></a>Domain-Based Server Selection Example</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="AAA_Servers00056.jpg" id="image5" src="images/AAA_Servers00056.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">You configure the following rules for servers in the corp-serv server group:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">radius-1 will be selected if the client information starts with “host/”.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">radius-2 will be selected if the client information contains “abc.corpnet.com”.</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI49"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the Servers tab, select <span style="font-weight : bold; ">Server Group</span> to display the Server Group list.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter <span style="font-weight : bold; ">corp-serv</span>&#160;for the new server group and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the Servers tab, select <span style="font-weight : bold; ">corp-serv</span> to configure the server group.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Servers, click <span style="font-weight : bold; ">New</span>&#160;to add the radius-1 server to the group. Select radius-1 from the drop-down menu. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Match Type, select <span style="font-weight : bold; ">Authstring</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Operator, select <span style="font-weight : bold; ">starts-with</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Match String, enter <span style="font-weight : bold; ">host/</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add Rule &gt;&gt;</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Scroll to the right and click <span style="font-weight : bold; ">Add Server</span>. </p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Servers, click <span style="font-weight : bold; ">New</span>&#160;to add the radius-2 server to the group. Select radius-2 from the drop-down menu. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Match Type, select <span style="font-weight : bold; ">Authstring</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Operator, select <span style="font-weight : bold; ">contains</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Match String, enter <span style="font-weight : bold; ">abc.corpnet.com</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add Rule &gt;&gt;</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Scroll to the right and click <span style="font-weight : bold; ">Add Server</span>. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The last server you added to the server group (radius-2) automatically appears as the first server in the list. In this example, the order of servers is not important. If you need to reorder the server list, scroll to the right and click the up or down arrow for the appropriate server.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepSubNext"></p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI51"></a>In the CLI</p>
+ <p class="FM_CLIIndented">aaa server-group corp-serv</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;auth-server radius-1 match-authstring starts-with host/ position 1</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;auth-server radius-2 match-authstring contains abc.corpnet.com position 2</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Match_FQDN"></a>Configuring Match FQDN Option</p>
+ <p class="FM_Body">You can also use the “match FQDN” option for a server match rule. With a match FQDN rule, the server is selected if the &lt;domain&gt; portion of the user information in the formats &lt;domain&gt;\&lt;user&gt; or &lt;user&gt;@&lt;domain&gt; <span style="font-style : italic; ">exactly</span>&#160;matches a specified string. Note the following caveats when using a match FQDN rule:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">This rule does <span class="FM_Emphasis">not</span> support client information in the host/&lt;pc-name&gt;.&lt;domain&gt; format, so it is not useful for 802.1x machine authentication.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The match FQDN option performs matches on only the &lt;domain&gt; portion of the user information sent in an authentication request. The match-authstring option (described previously) allows you to match all or a portion of the user information sent in an authentication request.</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI50"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the Servers tab, select <span style="font-weight : bold; ">Server Group</span> to display the Server Group list.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter <span style="font-weight : bold; ">corp-serv</span>&#160;for the new server group and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the Servers tab, select <span style="font-weight : bold; ">corp-serv</span> to configure the server group.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Servers, click <span style="font-weight : bold; ">New</span>&#160;to add the radius-1 server to the group. Select radius-1 from the drop-down menu. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Match Type, select <span style="font-weight : bold; ">FQDN</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Match String, enter <span style="font-weight : bold; ">corpnet.com</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add Rule &gt;&gt;</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Scroll to the right and click <span style="font-weight : bold; ">Add Server</span>. </p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI52"></a>In the CLI</p>
+ <p class="FM_CLIIndented">aaa server-group corp-serv</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;&nbsp;auth-server radius-1 match-fqdn corpnet.com</p>
+ <p class="FM_2Heading"><a name="TOC_Trimming_Domain"></a>Trimming Domain Information from Requests</p>
+ <p class="FM_Body"><a name="IX_trim_domain_information"></a>Before the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> forwards an authentication request to a specified server, it can truncate the domain-specific portion of the user information. This is useful when user entries on the authenticating server do not include domain information. You can specify this option with any server match rule. This option is only applicable when the user information is sent to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in the following formats:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">&lt;domain&gt;\&lt;user&gt; — the &lt;domain&gt;\ portion is truncated</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">&lt;user&gt;@&lt;domain&gt; — the @&lt;domain&gt; portion is truncated </p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 40.00pt;">
+   <td style="; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">This option does not support client information sent in the format host/&lt;pc-name&gt;.&lt;domain&gt;</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI51"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Server Group</span> to display the Server Group list.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name of the new server group and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name to configure the server group.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Servers, click <span style="font-weight : bold; ">Edit</span>&#160;for a configured server or click <span style="font-weight : bold; ">New</span> to add a server to the group.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">If editing a configured server, select Trim FQDN, scroll right, and click <span style="font-weight : bold; ">Update Server</span>.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">If adding a new server, select a server from the drop-down menu, then select Trim FQDN, scroll right, and click <span style="font-weight : bold; ">Add Server</span>.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI53"></a>In the CLI</p>
+ <p class="FM_CLIIndented">aaa server-group corp-serv</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;auth-server radius-2 match-authstring contains abc.corpnet.com trim-fqdn</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Server"></a><a name="XREF_42358_Configuring_Server"></a>Configuring Server-Derivation Rules</p>
+ <p class="FM_Body"><a name="IX_configuring_rules"></a><a name="IX_configuring_16"></a>When you configure a server group, you can set the VLAN or role for clients based on attributes returned for the client by the server during authentication. The server derivation rules apply to all servers in the group. The user role or VLAN assigned through server derivation rules takes precedence over the default role and VLAN configured for the authentication method.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The authentication servers must be configured to return the attributes for the clients during authentication. For instructions on configuring the authentication attributes in a Windows environment using IAS, refer to the documentation at<span class="FM_URL"><a href="http://technet2.microsoft.com/windowsserver/en/technologies/ias.mspx">&#160;http://technet2.microsoft.com/windowsserver/en/technologies/ias.mspx.</span></a></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The server rules are applied based on the first match principle. The first rule that is applicable for the server and the attribute returned is applied to the client and would be the only rule applied from the server rules. These rules are applied uniformly across all servers in the server group.</p>
+ <p class="FM_Body"><a href="#XREF_63158_Table2_6_Server"><span class="FM_PMS646">Table 51</span></a> describes the server rule parameters you can configure.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 425.41pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 51 &#160;</span><a name="XREF_63158_Table2_6_Server"></a>Server Rule Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 79.965pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 345.450pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 79.965pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Role or VLAN</p>
+</td>
+  <td style="width : 345.450pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The server derivation rules can be for either user role or VLAN assignment. With Role assignment, a client can be assigned a specific role based on the attributes returned. In case of VLAN assignment, the client can be placed in a specific VLAN based on the attributes returned.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 79.965pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Attribute</p>
+</td>
+  <td style="width : 345.450pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is the attribute returned by the authentication server that is examined for <span class="FM_Emphasis">Operation</span>&#160;and <span class="FM_Emphasis">Operand</span> match.</p>
+</td>
+</tr>
+  <tr style=" height : 185.00pt;">
+  <td style="width : 79.965pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Operation</p>
+</td>
+  <td style="width : 345.450pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is the match method by which the string in <span style="font-style : italic; ">Operand </span>is matched with the attribute value returned by the authentication server.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">contains – The rule is applied if and only if the attribute value contains the string in parameter <span style="font-style : italic; ">Operand.</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">starts-with – The rule is applied if and only if the attribute value returned starts with the string in parameter <span style="font-style : italic; ">Operand.</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">ends-with – The rule is applied if and only if the attribute value returned ends with the string in parameter <span style="font-style : italic; ">Operand.</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">equals – The rule is applied if and only if the attribute value returned equals the string in parameter <span style="font-style : italic; ">Operand.</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">not-equals – The rule is applied if and only if the attribute value returned is not equal to the string in parameter <span style="font-style : italic; ">Operand.</span></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">value-of – This is a special condition. What this implies is that the role or VLAN is set to the value of the attribute returned. For this to be successful, the role and the VLAN ID returned as the value of the attribute selected must be already configured on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> when the rule is applied.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 79.965pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Operand</p>
+</td>
+  <td style="width : 345.450pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This is the string to which the value of the returned attribute is matched.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 79.965pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Value</p>
+</td>
+  <td style="width : 345.450pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The user role or the VLAN applied to the client when the rule is matched.</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 79.965pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">position</p>
+</td>
+  <td style="width : 345.450pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Position of the condition rule. Rules are applied based on the first match principle. 1 is the top.</p>
+  <p class="FM_TableBody">Default: bottom</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI52"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Server Group</span> to display the Server Group list.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name of the new server group and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the name to configure the server group.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Servers, click <span style="font-weight : bold; ">New</span>&#160;to add a server to the group. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select a server from the drop-down menu and click <span style="font-weight : bold; ">Add</span>. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Repeat the above step to add other servers to the group.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Server Rules, click <span style="font-weight : bold; ">New</span> to add server derivation rules for assigning a user role or VLAN.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the attribute.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the operation from the drop-down menu.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the operand.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select Set VLAN or Set Role from the drop-down menu.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the value (either user role or VLAN) to be assigned.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Repeat the above steps to add other rules for the server group.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI54"></a>In the CLI</p>
+ <p class="FM_CLI">aaa server-group &lt;<span style="font-style : italic; ">name</span>&gt;</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;auth-server &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;set {role|vlan} condition &lt;<span style="font-style : italic; ">condition&gt;</span> set-value {&lt;role&gt;|&lt;vlan&gt;} <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[position <span style="font-style : italic; ">number</span>]</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_a_Role"></a>Configuring a Role Derivation Rule for the Internal Database</p>
+ <p class="FM_Body">When you add a user entry in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database, you can optionally specify a user role (see <a href="#XREF_89217_Adding_Users_to"><span class="FM_PMS646">“Internal Database”</span></a>). In order for the role specified in the internal database entry to be assigned to the authenticated client, you must configure a server derivation rule as shown in the following sections:</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI53"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Servers</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Server Group</span> to display the Server Group list.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">internal</span> server group.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Server Rules, click <span style="font-weight : bold; ">New</span> to add a server derivation rule.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Condition, enter Role.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select value-of from the drop-down menu.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select Set Role from the drop-down menu.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI55"></a>In the CLI</p>
+ <p class="FM_CLI">aaa server-group internal</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;set role condition Role value-of</p>
+ <p class="FM_1Heading"><a name="TOC_Assigning_Server_Groups"></a><a name="XREF_94515_Assigning_Server"></a>Assigning Server Groups</p>
+ <p class="FM_Body"><a name="IX_assigning"></a>You can create server groups for the following purposes:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">user authentication</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">management authentication</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">accounting</p>
+</li>
+ </ul>
+ <p class="FM_Body">You can configure all types of servers for user and management authentication (see <a href="#XREF_53594_Table2_7"><span class="FM_PMS646">Table 52</span></a>). Accounting is only supported with RADIUS and TACACS+ servers when RADIUS or TACACS+ is used for authentication.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 423.96pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 52 &#160;</span><a name="XREF_53594_Table2_7"></a>Server Types and Purposes<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 154.972pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">&nbsp;</p>
+</th>
+  <th style="width : 55.864pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">RADIUS</p>
+</th>
+  <th style="width : 58.542pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">TACACS+</p>
+</th>
+  <th style="width : 47.828pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">LDAP</p>
+</th>
+  <th style="width : 106.757pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Internal Database</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 154.972pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">User authentication</p>
+</td>
+  <td style="width : 55.864pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+  <td style="width : 58.542pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+  <td style="width : 47.828pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+  <td style="width : 106.757pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 154.972pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Management authentication</p>
+</td>
+  <td style="width : 55.864pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+  <td style="width : 58.542pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+  <td style="width : 47.828pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+  <td style="width : 106.757pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 154.972pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Accounting</p>
+</td>
+  <td style="width : 55.864pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+  <td style="width : 58.542pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Yes</p>
+</td>
+  <td style="width : 47.828pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+  <td style="width : 106.757pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">No</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_User_Authentication"></a>User Authentication</p>
+ <p class="FM_Body">For information about assigning a server group for user authentication, see the configuration chapter for the authentication method.</p>
+ <p class="FM_2Heading"><a name="TOC_Management_Authentication"></a>Management Authentication</p>
+ <p class="FM_Body"><a name="IX_configuring_17"></a>Users who need to access the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to monitor, manage, or configure the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;user-centric network can be authenticated with RADIUS, TACACS+, or LDAP servers or the internal database.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Only user record attributes are returned upon a successful authentication. Therefore, to derive a different management role other than the default mgmt auth role, set the server derivation rule based on the user attributes.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI54"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt; Administration</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the Management Authentication Servers section, select the Server Group.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI56"></a>In the CLI</p>
+ <p class="FM_CLI">aaa authentication mgmt</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;server-group &lt;<span style="font-style : italic; ">group&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Accounting"></a>Accounting</p>
+ <p class="FM_Body"><a name="IX_configuring_18"></a>You can configure accounting for RADIUS and TACACS+ server groups.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid black 1px;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">RADIUS or TACACS+ accounting is only supported when RADIUS or TACACS+ is used for authentication. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_RADIUS_Accounting"></a>RADIUS Accounting</p>
+ <p class="FM_Body">RADIUS accounting allows user activity and statistics to be reported from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to RADIUS servers. RADIUS accounting works as follows:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;generates an Accounting Start packet when a user logs in. The code field of transmitted RADIUS packet is set to 4 (Accounting-Request). Note that sensitive information, such user passwords, are not sent to the accounting server. The RADIUS server sends an acknowledgement of the packet.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;sends an Accounting Stop packet when a user logs off; the packet information includes various statistics such as elapsed time, input and output bytes and packets. The RADIUS server sends an acknowledgement of the packet.</p>
+ <p class="FM_Body">The following is the list of attributes that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> can send to a RADIUS accounting server:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Acct-Status-Type: This attribute marks the beginning or end of accounting record for a user. Currently, possible values include Start and Stop.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">User-Name: Name of user.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Session-Id: A unique identifier to facilitate matching of accounting records for a user. It is derived from the user name, IP address and MAC address. This is set in all accounting packets. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Authentic: This indicates how the user was authenticated. Current values are 1 (RADIUS), 2 (Local) and 3 (LDAP).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Session-Time: The elapsed time, in seconds, that the client was logged in to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This is only sent in Accounting-Request records where the Acct-Status-Type is Stop.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Terminate-Cause: Indicates how the session was terminated and is sent in Accounting-Request records where the Acct-Status-Type is Stop. Possible values are: </p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">1: User logged off</p>
+ <p class="FM_BodyinBulletStep">4: Idle Timeout</p>
+ <p class="FM_BodyinBulletStep">5: Session Timeout. Maximum session length timer expired.</p>
+ <p class="FM_BodyinBulletStep">7: Admin Reboot: Administrator is ending service, for example prior to rebooting the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">NAS-Identifier: This is set in the RADIUS server configuration.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAS-IP-Address: IP address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can configure a “global” NAS IP address: in the WebUI, navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Advanced</span>&#160;page; in the CLI, use the <span style="font-weight : bold; ">ip radius nas-ip</span> command.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>NAS-Port: Physical or virtual port (tunnel) number through which the user traffic is entering the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>NAS-Port-Type: Type of port used in the connection. This is set to one of the following:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">5: admin login</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">15: wired user type</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">19: wireless user</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>Framed-IP-Address: IP address of the user.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Calling-Station-ID: MAC address of the user.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Called-station-ID: MAC address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The following attributes are sent in Accounting-Request packets when Acct-Status-Type value is Start:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Acct-Status-Type</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">User-Name</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAS-IP-Address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAS-Port</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAS-Port-Type</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAS-Identifier</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>Framed-IP-Address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Calling-Station-ID</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Called-station-ID</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Session-Id</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Authentic</p>
+</li>
+ </ul>
+ <p class="FM_Body">The following attributes are sent in Accounting-Request packets when Acct-Status-Type value is Stop:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Acct-Status-Type</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>User-Name</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAS-IP-Address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAS-Port</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAS-Port-Type</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAS-Identifier</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Framed-IP-Address</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Calling-Station-ID</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>Called-station-ID</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Session-Id</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Authentic</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Terminate-Cause</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Session-Time</p>
+</li>
+ </ul>
+ <p class="FM_Body">The following attributes are sent only in Accounting Stop packets (they are not sent in Accounting Start packets):</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Acct-Input-Octets</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Output-Octets</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Input-Packets</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Acct-Output-Packets</p>
+</li>
+ </ul>
+ <p class="FM_Body">You can use either the WebUI or CLI to assign a server group for RADIUS accounting.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI55"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; AAA Profiles</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select AAA Profile, then select the AAA profile instance. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) In the Profile Details pane, select RADIUS Interim Accounting to allow the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to send Interim-Update messages with current user statistics to the server at regular intervals. This option is disabled by default, allowing the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to send only <span style="font-style : italic; ">start</span>&#160;and <span style="font-style : italic; ">stop</span>&#160;messages RADIUS accounting server.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the profile list, scroll down and select the Radius Accounting Server Group for the AAA profile. Select the server group from the drop-down menu.</p>
+ <p class="FM_BodyinBulletStep">You can add additional servers to the group or configure server rules.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI57"></a>In the CLI</p>
+ <p class="FM_CLI">aaa profile &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;radius-accounting &lt;<span style="font-style : italic; ">group&gt;</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;radius-interim-accounting</p>
+ <p class="FM_2Heading"><a name="TOC_TACACS_Accounting"></a>TACACS+ Accounting</p>
+ <p class="FM_Body">TACACS+ accounting allows commands issued on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to be reported to TACACS+ servers. You can specify the types of commands that are reported (action, configuration, or show commands) or have all commands reported.</p>
+ <p class="FM_Body">You can configure TACACS+ accounting only with the CLI:</p>
+ <p class="FM_CLI">aaa tacacs-accounting server-group &lt;<span style="font-style : italic; ">group&gt; </span>command {action|all|configuration|show} mode {enable|disable}</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring2"></a><a name="XREF_71243_Configuring"></a>Configuring Authentication Timers</p>
+ <p class="FM_Body"><a name="IX_authentication"></a><a name="IX_configuring_timers"></a><a href="#XREF_79715_Table2_6"><span class="FM_PMS646">Table 53</span></a>&#160;describes the timers you can configure that apply to all clients and servers. These timers can be left at their default values for most implementations.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 424.45pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 53 &#160;</span><a name="XREF_79715_Table2_6"></a>Authentication Timers<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 115.910pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Timer</p>
+</th>
+  <th style="width : 308.537pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 129.00pt;">
+  <td style="width : 115.910pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">User Idle Timeout</p>
+</td>
+  <td style="width : 308.537pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum period after which a client is considered idle if there is no user traffic from the client.</p>
+  <p class="FM_TableBody">The timeout period is reset if there is a user traffic. After this timeout period has elapsed, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;sends probe packets to the client; if the client responds to the probe, it is considered active and the User Idle Timeout is reset (an active client that is not initiating new sessions is not removed). If the client does not respond to the probe, it is removed from the system. If the keyword <span style="font-weight : bold; ">seconds</span>&#160;is not specified, the value defaults to minutes at the command line.</p>
+  <p class="FM_TableBody">Range: 1 to 255 minutes (30 to 15300 seconds)</p>
+  <p class="FM_TableBody">Default: 5 minutes (300 seconds)</p>
+</td>
+</tr>
+  <tr style=" height : 161.00pt;">
+  <td style="width : 115.910pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Authentication Server Dead Time</p>
+</td>
+  <td style="width : 308.537pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum period, in minutes, that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;considers an unresponsive authentication server to be “out of service”.</p>
+  <p class="FM_TableBody">This timer is only applicable if there are two or more authentication servers configured on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If there is only one authentication server configured, the server is never considered out of service and all requests are sent to the server.</p>
+  <p class="FM_TableBody">If one or more backup servers are configured and a server is unresponsive, it is marked as out of service for the dead time; subsequent requests are sent to the next server on the priority list for the duration of the dead time. If the server is responsive after the dead time has elapsed, it can take over servicing requests from a lower-priority server; if the server continues to be unresponsive, it is marked as down for the dead time.</p>
+  <p class="FM_TableBody">Range: 0–50</p>
+  <p class="FM_TableBody">Default: 10 minutes</p>
+</td>
+</tr>
+  <tr style=" height : 57.00pt;">
+  <td style="width : 115.910pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Logon User Lifetime</p>
+</td>
+  <td style="width : 308.537pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum time, in minutes, unauthenticated clients are allowed to remain logged on.</p>
+  <p class="FM_TableBody">Range: 0–255</p>
+  <p class="FM_TableBody">Default: 5 minutes</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 115.910pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">User Interim stats frequency</p>
+</td>
+  <td style="width : 308.537pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&#160;Set the timeout value for user stats reporting in minutes or seconds. The supported range is 300-600 seconds, or 5-10 minutes, and the default value is 600 seconds.. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Setting_an"></a>Setting an Authentication Timer</p>
+ <p class="FM_Body">To set an authentication timer, complete one of the following procedures:</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI56"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; Advanced </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the timers as described above. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>&#160;before moving on to another page or closing the browser window. Failure to do this results in loss of configuration and you will have to reconfigure the settings.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI58"></a>In the CLI</p>
+ <p class="FM_CLI">aaa timers {dead-time &lt;minutes&gt;|idle-timeout &lt;number&gt;|logon-lifetime &lt;minutes&gt;|stats-timeout &lt;seconds&gt;}</p>
+ <p class="FM_Body"><a name="XREF_87626_Configured"></a>&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p>
+<a href="http://www.google.com">google</a>
+	</div>
+	<script src="../../../js/jquery-1.7.2.min.js" type="text/javascript"></script>   
+    	<script src="../../../js/AAsearch.js" type="text/javascript"></script>   
+</body></html>

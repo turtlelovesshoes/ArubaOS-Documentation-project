@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>AppA</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4_perforce1666_LAURAR-T410S\depot\techpub\ArubaOS\6.1\CLI\AppA.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_PrefaceTitle"><a name="XREF_33777_Command_Modes"></a>Appendix A: Command Modes</p>
+ <p class="FM_PrefaceTitle">&nbsp;</p>
+ <p class="FM_CLI" style="font-family : ITC Century Std Book; font-size  : 10.0pt;">The <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;command-line interface offers different levels of user access by differentiating between different command modes. </p>
+ <p class="FM_Body">When you first log in to the CLI, you start your session in <span style="font-style : italic; ">User mode</span>, which provides only limited access for basic operational testing. You must enter an additional password to access <span style="font-style : italic; ">Enable mode,</span>&#160;which allows you to issue show commands run certain management functions. Configuration commands can only be issued in <span style="font-style : italic; ">Config mode</span>. You can access Config mode by entering <span class="FM_CLIBold">configure terminal</span>&#160;at the command prompt. You can exit your current command mode and return to a lower-level command mode at any time by entering <span style="font-weight : bold; ">exit</span> at the command prompt.</p>
+ <p class="FM_Body">The following sections describes how to access each command mode, the command prompt for each mode, and links to its available commands.</p>
+ <p class="FM_1Heading">User mode</p>
+ <p class="FM_Body">You always begin a CLI session in user mode, the command mode with the lowest level of user access. The command prompt for a user mode session is a greater-than (<span style="font-weight : bold; ">&gt;</span>) symbol:</p>
+ <p class="FM_Body"><span style="font-family : Courier New; font-weight : bold; ">(host) &gt;</span>&#160;</p>
+ <p class="FM_Body">The following commands are available in user mode.</p>
+ <div align="left"><img alt="images/AppA00012.jpg" id="image0" src="images/AppA00012.jpg" />
+ </div>
+ 
+ 
+ <p class="FM_1Heading">Enable Mode</p>
+ <p class="FM_Body">To move from user mode to enable mode, you must enter the command <span style="font-weight : bold; ">enable</span>, press <span style="font-weight : bold; ">Enter</span>, then enter config mode password that was defined during the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s initial setup process. (The default password is <span style="font-weight : bold; ">enable</span>.) Users in enable mode may return to user mode at any time by entering the command <span style="font-weight : bold; ">exit</span>.</p>
+ <p class="FM_Body">The command prompt for a CLI session in enable mode is a pound (<span style="font-weight : bold; ">#</span>) symbol:</p>
+ <p class="FM_Body"><span style="font-family : Courier New; font-weight : bold; ">(host) #</span>&#160;</p>
+ <p class="FM_Body">The following commands are available in enable mode.</p>
+ <div align="left"><img alt="images/AppA00015.jpg" id="image1" src="images/AppA00015.jpg" />
+ </div>
+ 
+ <p class="FM_1Heading">Config Mode</p>
+ <p class="FM_Body">To move from enable mode to config mode, enter the command <span style="font-weight : bold; ">config terminal</span>. Users in config mode may return to enable mode at any time by entering the command <span style="font-weight : bold; ">exit</span>.</p>
+ <p class="FM_Body">When you are in config mode, <span style="font-weight : bold; ">(config)</span> appears before the # prompt:</p>
+ <p class="FM_Body"><span style="font-family : Courier New; font-weight : bold; ">(host) (config) #</span>&#160;</p>
+ <p class="FM_Body">The following commands are available in basic config mode.</p>
+ 
+ <div align="left"><img alt="images/AppA00018.jpg" id="image2" src="images/AppA00018.jpg" />
+ </div>
+ 
+ <p class="FM_2Heading">Configuration Sub-modes</p>
+ <p class="FM_Body">Some config mode commands can enter you into a sub-mode with a limited number of available commands specific to that mode. When you are in a configuration sub-mode, the <span style="font-weight : bold; ">(config)</span>&#160;that appears before the command prompt will change to indicate your current mode; e.g <span style="font-weight : bold; ">(config-if)</span> for config-interface mode, and <span style="font-weight : bold; ">(config-tunnel)</span>&#160;for config-tunnel mode. </p>
+ <p class="FM_Body">You can exit a sub-command mode and return to the basic configuration mode at any time by entering the <a href="showapname.htm#XREF_47890_show_ap_name"><span class="FM_PMS646">exit</span></a> command.</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
+

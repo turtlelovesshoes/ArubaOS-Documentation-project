@@ -1,0 +1,432 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>xSec</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="apply, xsec client, applicable 802.1x authentication profile, applicable, xSec, Layer 2 traffic,"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\xSec.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 16</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Advanced_Security"></a>Advanced Security </p>
+ <p class="FM_Body"><a name="IX_configuring_26"></a>Extreme Security (xSec) is a cryptographically secure, Layer-2 tunneling network protocol implemented over the 802.1x protocol. The xSec protocol can be used to secure Layer-2 traffic between the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and wired and wireless clients, or between <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">xSec is an optional <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;software module. You must purchase and install the license for the xSec software module on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_75390_Enabling_xSec_on"><span class="FM_PMS646">“Securing Client Traffic” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_58224_Securing"><span class="FM_PMS646">“Securing Controller-to-Controller Communication” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_17002_Configuring_the"><span class="FM_PMS646">“Configuring the Odyssey Client on Client Machines” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_Body">xSec encrypts an original Layer-2 data frame inside a Layer-2 xSec frame, the contents of which are defined by the protocol. xSec relies on 256-bit Advanced Encryption Standard (AES) encryption. </p>
+ <p class="FM_Body">Upon 802.1x client authentication, xSec creates a tunnel between the client and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The xSec frame sent over the air or wire between the user and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;contains user and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;information, as well as original IP and MAC addresses, in encrypted form. All user information is secured using xSec. This concept is also extended to secure management information and data between two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> on the same VLAN.</p>
+ <p class="FM_Body"><a name="IX_configuring_28"></a><a name="IX_configuring_27"></a>For xSec tunneling between a client and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to work, a version of the Funk Odyssey client software that supports xSec needs to be installed on the client. It is possible to secure clients running Windows 2000 and XP operating systems using xSec and the Odyssey client software.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">For information about the currently supported release for Funk Odyssey, please contact Juniper Networks.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body">.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">xSec is an optional licensed feature for <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. xSec is automatically enabled on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;when you install the license.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">xSec provides the following advantages:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Advanced security as Layer-2 frames are encrypted and tunneled.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Ease of implementation of advanced encryption in a heterogeneous environment. xSec is designed to support multiple operating systems and a wide range of network interface cards (NICs). All encryption and decryption on the client machine is performed by the Odyssey client while the NICs are configured with NULL encryption. This ensures that even older operating systems that cannot be upgraded to support WPA or WPA2 authentication can be secured using xSec and the Odyssey client.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Compatible with TLS, TTLS and PEAP.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Advanced authentication extended to wired clients allowing network managers to secure wired ports.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Securing_Client_Traffic"></a><a name="XREF_75390_Enabling_xSec_on"></a><a name="XREF_79590_xSec_Communication"></a>Securing Client Traffic</p>
+ <p class="FM_Body">You can secure wireless or wired client traffic with xSec. On the client, install the Odyssey Client software. The xSec client must complete 802.1x authentication. to connect to the network. The client indicates the use of the xSec protocol during 802.1x exchanges with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. (<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;support 802.1x for both wired and wireless clients.) Upon successful client authentication, an xSec tunnel is established between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and the client.</p>
+ <p class="FM_Body">The authenticated client is placed into a configured VLAN, which determines the client’s DHCP server, IP address, and Layer-2 connection. For wireless xSec clients, the VLAN is the user VLAN configured for the WLAN. For wired xSec clients and wireless xSec clients that connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> through a non-<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AP, the VLAN is a designated xSec VLAN. The VLAN can also be derived from configured RADIUS server-derivation rules or from Vendor-Specific Attributes (VSAs). Once an xSec tunnel is established, a DHCP server assigns the xSec client an IP address from the address pool on the VLAN to which the client is assigned. All traffic between the client and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is then encrypted.</p>
+ <p class="FM_Body">The following sections describe how to configure xSec on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for wireless and wired clients.</p>
+ <p class="FM_2Heading"><a name="TOC_Securing_Wireless_Clients"></a><a name="XREF_19779_xSec_Configurations"></a>Securing Wireless Clients</p>
+ <p class="FM_Body"><a name="IX_configuring_for_wireless"></a>The following are the basic steps for configuring the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for xSec wireless clients:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the user VLAN to which the authenticated clients will be assigned. See<a href="802.1x.htm#XREF_83760_Chapter_Title_max"><span class="FM_PMS646">“Network Parameters”</span></a> for more information.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the user role for the authenticated xSec clients. See <a href="Firewall_Roles.htm#XREF_45383_Roles_and_Policies"><span class="FM_PMS646">“Roles and Policies” </span></a>for information.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the server group that will be used to authenticate clients using 802.1x. See<a href="AAA_Servers.htm#XREF_63978_Authentication"><span class="FM_PMS646"> “Authentication Servers” </span></a> for more information</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the AAA profile to specify the 802.1x default user role. Specify the 802.1x authentication server group.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote"><span style="color   : #000000; ">You can configure the 802.1x authentication profile if necessary. See </span><a href="802.1x.htm#XREF_83760_Chapter_Title_max"><span class="FM_PMS646"> “802.1x Authentication” </span></a><span style="color   : #000000; "> for more information.</span></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the virtual AP profile for the WLAN. Specify the previously-configured user VLAN. Only xSec clients will be allowed to connect to the WLAN and non-xSec connections are dropped.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Specify the previously-configured AAA profile.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the SSID profile with xSec as the authentication.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Install and set up the Odyssey Client on the wireless client. </p>
+ <p class="FM_Body"><a href="#XREF_11359_Figure_1_Wireless"><span class="FM_PMS646">Figure 51</span></a>&#160;is an example network where a wireless xSec client is assigned to the user VLAN 20 and the user role “employee” upon successful 802.1x authentication. VLAN 1 includes the port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that connects to the wired network on which the AP is installed. (APs can connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;across either a Layer-2 or Layer-3 network.)</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 51 &#160;</span><a name="XREF_11359_Figure_1_Wireless"></a>Wireless xSec Client Example</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="xsec_wireless_client.jpg" id="image0" src="images/xsec_wireless_client.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body"><a name="XREF_42290_Figure6_1_Wireless"></a>The following sections describe how to use the WebUI or CLI to configure the AAA profile and virtual AP profile for this example. Other chapters in this manual describe the configuration of the user role, VLAN, authentication servers and server group, and 802.1x authentication profile.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI69"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; AAA Profiles</span> page.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To create a new AAA profile, click <span style="font-weight : bold; ">Add</span> in the AAA Profiles Summary.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name for the profile (for example, <span style="font-weight : bold; ">xsec-wireless</span>), and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure the AAA profile, click on the newly-created profile name.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For 802.1x Authentication Default Role, select a configured user role (for example, <span style="font-weight : bold; ">employee</span>).</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>In the AAA Profile list, select 802.1x Authentication Profile under the AAA profile you configured. Select the applicable 802.1x authentication profile (for example, <span style="font-weight : bold; ">xsec-wireless-dot1x</span>). Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the AAA Profile list, select 802.1x Authentication Server Group under the AAA profile you configured. Select the applicable server group (for example, <span style="font-weight : bold; ">xsec-svrs</span>). Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration </span>page. Select either the AP Group or AP Specific tab. Click <span style="font-weight : bold; ">Edit</span> for the applicable AP group name or AP name.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Profiles, select Wireless LAN, then select Virtual AP. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To create a new virtual AP profile, select NEW from the Add a profile drop-down menu. Enter the name for the virtual AP profile (for example, <span style="font-weight : bold; ">xsec-wireless</span>), and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Profile Details entry for the new virtual AP profile, select the AAA profile you previously configured. A pop-up window displays the configured AAA profile parameters. Click <span style="font-weight : bold; ">Apply</span>&#160;in the pop-up window.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the SSID profile drop-down menu, select NEW. A pop-up window allows you to configure the SSID profile.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name for the SSID profile (for example, <span style="font-weight : bold; ">xsec-wireless</span>).</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the Network Name for the SSID (for example,<span style="font-weight : bold; "> xsec-ap</span>).</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Network Authentication, select <span style="font-weight : bold; ">xSec</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> in the pop-up window.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>At the bottom of the Profile Details page, click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click on the new virtual AP name in the Profiles list or in Profile Details to display configuration parameters. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Make sure Virtual AP enable is selected.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For VLAN, enter the ID of the VLAN in which authenticated xSec clients are placed (for example, <span style="font-weight : bold; ">20</span>). </p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI71"></a>In the CLI</p>
+ <p class="FM_CLI">aaa profile xsec-wireless</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;authentication-dot1x xsec-wireless-dot1x</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;dot1x-default-role employee</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;dot1x-server-group xsec-svrs</p>
+ <p class="FM_CLI">wlan ssid-profile xsec-wireless</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;essid xsec-ap</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;opmode xSec</p>
+ <p class="FM_CLI">wlan virtual-ap xsec-wireless</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;vlan 20</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;aaa-profile xsec-wireless</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;ssid-profile xsec-wireless</p>
+ <p class="FM_2Heading"><a name="TOC_Securing_Wired_Clients"></a><a name="XREF_39462_Configure_xSec_for"></a>Securing Wired Clients</p>
+ <p class="FM_Body"><a name="IX_configuring_for_wired"></a>The following are the basic steps for configuring the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for xSec wired clients:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the VLAN to which the authenticated clients will be assigned. See <a href="802.1x.htm#XREF_83760_Chapter_Title_max"><span class="FM_PMS646">“Network Parameters” </span></a> for information.</p>
+ <p class="FM_BodyinBulletStep">This VLAN must have an IP interface, and is a different VLAN from the port’s “native” VLAN that provides connectivity to the network.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the user role for the authenticated xSec clients. See<a href="Firewall_Roles.htm#XREF_45383_Roles_and_Policies"><span class="FM_PMS646">“Roles and Policies” </span></a>&#160;for information.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the server group that will be used to authenticate clients using 802.1x. See <a href="AAA_Servers.htm#XREF_63978_Authentication"><span class="FM_PMS646">“Authentication Servers” </span></a> for more information.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;port to which the wired clients) are connected. Specify the VLAN to which the authenticated xSec clients are assigned.</p>
+ <p class="FM_BodyinBulletStep">For firewall rules to be enforced after client authentication, the port must be configured as untrusted.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the AAA profile to specify the 802.1x default user role and the 802.1x authentication server group.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the wired authentication profile to use the AAA profile.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Install and set up the Odyssey Client on the wireless client.</p>
+ <p class="FM_Body"><a href="#XREF_43772_Figure_2_Wired"><span class="FM_PMS646">Figure 52</span></a>&#160;is an example network where a wired xSec client is assigned to the VLAN 20 and the user role “employee” upon successful 802.1x authentication. Traffic between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the xSec client is encrypted. </p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 52 &#160;</span><a name="XREF_43772_Figure_2_Wired"></a>Wired xSec Client Example</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="xSec00068.jpg" id="image1" src="images/xSec00068.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">The VLAN to which you assign an xSec client must be a different VLAN from the VLAN that contains the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> port to which the wired xSec client or AP is connected.</p>
+ <p class="FM_Body">The following sections describe how to use the WebUI or CLI to configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;port to which the wired client is connected, the AAA profile, and the wired authentication profile for this example. Other chapters in this manual describe the configuration of the user role, VLAN, authentication servers and server group, and 802.1x authentication profile.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI70"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Networks &gt; Ports</span>&#160;page to configure the port to which the wired client(s) are connected.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the port that you want to configure.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Make sure the Enable Port checkbox is selected.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Enter VLAN(s), select the native VLAN on the port to ensure Layer-2 connectivity to the network. In <a href="#XREF_43772_Figure_2_Wired"><span class="FM_PMS646">Figure 52</span></a>, this is VLAN 1.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For xSec VLAN, select the VLAN to which authenticated users are assigned from the drop-down menu. In <a href="#XREF_43772_Figure_2_Wired"><span class="FM_PMS646">Figure 52</span></a>, this is VLAN 20.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; AAA Profiles </span>page to configure the AAA profile.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To create a new AAA profile, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name for the profile (for example, <span style="font-weight : bold; ">xsec-wired</span>), and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure the AAA profile, click on the newly-created profile name.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For 802.1x Authentication Default Role, select a configured user role (for example, <span style="font-weight : bold; ">employee</span>).</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>In the AAA Profile list, select 802.1x Authentication Profile under the AAA profile you configured. Select the applicable 802.1x authentication profile (for example, <span style="font-weight : bold; ">xsec-wired-dot1x</span>). Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the AAA Profile list, select 802.1x Authentication Server Group under the AAA profile you configured. Select the applicable server group (for example, <span style="font-weight : bold; ">xsec-svrs</span>). Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; Wired Access</span> page.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Wired Access AAA Profile, select the AAA profile you just configured. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI72"></a>In the CLI</p>
+ <p class="FM_CLI">interface fastethernet|gigabitethernet <span style="font-style : italic; ">slot</span>/<span style="font-style : italic; ">port</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;switchport access vlan 1</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;xsec vlan 20</p>
+ <p class="FM_CLI">aaa profile xsec-wired</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;authentication-dot1x xsec-wired-dot1x</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;dot1x-default-role employee</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;dot1x-server-group xsec-svrs</p>
+ <p class="FM_CLI">aaa authentication wired</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;profile xsec-wired</p>
+ <p class="FM_2Heading"><a name="TOC_Securing_Wireless"></a><a name="XREF_22136_Securing_Wireless"></a>Securing Wireless Clients Through Non-<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> APs</p>
+ <p class="FM_Body"><a name="IX_configuring_wireless"></a>If xSec clients are connecting through a non-<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AP, you need to configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;port to which the AP is connected. The AP must be configured for no (opensystem) authentication.</p>
+ <p class="FM_Body">The following are the basic steps for configuring the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for xSec wireless clients connecting through a non-<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> AP:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the VLAN to which the authenticated clients will be assigned. See<a href="802.1x.htm#XREF_83760_Chapter_Title_max"><span class="FM_PMS646">“Network Parameters” on page&#160;59</span></a>for information.</p>
+ <p class="FM_BodyinBulletStep">This VLAN must have an IP interface, and is a different VLAN from the port’s “native” VLAN that provides connectivity to the network.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the user role for the authenticated xSec clients. See <a href="Firewall_Roles.htm#XREF_45383_Roles_and_Policies"><span class="FM_PMS646">“Roles and Policies” </span></a>&#160;for information.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the server group that will be used to authenticate clients using 802.1x. See<a href="AAA_Servers.htm#XREF_63978_Authentication"><span class="FM_PMS646"> “Authentication Servers” </span></a> for more information.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> port that connects to the wired network on which the non-<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AP is installed. Specify the VLAN to which the authenticated xSec clients are assigned.</p>
+ <p class="FM_BodyinBulletStep">The ingress and egress ports for xSec client traffic must be different physical ports on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the AAA profile to specify the 802.1x default user role and the 802.1x authentication server group.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the wired authentication profile to use the AAA profile.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Install and set up the Odyssey Client on the wireless client. </p>
+ <p class="FM_Body">The following sections describe how to use the WebUI or CLI to configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;port and AAA and wired authentication profiles for wireless clients connecting with non-<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs. Other chapters in this manual describe the configuration of the user role, VLAN, authentication servers and server group, and 802.1x authentication profile.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI71"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Networks &gt; Ports</span>&#160;page to configure the port to which the wireless xSec client(s) are connected.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the port that you want to configure.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Make sure the Enable Port checkbox is selected.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Enter VLAN(s), select the native VLAN (for example, <span style="font-weight : bold; ">VLAN 1</span>) on the port to ensure Layer-2 connectivity to the network. </p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For xSec VLAN, select the VLAN to which authenticated users are assigned from the drop-down menu (for example, <span style="font-weight : bold; ">VLAN 20</span>)</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; AAA Profiles </span>page to configure the AAA profile.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To create a new AAA profile, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name for the profile (for example, <span style="font-weight : bold; ">xsec-3party</span>), and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure the AAA profile, click on the newly-created profile name.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For 802.1x Authentication Default Role, select a configured user role (for example, <span style="font-weight : bold; ">employee</span>).</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>In the AAA Profile list, select 802.1x Authentication Profile under the AAA profile you configured. Select the applicable 802.1x authentication profile (for example, <span style="font-weight : bold; ">xsec-Non<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>-dot1x</span>). Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the AAA Profile list, select 802.1x Authentication Server Group under the AAA profile you configured. Select the applicable server group (for example, <span style="font-weight : bold; ">xsec-svrs</span>). Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the Configuration &gt;&#160;Advanced Services &gt; Wired Access page.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Wired Access AAA Profile, select the AAA profile you just configured. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI73"></a>In the CLI</p>
+ <p class="FM_CLI">interface fastethernet|gigabitethernet <span style="font-style : italic; ">slot</span>/<span style="font-style : italic; ">port</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;switchport access vlan 1</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;xsec vlan 20</p>
+ <p class="FM_CLI">aaa profile xsec-wired</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;authentication-dot1x xsec-Non<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>-dot1x</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;dot1x-default-role employee</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;dot1x-server-group xsec-svrs</p>
+ <p class="FM_CLI">aaa authentication wired</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;profile xsec-wired</p>
+ <p class="FM_2Heading"><a name="TOC_Securing_Clients_on_an"></a><a name="XREF_82734_Securing_Clients"></a>Securing Clients on an AP Wired Port</p>
+ <p class="FM_Body">APs with multiple wired Ethernet ports include an wired port profile that can enable or disable the wired port, define an AAA profile for wired port devices, and associate the port with an ethernet link profile that defines its speed and duplex values.</p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI72"></a>In the WebUI</p>
+ <p class="FM_Body">The procedure to create a new Ethernet port configuration profile depends upon whether or not you want to immediately associate that profile to a specific port on an AP.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold">To configure a new Ethernet port configuration profile without assigning it to a specific port:</span></p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt; All Profiles</span>&#160;page. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Expand the <span style="font-weight : bold; ">AP</span>&#160;menu and select <span style="font-weight : bold; ">AP Wired Port</span>&#160;<span style="font-weight : bold; ">profile</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profile Details</span>&#160;window, enter a name for the new profile, then click <span style="font-weight : bold; ">Add</span>. </p>
+ <p class="FM_BodyinBulletStep">-or-</p>
+ <p class="FM_BodyinBulletStep">To create a new Ethernet port configuration profile for a specific port on an AP or group of APs:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration</span>&#160;page. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select either the <span style="font-weight : bold; ">AP Group</span>&#160;or <span style="font-weight : bold; ">AP Specific</span>&#160;tab. Click the <span style="font-weight : bold; ">Edit</span>&#160;button by name of the AP group or individual AP you want to configure.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Profiles list, expand the <span class="FM_Bold" style="font-weight : bold; ">AP </span><span class="FM_Bold">profile menu</span>&#160;and select the <span class="FM_Bold" style="font-weight : bold; ">Ethernet Interface Port Configuration </span><span class="FM_Bold">profile for the Ethernet port number you want to configure.</span><span class="FM_Bold" style="font-weight : bold; ">&#160;</span></p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the<span style="font-weight : bold; "> Profile Details</span>&#160;window, click the <span style="font-weight : bold; ">Ethernet interface port configuration</span>&#160;drop-down list and select <span style="font-weight : bold; ">New</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold">Configure </span>the <span class="FM_Bold">Ethernet Interface Port/ Wired AP Port Configuration </span>profile parameters described in <a href="Firewall_Roles.htm#XREF_45383_Roles_and_Policies"><span class="FM_PMS646">Table 65</span></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 465.50pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 65 &#160;</span><a name="XREF_57399_Table_28_AP_System"></a>Ethernet Interface Port/ Wired AP Port Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 321.501pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">Shut Down</p>
+</td>
+  <td style="width : 321.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Disable the wired AP port.</p>
+</td>
+</tr>
+  <tr style=" height : 63.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">Remote AP Backup</p>
+</td>
+  <td style="width : 321.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select the Remote AP Backup checkbox to use the wired port on a Remote AP for local connectivity and troubleshooting when the AP cannot reach the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If the AP is not connected to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, no firewall policies will be applied when this option is enabled. (The AAA profile will only be applied when the AP is connected to <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>).</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Time to wait for authentication to succeed</p>
+</td>
+  <td style="width : 321.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Authentication timeout value, in seconds, for devices connecting the AP’s wired port. The supported range is 1-65535 seconds, and the default value is 20 seconds. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"><span style="font-style : italic; "><?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?></span></p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Each Ethernet Interface Port/AP Wired Port Configuration profile is automatically associated to the wired AP profile <span style="font-weight : bold; ">Default</span>. To assign a new wired AP profile to the AP wired port:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the wired AP profile directly under the Ethernet port profile you are editing.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profile Details </span>window, click the <span style="font-weight : bold; ">Wired AP Profile</span>&#160;drop-down list and select a new Wired AP profile.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>A new AP wired profile is automatically associated to the Ethernet Interface Link profile <span style="font-weight : bold; ">Default</span>. To assign a new Ethernet Interface Link profile to the AP wired port:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the Ethernet Interface Link profile directly under the Ethernet port profile you are editing.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profile Details </span>window, click the <span style="font-weight : bold; ">Ethernet Interface Link</span>&#160;drop-down list and select a new Ethernet Interface Link profile.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>By default, there is no AAA profile associated with an AP wired port profile. To assign an AAA profile to the AP wired port:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the AAA profile directly under the Ethernet port profile you are editing.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Profile Details </span>window, click the <span style="font-weight : bold; ">AAA Profile</span> drop-down list and select an AAA profile.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your settings.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI74"></a>In the CLI</p>
+ <p class="FM_Body">To create a new Ethernet Port/Wired AP Port profile, access the command-line interface in Config mode and issue the following command.</p>
+ <p class="FM_CLI">ap wired-port-profile &lt;profile&gt;</p>
+ <p class="FM_CLIIndented">aaa-profile &lt;profile&gt;</p>
+ <p class="FM_CLIIndented">authentication-timeout &lt;seconds&gt;</p>
+ <p class="FM_CLIIndented">enet-link-profile &lt;profile&gt;</p>
+ <p class="FM_CLIIndented">rap-backup</p>
+ <p class="FM_CLIIndented">shutdown</p>
+ <p class="FM_CLIIndented">wired-ap-profile &lt;profile&gt;</p>
+ <p class="FM_Body">To associate an existing Ethernet Port/Wired AP Port profile to a specific interface on an AP or group of APs, access the command-line interface in Config mode and issue the following command.</p>
+ <p class="FM_CLI">ap-group &lt;group&gt;</p>
+ <p class="FM_CLIIndented">enet0-port-profile &lt;profile&gt; </p>
+ <p class="FM_CLIIndented">enet1-port-profile &lt;profile&gt; </p>
+ <p class="FM_CLIIndented">enet2-port-profile &lt;profile&gt;</p>
+ <p class="FM_CLIIndented">enet3-port-profile &lt;profile&gt;</p>
+ <p class="FM_CLIIndented">enet4-port-profile &lt;profile&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_Securing_Controller_to"></a><a name="XREF_58224_Securing"></a>Securing <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>-to-<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Communication</p>
+ <p class="FM_Body">xSec can be used to secure data and control traffic passed between two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. The only requirement is that both <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;be members of the same VLAN. To establish a point-to-point tunnel between the two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, you need to configure the following for the connecting ports on each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The MAC address of the xSec tunnel termination point. This would be the MAC address of the “other” <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">A 16-byte shared key used to authenticate the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;to each other. You must configure the same shared key on both <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The VLAN IDs for the VLANs that will extend across both the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;via the xSec. <a href="#XREF_82445_Figure_44"><span class="FM_PMS646">Figure 53</span></a>&#160;shows an example network where two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;are connected to the same VLAN, VLAN 1. On <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;1, you configure the MAC address of <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;2 for the xSec tunnel termination point. On <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;2, you configure the MAC address of <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;1 for the xSec tunnel termination point. On both <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, you configure the same 16-byte shared key and the IDs for the VLANs which are allowed to pass through the xSec tunnel.</p>
+</li>
+ </ul>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 53 &#160;</span><a name="XREF_82445_Figure_44"></a><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>-to-<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> xSec Example</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="xSec00069.jpg" id="image2" src="images/xSec00069.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Controllers"></a><a name="XREF_12520_Figure6_3_xSec_for"></a>Configuring <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?> for xSec</p>
+ <p class="FM_Body">The following sections describe how to use the WebUI or CLI to configure the port that connects to the wired network on which the other <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is installed. Other chapters in this manual describe the configuration of VLANs.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI73"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; Port</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click on the port to be configured.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the VLAN from the drop-down list. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the xSec point-to-point settings:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the MAC address of the tunnel termination point (the “other” <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s MAC address).</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the key (for example, 1234567898765432) used by xSec to establish the tunnel between the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the VLANs that would be allowed across the point-to-point connection from the Allowed VLANs drop-down menu, and click the &lt;-- button.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI75"></a>In the CLI</p>
+ <p class="FM_Body">For <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> 1:</p>
+ <p class="FM_CLI">interface gigabitethernet|fastethernet <span style="font-style : italic; ">slot</span>/<span style="font-style : italic; ">port</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;vlan 1</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;xsec point-to-point 10:11:12:13:14:15 1234567898765432 allowed vlan 101,200,250</p>
+ <p class="FM_Body">For <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> 2:</p>
+ <p class="FM_CLI">interface gigabitethernet|fastethernet <span style="font-style : italic; ">slot</span>/<span style="font-style : italic; ">port</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;vlan 1</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;xsec point-to-point 01:02:03:04:05:06 1234567898765432 allowed vlan 101,200,250</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the_Odyssey"></a><a name="XREF_17002_Configuring_the"></a>Configuring the Odyssey Client on Client Machines</p>
+ <p class="FM_Body">You can obtain the Odyssey Client from Juniper Networks. For information on Odyssey Client versions, contact <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> Networks or Juniper Networks support.</p>
+ <p class="FM_2Heading"><a name="TOC_Installing_the_Odyssey"></a>Installing the Odyssey Client</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Unzip and install the Odyssey client on the client laptop.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For wired xSec, to use the Odyssey client to control the wired port, modify the registry:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On the windows machine, click <span style="font-weight : bold; ">Start</span>&#160;and select <span style="font-weight : bold; ">Run</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Type <span class="FM_TypeThis" style="font-family : Courier New; font-weight : bold; ">regedit</span>&#160;in the dialog box and click <span style="font-weight : bold; ">OK</span>. </p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate down the tree to<br /><span class="FM_System" style="font-family : Courier New; ">HKEY_LOCAL_MACHINE\SOFTWARE\Funk Software, Inc.\odyssey\client\configuration\options\wiredxsec</span><span class="FM_Strong" style="font-weight : bold; ">.</span></p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 54 &#160;</span>The regedit Window</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="regedit.jpg" id="image3" src="images/regedit.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select “policy” from the registry values and right click on it. Select <span style="font-weight : bold; ">Modify</span>&#160;to modify the contents of policy. Set the value in the resulting window to <span class="FM_System" style="font-family : Courier New; ">required</span><span style="font-style : italic; ">.</span></p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 55 &#160;</span>Modifying a regedit Policy</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="regedit2.jpg" id="image4" src="images/regedit2.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Open the Funk Odyssey Client. Click the <span style="font-weight : bold; ">Profile</span>&#160;tab in the client window. This allows the user to create the user profile for 802.1x authentication.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 56 &#160;</span>The Funk Odyssey Client Profile</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="client_addprofile_userinfo.jpg" id="image5" src="images/client_addprofile_userinfo.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the login name dialog box, enter the login name used for 802.1x authentication. For the password, the client could use the WINDOWS password or use the configured password based on the selection made.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the certificate tab and enter the certificate information required. This example shows the PEAP settings.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 57 &#160;</span>Certificate Information</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="client_addprofile_auth.jpg" id="image6" src="images/client_addprofile_auth.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Authentication</span>&#160;tab. In the resultant window, click the <span style="font-weight : bold; ">Add</span>&#160;tab and select <span style="font-weight : bold; ">EAP/PEAP</span>. Move this option to the top of the list if PEAP is the method chosen. If certification validation not required, uncheck the <span style="font-weight : bold; ">Validate server certificates</span> setting.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">PEAP Settings</span> tab and select the EAP protocol supported.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>To modify an existing profile, select the profile and then click the <span style="font-weight : bold; ">Properties</span> tab.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Network</span> tab to configure the network for wireless client. For wired clients, skip this step.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 58 &#160;</span>Network Profile</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="client_addprofile_network.jpg" id="image7" src="images/client_addprofile_network.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Add</span>&#160;tab. Enter the SSID to which the client connects. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Set the Network type to <span style="font-weight : bold; ">Infrastructure</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Set the Association mode to <span style="font-weight : bold; ">xSec</span>,<span style="font-weight : bold; ">&#160;</span>AES encryption is automatically selected.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Authentication, select the <span style="font-weight : bold; ">Authenticate using profile</span> checkbox.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the pull down menu, select the profile used for 802.1x authentication. This would be one of the profiles configured in step 2.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the keys that will be generated automatically for data privacy. </p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Apply the configuration changes made by clicking on the <span style="font-weight : bold; ">OK</span> tab.</p>
+ <p class="FM_StepSubNext">h.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To modify an existing profile, select the profile and then click the <span style="font-weight : bold; ">Properties</span> tab.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>&#160;Click the <span style="font-weight : bold; ">Adapters</span>&#160;tab if the adapter used is not seen under the list of adapters pull down menu under connections.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>When using a wireless client, click the <span style="font-weight : bold; ">Wireless</span> tab.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Wireless adapters only</span>&#160;radio button. From the resulting list, select the adapter required from the list and click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For wired 802.1x clients, select the <span style="font-weight : bold; ">Wired 802.1x</span>&#160;tab and select the <span style="font-weight : bold; ">Wired adapters only</span>&#160;radio button. From the resulting list, select the adapter required from the list and click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Establish the connection.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Connection</span> tab.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the pull down menu, select the adapter required. If the adapter in use is not visible, add the adapter as explained in Step 5.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the<span style="font-weight : bold; "> Connect to network</span>&#160;checkbox and select the <span style="font-weight : bold; ">Network</span>&#160;option from the pull down menu. To configure a new network, follow the instructions in Step 4.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>This will automatically start the connection process. To reconnect to the network, click <span style="font-weight : bold; ">Reconnect</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Scan</span> to display the SSIDs seen by the NIC after a site survey.</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

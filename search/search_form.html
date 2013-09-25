@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>KSearch 1.6 Search Form</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<link rel="stylesheet" href="ks_images/style.css" type="text/css" />
+	<meta name="description" content="KSearch 1.5b Search Form" />
+	<meta name="keywords" content="KSearch 1.5b, search," />
+</head>
+<body>
+	<div class="topbar"><a name="form"></a></div>
+<!-- Start Main Content -->
+<div class="results_table">
+	<a href="../../HERE/ArubaOS_61/ArubaOS_61_CLI/index.html">Return Home</a>
+</div>
+<h1>Welcome!</h1>
+<div class="content">
+	<div class="search_table">
+		<form action="ksearch.cgi" method="get">
+			<div class="fieldset_1">
+			<fieldset><legend><em>Search Our Site</em></legend>
+				<br />
+				<input type="text" size="35" name="terms" id="tips" value="" onfocus="select(this);" />
+				&nbsp; <input type="submit" value=" Search " /> &nbsp; 
+				<input type="hidden" name="showm" value="5" />
+				<input type="checkbox" name="all" value="1" />terms<br />
+				</fieldset>
+			</div>
+			<div class="fieldset_2">
+			<fieldset><legend><strong><em>Power Search</em> Options</strong></legend>
+				<table border="0" cellpadding="1" cellspacing="0">
+					<tr><td align="left">
+							<input type="checkbox" name="c" value="s" />Case Sensitive<br />
+							<input type="checkbox" name="w" value="1" />Whole Words Only<br />
+							<input type="checkbox" name="st" value="1" />Include Stop-Terms
+						</td>
+						<td valign="top">
+							Sort by <select name="sort">
+									<option>Matches</option>
+									<option selected="selected">Scores</option>
+									<option>Dates</option>
+									<option>Sizes</option>
+									</select>
+								<br /><br />
+							Results <select name="display">
+									<option>5</option>
+									<option selected="selected">10</option>
+									<option>25</option>
+									<option>50</option>
+									<option>100</option>
+									<option>500</option>
+									<option>1000</option>
+									</select>
+						</td>
+					</tr>
+					<tr><td align="left" colspan="2"><br />Content Results Options</td></tr>
+                        <tr><td align="left" colspan="2">
+                                <input type="checkbox" name="b" value="1" checked="checked" />Body
+                                <input type="checkbox" name="t" value="1" checked="checked" />Title
+                                <input type="checkbox" name="u" value="1" />Url  
+                                <input type="checkbox" name="alt" value="1" />Alt-Text
+                                <input type="checkbox" name="l" value="1" />Links
+                                <input type="checkbox" name="default" value="1" />Default
+                        </td></tr>
+                        <tr><td align="left" colspan="2">
+                                <input type="checkbox" name="d" value="1" checked="checked" />Meta-Description
+                                <input type="checkbox" name="k" value="1" />Meta-Keywords 
+                                <input type="checkbox" name="au" value="1" />Meta-Authors
+                        </td></tr>
+				</table>
+			</fieldset>
+			</div>
+			<div class="powered_by">
+			<p><a href="http://www.kscripts.com/" target="_blank"><img src="ks_images/KSlogo.gif" alt="Powered by KSearch Engine 1.5b" /></a></p></div>
+		</form>
+	</div>
+	<hr />
+	<h3>General Search Tips</h3>
+		<ul>
+			<li>Default search content: is the body, title, and meta-description.</li>
+			<li>Stop-terms are common terms like "it and the that...".</li>
+			<li>Special characters like #!$%|&amp;..etc. are allowed.</li>
+			<li>ISO Latin-1 characters like äßçéñ..etc. are treated as english equivalents.</li>
+			<li>Phrases: use double-quotes around search term. ("search")</li>
+			<li>Add + in front of terms/phrases that must appear in results.</li>
+			<li>Add - in front of terms/phrases that must not appear in results.</li>
+			<li>The + checkbox adds a plus in front of all terms/phrases for convenience.</li>
+			<li>The <strong>score</strong> is the percentage of matching characters in a document.</li>
+		</ul>
+	<h3>Advanced Search Tips for KSearch 1.5b</h3>
+		<ul><li>Searching can be expanded with a wildcard (*).</li>
+			</ul>
+			<blockquote>
+				<p>Adding a * to the end of a term will match all endings. For example: 'test*' will 
+				match 'tests' 'tested' 'testing' etc.<br />Stop-terms are included in wildcard searches.</p>
+			</blockquote>
+		<ul><li>Weights can be applied by adding &lt;2-10000&gt; in front of terms or phrases.</li>
+			</ul>
+			<blockquote>
+				<p>For example:</p>
+				<p><input type="text" value="&lt;100&gt;term none &lt;500&gt;&quot;a phrase&quot;" size="40" readonly="readonly" /></p>
+				<p>The query above will weight scores 100 and 500 times greater for documents containing 'term' and 'a phrase', respectively.<br />
+				The scores for documents containing only 'none' will remain unchanged. The weight must be in the range of 2-10000.<br />
+				Add + (inclusion) in front of weights. The results will be sorted by weighted scores.</p>
+			</blockquote>
+		<ul><li>The following options can be placed in any order in front of the query:</li>
+			</ul>
+			<blockquote>
+				<p><strong>c:</strong> &nbsp; for a case sensitive search.<br />
+				<strong>w:</strong> &nbsp; to match whole words only.<br />
+				<strong>st:</strong> &nbsp; to include stop-terms.<br />
+				<strong>all:</strong> &nbsp; to add + in front of all terms/phrases.<br />
+				<strong>match: score: date: size: title:</strong> &nbsp; or &nbsp; <strong>name:</strong> &nbsp; for the sorting choice.<br />
+				<strong>5-100:</strong> &nbsp; for the number of results to display per page.<br />
+				<strong>b:</strong> &nbsp; to search the body (full text) of documents.<br />
+				<strong>t:</strong> &nbsp; to search the title of documents.<br />
+				<strong>u:</strong> &nbsp; to search the url of documents.<br />
+				<strong>alt:</strong> &nbsp; to search the alternate text in documents.<br />
+				<strong>l:</strong> &nbsp; to search the links in documents.<br />
+				<strong>d:</strong> &nbsp; to search the meta-description in documents.<br />
+				<strong>k"</strong> &nbsp; to search the meta-keywords in documents.<br />
+				<strong>au:</strong> &nbsp; to search the meta-author in documents.</p>
+				<p>For example:</p>
+				<p><input type="text" value="c:b:t:d:15:size:term &quot;a phrase&quot;" size="40" readonly="readonly" /></p>
+				<p>The query above will perform a case sensitive search for 'term' and 'a phrase' in the body, 
+				title, and<br />meta-description of documents. 15 results will be displayed per page and the results 
+				will be sorted by file size.</p>
+			</blockquote>
+<hr />
+	<!-- Start Footer -->
+	<div class="footer">
+		<p><small>KScripts.com  &copy; Copyright 2011, All rights reserved.</small></p>
+	</div>
+	<!-- End Footer -->
+</div>
+<div class="bottombar"></div>
+</body>
+</html>

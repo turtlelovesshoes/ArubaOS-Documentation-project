@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>DHCP_Option_43</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\DHCP_Option_43.fm" />
+ <meta name="keywords" content="access control decisions, optional information, hardware address, wireless network">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_Anchor"><a name="XREF_98100_Title_of_Chapter"></a>&nbsp;</p>
+ <p class="FM_AppendixNumber" style="color   : #000000;"><a name="TOC_Appendix_A"></a>Appendix A</p>
+ <p class="FM_ChapterTitle"><a name="TOC_DHCP_with_Vendor"></a><a name="XREF_41797_DHCP_with_Vendor"></a><span style="color   : #000000; ">DHCP with Vendor-Specific Options</span></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Option_60"></a>Configuring Option 60</p>
+ <p class="FM_Body">This section describes how to configure the Vendor Class Identifier Code (option 60) on a Microsoft Windows-based DHCP server.</p>
+ <p class="FM_Body">As mentioned in the overview section, option 60 identifies and associates a DHCP client with a particular vendor. Any DHCP server configured to take action based on a client’s vendor ID should also have this option configured.</p>
+ <p class="FM_Body">Since option 60 is not a predefined option on a Windows DHCP server, you must add it to the option list for the server.</p>
+ <p class="FM_3Heading"><a name="TOC_To_configure_option_60"></a>To configure option 60 on the Windows DHCP server</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On the DHCP server, open the DHCP server administration tool by clicking<span style="font-weight : bold; ">&#160;<br />Start &gt;&#160;Administrative Tools &gt; DHCP</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Find your server and right-click on the scope to be configured under the server name. Select <span style="font-weight : bold; ">Set Predefined Options</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Predefined Options and Values dialog box, click the <span style="font-weight : bold; ">Add</span> button.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Option Type dialog box, enter the following information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 288.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 169 &#160;</span>Configure option 60 on the Windows DHCP server<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Field</p>
+</th>
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Information</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Name</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> Access Point</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Data Type</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">String</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Code</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">60</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Description</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> AP vendor class identifier</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span> to save this information.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Predefined Options and Values dialog box, make sure <span style="font-weight : bold; ">060 <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> Access Point</span>&#160;is selected from the Option Name drop-down list.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Value field, enter the following information:</p>
+ <p class="FM_BodyinBulletStep" style="font-weight : bold;">String : ArubaAP</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span> to save this information.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the server, select the scope you want to configure and expand it. Select <span style="font-weight : bold; ">Scope Options</span>&#160;and expand it. Then select <span style="font-weight : bold; ">Configure Options</span>.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the Scope Options dialog box, scroll down and select <span style="font-weight : bold; ">060 <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> Access Point</span>. Confirm the value is set to <span style="font-weight : bold; ">ArubaAP</span>&#160;and click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Confirm that the option <span style="font-weight : bold; ">060 <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> Access Poin</span>t is listed in the right pane.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Option_43"></a>Configuring Option 43</p>
+ <p class="FM_Body">Option 43 returns the IP address of the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;DHCP client. This information allows <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs to auto-discover the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and obtain their configuration.</p>
+ <p class="FM_3Heading"><a name="TOC_To_configure_option_43"></a>To configure option 43 on the Windows DHCP server:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On the DHCP server, open the DHCP server administration tool by clicking<span style="font-weight : bold; ">&#160;<br />Start &gt;&#160;Administration Tools &gt; DHCP</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Find your server and right-click on the scope to be configured under the server name. Click on the Scope Options entry and select <span style="font-weight : bold; ">Configure Options</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Scope Options dialog box (<a href="#XREF_19745_Figure_1_Scope"><span class="FM_PMS646">Figure 197</span></a>), scroll down and select 043 Vendor Specific Info</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 197 &#160;</span><a name="XREF_19745_Figure_1_Scope"></a>Scope Options Dialog Box.</p>
+ <div align="left"><img alt="ScopeOptionsDialogBox.jpg" id="image0" src="images/ScopeOptionsDialogBox.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Data Entry field, click anywhere in the area under the ASCII heading and enter the following information:</p>
+ <p class="FM_BodyinBulletStep">ASCII : Loopback address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">OK</span> button to save the configuration.</p>
+ <p class="FM_Body">Option 43 is configured for this DHCP scope. Note that even though you entered the IP address in ASCII text, it displays in binary form.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 198 &#160;</span>DHCP Scope Values</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="DHCPScopeValues.jpg" id="image1" src="images/DHCPScopeValues.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_1Heading"><a name="TOC_DHCP_Relay_Agent"></a><a name="XREF_14419_DHCP_Relay_Agent"></a>DHCP Relay Agent Information Option (Option 82)</p>
+ <p class="FM_Body">The DHCP Relay Agent Information option (Option 82) allows the DHCP Relay Agent to insert circuit specific information into a request that is being forwarded to a DHCP server.</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, when acting as a DHCP relay agent, inserts information about the AP and SSID through which a client is connecting into the DHCP request. Many service providers use this mechanism to make access control decisions.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Option_82"></a>Configuring Option 82</p>
+ <p class="FM_Body">You can configure Option 82 using the WebUI or the CLI. You can include only the MAC address or MAC address and ESSID. The MAC address is the hardware address and ESSID is an alphanumeric name that uniquely identifies a wireless network.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI143"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt;&#160;IP &gt;IP Interfaces</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Edit</span> next to the VLAN ID for which you want to configure Option 82.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under DHCP Helper Address select <span style="font-weight : bold; ">Mac</span>&#160;or <span style="font-weight : bold; ">Mac Essid</span> from the Option-82 drop-down menu.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI146"></a>In the CLI</p>
+ <p class="FM_Body">This example enables Option 82 for VLAN 5 using ESSID. You can include only the MAC address or MAC address and ESSID.</p>
+ <p class="FM_CLI">(host) (config) #interface vlan 5</p>
+ <p class="FM_CLI">(host) (config-subif)#option-82</p>
+ <p class="FM_CLI">(host) (config-subif)#option-82 mac essid</p>
+ <p class="FM_CLI">(host) (config-subif)#</p>
+ <p class="FM_1Heading"><a name="TOC_Linux_DHCP_Servers"></a><a name="XREF_24095_Linux_DHCP_Servers"></a>Linux DHCP Servers</p>
+ <p class="FM_Body">The following is an example configuration for the Linux dhcpd.conf file. &#160;After you enter the configuration, you must restart the DHCP service.</p>
+ <p class="FM_CLI">option serverip code 43 = ip-address; </p>
+ <p class="FM_CLI">class &quot;vendor-class&quot; { </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;match option vendor-class-identifier; </p>
+ <p class="FM_CLI">} </p>
+ <p class="FM_CLI">. </p>
+ <p class="FM_CLI">. </p>
+ <p class="FM_CLI">. </p>
+ <p class="FM_CLI">subnet 10.200.10.0 netmask 255.255.255.0 { </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;default-lease-time 200; </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;max-lease-time 200; </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;option subnet-mask 255.255.255.0; </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;option routers 10.200.10.1; </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;option domain-name-servers 10.4.0.12; </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;option domain-name &quot;vlan10.aa.mycorpnetworks.com&quot;; </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;subclass &quot;vendor-class&quot; &quot;ArubaAP&quot; { </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;option vendor-class-identifier &quot;ArubaAP&quot;;</p>
+ <p class="FM_CLI">#</p>
+ <p class="FM_CLI"># option serverip &lt;loopback-IP-address-of-master-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&gt;</p>
+ <p class="FM_CLI">#</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;option serverip 10.200.10.10; </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;} </p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;range 10.200.10.200 10.200.10.252; </p>
+ <p class="FM_CLI">} </p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_Body"><a name="IX_option_43_on_DHCP_server"></a><a name="IX_DHCP_with_option_43"></a>This appendix describes how to configure several DHCP vendor-specific options. Topics include?</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_38117_Windows_Based_DHCP"><span class="FM_PMS646">“Windows-Based DHCP Server”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_14419_DHCP_Relay_Agent"><span class="FM_PMS646">“DHCP Relay Agent Information Option (Option 82)” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_24095_Linux_DHCP_Servers"><span class="FM_PMS646">“Linux DHCP Servers” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Windows_Based_DHCP_Server"></a><a name="XREF_38117_Windows_Based_DHCP"></a>Windows-Based DHCP Server</p>
+ <p class="FM_Body">Configuring a Microsoft Windows-based DHCP server to send option 43 to the DHCP client on an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;AP consists of the following two tasks:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Configuring Option 60</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configuring Option 43</p>
+</li>
+ </ul>
+ <p class="FM_Body">DHCP servers are a popular way of configuring clients with basic networking information such as an IP address, a default gateway, network mask, DNS server, and so on. Most DHCP servers have the ability to also send a variety of optional information, including the Vendor-Specific Option Code, also called option 43.</p>
+ <p class="FM_Body">When a client or an AP requests for &#160;option 43 (Vendor Specific Information), the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;responds with the value configured by administrator in the DHCP pool. </p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

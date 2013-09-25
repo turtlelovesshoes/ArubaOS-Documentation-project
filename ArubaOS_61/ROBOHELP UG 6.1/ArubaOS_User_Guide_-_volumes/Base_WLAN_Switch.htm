@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Base_WLAN_Switch</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Base_WLAN_Switch.fm" />
+ <meta name="keywords" content="ip address,configured vlan interface ip address, controller, remote management console,">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 1</p>
+ <p class="FM_ChapterTitle"><a name="TOC_The_Basic_User_Centric"></a>The Basic User-Centric Networks</p>
+ <p class="FM_Body">This chapter describes how to connect an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs to your wired network. After completing the tasks described in this chapter, see <a href="AP_Config.htm"><span class="FM_PMS646">“Access Points”</span></a>&#160;for information on configuring APs.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_36954_Configuring_and"><span class="FM_PMS646">“Configuring the User-Centric Network”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_46346_Deployment_and"><span class="FM_PMS646">“Deployment and Configuration Tasks” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_82076_Configuration"><span class="FM_PMS646">“Configuring the Controller”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_65452_Configure_VLAN_for"><span class="FM_PMS646">“Configuring a VLAN for Network Connection”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_54209_Further"><span class="FM_PMS646">“Additional Configuration” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the_User"></a><a name="XREF_36954_Configuring_and"></a>Configuring the User-Centric Network</p>
+ <p class="FM_Body">Configuring your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and AP is done through either the Web User Interface (WebUI) or the command line interface (CLI).</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a name="IX_WebUI_1"></a>WebUI is accessible through a standard Web browser from a remote management console or workstation. The WebUI includes configuration wizards that step you through easy-to-follow configuration tasks. Each wizard has embedded online help. The wizards are:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2"><a name="IX_AP_1"></a>AP Wizard—basic AP configuration s including LAN, Remote, LAN Mesh and Remote Mesh deployment scenarios</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;Wizard—basic <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configuration including system settings, Control Plane security, cluster settings and licenses</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2"><a name="IX_WLAN_1"></a>WLAN/LAN Wizard—creating and configuring new WLANs and LANs associated with the “default” ap-group. Includes campus only and remote networking. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2"><a name="IX_license_1"></a>License Wizard—installation and activation of software licenses (see <a href="Internal_Captive_Portal.htm#XREF_98100_Title_of_Chapter"><span class="FM_PMS646">Chapter 35</span></a>)</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">Clicking Cancel from the Wizards return you to where you launched the wizard. Any configuration changes you entered are not saved.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet2"></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The command line interface (CLI) allows you to configure and manage <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. The CLI is accessible from a local console connected to the serial port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or through a Telnet or Secure Shell (SSH) session from a remote management console or workstation.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">By default, you can only access the CLI from the serial port or from an SSH session. To use the CLI in a Telnet session, you must explicitly enable Telnet on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Deployment_and"></a><a name="XREF_46346_Deployment_and"></a>Deployment and Configuration Tasks</p>
+ <p class="FM_Body">This section describes typical deployment scenarios and the tasks you must perform in connecting an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;APs to your wired network. For details on performing the tasks mentioned in these scenarios, refer to the remaining sections within this chapter. </p>
+ <p class="FM_2Heading"><a name="TOC_Deployment_Scenario_1"></a><a name="XREF_90258_Deployment"></a>Deployment Scenario #1</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="deployment_1.jpg" id="image0" src="images/deployment_1.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">In this deployment scenario, the APs and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;are on the same subnetwork and will use IP addresses assigned to the subnetwork. There are no routers between the APs and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. APs can be physically connected directly to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The uplink port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is connected to a layer-2 switch or router.</p>
+ <p class="FM_Body">For this scenario, you must perform the following tasks:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Run the initial setup wizard.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">Set the IP address of VLAN 1.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Set the default gateway to the IP address of the interface of the upstream router to which you will connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Connect the uplink port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the switch or router interface. By default, all ports on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> are access ports and will carry traffic for a single VLAN.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Deploy APs. The APs will use the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Discovery Protocol (ADP) to locate the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">Configure the SSID(s) with VLAN 1 as the assigned VLAN for all users.</p>
+ <p class="FM_2Heading"><a name="TOC_Deployment_Scenario_2"></a><a name="XREF_34063_Deployment"></a>Deployment Scenario #2</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="deployment_2.jpg" id="image1" src="images/deployment_2.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">In this deployment scenario, the APs and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;are on different subnetworks and the APs are on multiple subnetworks. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;acts as a router for the wireless subnetworks (the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is the default gateway for the wireless clients). The uplink port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is connected to a layer-2 switch or router; this port is an access port in VLAN 1.</p>
+ <p class="FM_Body">For this scenario, you must perform the following tasks:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Run the initial setup wizard.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">Set the IP address for VLAN 1.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Set the default gateway to the IP address of the interface of the upstream router to which you will connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Connect the uplink port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to the switch or router interface.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Deploy APs. The APs will use DNS or DHCP to locate the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure VLANs for the wireless subnetworks on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure SSIDs with the VLANs assigned for each wireless subnetwork.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Each wireless client VLAN must be configured on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;with an IP address. On the uplink switch or router, you must configure static routes for each client VLAN, with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s VLAN 1 IP address as the next hop.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_2Heading"><a name="TOC_Deployment_Scenario_3"></a><a name="XREF_62498_Deployment"></a>Deployment Scenario #3</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="deployment_3.jpg" id="image2" src="images/deployment_3.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">In this deployment scenario, the APs and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;are on different subnetworks and the APs are on multiple subnetworks. There are routers between the APs and the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is connected to a layer-2 switch or router through a trunk port that carries traffic for all wireless client VLANs. An upstream router functions as the default gateway for the wireless users.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">This deployment scenario does <span style="font-style : italic; ">not</span>&#160;use VLAN 1 to connect to the layer-2 switch or router through the trunk port. The initial setup prompts you for the IP address and default gateway for VLAN 1; use the default values. In later steps, you configure the appropriate VLAN to connect to the switch or router as well as the default gateway.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">For this scenario, you must perform the following tasks:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Run the initial setup.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">Use the <span class="FM_Emphasis">default</span>&#160;IP address for VLAN 1. Since VLAN 1 is <span style="font-style : italic; ">not</span>&#160;used to connect to the layer-2 switch or router through the trunk port, you must configure the appropriate VLAN in a later step.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Do <span class="FM_Emphasis">not</span>&#160;specify a default gateway (use the default “none”). In a later step, you configure the default gateway.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Create a VLAN that has the same VLAN ID as the VLAN on the switch or router to which you will connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Add the uplink port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to this VLAN and configure the port as a trunk port.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Add client VLANs to the trunk port.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the default gateway on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This gateway is the IP address of the router to which you will connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the loopback interface for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Connect the uplink port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to the switch or router interface.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Deploy APs. The APs will use DNS or DHCP to locate the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Now configure VLANs on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for the wireless client subnetworks and configure SSIDs with the VLANs assigned for each wireless subnetwork.</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the"></a><a name="XREF_82076_Configuration"></a><a name="XREF_14801_Configuring_the"></a>Configuring the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">The tasks in deploying a basic user-centric network fall into two main areas: </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Configuring and connecting the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to the wired network (described in this section)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Deploying APs (described later in this section)</p>
+</li>
+ </ul>
+ <p class="FM_Body"><a name="IX_initial_setup_1"></a><a name="IX_initial_setup"></a>To connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to the wired network:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Run the initial setup to configure administrative information for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_BodyinBulletStep"><a name="IX_setup"></a>Initial setup can be done using the browser-based Setup Wizard or by accessing the initial setup dialog via a serial port connection. Both methods are described in the <span style="font-style : italic; "><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> Quick Start Guide</span>&#160;and are referred to throughout this chapter as “initial setup.”</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Deployment #3) Configure a VLAN to connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to your network. You do <span class="FM_Emphasis">not</span>&#160;need to perform this step if you are using VLAN 1 to connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to the wired network.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) Configure a loopback address for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You do <span class="FM_Emphasis">not</span>&#160;need to perform this step if you are using the VLAN 1 IP address as the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address. Disable spanning tree on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;if necessary.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the system clock.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) Install licenses; refer to <a href="Internal_Captive_Portal.htm#XREF_98100_Title_of_Chapter"><span class="FM_PMS646">Chapter 35, “Software Licenses”</span></a>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Connect the ports on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to your network.</p>
+ <p class="FM_Body">This section describes the steps in detail.</p>
+ <p class="FM_2Heading"><a name="TOC_Running_the_Initial_Setup"></a><a name="HT_initial_setup"></a>Running the Initial Setup</p>
+ <p class="FM_Body">When you connect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for the first time using either a serial console or a Web browser, the initial setup requires you to set the role (master or local) for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and passwords for administrator and configuration access. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 67.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Do not connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to your network when running the initial setup. The factory-default <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;boots up with a default IP address and both DHCP server and spanning tree functions are not enabled. Once you have completed the initial setup, you can use either the CLI or WebUI for further configuration before connecting the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to your network.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">The initial setup might require that you specify the country code for the country in which the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will operate; this sets the regulatory domain for the radio frequencies that the APs use.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 93.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You cannot change the country code for <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;designated for certain countries, such as the U.S. <br />Improper country code assignment can disrupt wireless transmissions. Many countries impose penalties and sanctions for operators of wireless networks with devices set to improper country codes.<br /><br />If none of the channels supported by the AP you are provisioning have received regulatory approval by the country whose country code you selected, the AP will revert to Air Monitor mode.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body">The initial setup requires that you configure an IP address for the VLAN 1 interface, which you can use to access and configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;remotely via an SSH or WebUI session. Configuring an IP address for the VLAN 1 interface ensures that there is an IP address and default gateway assigned to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;upon completion of the initial setup.</p>
+ <p class="FM_2Heading"><a name="TOC_Connecting_to_the"></a>Connecting to the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> after Initial Setup</p>
+ <p class="FM_Body">After you complete the initial setup, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;reboots using the new configuration. (See the <span style="font-style : italic; "><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;Quick Start Guide</span>&#160;for information about using the initial setup.) You can then connect to and configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in several ways using the administrator password you entered during the initial setup:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">You can continue to use the connection to the serial port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to enter the command line interface (CLI). (Refer to <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 33, “Management Access” </span></a>&#160;for information on how to access the CLI and enter configuration commands.)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">You can connect an Ethernet cable from a PC to an Ethernet port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You can then use one of the following access methods:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Use the VLAN 1 IP address to start an SSH session where you can enter CLI commands.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2"><a name="IX_WebUI_2"></a>Enter the VLAN 1 IP address in a browser window to start the WebUI.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">WebUi Wizards.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 67.50pt;">
+   <td style="width : 71.250pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.752pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zTextNote">This chapter and the user guide in general focus on CLI and standard WebUI configuration examples. However, basic <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configuration and WLAN/LAN creation can be completed using the alternative wizards from within the WebUI. If you wish to use a configuration wizard, navigate to <span style="font-weight : bold; ">Configuration &gt; Wizards</span>, click on the desired wizard, and follow the imbedded help instructions within the wizard. </p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet2"></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Configuring_a_VLAN_for"></a><a name="HT_vlan1_network"></a><a name="XREF_65452_Configure_VLAN_for"></a>Configuring a VLAN for Network Connection</p>
+ <p class="FM_Body">You must follow the instructions in this section only if you need to configure a trunk port between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and another layer-2 switch (shown in <a href="#XREF_62498_Deployment"><span class="FM_PMS646">“Deployment Scenario #3” </span></a>).</p>
+ <p class="FM_Body">This section shows how to use both the WebUI and CLI for the following configurations (subsequent steps show how to use the WebUI only):</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Create a VLAN on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and assign it an IP address. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Optionally, create a VLAN pool. A VLAN pool consists of two more VLAN IDs which are grouped together to efficiently manage multi-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;networks from a single location. For example, policies and virtual application configurations map users to different VLANs which may exist at different <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. This creates redundancy where one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has to back up many other <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. With the VLAN pool feature you can control your configuration globally</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconCaution" style="padding-top : 0.000pt; padding-left : 18.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">VLAN pooling should <span style="font-style : italic; ">not</span> be used with static IP addresses.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1">.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Assign to the VLAN the ports) that you will use to connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the network. (For example, the uplink ports connected to a router are usually Gigabit ports.) In the example configurations shown in this section, a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is connected to the network through its Gigabit Ethernet port 1/25.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configure the port as a trunk port.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configure a default gateway for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Creating_and_Updating_a"></a>Creating and Updating a VLAN</p>
+ <p class="FM_Body">You can create and update a single VLAN or bulk VLANS using the WebUI or the CLI. See <a href="Management_Utilities.htm#XREF_77816_Guest_Provisioning"><span class="FM_PMS646">“Creating and Updating VLANs” </span></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 80.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">In the WebUI configuration windows, clicking the <span style="font-weight : bold; ">Save Configuration </span>button saves configuration changes so they are retained after the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is rebooted. Clicking the <span style="font-weight : bold; ">Apply</span>&#160;button saves changes to the running configuration but the changes are not retained when the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is rebooted. A good practice is to use the <span style="font-weight : bold; ">Apply</span>&#160;button to save changes to the running configuration and, after ensuring that the system operates as desired, click <span style="font-weight : bold; ">Save Configuration</span>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_Existing_VLAN_IDs"></a>Viewing Existing VLAN IDs</p>
+ <p class="FM_Body">Use the CLI to view VLAN IDs.</p>
+ <p class="FM_CLIIndented">(host) #configure terminal &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLIIndented">Enter Configuration commands, one per line. End with CNTL/Z</p>
+ <p class="FM_CLIIndented">(host) (config) #show vlan</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">VLAN CONFIGURATION</p>
+ <p class="FM_CLIIndented">------------------</p>
+ <p class="FM_CLIIndented">VLAN &#160;&#160;Description &#160;Ports</p>
+ <p class="FM_CLIIndented">---- &#160;&#160;----------- &#160;-----</p>
+ <p class="FM_CLIIndented">1 &#160;&#160;&#160;&#160;&#160;Default &#160;&#160;&#160;&#160;&#160;FE1/0-3 FE1/6 GE1/8</p>
+ <p class="FM_CLIIndented">2 &#160;&#160;&#160;&#160;&#160;VLAN0002</p>
+ <p class="FM_CLIIndented">4 &#160;&#160;&#160;&#160;&#160;VLAN0004</p>
+ <p class="FM_CLIIndented">12 &#160;&#160;&#160;&#160;VLAN0012</p>
+ <p class="FM_CLIIndented">210 &#160;&#160;&#160;VLAN0210</p>
+ <p class="FM_CLIIndented">212 &#160;&#160;&#160;VLAN0212 &#160;&#160;&#160;&#160;FE1/5</p>
+ <p class="FM_CLIIndented">213 &#160;&#160;&#160;VLAN0213 &#160;&#160;&#160;&#160;FE1/4</p>
+ <p class="FM_CLIIndented">1170 &#160;&#160;VLAN1170 &#160;&#160;&#160;&#160;FE1/7</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_2Heading"><a name="TOC_Creating_Updating_and"></a>Creating, Updating, and Deleting VLAN Pools</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconCaution" style="padding-top : 0.000pt; padding-left : 18.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">VLAN pooling should <span style="font-style : italic; ">not</span> be used with static IP addresses.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_2Heading"></p>
+ <p class="FM_Body">You can create, update, delete a VLAN pool using the WebUI or the CLI. See <a href="ARM.htm#XREF_90832_Adaptive_Radio"><span class="FM_PMS646">“Creating, Updating and Deleting VLAN Pools” </span></a>.</p>
+ <p class="FM_3Heading"><a name="TOC_Adding_existing_VLAN_IDs"></a>Adding existing VLAN IDs to a VLAN Pool in the CLI</p>
+ <p class="FM_Body">Use the CLI to add existing VLAN IDS to a pool.</p>
+ <p class="FM_CLIIndented">(host) #configure terminal </p>
+ <p class="FM_CLIIndented">Enter Configuration commands, one per line. End with CNTL/Z</p>
+ <p class="FM_CLIIndented">(host) (config) #vlan-name mygroup pool</p>
+ <p class="FM_CLIIndented">(host) (config) #vlan mygroup 2,4,12</p>
+ <p class="FM_CLIIndented">(host) (config) #</p>
+ <p class="FM_Body">To confirm the VLAN pool status and mappings assignments, use the <span class="FM_Bold" style="font-weight : bold; ">show vlan mapping </span>command:</p>
+ <p class="FM_CLIIndented">(host) (config) #show vlan mapping</p>
+ <p class="FM_CLIIndented">VLAN Name &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Pool Status &#160;VLAN IDs</p>
+ <p class="FM_CLIIndented">--------- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;----------- &#160;--------</p>
+ <p class="FM_CLIIndented">mygroup &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span> Enabled &#160;&#160;&#160;&#160;&#160;2,4,12</p>
+ <p class="FM_CLIIndented">group123 <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>Disabled</p>
+ <p class="FM_2Heading"><a name="TOC_Assigning_and"></a><a name="HT_assign_ports"></a>Assigning and Configuring the Trunk Port</p>
+ <p class="FM_Body">The following procedures configures a Gigabit Ethernet port as trunk port.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; Ports</span> window on the WebUI.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Port Selection section, click the port that will connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the network. In this example, click port 25.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Port Mode, select <span style="font-weight : bold; ">Trunk</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Native VLAN, select VLAN 5 from the scrolling list, then click the left (&lt;--) arrow.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI"></a>In the CLI</p>
+ <p class="FM_CLIIndented">interface gigabitethernet 1/25</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;switchport mode trunk</p>
+ <p class="FM_CLIIndented">&nbsp;&nbsp;&nbsp;switchport trunk native vlan 5</p>
+ <p class="FM_Body">To confirm the port assignments, use the <span class="FM_Bold" style="font-weight : bold; ">show vlan</span> command:</p>
+ <p class="FM_CLIIndented">(host) (config) #show vlan</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">VLAN CONFIGURATION</p>
+ <p class="FM_CLIIndented">------------------</p>
+ <p class="FM_CLIIndented">VLAN &#160;&#160;Name &#160;&#160;&#160;&#160;&#160;&#160;Ports</p>
+ <p class="FM_CLIIndented">---- &#160;&#160;---- &#160;&#160;&#160;&#160;&#160;&#160;-----</p>
+ <p class="FM_CLIIndented">1 &#160;&#160;&#160;&#160;&#160;Default &#160;&#160;&#160;Fa1/0-23 Gig1/24</p>
+ <p class="FM_CLIIndented">5 &#160;&#160;&#160;&#160;&#160;VLAN0005 &#160;&#160;Gig1/25</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_Default"></a><a name="HT_default_gateway"></a>Configuring the Default Gateway</p>
+ <p class="FM_Body">The following configurations assign a default gateway for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI1"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the<span class="FM_Button" style="font-family : Arial; font-weight : bold; ">&#160;</span><span class="FM_Bold">Configuration &gt;&#160;Network &gt;&#160;IP &gt; IP Routes </span>window. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add a new static gateway, click the <span style="font-weight : bold; ">Add</span>&#160;button below the static IP address list. </p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">IP Address</span> field, enter an IP address in dotted-decimal format.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Cost</span> field, enter a value for the path cost.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>You can define a dynamic gateway using DHCP, PPPOE or a cell uplink interface. In the <span style="font-weight : bold; ">Dynamic</span>&#160;section, click the <span style="font-weight : bold; ">DHCP</span>, <span style="font-weight : bold; ">PPPoE</span>&#160;or <span style="font-weight : bold; ">Cellular</span>&#160;checkboxes to select one or more dynamic gateway options. If you select more than one dynamic gateway type, you must also define a cost for the route to each gateway. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will first attempt to obtain a gateway IP address using the option with the lowest cost. If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is unable to obtain a gateway IP address, it will then attempt to obtain a gateway IP address using the option with the next-lowest path cost.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI1"></a>In the CLI</p>
+ <p class="FM_CLIIndented">ip default-gateway &lt;ipaddr&gt;|{import cell|dhcp|pppoe}|{ipsec &lt;name&gt;} &lt;cost&gt;</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_Loopback"></a><a name="XREF_85262_Configure_a"></a>Configuring the Loopback for the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?><a name="HT_ip_address"></a></p>
+ <p class="FM_Body">You must configure a loopback address if you are not using a VLAN ID address to connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the network (see <a href="#XREF_62498_Deployment"><span class="FM_PMS646">“Deployment Scenario #3” </span></a>). </p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 522.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">After you configure or modify a loopback address, you must reboot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body">If configured, the loopback address is used as the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address. If you do not configure a loopback address for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the IP address assigned to the first configured VLAN interface IP address. Generally, VLAN 1 is configured first and is used as the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address.</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;allows the loopback address to be part of the IP address space assigned to a VLAN interface. In the example topology, the VLAN 5 interface on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;was previously configured with the IP address 10.3.22.20/24. The loopback IP address in this example is 10.3.22.220. </p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 522.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">You configure the loopback address as a host address with a 32-bit netmask. The loopback address should be routable from all external networks.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body">Spanning tree protocol (STP) is enabled by default on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. STP ensures a single active path between any two network nodes, thus avoiding bridge loops. Disable STP on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;if you are not employing STP in your network.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI2"></a>In the WebUI <a name="HT_loopback"></a></p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; System Settings </span>window.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the IP address under Loopback Interface.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On this window, you can also turn off spanning tree. Click <span style="font-weight : bold; ">No</span> for Spanning Tree Enabled.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span> at the bottom of the window (you might need to scroll down the window).</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>At the top of the window, click <span class="FM_Bold" style="font-weight : bold; ">Save Configuration</span>. Note that you must reboot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for the new IP address to take effect.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Maintenance &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Reboot </span><span style="font-weight : bold; "><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span> window.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Continue</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI2"></a>In the CLI</p>
+ <p class="FM_CLIIndented">interface loopback ip address 10.3.22.220</p>
+ <p class="FM_CLIIndented">no spanning-tree</p>
+ <p class="FM_CLIIndented">write memory</p>
+ <p class="FM_CLIIndented">reload</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> returns the following messages:</p>
+ <p class="FM_CLIIndented">Do you really want to reset the system(y/n):</p>
+ <p class="FM_Body">Enter <span style="font-weight : bold; ">y</span>&#160;to reboot the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or <span style="font-weight : bold; ">n</span> to cancel.</p>
+ <p class="FM_CLIIndented">System will now restart!</p>
+ <p class="FM_CLIIndented">...</p>
+ <p class="FM_CLIIndented">Restarting system.</p>
+ <p class="FM_Body">To verify that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is accessible on the network, ping the loopback address from a workstation on the network.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_System"></a>Configuring the System Clock</p>
+ <p class="FM_Body">You can manually set the clock on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, or configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to use a Network Time Protocol (NTP) server to synchronize its system clock with a central time source. For more information about setting the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s clock, see <a href="ARM.htm#XREF_90832_Adaptive_Radio"><span class="FM_PMS646">“Setting the System Clock”</span></a>.</p>
+ <p class="FM_2Heading"><a name="TOC_Installing_Licenses"></a>Installing Licenses</p>
+ <p class="FM_Body"><a name="IX_setup_1"></a><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;consists of a base operating system with optional software modules that you can activate by installing license keys. If you use the Setup Wizard during the initial setup phase, you will have the opportunity to install software licenses at that time. Refer to <a href="Internal_Captive_Portal.htm#XREF_98100_Title_of_Chapter"><span class="FM_PMS646">Chapter 35, “Software Licenses” </span></a>&#160;for detailed information on Licenses.</p>
+ <p class="FM_2Heading"><a name="TOC_Connecting_the"></a><a name="XREF_33411_Connect_the"></a>Connecting the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> to the Network<a name="HT_connect_controller"></a></p>
+ <p class="FM_Body"><a name="IX_connecting_to_network"></a>Connect the ports on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the appropriately-configured ports on an L2 switch or router. Make sure that you have the correct cables and that the port LEDs indicate proper connections. Refer to the <span class="FM_Emphasis">Installation Guide</span>&#160;for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for port LED and cable descriptions.&#160;</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 522.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote"><span style="color   : #000000; ">In many deployment scenarios, an external firewall is situated between various </span><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<span style="color   : #000000; ">devices. </span><a href="Internal_Captive_Portal.htm#XREF_98100_Title_of_Chapter"><span class="FM_PMS646">Appendix B, “External Firewall Configuration”</span></a><span style="color   : #000000; ">&#160;describes the network ports that must be configured on the external firewall to allow proper operation of the network.</span></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body">To verify that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> is accessible on the network:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">If you are using VLAN 1 to connect the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to the network (<a href="#XREF_34063_Deployment"><span class="FM_PMS646">“Deployment Scenario #2” </span></a>&#160;and <a href="#XREF_62498_Deployment"><span class="FM_PMS646">“Deployment Scenario #3” </span></a>), ping the VLAN 1 IP address from a workstation on the network.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">If you created and configured a new VLAN (<a href="#XREF_62498_Deployment"><span class="FM_PMS646">“Deployment Scenario #3”</span></a>), ping the IP address of the new VLAN from a workstation on the network.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Additional_Configuration"></a><a name="XREF_54209_Further"></a>Additional Configuration</p>
+ <p class="FM_Body">Wireless users can connect to the SSID but because you have not yet configured authentication, policies, or user roles, they will not have access to the network. Other chapters in the <span style="font-style : italic; "><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> User Guide</span>&#160;describe how to build upon this basic deployment to configure user roles, firewall policies, authentication, authentication servers, and other wireless features.</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

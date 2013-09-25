@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>cellular</title>
+
+ <meta content="Aruba Networks Technical Publications Dept." name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4_perforce1666_LAURAR-T410S\depot\techpub\ArubaOS\6.0\CLI\cellular.fm" />
+ <link rel="stylesheet" href="cellular.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_1CmdHeading" style="margin-bottom : 0.000pt;"><a name="XREF_85102_cellular"></a>cellular profile</p>
+ <p class="FM_CLI">cellular profile &lt;profile_name&gt;</p>
+ <p class="FM_CLIIndented">dialer &lt;group&gt;</p>
+ <p class="FM_CLIIndented">driver acm|hso|option|sierra</p>
+ <p class="FM_CLIIndented">import &lt;address&gt;</p>
+ <p class="FM_CLIIndented">modeswitch {eject &lt;params&gt;}|rezero</p>
+ <p class="FM_CLIIndented">no</p>
+ <p class="FM_CLIIndented">priority &lt;1-255&gt;</p>
+ <p class="FM_CLIIndented">serial &lt;sernum&gt;</p>
+ <p class="FM_CLIIndented">tty &lt;ttyport&gt;</p>
+ <p class="FM_CLIIndented">user &lt;login&gt; password &lt;password&gt;</p>
+ <p class="FM_CLIIndented">vendor &lt;vend_id&gt; product &lt;prod_id&gt;</p>
+ <p class="FM_2Heading">Description</p>
+ <p class="FM_Body">Create new profiles to support new USB modems or to customize USB characteristics. </p>
+ <p class="FM_2Heading">Syntax</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft;; width: 469.25pt;" cellspacing="0">
+  <tr style=" height : 23.00pt;background : #548baf;">
+  <th style="width : 181.375pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading" style="font-size  : 9.0pt;">Parameter</p>
+</th>
+  <th style="width : 287.875pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading" style="font-size  : 9.0pt;">Description</p>
+</th>
+</tr>
+  <tr style=" height : 51.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">cellular profile &lt;profile_name&gt;</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keywords <span style="font-weight : bold; ">cellular profile</span>&#160;followed by your profile name. This command changes the configuration mode and the command line prompt changes to:</p>
+  <p class="FM_TableBodyinBulletStep">host (config-cellular &lt;profile_name&gt;)#</p>
+</td>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">dialer &lt;group&gt;</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">dialer</span>&#160;followed by a group name to specify the dialing parameters for the carrier. The parameters tend to be common between service providers on the same type of network (CDMA vs. GSM) as displayed in the <a href="..\shownetdestination\shownetdestination.htm#XREF_26365_show_dialer_group"><span class="FM_CLI" style="color   : #548baf; ">show dialer group</span></a> command.</p>
+</td>
+</tr>
+  <tr style=" height : 67.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">driver acm|hso|option|sierra</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">driver</span> followed by one of the driver options:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">acm</span>: Linux ACM driver.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">hso</span>: Option High Speed driver.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">option</span>: Option USB data card driver (default).</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">sierra</span>: Sierra Wireless driver.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 49.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">import &lt;address&gt;</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">import</span>&#160;followed by the USB device address as displayed in the <a href="..\usb\usb.htm#XREF_47647_uplink"><span class="FM_CLI" style="color   : #548baf; ">show usb</span></a> command. Import retrieves the vendor/product serial numbers from the USB device list and populates them into the profile.</p>
+</td>
+</tr>
+  <tr style=" height : 65.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">modeswitch {eject &lt;params&gt;}|rezero</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">modeswitch</span> followed by either:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">eject</span> followed by the CDROM device.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">rezero</span>: Send SCSI CDROM rezero command.</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">Certain cellular devices must be modeswitched before the modem switches to data mode. </p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">no</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">no</span>&#160;to negate the command and revert back to the defaults.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">priority &lt;1-255&gt;</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">priority</span> to override the default cellular priority (100).</p>
+  <p class="FM_TableBody">Range: 1 to 255. </p>
+  <p class="FM_TableBody">Default: 100 </p>
+</td>
+</tr>
+  <tr style=" height : 19.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">serial &lt;sernum&gt;</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">serial</span>&#160;followed by the USB device serial number </p>
+</td>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">tty &lt;ttyport&gt;</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">tty</span>&#160;followed by the Modem TTY port (i.e. ttyUSB0, ttyACM0)</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">user &lt;login&gt; password &lt;password&gt;</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">user</span>&#160;followed by your login, and then enter the keyword <span style="font-weight : bold; ">password</span>&#160;followed by your password to establish user name authentication.</p>
+</td>
+</tr>
+  <tr style=" height : 39.00pt;">
+  <td style="width : 181.375pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_CLI">vendor &lt;vend_id&gt; product &lt;prod_id&gt; in hex</p>
+</td>
+  <td style="width : 287.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Enter the keyword <span style="font-weight : bold; ">vendor</span>&#160;followed by the vendor ID in hexadecimal (see <a href="..\usb\usb.htm#XREF_47647_uplink"><span class="FM_CLI" style="color   : #548baf; ">show usb</span></a>) and then enter the keyword <span style="font-weight : bold; ">product</span>&#160;followed by the product ID listed in the <a href="..\usb\usb.htm#XREF_47647_uplink"><span class="FM_CLI" style="color   : #548baf; ">show usb</span></a> command.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ 
+ <p class="FM_2Heading">Usage Guidelines</p>
+ <p class="FM_Body">The cellular modems are plug-and-play and support most native USB modems. Cellular modems are activated only if it is the uplink with the highest priority (see <a href="..\usb\usb.htm#XREF_47647_uplink"><span class="FM_CLI" style="color   : #548baf; ">show uplink</span></a>). However, new profiles can be created using this command to support new data cards or to customize card characteristics. <?rh-cbt_start condition="ArubaCondition" ?>New modem profiles are published at <?rh-cbt_end ?><?rh-cbt_start condition="ArubaCondition" ?><span class="FM_PMS646">http://www.arubanetworks.com/usb_devices</span><?rh-cbt_end ?><?rh-cbt_start condition="ArubaCondition" ?>.<?rh-cbt_end ?>&#160;</p>
+ <p class="FM_2Heading">Command History</p>
+ <p class="FM_Body">Introduced in <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.4.</p>
+ <p class="FM_2Heading">Command Information</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 6.00pt; padding-right: 4.00pt; padding-bottom: 4.00pt;float: alignleft; width: 469.13pt;" cellspacing="0">
+  <tr style=" height : 24.00pt;background : #548baf;">
+  <th style="width : 135.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Platforms </p>
+</th>
+  <th style="width : 148.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Licensing</p>
+</th>
+  <th style="width : 185.376pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableHeading">Command Mode</p>
+</th>
+</tr>
+  <tr style=" height : 29.00pt;">
+  <td style="width : 135.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #CCCCCC; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody"><?rh-udv_start name="600MC-grenache"  ?>Aruba 600<?rh-udv_end ?><span style="font-family : ITC Century Std Book; ">&#160;</span><?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</td>
+  <td style="width : 148.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Base operating system</p>
+</td>
+  <td style="width : 185.376pt; border-right-style: solid; border-right-width: 1px; border-right-color: #CCCCCC; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; padding-right: 6.00pt; padding-bottom: 3.00pt;">
+  <p class="FM_TableBody">Config mode on master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;(config-cellular &lt;profile_name&gt;)</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ 
+ <p class="FM_Body">&nbsp;</p>
+</body>
+
+</html>
+

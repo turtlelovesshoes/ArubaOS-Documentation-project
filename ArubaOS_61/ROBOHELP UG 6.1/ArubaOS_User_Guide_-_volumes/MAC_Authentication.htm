@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>MAC_Authentication</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\MAC_Authentication.fm" />
+ <meta name="keywords" content="internal database, mac authentication profile, mac-based authentication, mac-based authentication, aaa_servers, ">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_Body"><a name="XREF__Toc80084055"></a><a name="XREF__Toc90183142"></a>&nbsp;</p>
+ <p class="FM_ChapterNumber"><a name="TOC_Chapter_19" id="TOC_Chapter_19"></a>Chapter 19</p>
+<p class="FM_ChapterTitle"><a name="TOC_MAC_based_Authentication" id="TOC_MAC_based_Authentication"></a>MAC-based Authentication</p>
+<p class="FM_Body"><a name="IX_configuring_36"></a>This chapter describes how to configure MAC-based authentication on the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the WebUI.</p>
+ <p class="FM_Body">Use MAC-based authentication to authenticate devices based on their physical media access control (MAC) address. While not the most secure and scalable method, MAC-based authentication implicitly provides an addition layer of security authentication devices. MAC-based authentication is often used to authenticate and allow network access through certain devices while denying access to the rest. For example, if clients are allowed access to the network via station A, then one method of authenticating station A is MAC-based. Clients may be required to authenticate themselves using other methods depending on the network privileges required.</p>
+ <p class="FM_Body">MAC-based authentication can also be used to authenticate Wi-Fi phones as an additional layer of security to prevent other devices from accessing the voice network using what is normally an insecure SSID.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_42227_Configuring_the"><span class="FM_PMS646">“Configuring MAC-Based Authentication”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_69889_Configuring_Users"><span class="FM_PMS646">“Configuring Clients” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Configuring_MAC_Based"></a><a name="XREF_42227_Configuring_the"></a>Configuring MAC-Based Authentication</p>
+ <p class="FM_Body">Before configuring MAC-based authentication, you must configure<span style="font-style : italic; ">:</span></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The user role that will be assigned as the default role for the MAC-based authenticated clients. (See <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 12, “Roles and Policies” </span></a> for information on firewall policies to configure roles).<span style="font-style : italic; ">&#160;</span></p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">You configure the default user role for MAC-based authentication in the AAA profile. If derivation rules exist or if the client configuration in the internal database has a role assignment, these values take precedence over the default user role.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Authentication server group that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;uses to validate the clients. The internal database can be used to configure the clients for MAC-based authentication. See <a href="#XREF_69889_Configuring_Users"><span class="FM_PMS646">“Configuring Clients”</span></a>&#160;for information on configuring the clients on the local database. For information on configuring authentication servers and server groups, see <a href="Management_Utilities.htm#XREF_16302_Management_Access"><span class="FM_PMS646">Chapter 9, “Authentication Servers” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_MAC"></a>Configuring the MAC Authentication Profile</p>
+ <p class="FM_Body"><a href="#XREF_61369_Table7_12_MAC"><span class="FM_PMS646">Table 77</span></a> describes the parameters you can configure for MAC-based authentication.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 465.81pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 77 &#160;</span><a name="XREF_61369_Table7_12_MAC"></a>MAC Authentication Profile Configuration Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 141.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 324.562pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 71.00pt;">
+  <td style="width : 141.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Delimiter</p>
+</td>
+  <td style="width : 324.562pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Delimiter used in the MAC string:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">colon specifies the format xx:xx:xx:xx:xx:xx</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">dash specifies the format xx-xx-xx-xx-xx-xx</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">none specifies the format xxxxxxxxxxxx</p>
+</li>
+  </ul>
+  <p class="FM_TableBody">Default: none</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 141.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Case</p>
+</td>
+  <td style="width : 324.562pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The case (upper or lower) used in the MAC string.</p>
+  <p class="FM_TableBody">Default: lower</p>
+</td>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 141.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Max Authentication failures</p>
+</td>
+  <td style="width : 324.562pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of times a station can fail to authenticate before it is blacklisted. A value of 0 disables blacklisting.</p>
+  <p class="FM_TableBody">Default: 0</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_WebUI_to7"></a>Using the WebUI to configure a MAC authentication profile</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt; L2 Authentication </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select MAC Authentication Profile.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a profile name and click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the profile name to display configurable parameters.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the parameters, as described in <a href="#XREF_61369_Table7_12_MAC"><span class="FM_PMS646">Table 77</span></a>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_CLI_to5"></a>Using the CLI to configure a MAC authentication profile</p>
+ <p class="FM_CLI">aaa authentication mac &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;case {lower|upper}</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;delimiter {colon|dash|none}</p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;max-authentication-failures <span style="font-style : italic; ">&lt;number&gt;</span></p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Clients"></a><a name="XREF_69889_Configuring_Users"></a>Configuring Clients</p>
+ <p class="FM_Body">You can create entries in the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s internal database that can be used to authenticate client MAC addresses. The internal database contains a list of clients along with the password and default role for each client. To configure entries in the internal database for MAC authentication, you enter the MAC address for both the user name and password for each client.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You must enter the MAC address using the delimiter format configured in the MAC authentication profile. The default delimiter is none, which means that MAC addresses should be in the format xxxxxxxxxxxx. If you specify colons for the delimiter, you can enter MAC addresses in the format xx:xx:xx:xx:xx:xx.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Using_the_WebUI_to8"></a>Using the WebUI to configure clients in the internal database</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Security &gt;&#160;Authentication &gt;&#160;Servers &gt; </span>page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select Internal DB.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add User</span> in the Users section. The user configuration page displays.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For User Name and Password, enter the MAC address for the client. Use the format specified by the Delimiter parameter in the MAC Authentication profile. For example, if the MAC Authentication profile specifies the default delimiter (none), enter MAC addresses in the format xxxxxxxxxxxx.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Enabled</span> to activate this entry on creation.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span> to apply the configuration.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The configuration does not take effect until you perform this step.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_2Heading"><a name="TOC_Using_the_CLI_to6"></a>Using the CLI to configure clients in the internal database</p>
+ <p class="FM_Body">Enter the following command in enable mode:</p>
+ <p class="FM_CLI">local-userdb add username &lt;<span style="font-style : italic; ">macaddr&gt;</span> password &lt;<span style="font-style : italic; ">macaddr&gt;</span>...</p>
+ <p class="FM_ChapterNumber">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

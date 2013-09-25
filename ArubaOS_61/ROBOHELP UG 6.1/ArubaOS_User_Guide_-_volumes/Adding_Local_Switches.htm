@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Adding_Local_Switches</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Adding_Local_Switches.fm" />
+ <meta name="keywords" content="access point, smart antenna technology, shortest-wavelength ir border visible red, legitimate wi-fi access point">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 21</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Adding_Local_Controllers"></a><a name="XREF_77873_Adding_Local"></a>Adding Local <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></p>
+ <p class="FM_Body">This chapter explains how to expand your network by adding a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configuration. Typically, this is the first expansion of a network with just one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;(which is a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>). This chapter is a basic discussion of creating master-local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configurations. More complicated multi-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> configurations are discussed in other chapters.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_44955_Overview"><span class="FM_PMS646">“Moving to a Multi-Controller Environment”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_64730_Configuring_Local"><span class="FM_PMS646">“Configuring Local Controllers”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Moving_to_a_Multi"></a><a name="IX_multi_controller"></a><a name="XREF_44955_Overview"></a>Moving to a Multi-<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;Environment</p>
+ <p class="FM_Body">For a single WLAN configuration, the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;which controls the RF and security settings of the WLAN. Additional <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;to the same WLAN serve as local switches to the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;operates independently of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and depends on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;only for its security and RF settings. You configure the layer-2 and layer-3 settings on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;independent of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;needs to have connectivity to the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;at all times to ensure that any changes on the master are propagated to the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">Some of the common reasons to move from a single to a multi-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-environment include: </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Scaling to include a larger coverage area </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Setting up remote Access Points (APs)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Network setup requires APs to be redistributed from a single <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to multiple <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></p>
+</li>
+ </ul>
+ <p class="FM_Body"><a name="IX_PSK"></a><a name="IX_preshared_key"></a>You can use a preshared key (PSK) or a certificate to create IPSec tunnels between a master and backup master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and between master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. These inter-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IPSec tunnels carry management traffic such as mobility, configuration, and master-local information.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">An inter-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IPSec tunnel can be used to route data between networks attached to the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;if you have installed PEFV licenses in the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. To route traffic, configure a static route on each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;specifying the destination network and the name of the IPSec tunnel.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">There is a default PSK to allow inter-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;communications, however, for security you need to configure a a unique PSK for each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;pair. You can use either the WebUI or CLI to configure a 6-64 character PSK on master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. To configure a unique PSK for each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;pair, you must configure the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;with the IP address of the local and the PSK, and configure the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> with the IP address of the master and the PSK.</p>
+ <p class="FM_Body">You can configure a global PSK for all master-local communications, although this is not recommended for networks with more than two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. On the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, use <span style="font-weight : bold; ">0.0.0.0</span>&#160;for the IP address of the local. On the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, configure the IP address of the master and the PSK.</p>
+ <p class="FM_Body">The local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can be located behind a NAT device or over the Internet. On the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, when you specify the IP address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, use the public IP address for the master.</p>
+ <p class="FM_Body">If your master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;use a pre-shared key for authentication, the IPsec tunnel will be created using IKEv1. If they use a factory-installed or custom certificate, they will use IKEv2 to create the IPsec tunnel. <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>&#160;using IKEv2 and custom-installed certificates can optionally use Suite-B encryption for IPsec encryption. For details and requirements for Suite-B encryption, see <a href="Management_Utilities.htm#XREF_77816_Guest_Provisioning"><span class="FM_PMS646">“Configuring an SSID for Suite-B Cryptography”</span></a>.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_a_Preshared"></a>Configuring a Preshared Key</p>
+ <p class="FM_Body">Leaving the PSK set to the default value exposes the IPSec channel to serious risk, therefore you should always configure a unique PSK for each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> pair.</p>
+ <p class="FM_Body">Sharing the same PSK between more than two <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;increases the likelihood of compromise. If one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is compromised, all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;are compromised. Therefore, best security practices include configuring a unique PSK for each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> pair</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconCaution"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Do not use the default global PSK on a master or stand-alone <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If you have a multi-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;network then configure the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;to match the new IPSec PSK key on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">Weak keys are susceptible to offline dictionary attacks, meaning that a hostile eavesdropper can capture a few packets during connection setup and derive the PSK, thus compromising the connection. Therefore the PSK selection process should be the same process as selecting a strong passphrase:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">the PSK should be at least ten characters in length</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">the PSK should not be a dictionary word</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">the PSK should combine characters from at least three of the following four groups:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">lowercase characters</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">uppercase characters</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">numbers</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">punctuation or special characters, such as ~‘@#$%^&amp;*()_-+=\|//.[]{}</p>
+</li>
+ </ul>
+ <p class="FM_Body">The following sections describe how to configure a PSK using the WebUI or CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_WebUI_to9"></a>Using the WebUI to configure a Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> PSK</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; System Settings</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The procedure to configure a local PSK varies, depending upon whether it is configured using a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">On a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, enter the IPSec key in the <span style="font-weight : bold; ">IPSec Key (IKE PSK) </span>and<span style="font-weight : bold; ">&#160;Retype IPSec Key (IKE PSK) </span>fields.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">On a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, click <span style="font-weight : bold; ">New </span>under <span style="font-weight : bold; ">Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> IPSec Keys</span>. then enter the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP address and then enter and retype the IPSec key. Click <span style="font-weight : bold; ">Add</span>.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_WebUI_to10"></a>Using the WebUI to configure a Master <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> PSK</p>
+ <p class="FM_Body">Use the procedure below to configures the IP address and preshared key for the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; System Settings</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the I<span style="font-weight : bold; ">PSEC Key (IKE PSK)</span>&#160;field, enter the IPSec key. Reenter this key in the <span style="font-weight : bold; ">Retype IPSEC Key (IKE PSK)</span> field.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) In the <span style="font-weight : bold; ">FQDN</span> field, enter a fully qualified domain name used in IKE.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) Click the <span style="font-weight : bold; ">Source IP address field </span>and select the VLAN ID of Vlan interface to initiate IKE. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IP address will be used if the VLAN is not specified.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_CLI_to7"></a>Using the CLI to configure a PSK</p>
+ <p class="FM_4Heading">Master <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">On the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;you can configure a specific IPSec PSK for a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and use the localip 0.0.0.0 ipsec command:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You need to change the secret key to a non-default PSK key value even if you use a per-local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;PSK key configuration.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_CLI">localip 0.0.0.0 ipsec &lt;<span style="font-style : italic; ">secret_key</span>&gt;</p>
+ <p class="FM_CLI">localip &lt;<span style="font-style : italic; ">ipaddr&gt;</span> ipsec &lt;<span style="font-style : italic; ">secret_key&gt;</span></p>
+ <p class="FM_4Heading">Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">On the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;the secret key (PSK) must match the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s PSK. </p>
+ <p class="FM_CLI">masterip &lt;ipaddr&gt; ipsec &lt;secret_key&gt; [fqdn &lt;fqdn&gt;][uplink][vlan &lt;id&gt;]</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_a_Controller"></a>Configuring a <span style="font-size  : 11.0pt; "><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span><span style="font-size  : 11.0pt; color   : #548baf; ">&#160;</span>Certificate</p>
+ <p class="FM_Body">The following sections describe how to use the command-line interface to select a factory-installed or custom certificate for secure inter-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> communication.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_CLI_to8"></a>Using the CLI to configure a Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Certificate</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Issue the following command on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to configure the factory-installed certificate for secure communication between that master and a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">local-factory-cert local-mac &lt;lmac&gt; </p>
+ <p class="FM_BodyinBulletStep">In this command, <span style="font-weight : bold; ">&lt;lmac&gt;</span>&#160;is the MAC address of the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s factory-installed certificate.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Issue the following command on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to configure a custom certificate for secure communication between that master and a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">local-custom-cert local-mac &lt;lmac&gt; ca-cert &lt;ca&gt; server-cert &lt;cert&gt;                                </p>
+ <p class="FM_CLIIndented">suite-b &lt;gcm-128 | gcm-256&gt; </p>
+ <p class="FM_BodyinBulletStep">In this command, <span style="font-weight : bold; ">&lt;lmac&gt;</span>&#160;is the MAC address of the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s custom certificate.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_CLI_to9"></a>Using the CLI to configure the Master <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Certificate</p>
+ <p class="FM_Body">Issue the following command on a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to configure the preshared key or certificate for the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_CLI">masterip &lt;ipaddr&gt; </p>
+ <p class="FM_CLIIndented">ipsec &lt;key&gt; [interface uplink|{vlan &lt;id&gt;}] [fqdn &lt;fqdn&gt;]</p>
+ <p class="FM_CLIIndented">ipsec-custom-cert master-mac1 &lt;mac1&gt; [master-mac2 &lt;mac2&gt;] ca-cert &lt;ca&gt; server-cert &lt;cert&gt; [interface uplink|{vlan &lt;id&gt;}] [fqdn &lt;fqdn&gt;] [suite-b gcm-128|gcm-256]</p>
+ <p class="FM_CLIIndented">ipsec-factory-cert master-mac1 &lt;mac1&gt; [master-mac2 &lt;mac2&gt;] [interface uplink|{vlan &lt;id&gt;}] [fqdn &lt;fqdn&gt;]</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Local"></a><a name="XREF_64730_Configuring_Local"></a>Configuring Local <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></p>
+ <p class="FM_Body">This section highlights the difference in configuration for both of these scenarios.</p>
+ <p class="FM_Body">The steps involved in migrating from a single to a multi-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> environment are:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the role of the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to local and specify the IP address of the master.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the layer-2 / layer-3 settings on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> (VLANs, IP subnets, IP routes).</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure as trusted ports the ports the master and local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> use to communicate with each other.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For those APs that need to boot off the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, configure the LMS IP address to point to the new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Reboot the APs that are already on the network, so that they now connect to the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">These steps are explained below.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_Local"></a>Configuring the Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">You configure the role of a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;by running the initial setup on an unconfigured <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, or by using the WebUI, <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;Wizard, or CLI on a previously-configured <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_Initial_Setup"></a>Using the Initial Setup</p>
+ <p class="FM_Body">Initial setup can be done using the browser-based Setup Wizard or by accessing the initial setup dialog via a serial port connection. Both methods are described in the <span class="FM_Emphasis"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> Quick Start Guide</span>&#160;and are referred to throughout this chapter as “initial setup.”</p>
+ <p class="FM_Body">The initial setup allows you to configure the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and its role, in addition to other operating parameters. You perform the initial setup the first time you connect to and log into the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or whenever the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is reset to its factory default configuration (after executing a <span style="font-weight : bold; ">write erase, reload</span> sequence).</p>
+ <p class="FM_Body">When prompted to enter the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;role in the initial setup, select or enter <span style="font-weight : bold; ">local</span>&#160;to set the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;operational mode to be a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You are then prompted for the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP address. Enter the IP address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for the WLAN network. Enter the preshared key (PSK) that is used to authenticate communications between <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You need to enter the same PSK on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and on the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;that are managed by the master.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_Web_UI"></a>Using the Web UI</p>
+ <p class="FM_Body">For a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that is up and operating with layer-3 connectivity, configure the following to set the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> as local:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; System Settings</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Set the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Role to Local.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the IP address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If master redundancy is enabled on the master, this address should be the VRRP address for the VLAN instance corresponding to the IP address of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the preshared key (PSK) that is used to authenticate communications between <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You need to enter the same PSK on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and on the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;that are managed by the master.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_CLI33"></a>Using the CLI</p>
+ <p class="FM_Body">For a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that is up and operating with layer-3 connectivity, configure the following to set the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> as local:</p>
+ <p class="FM_CLI">masterip &lt;<span style="font-style : italic; ">ipaddr&gt;</span> ipsec &lt;<span style="font-style : italic; ">key&gt;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Layer_2"></a>Configuring Layer-2/Layer-3 Settings</p>
+ <p class="FM_Body">Configure the VLANs, subnets, and IP address on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for IP connectivity.</p>
+ <p class="FM_Body">Verify connectivity to the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;by pinging the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <p class="FM_Body">Ensure that the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;recognizes the new <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as its local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;should be listed with type <span style="font-weight : bold; ">local</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Monitoring &gt;&#160;Network &gt; All WLAN <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></span><span class="FM_Button" style="font-family : Arial; ">&#160;</span>page on the master. It takes about 4 – 5 minutes for the master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> to synchronize configurations.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Trusted_Ports"></a>Configuring Trusted Ports</p>
+ <p class="FM_Body">On the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; Ports</span>&#160;page and make sure that the port on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;connecting to the master is trusted. On the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, check this for the port on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that connects to the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Local1"></a>Configuring Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Settings</p>
+ <p class="FM_Body">Many <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;settings are unique to that device and therefore are not replicated from a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The following settings must be manually configured on a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that synchronizes with the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Time zone and daylight savings time settings</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">VPN pools for remote APs and other VPN clients.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;and IP interfaces. (Note that these values may need to be set <span style="font-style : italic; ">before</span>&#160;synchronization with the master so the synchronization can properly complete.)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">IP routing and spanning-tree configurations</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Remote AP whitelist and local-user database values </p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 67.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">By default, the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;forward the authentication requests for the RAP whitelist and the local user database to the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Therefore, this data does not have to be manually replicated <span style="font-style : italic; ">unless</span>&#160;the default behavior has been altered. The user table is NOT synchronized, so if an AP fails over to a master from a local or vice versa, that AP will have to re-authenticate.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">DHCP pools and reservations </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">NAT pools </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">SNMP, NTP, and syslog settings</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Hostnames, DNS and SMTP servers </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">ACLs applied to ports</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Certificates</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">RADIUS client details and RADIUS source interfaces</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Stateful firewall settings </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Customized captive portal pages and images, and the captive portal redirect address.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_APs"></a><a name="XREF_68224_Configuring_APs"></a>Configuring APs</p>
+ <p class="FM_Body">APs download their configurations from a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. However, an AP or AP group can tunnel client traffic to a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. To specify the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to which an AP or AP group tunnels client traffic, you configure the LMS IP in the AP system profile on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">Configuration changes take effect only after you reboot the affected APs; this allows them to reassociate with the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. After rebooting, these APs appear to the new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> as local APs.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_WebUI_to11"></a>Using the WebUI to configure the LMS IP</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Wireless &gt; AP Configuration </span>page.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet2">If you select AP Group, click Edit for the AP group name for which you want to configure the LMS IP.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">If you select AP Specific, select the name of the AP for which you want to configure the LMS IP.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under the Profiles section, select AP to display the AP profiles.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the AP system profile you want to modify.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> IP address in the LMS IP field.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_CLI_to10"></a>Using the CLI to configure the LMS IP</p>
+ <p class="FM_CLI">ap system-profile &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;lms-ip &lt;<span style="font-style : italic; ">ipaddr&gt;</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">ap-group &lt;<span style="font-style : italic; ">group&gt;</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;ap-system-profile &lt;<span style="font-style : italic; ">profile&gt;</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">ap-name &lt;<span style="font-style : italic; ">name&gt;</span></p>
+ <p class="FM_CLI">&nbsp;&nbsp;&nbsp;ap-system-profile <span style="font-style : italic; ">&lt;profile&gt;</span></p>
+ <p style="margin-top  : 0.000pt; margin-bottom : 0.000pt; font-family : Courier New; font-size  : 10.2pt; letter-spacing : -0.02em;">&nbsp;</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

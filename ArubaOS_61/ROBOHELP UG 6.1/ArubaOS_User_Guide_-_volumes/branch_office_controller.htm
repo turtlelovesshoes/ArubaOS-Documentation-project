@@ -1,0 +1,822 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>branch_office_controller</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\branch_office_controller.fm" />
+ <meta name="keywords" content="config id, rn configuration profile, dns proxy server, defining remote node address pools, remote node address pool,">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 22</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Remote_Nodes"></a>Remote Nodes</p>
+ <p class="FM_Body"><a name="IX_remote_node_controller"></a><a name="IX_remote_node"></a>A remote node (RN) is an easy-to-provision <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that can get its local and global configuration and license limits from a central <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;called a remote node controller (RNC). You define configuration settings for each RN via an remote-node profile on the RNC, which can be either a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Each RN configuration profile defines values for VLANs, VLAN interfaces, GRE tunnels, and management users for one or more RNs.</p>
+ <p class="FM_Body">RNs offer the following advantages over a standard local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Centralized management</span>: RN configuration settings, licenses and debugging tasks can all be managed from a single RNC.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Low-Touch Provisioning</span>: Similar to a remote AP, an RN requires just an uplink IP address and pre-shared key or certificate to boot up and connect to the RNC.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Ease of expansion</span>: Additional RNs can be added to the network at any time and become active with an existing RN profile. No additional profile changes are required.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Single Sign-On</span>: You can manage all RNs attached to a RNC from the RNC WebUI.</p>
+</li>
+ </ul>
+ <p class="FM_Body">The VLANs and IP Addresses for RNs are managed by the master RNC using DHCP pool assignments. Dynamic DHCP pools are allocated to each VLAN or Tunnel type on the master RNC, and then are pushed to each RN when it comes up. The IP address of the RN acting as the DNS proxy server will be pushed along with the DHCP pool settings.</p>
+ <p class="FM_Body">When you first install an RN at a remote site, you will use the initial setup wizard to define that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as a RN, and specify the IP address of the RNC and the IPsec key or certificate the RN will use to contact the RNC over a secure IPsec tunnel. Once the initial setup is complete, the RN will connect to its RNC via an IPsec tunnel. The RNC checks a whitelist to verify that the RN is valid. Once the RN has been validated, it will request its local and global configuration from the RNC. The RNC then sends the RN the configuration settings in its RN configuration profile. Licenses for each RN are also installed on and maintained by its RNC, which acts as a licensing server and disseminates licenses to all RNs assigned to that RNC.</p>
+ <p class="FM_Body">After the RN is provisioned and active on the network, management users can edit the RN’s configuration via the RN configuration profile on the RNC.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Only <?rh-udv_start name="3000MC_Series"  ?>3000 Series<?rh-udv_end ?>&#160;and <?rh-udv_start name="600_Series_controller"  ?>600 Series<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> can be configured as remote nodes.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">This chapter describes the following procedures in the recommended order in which they should be performed:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_94601_Create_BOC"><span class="FM_PMS646">“Creating Remote Node Profiles” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_14949_Configure_the"><span class="FM_PMS646">“Configuring the Remote Node Whitelist”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_11941_Install_the_BOC_at"><span class="FM_PMS646">“Installing the Remote Node at the Remote Site” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_56453_Monitor_and_Manage"><span class="FM_PMS646">“Monitoring and Managing Remote Nodes” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Creating_Remote_Node"></a><a name="XREF_94601_Create_BOC"></a>Creating Remote Node Profiles</p>
+ <p class="FM_Body">Before you begin to configure settings for individual RNs, you must select a master or local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to serve as a RNC on the network. A <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can act either as a RN or as a RNC, but not both. The following topology shows a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;with two local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;configured as RNCs. Each RNC in this example manages two individual RNs.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 74 &#160;</span><a name="XREF_53521_Figure_64_Branch"></a>Remote Nodes in a Network</p>
+ <div align="left"><img alt="BOC_Topology.jpg" id="image0" src="images/BOC_Topology.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Body">Once you have decided which <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;you want to configure as a RN, follow the steps below to create a new remote-node profile and activate that profile by validating that it has been correctly configured. Note that you can only create a remote note profile via the command-line interface; there is no WebUI support for this feature.</p>
+ <p class="FM_2Heading"><a name="TOC_Adding_a_New_Remote_Node"></a>Adding a New Remote Node Profile</p>
+ <p class="FM_Body">To create a new RN configuration profile, access the command-line interface on the RNC, enter config mode, then issue the command</p>
+ <p class="FM_CLI">remote-node-profile &lt;profile-name&gt;</p>
+ <p class="FM_Body">Once in remote-node profile configuration mode, you can issue any of the following commands to define the values you want to assign to that profile. Required parameters are in <span style="font-weight : bold; ">bold</span>.</p>
+ <p class="FM_Body">After you have defined configuration settings for an RN profile, you must activate that profile by issuing the command<span style="font-weight : bold; "> remote-node-profile &lt;profile-name&gt; validate </span>to validate that the configuration has a correctly defined defined uplink, model type, and an interface type supported by the RN model.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You cannot assign an RN configuration profile to an RN until that profile has been activated.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">Use the commands listed in the table below to configure a Remote Node profile. For complete details on each command refer to the <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> Command-Line Interface Reference Guide.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 465.75pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 86 &#160;</span><a name="XREF_88922_Table_67_Commands"></a>Configuration Commands Available in Remote-Node Profile Mode<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 137.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 328.501pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">aaa</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Configure an authentication server.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">remote-node-dhcp-pool </p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Define an RN IP address pool. For details on using this command, see <a href="#XREF_66540_Remote_Node"><span class="FM_PMS646">“Defining Remote Node Address Pools”</span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">cellular profile &lt;name&gt;</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Cellular interface profile associated with this RN profile.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">clone &lt;profile-name&gt;</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Use this command to make a copy of another RN profile.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">controller-ip loopback vlan &lt;id&gt;</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;IP. For details on using this command, see <a><span class="FM_PMS646">“controller-ip” </span></a>.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">dialer group &lt;name&gt;</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Dialer group profile associated with this RN profile.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">instance</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Configure the RN MAC address.</p>
+</td>
+</tr>
+  <tr style=" height : 188.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">interface </p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Configure the RN interface</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">cellular—Configure the cellular &#160;Interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">fastethernet—Configure the FastEthernet (IEEE 802.3) interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">gigabitethernet—Configure the GigabitEthernet Interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">loopback—Configure the Loopback Interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">port-channel—Configure the Ethernet channel of interfaces.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">tunnel—Configure the Tunnel interface.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">vlan —Configure the Switch VLAN Virtual Interface.</p>
+</li>
+  </ul>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>The VLAN ID mapped using the “interface vlan &lt;id&gt; ip address” command can use the following parameters to define how the controller-ip is derived:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_Bullet2"><span style="font-weight : bold; ">dhcp-client</span>: The RN will use DHCP to obtain IP address</p>
+</li>
+   <li style="">
+   <p class="FM_Bullet2"><span style="font-weight : bold; ">interna</span>l: Then RN IP will be derived from the RN DHCP pool. </p>
+</li>
+   <li style="">
+   <p class="FM_Bullet2"><span style="font-weight : bold; ">pppoe:</span> Use PPPoE to obtain IP address</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">ip </p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Interface Internet Protocol config commands</p>
+</td>
+</tr>
+  <tr style=" height : 119.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">logging</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Set the logging level up to which messages are logged.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">alerts</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">critical</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">debugging</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">emergencies</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">errors</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">informational</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">notifications</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">warnings</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">mgmt-user </p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Configure a management user </p>
+</td>
+</tr>
+  <tr style=" height : 105.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI"><span style="font-weight : bold; ">model</span>&#160;</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&#160;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> model associated to the RN profile, where &lt;model-type&gt; is one of the following <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> model types:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="3200MC"  ?>3200<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="3400MC"  ?>3400<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="3600MC"  ?>3600<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="620"  ?>620<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="650_controller"  ?>650<?rh-udv_end ?></p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><?rh-udv_start name="651_controller"  ?>651<?rh-udv_end ?></p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">priority-map </p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Priority Map specification, used to prioritize the incoming packets on an interface.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">spanning-tree</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Create a Spanning Tree Subsystem</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">uplink</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"> Define an uplink manager configuration</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">vlan</p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Create an RN VLAN Virtual Interface</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 137.250pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">vrrp </p>
+</td>
+  <td style="width : 328.501pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Define a Virtual Router Redundancy Protocol (VRRP) configuration.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Defining_Remote_Node"></a><a name="XREF_66540_Remote_Node"></a>Defining Remote Node Address Pools</p>
+ <p class="FM_Body">Each RN must have a pool of addresses it can dynamically assign to APs or Users on each of its VLANs, and a separate IP address that RN will use to create a GRE tunnel to the RNC. RN VLAN pools and the tunnel pool are defined on the RNC. Remote Node address pools are pushed out to each RN when it comes up on the network. If a RN is removed from the RNC, the IP addresses allocated to that RN can be reused and reassigned to a new RN.</p>
+ <p class="FM_Body">An RNC must have a separate VLAN pool defined for each VLAN used by its RNs. A VLAN pool allocates a static, continuous block of multiple IP addresses to each RN. The RN will act as a DNS proxy server and dynamically assign IP addresses from its allocated pool to each AP or client on the VLAN. </p>
+ <p class="FM_Body">The tunnel pool on an RNC defines a range of IP addresses that the RNs will use to create a GRE tunnel within the IPsec tunnel back to the RNC. Unlike VLAN pools, which allocates multiple addresses to each RN VLAN, the tunnel DHCP pool assigns a single tunnel IP address to each RN.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Any change to an active RN’s DHCP pool configuration will cause the RN to reboot.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">To define an RN DHCP pool, access config mode on the RNC’s command-line interface, and issue the following command:</p>
+ <p class="FM_CLI">remote-node-profile &lt;profile-name&gt; remote-node-dhcp-pool &lt;pool-name&gt; </p>
+ <p class="FM_CLIIndented">pool-type {vlan &lt;id&gt;}|tunnel</p>
+ <p class="FM_CLIIndented">range startip &lt;start-ip&gt; endip &lt;end-ip&gt; num_hosts</p>
+ <p class="FM_Body">This command includes the following parameters:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 465.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 87 &#160;</span>Remote Node DHCP Address Pool Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 102.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 363.001pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 102.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">&lt;pool-name&gt;</p>
+</td>
+  <td style="width : 363.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The name of the new DHCP pool.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 102.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">pool-type {vlan &lt;id&gt;}|tunnel</p>
+</td>
+  <td style="width : 363.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specify whether you are creating a pool of IP addresses for RN VLANs or RN tunnels. </p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 102.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">&lt;id&gt;</p>
+</td>
+  <td style="width : 363.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The ID number of the VLAN associated with the RN.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 102.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">&lt;start-ip&gt;</p>
+</td>
+  <td style="width : 363.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP addresses at the start and end of the RN’s address range, in dotted-decimal format.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 102.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">end-ip&gt;</p>
+</td>
+  <td style="width : 363.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP address at the end of the RN’s address range, in dotted-decimal format.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 102.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">num_hosts</p>
+</td>
+  <td style="width : 363.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Maximum number of hosts supported by an RN using this pool.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_OSPF_and_Static_Routes"></a>OSPF and Static Routes</p>
+ <p class="FM_Body">The remote node profile must be configured with static route that allows the RN to get to the RNC. This static profile will get pushed to from the RNC to the RN with the rest of the remote node profile settings.</p>
+ <p class="FM_Body">You cannot configure a static route on the RNC itself because the RNC will not know which RN will be terminating on which tunnel. Therefore, the RNC handles the route from the RNC to each RN in one of two different ways.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Static Routes: This routes are automatically generated automatically when the tunnel comes up.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">OSPF Routes: This routes are redistributed from the RN to the RNC once the OSPF is established over the tunnel.</p>
+</li>
+ </ul>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_2Heading"><a name="TOC_Configuration_Examples"></a>Configuration Examples</p>
+ <p class="FM_Body">The following set of commands configures an remote-node profile named Location_1. This example defines settings for a VLAN and VLAN interfaces, management users, and an RN dhcp pool for a <?rh-udv_start name="3200MC"  ?>3200<?rh-udv_end ?>&#160;model <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <p class="FM_3Heading"><a name="TOC_Create_a_remote_node"></a>Create a remote node profile</p>
+ <p class="FM_CLI">remote-node-profile remote-node-pilot-620</p>
+ <p class="FM_CLI"> &#160;model 620</p>
+ <p class="FM_CLI">&#160;&#160;controller-ip vlan 10 </p>
+ <p class="FM_3Heading"><a name="TOC_Define_VLANs_for_a"></a>Define VLANs for a remote node profile and assign a wired aaa profile to each VLAN</p>
+ <p class="FM_CLI">&#160;&#160;vlan 10 </p>
+ <p class="FM_CLI">&#160;&#160;vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;vlan 10 wired aaa-profile &quot;corp-captive-portal&quot; </p>
+ <p class="FM_CLI">&#160;&#160;vlan 20 wired aaa-profile &quot;guest-captive-portal&quot; </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/4&quot; </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;switchport access vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;trusted </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_3Heading"><a name="TOC_Identify_the_RN"></a>Identify the RN interfaces to be used as access ports for each VLAN</p>
+ <p class="FM_Body">The following commands make those ports trusted ports and assign an AP access group to each interface to apply an access control list (ACL) to the interface. </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/6&quot; </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;switchport access vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;trusted </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/0&quot; </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;switchport access vlan 10 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;trusted </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/5&quot; </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;switchport access vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;trusted </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/7&quot; </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;switchport access vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;trusted </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/2&quot; </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;switchport access vlan 10 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;trusted </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/3&quot; </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;switchport access vlan 10 </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/1&quot; </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;switchport access vlan 10 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;trusted </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_3Heading"><a name="TOC_Configure_each_VLAN"></a>Configure each VLAN interface with an internal IP address</p>
+ <p class="FM_Body">Internal IP addresses are allocated from the RN address pool:</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">&#160;&#160;interface vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;ip address internal </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;operstate up </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI">&#160;&#160;interface vlan 10 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;ip address internal </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_3Heading"><a name="TOC_Manage_and_configure_the"></a>Manage and configure the uplink network connection</p>
+ <p class="FM_CLI">&#160;&#160;uplink wired vlan 2 </p>
+ <p class="FM_CLI">&#160;&#160;interface tunnel 1 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;tunnel source controller-ip </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;tunnel destination remote-node-master-ip </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;ip address internal </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;ip ospf area 1.1.1.1 </p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;trusted </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_3Heading"><a name="TOC_Configure_the_uplink"></a>Configure the uplink network connection and define a static IPsec route map</p>
+ <p class="FM_CLI">&#160;&#160;no spanning-tree </p>
+ <p class="FM_CLI">&#160;&#160;ip route 10.100.0.0 255.255.0.0 ipsec &quot;default-boc-bm-ipsecmap&quot; </p>
+ <p class="FM_CLI">&#160;&#160;ip route 10.1.0.0 255.255.0.0 ipsec &quot;default-boc-bm-ipsecmap&quot; </p>
+ <p class="FM_CLI">&#160;&#160;ip route 10.0.0.0 255.0.0.0 ipsec &quot;default-boc-bm-ipsecmap&quot; </p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Configure_user_roles_and"></a>Configure user roles and passwords for administrative users</p>
+ <p class="FM_CLI">&#160;&#160;mgmt-user &quot;admin&quot; &quot;root&quot; &quot;1be34780250627e4881460a6e332ea5d&quot; </p>
+ <p class="FM_CLI">&#160;&#160;mgmt-user &quot;guest-master&quot; &quot;guest-provisioning&quot; &quot;894936fc71d7a1c0677e5d5542c51b16c801e6ab72be4793&quot; </p>
+ <p class="FM_CLI">&#160;&#160;</p>
+ <p class="FM_3Heading"><a name="TOC_Define_the_server_used"></a>Define the server used for name and address resolution</p>
+ <p class="FM_CLI">ip name-server 10.1.1.50 </p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Define_the_OSPF_settings"></a>Define the OSPF settings for the upstream router</p>
+ <p class="FM_CLI">&#160;&#160;router ospf area 1.1.1.1 stub </p>
+ <p class="FM_CLI">&#160;&#160;router ospf redistribute vlan &quot;10&quot; </p>
+ <p class="FM_CLI">&#160;&#160;router ospf </p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC__Optional_Define_SNMP"></a>(Optional) Define SNMP settings</p>
+ <p class="FM_CLI">&#160;&#160;snmp-server enable trap </p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Specify_that_the_RN_use"></a>Specify that the RN use its internal database to authenticate clients</p>
+ <p class="FM_CLI">&#160;&#160;aaa authentication-server internal use-local-switch </p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Define_NAT_settings_and"></a>Define NAT settings and identify the interface for outgoing RADIUS packets </p>
+ <p class="FM_Body">The IP address of the specified interface is included in the IP header of RADIUS packets:</p>
+ <p class="FM_CLI">&#160;&#160;ip radius source-interface vlan &quot;10&quot; </p>
+ <p class="FM_CLI">&#160;&#160;ip nat pool &quot;dynamic-srcnat&quot; &quot;0.0.0.0&quot; &quot;0.0.0.0&quot; </p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Define_DHCP_pools_for_a"></a>Define DHCP pools for a RN tunnel</p>
+ <p class="FM_CLI">remote-node-dhcp-pool tunnel1</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;pool-type tunnel 1</p>
+ <p class="FM_CLI"> &#160;&#160;&#160;domain-name arubanetworks.com</p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;range startip 1.1.1.0 endip 1.1.2.0 hosts 1 </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_3Heading"><a name="TOC_Define_RN_DHCP_pools_for"></a>Define RN DHCP pools for each VLAN</p>
+ <p class="FM_CLI"> &#160;remote-node-dhcp-pool vlan10</p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;pool-type vlan 10 </p>
+ <p class="FM_CLI"> &#160;&#160;&#160;domain-name arubanetworks.com</p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;range startip 10.71.10.0 endip 10.71.11.0 hosts 16 </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI"> &#160;remote-node-dhcp-pool vlan20</p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;pool-type vlan 20 </p>
+ <p class="FM_CLI"> &#160;&#160;&#160;domain-name arubanetworks.com</p>
+ <p class="FM_CLI">&#160;&#160;&#160;&#160;range startip 10.71.20.0 endip 10.71.21.0 hosts 16 </p>
+ <p class="FM_CLI"> &#160;!</p>
+ <p class="FM_CLI">!</p>
+ <p class="FM_Body">Once the profile has been sent from the RNC to the RN at the remote site, that profile will create the following configuration on the RN.</p>
+ <p class="FM_CLI">controller-ip vlan 10 </p>
+ <p class="FM_CLI">vlan 10 </p>
+ <p class="FM_CLI">vlan 20 </p>
+ <p class="FM_CLI">vlan 10 wired aaa-profile &quot;corp-captive-portal&quot; </p>
+ <p class="FM_CLI">vlan 20 wired aaa-profile &quot;guest-captive-portal&quot; </p>
+ <p class="FM_CLI">interface fastethernet &quot;1/4&quot; </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/4&quot; switchport access vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/4&quot; trusted </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/4&quot; ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI">interface fastethernet &quot;1/6&quot; </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/6&quot; switchport access vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/6&quot; trusted </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/6&quot; ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI">interface fastethernet &quot;1/0&quot; </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/0&quot; switchport access vlan 10 </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/0&quot; trusted </p>
+ <p class="FM_CLI">interface fastethernet &quot;1/5&quot; </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/5&quot; switchport access vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/5&quot; trusted </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/5&quot; ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI">interface fastethernet &quot;1/7&quot; </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/7&quot; switchport access vlan 20 </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/7&quot; trusted </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/7&quot; ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI">interface fastethernet &quot;1/2&quot; </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/2&quot; switchport access vlan 10 </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/2&quot; trusted </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/2&quot; ip access-group &quot;wired-source-nat&quot; session </p>
+ <p class="FM_CLI">interface fastethernet &quot;1/3&quot; </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/3&quot; switchport access vlan 10 </p>
+ <p class="FM_CLI">interface fastethernet &quot;1/1&quot; </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/1&quot; switchport access vlan 10 </p>
+ <p class="FM_CLI">&#160;&#160;interface fastethernet &quot;1/1&quot; trusted </p>
+ <p class="FM_CLI">interface vlan 20 </p>
+ <p class="FM_CLI"> &#160;interface vlan 20 ip address 10.71.20.241 255.255.255.240</p>
+ <p class="FM_CLI">&#160;&#160;interface vlan 20 operstate up </p>
+ <p class="FM_CLI">interface vlan 10 </p>
+ <p class="FM_CLI"> &#160;interface vlan 10 ip address 10.71.10.241 255.255.255.240</p>
+ <p class="FM_CLI">uplink wired vlan 2 </p>
+ <p class="FM_CLI">interface tunnel 1 </p>
+ <p class="FM_CLI">&#160;&#160;interface tunnel 1 tunnel source controller-ip </p>
+ <p class="FM_CLI">&#160;&#160;interface tunnel 1 tunnel destination remote-node-master-ip </p>
+ <p class="FM_CLI"> &#160;interface tunnel 1 ip address 1.1.1.61 255.255.255.252</p>
+ <p class="FM_CLI">&#160;&#160;interface tunnel 1 ip ospf area 1.1.1.1 </p>
+ <p class="FM_CLI">&#160;&#160;interface tunnel 1 trusted </p>
+ <p class="FM_CLI">no spanning-tree </p>
+ <p class="FM_CLI">ip route 10.100.0.0 255.255.0.0 ipsec &quot;default-boc-bm-ipsecmap&quot; </p>
+ <p class="FM_CLI">ip route 10.1.0.0 255.255.0.0 ipsec &quot;default-boc-bm-ipsecmap&quot; </p>
+ <p class="FM_CLI">ip route 10.0.0.0 255.0.0.0 ipsec &quot;default-boc-bm-ipsecmap&quot; </p>
+ <p class="FM_CLI">mgmt-user &quot;admin&quot; &quot;root&quot; &quot;1be34780250627e4881460a6e332ea5d&quot; </p>
+ <p class="FM_CLI">mgmt-user &quot;guest-master&quot; &quot;guest-provisioning&quot; &quot;894936fc71d7a1c0677e5d5542c51b16c801e6ab72be4793&quot; </p>
+ <p class="FM_CLI">ip name-server 10.1.1.50 </p>
+ <p class="FM_CLI">router ospf area 1.1.1.1 stub </p>
+ <p class="FM_CLI">router ospf redistribute vlan &quot;10&quot; </p>
+ <p class="FM_CLI">router ospf </p>
+ <p class="FM_CLI">snmp-server enable trap </p>
+ <p class="FM_CLI">aaa authentication-server internal use-local-switch </p>
+ <p class="FM_CLI">ip radius source-interface vlan &quot;10&quot; </p>
+ <p class="FM_CLI">ip nat pool &quot;dynamic-srcnat&quot; &quot;0.0.0.0&quot; &quot;0.0.0.0&quot; </p>
+ <p class="FM_CLI">service dhcp</p>
+ <p class="FM_CLI">ip dhcp pool vlan10 domain-name arubanetworks.com</p>
+ <p class="FM_CLI">ip dhcp pool vlan10</p>
+ <p class="FM_CLI">ip dhcp pool vlan10 default-router 10.71.10.241</p>
+ <p class="FM_CLI">ip dhcp pool vlan10 dns-server 10.71.10.241</p>
+ <p class="FM_CLI">ip dhcp pool vlan10 network 10.71.10.240 255.255.255.240</p>
+ <p class="FM_CLI">ip dhcp pool vlan20 domain-name arubanetworks.com</p>
+ <p class="FM_CLI">ip dhcp pool vlan20</p>
+ <p class="FM_CLI">ip dhcp pool vlan20 default-router 10.71.20.241</p>
+ <p class="FM_CLI">ip dhcp pool vlan20 dns-server 10.71.20.241</p>
+ <p class="FM_CLI">ip dhcp pool vlan20 network 10.71.20.240 255.255.255.240</p>
+ <p class="FM_CLI">ip dhcp pool vlan10 domain-name arubanetworks.com</p>
+ <p class="FM_CLI">ip dhcp pool vlan10</p>
+ <p class="FM_CLI">ip dhcp pool vlan10 default-router 10.71.10.241</p>
+ <p class="FM_CLI">ip dhcp pool vlan10 dns-server 10.71.10.241</p>
+ <p class="FM_CLI">ip dhcp pool vlan10 network 10.71.10.240 255.255.255.240</p>
+ <p class="FM_CLI">ip dhcp pool vlan20 domain-name arubanetworks.com</p>
+ <p class="FM_CLI">ip dhcp pool vlan20</p>
+ <p class="FM_CLI">ip dhcp pool vlan20 default-router 10.71.20.241</p>
+ <p class="FM_CLI">ip dhcp pool vlan20 dns-server 10.71.20.241</p>
+ <p class="FM_CLI">ip dhcp pool vlan20 network 10.71.20.240 255.255.255.240</p>
+ <p class="FM_CLI">remote-node config-id 155</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_the_Remote"></a><a name="XREF_14949_Configure_the"></a>Configuring the Remote Node Whitelist</p>
+ <p class="FM_Body">The Whitelist database links the MAC address of the RN to the RN profile. Validating is done to the RN profile and not per RN.</p>
+ <p class="FM_2Heading"><a name="TOC_Adding_an_RN_to_the"></a>Adding an RN to the whitelist</p>
+ <p class="FM_Body">To add an RN to the RN whitelist, access the command-line interface of the RNC, enter enable mode, then issue the command</p>
+ <p class="FM_CLI">local-userdb-remote-node add mac-address &lt;mac-address&gt; remote-node-profile &lt;profile-name&gt;</p>
+ <p class="FM_Body">where <span style="font-weight : bold; ">&lt;mac-address&gt;</span> is the MAC address of the RN in colon-separated six-octet format, and<span style="font-weight : bold; "> &lt;profile-name&gt;</span> is the name of the RN configuration profile you want to assign to that RN.</p>
+ <p class="FM_Body">Example:</p>
+ <p class="FM_CLI">(remote-node-master) #local-userdb-remote-node add mac-address 00:16:CF:AF:3E:E1 remote-node-profile Location_1</p>
+ <p class="FM_Body">Note that you cannot change the profile assigned to the RN in the whitelist entry. To assign a different configuration to an unprovisioned RN, you must delete the whitelist entry and create a new RN whitelist entry with the correct RN configuration profile.</p>
+ <p class="FM_Body">Removing an RN from the Whitelist</p>
+ <p class="FM_Body">When you remove an entry for an active RN from the RN whitelist on the RNC, that RN will no longer receive configuration or license updates from the RNC, but will continue to operate as previously configured. As the license server is the RNC, any operation related to the licensing will not work after it is detached. If you remove an individual RN entry from the RN whitelist before that RN is connected to the network, that RN will not be automatically provisioned as a RN, and will remain inactive on the network until manually provisioned.</p>
+ <p class="FM_Body">To remove an RN from the RN whitelist, access the command-line interface of the RNC, access enable mode, then enter the command</p>
+ <p class="FM_CLI">local-userdb-remote-node del mac-address &lt;mac-address&gt;</p>
+ <p class="FM_Body">where <span style="font-weight : bold; ">&lt;mac-address&gt;</span> is the MAC address of the RN, in colon-separated six-octet format.</p>
+ <p class="FM_Body">Example:</p>
+ <p class="FM_Body">(remote-node-master)(config) #local-userdb-remote-node del mac-address 00:16:CF:AF:3E:E1</p>
+ <p class="FM_2Heading"><a name="TOC_Viewing_Remote_Node"></a>Viewing Remote Node Whitelist Settings</p>
+ <p class="FM_Body">To view the RN whitelist, access the command-line interface of a RNC and issue the following command from enable mode:</p>
+ <p class="FM_CLI">show local-userdb-remote-node </p>
+ <p class="FM_CLIIndented">mac-address &lt;mac-addr&gt;</p>
+ <p class="FM_CLIIndented">start &lt;offset&gt;</p>
+ <p class="FM_Body">If your network incudes multiple RNCs under a single master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;(like the topology shown in <a href="#XREF_53521_Figure_64_Branch"><span class="FM_PMS646">Figure 64</span></a>) the output of this command will show all RNs and RNCs on the network. By default, this command displays all entries in the whitelist. To display only part of the RN whitelist, include the<span style="font-weight : bold; ">&#160;start &lt;offset&gt;</span>&#160;parameters to start displaying the RN whitelist at the specified entry value. You can also include the optional <span style="font-weight : bold; ">mac-address &lt;mac-addr&gt;</span>&#160;parameters to display values for a single RN entry. </p>
+ <p class="FM_1Heading"><a name="TOC_Installing_the_Remote"></a><a name="XREF_11941_Install_the_BOC_at"></a>Installing the Remote Node at the Remote Site</p>
+ <p class="FM_Body">To install and provision an RN at a remote site you will need to supply the information described in the checklist below. Before you install the RN on your network, fill in the third column of this initial setup checklist with your settings. Use the procedure in the Quick Start guide to launch the initial setup wizard for RN, and enter the values in <a href="#XREF_91667_Table_69_BOC"><span class="FM_PMS646">Table 88</span></a>. You may need to consult your system administrator or network administrator.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 432.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 88 &#160;</span><a name="XREF_91667_Table_69_BOC"></a>RN Provisioning Checklist<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Your Setting</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Name</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Name of the RN </p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 73.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Date/Time and Country Code</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Current date and time at the RN’s location and the country code. If you want the RN to take its date and time settings from a NTP server, specify the IP address of that server.</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP address of the RNC </p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP address of the RNC, in dotted-decimal format.</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 83.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Shared key</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Shared key to communicate with the RNC <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If secure communication between the RNC and the RN is based upon a certificate rather than a shared key, this parameter is not necessary. </p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 95.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Uplink Type</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Specify whether the RN uplink will connect through a wired port or a cellular modem.</p>
+  <p class="FM_TableBody">You must also specify if the uplink is defined as a Static IP address, PPPoE (Point-to-Point Protocol over Ethernet), or an address assigned via a DHCP server.</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBodyinBulletStep">Static IP address</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If Uplink type is Wired Static: Uplink port, name and IP address of a VLAN.</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBodyinBulletStep">PPPoE</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If Uplink type is Wired PPoE: Uplink port, VLAN name and username.</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBodyinBulletStep">DHCP server</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If Uplink type is Wired DHCP: Uplink port and name of VLAN.</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_1Heading"><a name="TOC_Monitoring_and_Managing"></a><a name="XREF_56453_Monitor_and_Manage"></a>Monitoring and Managing Remote Nodes</p>
+ <p class="FM_Body">After you have created and validated your RN configuration profiles and added an entry for each RN to the RN whitelist on the RNC, you can start installing individual RNs. When you first connect a RN to your network, that RN contacts its RNC as soon as it powers up. If the RN has an entry in the RN whitelist, the RNC validates the RN on the network and sends it its configuration over a secure IPsec tunnel. Once the RN has received its configuration from the RNC, the RN will reboot then become active and able to serve hosts on the network.</p>
+ <p class="FM_2Heading"><a name="TOC_Editing_a_Remote_Node"></a>Editing a Remote Node Configuration</p>
+ <p class="FM_Body">If you want to change RN configuration settings, you must do so by editing the RN configuration profile on the RNC, rather than through the CLI or WebUI of the RN itself. </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the CLI of the RNC for the RN you want to edit.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From config mode, enter the command remote-node-profile &lt;profile-name&gt;, where &lt;profile-name&gt; is the name of the RN-profile assigned to the RN you want to edit.</p>
+ <p class="FM_Body">Once in remote-node profile configuration mode, you can issue any of the commands shown in <a href="#XREF_88922_Table_67_Commands"><span class="FM_PMS646">Table 86</span></a>&#160;to define the values you want to assign to that profile.</p>
+ <p class="FM_2Heading"><a name="TOC_Monitoring_a_Remote_Node"></a>Monitoring a Remote Node</p>
+ <p class="FM_Body">You can monitor an RN from its RNC WebUI. Although a management user can access the RN monitoring page via the RN WebUI, the WebUI is disabled on the RN itself. To access the RN directly, you must use the RN command-line interface. Note, however, that users logging directly into the RN CLI will not be able to save any configuration changes locally</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI82"></a>In the WebUI</p>
+ <p class="FM_Body">The Monitoring window on the RNC WebUI includes a link that lets you view a network summary for each RN, including WLAN Network Status and the WLAN Performance Summary. </p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 75 &#160;</span>Selecting an RN via the WLAN <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>&#160;</p>
+ <div align="left"><img alt="BOC_Controllers.jpg" id="image1" src="images/BOC_Controllers.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Body">To view a detailed network summary for an individual RN:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the WebUI of the RNC and navigate to M<span style="font-weight : bold; ">onitor&gt;Network&gt;All WLAN <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></span>. You can identify the RNs on your network using <span style="font-weight : bold; ">Type</span>&#160;column in the Network <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>&#160;table; entries for RNs have the <span style="font-weight : bold; ">Remote Node </span>type. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the <span style="font-weight : bold; ">WLAN <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></span>&#160;table, click the entry for the RN you want to monitor. The <span style="font-weight : bold; ">Network Summary</span>&#160;window for that RN appears in the RNC WebUI. </p>
+ <p class="FM_BodyinBulletStep">The tables in the <span style="font-weight : bold; ">Network Summary </span>window contain links that allow you to drill down and view additional information about the RN, such as access points or air monitors associated to that RN. To return to the <span style="font-style : italic; ">All WLAN <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></span><span style="font-weight : bold; ">&#160;</span>window, click the <span style="font-weight : bold; ">All WLAN <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></span>&#160;link in the left navigation bar.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI82"></a>In the CLI</p>
+ <p class="FM_Body">The RN command-line interface allows you to view the RN’s configuration profile parameters and <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;settings. You can also view remote-node profile settings via the command-line interface of the RNC.</p>
+ <p class="FM_Body">Access enable mode on the RN command-line interface to issue show commands for the RN <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Note, however that the following show commands used to display RN information are not available on the RN, and can be issued only on the RNC CLI. The following commands may be especially useful for managing and troubleshooting the RN <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> via the RNC CLI.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.25pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 89 &#160;</span>Useful RN Show Commands<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 323.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">show remote-node running-config</p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Display the configuration settings for all remote-node profiles on the RNC.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">show remote-node dhcp-instance &lt;mac-address&gt;</p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">This command will show the RN DHCP address pools used by the specified RN. </p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">show switches remote-node</p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Lists all the RNs and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;associated to the RNC <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Give more information for debugging purposes per RN.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">show local-userdb-remote-node</p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The output of this command lists the MAC address and assigned RN-profile for of each RN associated with that RNC.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_RN_Troubleshooting"></a>RN Troubleshooting</p>
+ <p class="FM_Body">The <span style="font-weight : bold; ">All WLAN <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?></span>&#160;table in the RNC WebUI and the output of the <span style="font-weight : bold; ">show switches </span>command in the RNC CLI include the Config ID for each RN. Each time the RNC sends a configuration update to any associated RN or local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the RNC increases its Config ID by one. When an RN or local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;acknowledges that the configuration change has been sent, the RNC increases the Config ID for that RN or local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;by one also. Therefore, if the Config ID of an RN or local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is <span style="font-style : italic; ">lower</span>&#160;than the Config ID of the RNC, that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;may still be waiting to receive a configuration update. If an RN does not seem to be running as expected, verify that the RN can reach its RNC, and that it has successfully downloaded the most recent version of its remote-node profile.</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

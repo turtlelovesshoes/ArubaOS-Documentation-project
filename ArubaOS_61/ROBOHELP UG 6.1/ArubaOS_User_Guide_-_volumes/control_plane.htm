@@ -1,0 +1,958 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>control_plane</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\control_plane.fm" />
+ <meta name="keywords" content="campus ap whitelist, campus ap, control plane security, whitelist entry ">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 20</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Control_Plane_Security"></a>Control Plane Security</p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;supports secure IPsec communications between a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and campus APs using public-key self-signed certificates created by each master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;certifies its APs by issuing them certificates. If the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has any associated local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;sends a certificate to each local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, which in turn sends certificates to their own associated campus APs. If a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is unable to contact the master AP to obtain its own certificate, it will not be able to certify its APs, and those APs will not be able to communicate with their local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;until master-local communication has been reestablished. You will create an initial control plane security configuration when you first configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the initial setup wizard. The <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;initial setup wizard enables control plane security by default, so it is very important that the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is able to communicate with its master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> when it is first provisioned.</p>
+ <p class="FM_Body">Some AP model types have factory-installed digital certificates. These AP models will use their factory-installed certificates for IPsec, and do not need a certificate from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Once a campus AP is certified, either through a factory-installed certificate or a certificate from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the AP can failover between local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and still stay connected to the secure network, because each campus AP will have the same master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as a common trust anchor. The campus AP whitelist contains a list of all APs connected to the network. You can use this whitelist at any time to add new valid APs to the secure network, or revoke network access to any suspected rogue or unauthorized AP.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The control plane security feature supports IPv4 campus APs only and is not intended for use with Remote APs. Do not enable control plane security on a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> that terminates IPv6 APs.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">When the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;sends an AP a certificate, that AP must reboot before it can connect to its <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;over a secure channel. If you are enabling control plane security for the first time on a large network, you may experience several minutes of interrupted connectivity while each AP receives its certificate and establishes its secure connection.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_86670_Control_Plane"><span class="FM_PMS646">“Control Plane Security Overview” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_36485_Configuring"><span class="FM_PMS646">“Configuring Control Plane Security”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_61410_Whitelists_on"><span class="FM_PMS646">“Whitelists on Master and Local Controllers”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_40699_Environments_with"><span class="FM_PMS646">“Environments with Multiple Master Controllers”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_82263_Replacing_a"><span class="FM_PMS646">“Replacing a Controller on a Multi-Controller Network”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_90445_Configuring"><span class="FM_PMS646">“Configuring Control Plane Security after Upgrading” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_99308_Troubleshooting"><span class="FM_PMS646">“Troubleshooting Control Plane Security” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Control_Plane_Security1"></a><a name="IX_control_plane_security"></a><a name="XREF_86670_Control_Plane"></a><a name="HT_control"></a>Control Plane Security Overview</p>
+ <p class="FM_Body"><?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>&#160;using control plane security will only send certificates to APs that you have identified as valid APs on the network. If you want closer control over each AP that gets certified, you can manually add individual campus APs to the secure network by adding each AP's information to the campus AP whitelist when you first run the initial setup wizard. If you are confident that all campus APs currently on your network are valid APs, then you can use the initial setup wizard to configure automatic certificate provisioning to send certificates from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to each campus AP, or to all campus APs within a specific range of IP addresses. </p>
+ <p class="FM_Body">The default automatic certificate provisioning setting requires that you manually enter each AP’s information into the campus AP whitelist. If you change the default automatic certificate provisioning values to let the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;send certificates to all APs on the network, that new setting ensures that all valid APs will receive a certificate, but also increases the chance that a rogue or unwanted AP will also be certified. If you configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to send certificates to only those APs within a range of IP addresses, there is a smaller chance that a rogue AP will get a certificate, but any valid AP with an IP address outside the specified address range will not be given a certificate and will not be able to communicate with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;(except to obtain a certificate). Consider both options carefully before you complete the control plane security portion of the initial setup wizard. If your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has a publicly accessible interface, you should identify the campus APs on the network by IP address range. This will prevent the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from sending certificates to external or rogue campus APs that may attempt to access your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> through that publicly accessible interface.</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Control"></a><a name="XREF_36485_Configuring"></a>Configuring Control Plane Security</p>
+ <p class="FM_Body">When you initially deploy the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you will create your initial control plane security configuration using the initial setup wizard. These settings can be changed at any time using the WebUI or the command-line interfaces. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">If you are configuring control plane security for the first time after upgrading from <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;5.0 or earlier, see <a href="#XREF_90445_Configuring"><span class="FM_PMS646">“Configuring Control Plane Security after Upgrading” </span></a>&#160;for details on enabling this feature using the WebUI or CLI.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI81"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the WebUI of a standalone or master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, and navigate to <span style="font-weight : bold; ">Configuration&gt;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Control Plane Security</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Configure the following control plane security parameters. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.25pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 78 &#160;</span><a name="XREF_36048_Table_69_Control"></a>Control Plane Security Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 124.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 342.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 45.00pt;">
+  <td style="width : 124.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Control Plane Security</p>
+</td>
+  <td style="width : 342.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Select <span style="font-weight : bold; ">enable</span>&#160;or <span style="font-weight : bold; ">disable</span>&#160;to turn the control plane security feature on or off. This feature is enabled by default.</p>
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+</tr>
+  <tr style=" height : 117.00pt;">
+  <td style="width : 124.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Auto Cert Provisioning</p>
+</td>
+  <td style="width : 342.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">When the control plane security feature is enabled, you can select this checkbox to turn on automatic certificate provisioning. When this feature is enabled, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will attempt to send certificates to all associated campus APs. Auto certificate provisioning is disabled by default. </p>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>If you do not want to enable automatic certificate provisioning the first time you enable control plane security on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you must identify the valid APs on your network by adding those to the campus AP whitelist. For details, see <a href="#XREF_75298_Viewing_and"><span class="FM_PMS646">“Viewing and Managing the Master or Local Switch Whitelists” </span></a>.</p>
+  <p class="FM_TableBody">After you have enabled automatic certificate provisioning, you must select either <span style="font-weight : bold; ">Auto Cert Allow all</span>&#160;or <span style="font-weight : bold; ">Addresses Allowed for Auto Cert</span>.</p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 124.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBodyinBulletStep">Auto Cert Allow All</p>
+</td>
+  <td style="width : 342.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If you have enabled both control plane security and auto certificate provisioning, select <span style="font-weight : bold; ">Auto Cert Allow All</span>&#160;to allow all associated campus APs to receive automatic certificate provisioning. This parameter is enabled by default. </p>
+</td>
+</tr>
+  <tr style=" height : 147.00pt;">
+  <td style="width : 124.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBodyinBulletStep">Addresses Allowed for Auto Cert</p>
+</td>
+  <td style="width : 342.750pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has a publicly accessible interface, you should identify the campus APs by IP address range. This will prevent the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from sending certificates to external or rogue campus APs that may attempt to access your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;through that interface. </p>
+  <p class="FM_TableBody">After you have enabled both control plane security and auto certificate provisioning, select <span style="font-weight : bold; ">Addresses Allowed for Auto Cert </span>to send certificates to a group of campus APs within a range of IP addresses. In the two fields below, enter the start and end IP addresses, then click <span style="font-weight : bold; ">Add</span>. Repeat this procedure to add additional IP ranges to the list of allowed addresses. If both control plane security and auto certificate provisioning is enabled, all campus APs in the address list will receive automatic certificate provisioning. </p>
+  <p class="FM_TableBody">Remove a range IP addresses from the list of allowed addresses by selecting the IP address range from the list and clicking <span style="font-weight : bold; ">Delete</span>. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your changes.</p>
+ <p class="FM_Body">The master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will generate its self-signed certificate and will begin distributing certificates to campus APs and any local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;on the network over a clear channel. After all APs have received a certificate and have connected to the network using a secure channel, access the <span style="font-weight : bold; ">Control Plane Security </span>window and turn off auto certificate provisioning if that feature was enabled. This prevents the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from issuing a certificate to any rogue APs that may appear on your network at a later time.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 70 &#160;</span>Control Plane Security Settings</p>
+ <div align="left"><img alt="control-plane-settings.jpg" id="image0" src="images/control-plane-settings.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI81"></a>In the CLI</p>
+ <p class="FM_Body">Use the following commands to configure control plane security via the command line interface on a standalone or master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Descriptions of the individual parameters are listed in <a href="#XREF_36048_Table_69_Control"><span class="FM_PMS646">Table 78</span></a>, above.</p>
+ <p class="FM_CLI">control-plane-security</p>
+ <p class="FM_CLIIndented">auto-cert-allowed-addrs &lt;ipaddress-start&gt; &lt;ipaddress-end&gt; </p>
+ <p class="FM_CLIIndented">auto-cert-allow-all</p>
+ <p class="FM_CLIIndented">auto-cert-prov</p>
+ <p class="FM_CLIIndented">{no cpsec-enable}|cpsec-enable</p>
+ <p class="FM_Body">Example:</p>
+ <p class="FM_CLI">(host)(config) # control-plane-security</p>
+ <p class="FM_CLIIndented">auto-cert-prov</p>
+ <p class="FM_CLIIndented">no auto-cert-allow-all</p>
+ <p class="FM_CLIIndented">auto-cert-allowed-addrs 10.21.18.10 10.21.10.90</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_Body">View the current control plane security settings using the following command:</p>
+ <p class="FM_CLI">show control-plane-security</p>
+ <p class="FM_2Heading"><a name="TOC_Managing_the_Campus_AP"></a><a name="IX_campus_AP_whitelist"></a><a name="XREF_79062_Manage_the_Campus"></a><a name="HT_campus"></a>Managing the Campus AP Whitelist</p>
+ <p class="FM_Body">Campus APs appear as valid APs in the campus AP whitelist when you manually enter their information into the whitelist via the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s CLI or WebUI, or after the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;sends the AP a certificate via automatic certificate provisioning and the AP connects to its <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;via a secure tunnel. Any APs not approved or certified on the network will also be included in the campus AP whitelist, but these APs will appear in an unapproved state.</p>
+ <p class="FM_Body">Use the campus AP whitelist to grant valid APs secure access to the network, or to revoke access from suspected rogue APs. When you revoke or remove an AP from the campus AP whitelist on a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that uses control plane security, that AP will not be able to communicate with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;again, except to obtain a new certificate.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">If you manually add APs to the campus AP whitelist (rather than automatically adding the APs via the automatic certificate provisioning feature), make sure that the whitelist has been synchronized to all other <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;on the network <span style="font-style : italic; ">before</span> enabling control plane security.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">You can add an AP to the campus AP whitelist via the WebUI or command-line interface. To add an entry via the WebUI, use the following procedure.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the WebUI, and navigate to <span style="font-weight : bold; ">Configuration&gt;AP Installation</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Campus AP Whitelist</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add a new AP to the whitelist, click <span style="font-weight : bold; ">New</span>. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Define the following parameters for each campus AP you want to add to the campus AP whitelist.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 79 &#160;</span><a name="XREF_95018_Table_70_Campus_AP"></a>Configure Campus AP Whitelist Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 324.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP MAC Address</p>
+</td>
+  <td style="width : 324.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">MAC address of a campus AP that should support secure communications to and from its <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Description</p>
+</td>
+  <td style="width : 324.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">(Optional) Use this field to add a brief description of the campus AP.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to add the information to the campus AP whitelist.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your changes.</p>
+ <p class="FM_Body">To add an AP to the Campus AP whitelist via the command-line interface, issue the command</p>
+ <p class="FM_CLI">whitelist-db cpsec add mac-address &lt;macaddr&gt; description &lt;description&gt;</p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_Entries_in_the"></a>Viewing Entries in the Campus AP Whitelist</p>
+ <p class="FM_Body">Once you have added an entry in the Campus AP whitelist, that entry will be updated with additional information as the status of the AP changes. To view current information for an AP in the campus AP whitelist via the WebUI: </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the WebUI, and navigate to <span style="font-weight : bold; ">Configuration&gt;AP Installation</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Campus AP Whitelist</span>&#160;tab. The Campus AP whitelist table includes the following information for each AP entry.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 80 &#160;</span>View Campus AP Whitelist Parameters<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Parameter</p>
+</th>
+  <th style="width : 324.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP MAC Address</p>
+</td>
+  <td style="width : 324.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">MAC address of the campus AP.</p>
+</td>
+</tr>
+  <tr style=" height : 67.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Cert Type</p>
+</td>
+  <td style="width : 324.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The type of certificate used by the AP. </p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">switch-cert</span>: The campus AP is using a certificate signed by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">factory-cert</span>: the campus AP is using a factory-installed certificate. This option should only be used for AP model types&#160;<?rh-udv_start name="105AP"  ?>AP-105<?rh-udv_end ?>, the <?rh-udv_start name="120_AP_Series"  ?>AP-120 Series<?rh-udv_end ?>&#160;and the <?rh-udv_start name="130AP_Series"  ?>AP-130 Series<?rh-udv_end ?>.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 291.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">State</p>
+</td>
+  <td style="width : 324.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The Campus AP Whitelist reports one of the following states for each campus AP:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">unapproved-no-cert</span>: AP has no certificate and is not approved. </p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">unapproved-factory-cert:</span>&#160;AP has a preinstalled certificate that was not approved. </p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">approved-ready-for-cert</span>:<span style="font-weight : bold; ">&#160;</span>The AP has been approved as a valid campus AP and is ready to receive a certificate.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">certified-factory-cert</span>:<span style="font-weight : bold; ">&#160;</span>The AP is already has a factory certificate. If an AP has the f<span style="font-weight : bold; ">actory-cert</span>&#160;certificate type and is in the <span style="font-weight : bold; ">certified-factory-cert </span>state, then that campus AP will not be re-issued a new certificate if automatic certificate provisioning is enabled.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">certified-switch-cert</span>: AP has an approved certificate from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">certified-hold-factory-cert</span>: An AP is put in this state when the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;thinks the AP has been certified with a factory certificate yet the AP requests to be certified again. Since this is not a normal condition, the AP will not be approved as a secure AP until a network administrator manually changes the status of the AP to verify that it is not compromised. </p>
+</li>
+  </ul>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>If an AP is in this state due to connectivity problems, then the AP will recover and will be out of this hold state as soon as connectivity is restored.</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet"><span style="font-weight : bold; ">certified-hold-switch-cert</span>: An AP is put in this state when the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;thinks the AP has been certified with a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;certificate yet the AP requests to be certified again. Since this is not a normal condition, the AP will not be approved as a secure AP until a network administrator manually changes the status of the AP to verify that it is not compromised.</p>
+</li>
+  </ul>
+  <p class="FM_TableNote"><span class="FM_BoldTableBody">Note: </span>If an AP is in this state due to connectivity problems, then the AP will recover and will be out of this hold state as soon as connectivity is restored.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Description</p>
+</td>
+  <td style="width : 324.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">If defined, a brief description of the campus AP.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Revoked</p>
+</td>
+  <td style="width : 324.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Shows if the AP’s secure status has been revoked.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Revoked Text</p>
+</td>
+  <td style="width : 324.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">An optional, brief statement describing why the AP was revoked.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_Body">To view information about the campus AP whitelist via the command-line interface, use the commands described in <a href="#XREF_31915_Table_71_View_the"><span class="FM_PMS646">Table 81</span></a>. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 465.75pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 81 &#160;</span><a name="XREF_31915_Table_71_View_the"></a>View the Campus AP Whitelist via the CLI<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 210.750pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 255.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 210.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">show whitelist-db cpsec </p>
+  <p class="FM_CLIIndented">[mac-address &lt;macaddr&gt;]</p>
+</td>
+  <td style="width : 255.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Shows detailed information for each AP in the whitelist, including the AP’s MAC address, approved state, certificate type and description. Include the optional <span style="font-weight : bold; ">mac-address &lt;macaddr&gt;</span> parameters to view data for a single entry.</p>
+</td>
+</tr>
+  <tr style=" height : 117.00pt;">
+  <td style="width : 210.750pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_CLI">show whitelist-db cpsec-status</p>
+</td>
+  <td style="width : 255.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The command gives aggregate information for the numbers of APs in each of the following categories:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">Total entries</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Approved entries</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Unapproved entries</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Certified entries</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Certified hold entries</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Revoked entries</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">Marked for deletion entries</p>
+</li>
+  </ul></td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Modifying_an_AP_in_the"></a>Modifying an AP in the Campus AP Whitelist</p>
+ <p class="FM_Body">Use the following procedure to modify a campus AP entry’s certificate type, state, description and revoked status via the WebUI.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;WebUI, and navigate to <span style="font-weight : bold; ">Configuration&gt;AP Installation</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Campus AP Whitelist</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the checkbox by the entry for the AP you want to edit, then click <span style="font-weight : bold; ">Modify</span>. </p>
+ <p class="FM_BodyinBulletStep">If your campus AP whitelist is large and you cannot immediately locate the AP entry you want to edit, select the <span style="font-weight : bold; ">Search</span>&#160;link by the upper right corner of the whitelist. The <span style="font-weight : bold; ">Campus AP Whitelist</span>&#160;tab will display several fields that allow you to search for an AP with a specified MAC address, certificate type or state. Specify the values that match the AP you are trying to locate, then click the <span style="font-weight : bold; ">Search</span>&#160;button. The whitelist will display a list of APs that match your search criteria. Select the AP from this list, then click <span style="font-weight : bold; ">Modify</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Update the AP’s whitelist entry with the new settings. Some of the configurable parameters were available when you first defined the entry, and are described in <a href="#XREF_95018_Table_70_Campus_AP"><span class="FM_PMS646">Table 79</span></a>&#160;above. When you modify an existing whitelist entry, you can also configure the following additional parameters that were not configurable when you first created the entry.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">Cert-type: The type of certificate used by the AP. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">switch-cert: The campus AP is using a certificate signed by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">factory-cert: the campus AP is using a factory-installed certificate. This option should only be used for AP model types <?rh-udv_start name="105AP"  ?>AP-105<?rh-udv_end ?>, the <?rh-udv_start name="120_AP_Series"  ?>AP-120 Series<?rh-udv_end ?>&#160;and the <?rh-udv_start name="130AP_Series"  ?>AP-130 Series<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">State</span>: When you click the <span style="font-weight : bold; ">State</span>&#160;drop-down list to modify this parameter, you may choose one of the following options:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">approved-ready-for-cert: AP has been approved state and is ready to receive a certificate.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">certified-factory-cert: AP is certified and has a factory-installed certificate.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps"><span style="font-weight : bold; ">Revoke</span>: Click the <span style="font-weight : bold; ">Revoke</span>&#160;checkbox to revoke an AP’s secure status. When you select this checkbox, you will also be allowed to enter a brief comment explaining why the AP is being revoked.</p>
+</li>
+ </ul>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Update</span> to update the campus AP whitelist entry with its new settings.</p>
+ <p class="FM_Body">To modify an entry in the campus AP whitelist via the command-line interface, issue the following commands: </p>
+ <p class="FM_CLI">whitelist-db cpsec modify mac-address </p>
+ <p class="FM_CLIIndented">cert-type switch-cert|factory-cert</p>
+ <p class="FM_CLIIndented">description &lt;description&gt;</p>
+ <p class="FM_CLIIndented">mode disable|enable</p>
+ <p class="FM_CLIIndented">revoke-text &lt;revoke-text&gt;</p>
+ <p class="FM_CLIIndented">state approved-ready-for-cert|certified-factory-cert</p>
+ <p class="FM_3Heading"><a name="TOC_Revoking_an_AP_via_the"></a>Revoking an AP via the Campus AP Whitelist</p>
+ <p class="FM_Body">You can revoke an invalid or rogue AP either by opening the <span style="font-weight : bold; ">modify</span>&#160;menu and modifying the AP’s revoke status (as described in the section above), or by selecting the AP in the campus whitelist and revoking it’s secure status directly, without modifying any other parameters or entering a description of why that AP was revoked. When you revoke an AP’s secure status in the campus AP whitelist, the whitelist will retain the AP’s status information. To revoke an invalid or rogue AP and permanently remove the AP from the whitelist, you must delete that entry.</p>
+ <p class="FM_Body">To revoke an AP via the WebUI: </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;WebUI, and navigate to <span style="font-weight : bold; ">Configuration&gt;AP Installation</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Campus AP Whitelist</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To revoke one or more secure campus APs, select the checkbox by the entry for each AP whose secure status should be revoked, then click <span style="font-weight : bold; ">Revoke</span>. </p>
+ <p class="FM_BodyinBulletStep">If your campus AP whitelist is large and you cannot immediately locate the AP entry you want to revoke, select the <span style="font-weight : bold; ">Search</span>&#160;link by the upper right corner of the whitelist. The <span style="font-weight : bold; ">Campus AP Whitelist</span>&#160;tab will display several fields that allow you to search for an AP with a specified MAC address, certificate type or state. Specify the values that match the AP you are trying to locate, then click the <span style="font-weight : bold; ">Search</span>&#160;button. The whitelist will display a list of APs that match your search criteria. Select the AP from this list, then click <span style="font-weight : bold; ">Revoke</span>.</p>
+ <p class="FM_Body">To revoke an AP via the command-line interface, issue the command: </p>
+ <p class="FM_Body">whitelist-db cpsec revoke mac-address &lt;macaddr&gt; revoke-text &lt;&quot;revoke text&quot;&gt;</p>
+ <p class="FM_3Heading"><a name="TOC_Deleting_an_AP_Entry"></a>Deleting an AP Entry from the Campus AP Whitelist</p>
+ <p class="FM_Body">Before you delete an AP entry from the campus whitelist, verify that auto certificate provisioning is either no longer enabled, or only enabled for IP addresses that do not include the AP being removed. If automatic certificate provisioning is enabled for an AP that it is still connected to the network, you will not be able to permanently delete it from the campus AP whitelist; the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> will immediately re-certify the AP and re-create its whitelist entry. </p>
+ <p class="FM_Body">To delete an AP entry via the WebUI: </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;WebUI, and navigate to <span style="font-weight : bold; ">Configuration&gt;AP Installation</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Campus AP Whitelist</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the checkbox by entry for each AP you want to remove, then click <span style="font-weight : bold; ">delete</span>. </p>
+ <p class="FM_BodyinBulletStep">If your campus AP whitelist is large and you cannot immediately locate the AP entry you want to delete, select the <span style="font-weight : bold; ">Search</span> link by the upper right corner of the whitelist. The<span style="font-weight : bold; "> Campus AP Whitelist</span>&#160;tab will display several fields that allow you to search for an AP with a specified MAC address, certificate type or state. Specify the values that match the AP you are trying to locate, then click the <span style="font-weight : bold; ">Search</span>&#160;button. The whitelist will display a list of APs that match your search criteria. Select the AP from this list, then click <span style="font-weight : bold; ">delete</span>.</p>
+ <p class="FM_Body">To delete an AP entry via the CLI, issue the command: </p>
+ <p class="FM_Body">whitelist-db cpsec del mac-address &lt;macaddr&gt;</p>
+ <p class="FM_3Heading"><a name="TOC_Purging_the_Campus_AP"></a>Purging the Campus AP Whitelist</p>
+ <p class="FM_Body">Before you add a new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to a network using control plane security, you must purge the campus AP whitelist on the new <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Any entries in a new <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s campus AP whitelist will be merged into the whitelist for all other master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;as soon as the new <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is added to the hierarchy. If any old or invalid AP entries are added to the campus AP whitelist, all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;in the hierarchy will begin trusting those APs, creating a potential security risk. For additional information on adding a new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using control plane security to your network, see <a href="#XREF_41845_Replacing_a_Local"><span class="FM_PMS646">“Replacing a Local Controller”</span></a></p>
+ <p class="FM_Body">To purge a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s campus AP whitelist via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;WebUI, and navigate to <span style="font-weight : bold; ">Configuration&gt;AP Installation</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Campus AP Whitelist</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Purge</span>.</p>
+ <p class="FM_Body">To purge a campus AP whitelist via the command-line interface, issue the command</p>
+ <p class="FM_Body">whitelist-db cpsec purge</p>
+ <p class="FM_1Heading"><a name="TOC_Whitelists_on_Master_and"></a><a name="IX_local_switch_whitelist"></a><a name="XREF_61410_Whitelists_on"></a>Whitelists on Master and Local&#160;<?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>&#160;</p>
+ <p class="FM_Body">Every <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the control plane security feature maintains a campus AP whitelist, a local switch whitelist and a master switch whitelist. The contents of these whitelists vary, depending upon the role of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, as shown in the figure below.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.12pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 82 &#160;</span>Control Plane Security Whitelists<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 40.00pt;background : #548baf;">
+  <th style="width : 104.125pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Role</p>
+</th>
+  <th style="width : 151.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Campus AP Whitelist</p>
+</th>
+  <th style="width : 107.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Master Switch Whitelist</p>
+</th>
+  <th style="width : 105.124pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Local Switch Whitelist</p>
+</th>
+</tr>
+  <tr style=" height : 53.00pt;">
+  <td style="width : 104.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">On a (standalone) master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;with no local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>:</p>
+</td>
+  <td style="width : 151.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The campus AP whitelist contains entries for the secure campus APs associated with that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+  <td style="width : 107.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The master switch whitelist is empty, and does not appear in the WebUI.</p>
+</td>
+  <td style="width : 105.124pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The local switch whitelist is empty, and does not appear in the WebUI.</p>
+</td>
+</tr>
+  <tr style=" height : 63.00pt;">
+  <td style="width : 104.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">On a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;with local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>:</p>
+</td>
+  <td style="width : 151.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The campus AP whitelist contains an entry for every secure campus AP on the network, regardless of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to which it is connected.</p>
+</td>
+  <td style="width : 107.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The master switch whitelist is empty, and does not appear in the WebUI.</p>
+</td>
+  <td style="width : 105.124pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The local switch whitelist contains an entry for each associated local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 63.00pt;">
+  <td style="width : 104.125pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">On a Local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+</td>
+  <td style="width : 151.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The campus AP whitelist contains an entry for every secure campus AP on the network, regardless of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to which it is connected.</p>
+</td>
+  <td style="width : 107.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The master switch whitelist contains the MAC and IP address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+  <td style="width : 105.124pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The local switch whitelist is empty, and does not appear in the WebUI.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 71 &#160;</span><a name="XREF_60085_Figure_65_Local"></a></p>
+ <div align="left"><img alt="control-plane-security.jpg" id="image1" src="images/control-plane-security.jpg" />
+ </div>
+ <p class="FM_FigureTitle">&#160;Local Switch Whitelist on a Master <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">If your deployment includes both master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, then the campus AP whitelist on every <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;contains an entry for every secure AP on the network, regardless of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to which it is connected. The master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;also maintains a whitelist of local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;using control plane security. When you change a campus AP whitelist on any <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;contacts the other connected <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> to notify them of the change.</p>
+ <p class="FM_Body">The master switch whitelist on each local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;contains the IP and MAC addresses of its master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If your network has a redundant master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, then this whitelist will contain more than one entry. The master switch whitelist rarely needs to be deleted. Although you can delete an entry from the master switch whitelist, you should do so only if you have removed a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> from the network.<a name="XREF_64369_Adding_or_Removing"></a></p>
+ <p class="FM_2Heading"><a name="TOC_Campus_AP_Whitelist"></a><a name="IX_whitelist_synchronization"></a>Campus AP Whitelist Synchronization</p>
+ <p class="FM_Body">The current sequence number in the <span style="font-weight : bold; ">AP Whitelist Sync Status</span>&#160;field shows the number of changes to the campus AP whitelist made on that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. By default, each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;compares its campus AP whitelist against whitelists on other <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;every two minutes. If a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;detects a difference, it will send its changes to the other <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;on the network. If all other <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;on the network have successfully received and acknowledged all whitelist changes made on that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, every entry in the <span style="font-weight : bold; ">sequence number </span>column in the local switch or master switch whitelists will have the same value as the sequence number displayed in the <span style="font-weight : bold; ">AP Whitelist Sync Status</span>&#160;field. If a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the master or local switch whitelist has a lower sequence number, that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;may still be waiting to complete its update, or its update acknowledgement may not have yet been received. In the example in <a href="#XREF_60085_Figure_65_Local"><span class="FM_PMS646">Figure 71</span></a>, the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has a current sequence number of 3, and each sequence number in its local switch whitelist also shows a value of 3, indicating that both local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;have received and acknowledged all three campus AP whitelist changes made on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. For additional information on troubleshooting whitelist synchronization, see <a href="#XREF_56921_Whitelist"><span class="FM_PMS646">“Verify Whitelist Synchronization”</span></a>.</p>
+ <p class="FM_Body">You can view a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s current sequence number via the CLI using the command:</p>
+ <p class="FM_Body">show whitelist-db cpsec-seq</p>
+ <p class="FM_2Heading"><a name="TOC_Viewing_and_Managing_the"></a><a name="XREF_75298_Viewing_and"></a>Viewing and Managing the Master or Local Switch Whitelists</p>
+ <p class="FM_Body">The following sections describe the commands to view and delete entries in a master or local switch whitelist.</p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_the_Master_or"></a>Viewing the Master or Local Switch Whitelist</p>
+ <p class="FM_Body">To view the master or local switch whitelists via the WebUI, use the procedure below:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s WebUI, and navigate to <span style="font-weight : bold; ">Configuration&gt;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Control Plane Security</span>&#160;tab. </p>
+ <p class="FM_Body">The master and local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> switch tables each include the following information:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.63pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 83 &#160;</span>Master and Local Switch Whitelist Information<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 133.500pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Data Column</p>
+</th>
+  <th style="width : 334.126pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 133.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">MAC-Address</p>
+</td>
+  <td style="width : 334.126pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">On a local switch whitelist: MAC address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+  <p class="FM_TableBody">On a master switch whitelist: MAC address of a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 35.00pt;">
+  <td style="width : 133.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">IP-Address</p>
+</td>
+  <td style="width : 334.126pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">On a local switch whitelist: IP address of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+  <p class="FM_TableBody">On a master switch whitelist: IP address of a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 99.00pt;">
+  <td style="width : 133.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Sequence Number</p>
+</td>
+  <td style="width : 334.126pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The number of times the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the whitelist received and acknowledged a campus AP whitelist change from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;whose WebUI you are currently viewing.</p>
+  <p class="FM_TableBody">For deployments with both master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">The sequence number on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;should be the same as the remote sequence number on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">The sequence number on a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;should be the same as the remote sequence number on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 99.00pt;">
+  <td style="width : 133.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Remote Sequence Number</p>
+</td>
+  <td style="width : 334.126pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The number of times that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;whose WebUI you are currently viewing has received and acknowledged a campus AP whitelist change from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in the whitelist.</p>
+  <p class="FM_TableBody">For deployments with both master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>:</p>
+  <ul type="disc" style="">
+   <li style="">
+   <p class="FM_TableBullet">The remote sequence number on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;should be the same as the sequence number on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+   <li style="">
+   <p class="FM_TableBullet">The remote sequence number on a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;should be the same as the sequence number on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  </ul></td>
+</tr>
+  <tr style=" height : 73.00pt;">
+  <td style="width : 133.500pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Null Update Count</p>
+</td>
+  <td style="width : 334.126pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The number of times the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;checked its campus AP whitelist and found nothing to synchronize with the other <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. By default, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;compares its control plane security whitelist against whitelists on other <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;two minutes. If the null update count reaches 5, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will send an “empty sync” heartbeat to the remote <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to ensure the sequence numbers on both <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> are the same, then reset the null update count to zero.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">To view the master or local switch whitelists via the command-line interface, issue the following commands:</p>
+ <p class="FM_Body">show whitelist-db cpsec-master-switch-list [mac-address &lt;mac-address&gt;]</p>
+ <p class="FM_Body">show whitelist-db cpsec-local-switch-list[mac-address &lt;mac-address&gt;]</p>
+ <p class="FM_3Heading"><a name="TOC_Deleting_an_Entry_from"></a><a name="XREF_77663_Deleting_an_Entry"></a>Deleting an Entry from the Master or Local Switch Whitelist</p>
+ <p class="FM_Body">There is no need to delete a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from the master switch whitelist during the course of normal operation. However, if you remove a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from the network, you should also remove the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from the local switch whitelist on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If the local switch whitelist contains entries for <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;no longer on the network, then a campus AP whitelist entry can be marked for deletion but will not be physically deleted, as the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will be waiting for an acknowledgement from another <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;no longer on the network. This can increase network traffic and reduce memory resources on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">To delete an entry from the master or local switch whitelist via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s WebUI, and navigate to <span style="font-weight : bold; ">Configuration&gt;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Control Plane Security</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To delete an entry from the Local Switch Whitelist:<span style="font-weight : bold; ">&#160;</span>In the <span style="font-weight : bold; ">Local Switch List For AP Whitelist Sync</span>&#160;section, click the <span style="font-weight : bold; ">Delete</span>&#160;button by each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;entry you want to remove. </p>
+ <p class="FM_BodyinBulletStep">-or-</p>
+ <p class="FM_BodyinBulletStep">To delete an entry from the Master <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Whitelist: In the<span style="font-weight : bold; ">&#160;Master Switch List For AP Whitelist Sync</span>&#160;section, click the <span style="font-weight : bold; ">Delete</span>&#160;button by each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;entry you want to remove. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save you settings.</p>
+ <p class="FM_Body">To delete an entry from the master or local switch whitelist via the command-line interface, issue either of the following commands:</p>
+ <p class="FM_Body">whitelist-db cpsec-master-switch-list del mac-address &lt;mac-address&gt;</p>
+ <p class="FM_Body">whitelist-db cpsec-local-switch-list del mac-address &lt;mac-address&gt;</p>
+ <p class="FM_3Heading"><a name="TOC_Purging_the_Master_or"></a>Purging the Master or Local Switch Whitelist</p>
+ <p class="FM_Body">There is no need to purge a master switch whitelist during the course of normal operation. If, however, you are removing a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from the network, you can purge its switch whitelist after it has been disconnected from the network. To clear a local switch whitelist entry on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that is still connected to the network, select that individual whitelist entry and delete it using the <span style="font-weight : bold; ">delete</span>&#160;option described here <a href="#XREF_77663_Deleting_an_Entry"><span style="color   : #548baf; ">Deleting an Entry</span></a>.</p>
+ <p class="FM_Body">To purge a switch whitelist via the WebUI, use the following procedure:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s WebUI, and navigate to <span style="font-weight : bold; ">Configuration&gt;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Control Plane Security</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To clear the Local Switch Whitelist:<span style="font-weight : bold; ">&#160;</span>In the <span style="font-weight : bold; ">Local Switch List For AP Whitelist Sync</span>&#160;section, click <span style="font-weight : bold; ">Purge</span>. </p>
+ <p class="FM_BodyinBulletStep">-or-</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To clear the Master Switch Whitelist: In the <span style="font-weight : bold; ">Master Switch List For AP Whitelist Sync</span>&#160;section, click <span style="font-weight : bold; ">Purge</span>. </p>
+ <p class="FM_Body">To purge a switch whitelist via the command-line interface, issue the following commands:</p>
+ <p class="FM_Body">whitelist-db cpsec-master-switch-list purge</p>
+ <p class="FM_Body">whitelist-db cpsec-local-switch-list purge</p>
+ <p class="FM_1Heading"><a name="TOC_Environments_with"></a><a name="XREF_40699_Environments_with"></a>Environments with Multiple Master <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Networks"></a><a name="XREF_62861_Configuring"></a>Configuring Networks with a Backup Master <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">If your network includes a redundant backup master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you <span style="font-style : italic; ">must synchronize the database from the primary master to the backup master at least once</span>&#160;after all APs are communicating with their <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;over a secure channel. This ensures that all certificates, IPsec keys and campus AP whitelist entries are synchronized to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You should also synchronize the database any time the campus AP whitelist changes (APs are added or removed to ensure that the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has the latest settings. </p>
+ <p class="FM_Body">Master and backup <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;can be synchronized using either of the following methods. </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Manual Synchronization</span>: Issue the<span style="font-weight : bold; "> database synchronize</span>&#160;CLI command in enable mode to manually synchronize databases from your primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Automatic Synchronization</span>: Schedule automatic database backups using the <span style="font-weight : bold; ">database synchronize period</span> CLI command in config mode.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 67.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconCaution"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">If you add a new backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to an existing <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;must be added as the <span style="font-weight : bold; ">lower priority </span><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is not added as a lower priority <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, your control plane security keys and certificates may be lost. If you want the new backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to become your primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, increase the priority of that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to a primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;<span style="font-style : italic; ">after</span> you have synchronized your data.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Networks1"></a>Configuring Networks with Clusters of Master <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></p>
+ <p class="FM_Body">If your network includes multiple master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;each with their own hierarchy of APs and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, you can allow APs from one hierarchy to failover to any other hierarchy by defining a <span style="font-style : italic; ">cluster</span>&#160;of master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. Each cluster will have one master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as its cluster root, and all other master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;as cluster members. The master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;operating as the cluster root will create a self-signed certificate, then certify it’s own local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and APs. Next, the cluster root will send a certificate to each cluster member, which in turn certifies their own local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and APs. Since all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and APs in the cluster will all have the same trust anchor, the APs can switch to any other <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the cluster and still remain securely connected to the network.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 72 &#160;</span>A Cluster of Master <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?> using Control Plane Security</p>
+ <div align="left"><img alt="control-plane-cluster.jpg" id="image2" src="images/control-plane-cluster.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Body">To create a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;cluster, you must first define the root master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and set an IPsec key or select a certificate for communications between the cluster root and cluster members. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 67.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You must use the command-line interface to configure certificate authentication for cluster members. The WebUI supports cluster authentication using IPsec keys only. If your master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;use a pre-shared key for authentication, they will create the IPsec tunnel using IKEv1. If your master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;use certificates for authentication, the IPsec tunnel will be created using IKEv2.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_Creating_a_Cluster_Root"></a><a name="XREF_96839_Create_a_Cluster"></a>Creating a Cluster Root</p>
+ <p class="FM_Body">Use the WebUI to identify a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as a cluster root and use an IPsec key to secure communication between the cluster root and cluster members. Use the command-line interface to create a cluster root using an IPsec key, factory-installed certificate or custom certificate.</p>
+ <p class="FM_Body">To create a cluster root using the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the WebUI of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;you want to become the cluster root, and navigate to <span style="font-weight : bold; ">Configuration&gt;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the<span style="font-weight : bold; "> Cluster Setting</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For the cluster role, select <span style="font-weight : bold; ">Root</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Cluster Member IPsec Keys </span>section, enter the switch IP address of a member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the cluster. If you want to use a single key for all member <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, use the IP address <span style="font-weight : bold; ">0.0.0.0</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">IPsec Key</span>&#160;and <span style="font-weight : bold; ">Retype IPsec Key</span>&#160;fields, enter the IPsec key for communication between the specified member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and the cluster root.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>. </p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-style : italic; ">Optional</span>: repeat steps 4-6 to add another member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to the cluster.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your settings</p>
+ <p class="FM_Body">To create a cluster root via the CLI, access the command-line interface of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;you want to become the root of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> cluster, then issue one of the following commands.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">To authenticate cluster members using a custom certificate:</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">cluster-member-custom-cert member-mac &lt;mac&gt; ca-cert &lt;ca&gt; server-cert &lt;cert&gt; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>suite-b &lt;gcm-128 | gcm-256&gt;]</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">To authenticate cluster members using a factory-installed certificate.</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">cluster-member-custom-cert member-mac &lt;mac&gt; </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">To authenticate cluster members using an IPsec key: </p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">cluster-member-ip &lt;ip-address&gt; ipsec &lt;key&gt;</p>
+ <p class="FM_BodyinBulletStep">The <span style="font-weight : bold; ">&lt;ip-address&gt;</span>&#160;parameter in this command is the IP address of a member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the cluster, and the <span style="font-weight : bold; ">&lt;key&gt; </span>parameter in each command is the IPsec key for communication between the specified member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the cluster root. Use the IP address <span style="font-weight : bold; ">0.0.0.0</span>&#160;in this command to set a single IPsec key for all member <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, or repeat this command as desired to define a different IPsec key for each cluster member. </p>
+ <p class="FM_3Heading"><a name="TOC_Creating_a_Cluster_Member"></a><a name="XREF_32736_Creating_a_Cluster"></a>Creating a Cluster Member</p>
+ <p class="FM_Body">Once you have identified the cluster root, you must then identify the member <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> in the cluster.</p>
+ <p class="FM_Body">Use the WebUI to identify a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as a cluster member and use an IPsec key to secure communication between the cluster member and the cluster root. Use the command-line interface to create a cluster member and secure communications between that member and the cluster root using an IPsec key, factory-installed certificate or custom certificate.</p>
+ <p class="FM_Body">To create a cluster member using the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the WebUI of the cluster member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, and navigate to <span style="font-weight : bold; ">Configuration&gt;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the<span style="font-weight : bold; "> Cluster Setting</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For the cluster role, select <span style="font-weight : bold; ">Member</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; "><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> IP Address</span>&#160;field, enter the IP address of the root <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in the cluster.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">IPsec Key</span>&#160;and <span style="font-weight : bold; ">Retype IPsec Key</span>&#160;fields, enter the IPsec key for communication between the specified member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the cluster root. This parameter must be have the same value as the key defined for the cluster member in <a href="#XREF_96839_Create_a_Cluster"><span class="FM_PMS646">“Creating a Cluster Root” </span></a>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>. </p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your settings.</p>
+ <p class="FM_Body">To create a cluster root via the CLI, access each of the member master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and define the IPsec key or certificate for communication between that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the cluster root. </p>
+ <p class="FM_CLI">cluster-root-ip &lt;ip-address&gt; </p>
+ <p class="FM_CLIIndented">ipsec &lt;key&gt;</p>
+ <p class="FM_CLIIndented">factory-cert master-mac &lt;mac&gt;</p>
+ <p class="FM_CLIIndented">ipsec-custom-cert master-mac1 &lt;mac1&gt; [master-mac2 &lt;mac2&gt;] ca-cert &lt;ca&gt; server-cert &lt;cert&gt; [suite-b &lt;gcm-128 | gcm-256&gt;]</p>
+ <p class="FM_Body">In this command the <span style="font-weight : bold; ">&lt;ip-address&gt;</span>&#160;parameter is the IP address of the root master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the cluster. If you are using an IPsec key, the <span style="font-weight : bold; ">&lt;key&gt; </span>parameter in this command must be have the same value as the key defined for the cluster member via the <span style="font-weight : bold; ">cluster-member-ip</span>&#160;command. </p>
+ <p class="FM_3Heading"><a name="TOC_Viewing_Controller"></a>Viewing <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Cluster Settings</p>
+ <p class="FM_Body">To view your current cluster configuration via the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span style="font-weight : bold; ">Configuration&gt;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the<span style="font-weight : bold; "> Cluster Setting</span>&#160;tab. </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">If you are viewing the WebUI of a cluster root, the output of this command displays the IP address of the VLAN on the cluster member used to connect to the cluster root. </p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">If you are viewing the WebUI of a cluster member, the output of this command displays the IP address of the VLAN on the cluster root used to connect to the cluster member. </p>
+</li>
+ </ul>
+ <p class="FM_Body">To view your current cluster configuration via the command-line interface, issue the CLI commands described in <a href="#XREF_36453_Table_71_CLI"><span class="FM_PMS646">Table 84</span></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 468.00pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 84 &#160;</span><a name="XREF_36453_Table_71_CLI"></a>CLI Commands to Display Cluster Settings <?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Command</p>
+</th>
+  <th style="width : 324.001pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 75.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">show cluster-switches</p>
+</td>
+  <td style="width : 324.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">When you issue this command from the cluster <span style="font-style : italic; ">root</span>, the output of this command displays the IP address of the VLAN used by the cluster member to connect to the cluster root. </p>
+  <p class="FM_TableBody">If you issue this command from a cluster <span style="font-style : italic; ">member</span>, the output of this command displays the IP address of the VLAN used by the cluster root to connect to the cluster member. </p>
+</td>
+</tr>
+  <tr style=" height : 75.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">show cluster-config</p>
+</td>
+  <td style="width : 324.001pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">When you issue this command from the cluster <span style="font-style : italic; ">root</span>, the output of this command shows the cluster role of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, and the IP address of each active member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in the cluster.</p>
+  <p class="FM_TableBody">When you issue this command from a cluster <span style="font-style : italic; ">member</span>, the output of this command shows the cluster role of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, and the IP address of the cluster root.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_1Heading"><a name="TOC_Replacing_a_Controller"></a><a name="XREF_82263_Replacing_a"></a>Replacing a <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> on a Multi-<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Network</p>
+ <p class="FM_Body">The procedure to replace a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> within a multi-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;network varies, depending upon the role of that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, whether the network has a single master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or a cluster of master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, and whether or not the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> has a backup.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The following sections describe the steps to replace an existing <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. To add a new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to a network, or permanently remove a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;without replacing it, see <a href="#XREF_75298_Viewing_and"><span class="FM_PMS646">“Viewing and Managing the Master or Local Switch Whitelists” </span></a>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Replacing_Controllers_in"></a>Replacing <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?> in a Single Master Network</p>
+ <p class="FM_Body">Use the procedures in this section to replace a master or local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in a network environment with a single master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_3Heading"><a name="TOC_Replacing_a_Local"></a><a name="XREF_41845_Replacing_a_Local"></a>Replacing a Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;</p>
+ <p class="FM_Body">Use the following procedure to replace a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in a single-master network.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Disconnect the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from the network. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If you plan on moving the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to another location on the network, purge the campus AP whitelist on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_BodyinBulletStep">Access the command-line interface on the old local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and issue the command <span style="font-weight : bold; ">whitelist-db cpsec purge<br /></span>-or-<br />Access the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> WebUI, navigate to<span style="font-weight : bold; "> Configuration&gt;AP Installation&gt;Campus AP Whitelist</span> and click<span style="font-weight : bold; "> Purge.</span></p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Once the campus AP whitelist has been purged, you must inform the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will no longer be available. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote"><span style="font-weight : bold; ">This step is very important;</span>&#160;unused local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;entries in the local switch whitelist can significantly increase network traffic and reduce <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> memory resources.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext">.</p>
+ <p class="FM_BodyinBulletStep">Access the command-line interface on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, and issue the command<span style="font-weight : bold; ">&#160;whitelist-db cpsec-local-switch-list del mac-address &lt;local-<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-mac&gt;</span>&#160;<br />-or -<br />Access the maser <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;WebUI, navigate to the <span style="font-weight : bold; ">Configuration&gt;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&gt;Control Plane Security </span>window, select the entry for the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;you want to delete from the local switch whitelist, and click <span style="font-weight : bold; ">Delete</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Install the new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, but do not connect it to the network yet. If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has been previously installed on the network, you must ensure that the new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has a clean whitelist. <br />Access the command-line interface on the new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and issue the command <span style="font-weight : bold; ">whitelist-db cpsec purge<br /></span>-or-<br />Access the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> WebUI, navigate to<span style="font-weight : bold; "> Configuration&gt;AP Installation&gt;Campus AP Whitelist</span> and click<span style="font-weight : bold; "> Purge.</span></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Now, connect the new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the network. It is very important that the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is able to contact the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;the first time it is connected to the network, because the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will try to get its control plane security certificate certified by the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;the first time the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> contacts its master.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Once the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has a valid control plane security certificate and configuration, the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will receive the campus AP whitelist from the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and will start certifying approved APs. </p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>APs associated with the new local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will reboot and create new IPsec tunnels to their <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the new certificate keys</p>
+ <p class="FM_3Heading"><a name="TOC_Replacing_a_Master"></a>Replacing a Master <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> (With No Backup)</p>
+ <p class="FM_Body">Use the following procedure to replace a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that does not have a backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Remove the old master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> from the network.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Install and configure the new master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, then connect the new master to the network. The new master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> will generate a new certificate when it first becomes active</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If the new master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has a different IP address than the old master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, change the master IP address on the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;to reflect the address of the new master. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Reboot each local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to ensure that the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;get their certificate from the new master. Each local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will begin using a new certificate signed by the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>APs will no longer be able to securely communicate with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using their current key, and must receive a new certificate. Access the campus AP whitelist on any local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and change all APs in a “certified” state to an “approved” state. The new master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will send the approved APs new certificates. The APs will reboot and create new IPsec tunnels to their <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the new certificate key. </p>
+ <p class="FM_BodyinBulletStep">If the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;does not have any local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, you must recreate the campus AP whitelist by turning on automatic certificate provisioning or manually reentering the campus AP whitelist entries.</p>
+ <p class="FM_3Heading"><a name="TOC_Replacing_a_Redundant"></a>Replacing a Redundant Master <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;</p>
+ <p class="FM_Body">The control plane security feature requires you to synchronize databases from the primary master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the backup master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;at least once after the network is up at running. This will ensure that all certificates, keys and whitelist entries are synchronized to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Since the AP whitelist may change periodically, the network administrator should regularly synchronize these settings to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. For details, see <a href="#XREF_62861_Configuring"><span class="FM_PMS646">“Configuring Networks with a Backup Master Controller” </span></a></p>
+ <p class="FM_Body">When you install a new backup master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, <span style="font-weight : bold; ">you must add it as a lower priority </span><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;than the existing primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. After you install the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;on the network, synchronize the database from the existing primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the new backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to ensure that all certificates, keys and whitelist entries required for control plane security will be added to the new backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configuration. If you want the new <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to act as the primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can increase that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s priority <span style="font-style : italic; ">after</span> the settings have been synchronized.</p>
+ <p class="FM_2Heading"><a name="TOC_Replacing_Controllers_in1"></a>Replacing <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>&#160;in a Multi-Master Network </p>
+ <p class="FM_Body">Use the following procedures to replace a master or local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in a network environment with a multiple master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+ <p class="FM_3Heading"><a name="TOC_Replacing_a_Local1"></a>Replacing a Local <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> in a Multi-Master Network</p>
+ <p class="FM_Body">The procedure to replace a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in a network with multiple master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;is the same as the procedure to replace a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is a single-master network. To replace a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in a multi-master network, follow the procedure described in <a href="#XREF_41845_Replacing_a_Local"><span class="FM_PMS646">“Replacing a Local Controller” </span></a></p>
+ <p class="FM_3Heading"><a name="TOC_Replacing_a_Cluster"></a>Replacing a Cluster Member <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> (With no Backup)</p>
+ <p class="FM_Body">The control plane security feature allows APs to fail over from one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to another within a cluster. Therefore, cluster members or their local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;may have associated APs that were first certified under some other cluster member (or the cluster root). If you permanently remove a cluster member whose APs were all originally certified under the cluster member being removed, its associated APs will not need to reboot in order to connect to a different <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If, however, you remove a cluster member whose associated APs were originally certified under a <span style="font-style : italic; ">different</span>&#160;cluster member, those APs will need to reboot and get recertified before they can connect to a different <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If the cluster member you are removing has local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;will also reboot so they can update themselves with new certificates, then pass the trust update to their terminating APs.</p>
+ <p class="FM_Body">To replace a cluster member that does not have a backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On the cluster master to be removed, clear the cluster root IP address by accessing the command-line interface and issuing the command <span style="font-weight : bold; ">no cluster-root-ip &lt;cluster-root-ip&gt; ipsec &lt;clusterkey&gt;</span>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Remove the cluster member from the network.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If the cluster master you removed has any associated APs, you must reboot those APs so they will get an updated certificate.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If the cluster member you removed has any associated local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, reboot those local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;so they can get a new certificate and then pass that trust update to their APs.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Remove the cluster master from the cluster root’s master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;list by accessing the command-line interface on the cluster root and issuing the command<span style="font-weight : bold; ">&#160;whitelist-db cpsec-master-switch-list del mac-address &lt;cluster-master-mac&gt;</span>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote"><span style="font-weight : bold; ">This step is very important;</span>&#160;unused local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;entries in the local switch whitelist can significantly increase network traffic and reduce <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> memory resources.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Remove the old cluster member from the network. Remember, that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will still have campus AP whitelist entries from the entire cluster. You may want to delete or revoke unwanted entries from the campus AP whitelist. </p>
+ <p class="FM_Body">Now, you must install the new cluster member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;according to the procedure described in <a href="#XREF_32736_Creating_a_Cluster"><span class="FM_PMS646">“Creating a Cluster Member” </span></a>. The new cluster member obtains a certificate from the cluster root when it first becomes active. </p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If the new cluster member has any associated APs, reboot those APs to allow them to get a trust update. </p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If the new cluster member has any local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, reboot the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>s&#160;associated with the new cluster member. The local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;will obtain a new certificate signed by the cluster member, and will then pass that trust update to their associated APs.</p>
+ <p class="FM_3Heading"><a name="TOC_Replacing_a_Redundant1"></a>Replacing a Redundant Cluster Member <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;</p>
+ <p class="FM_Body">The control plane security feature requires you to synchronize databases from the primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;at least once after the network is up at running. This will ensure that all certificates, keys and whitelist entries are synchronized to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Since the AP whitelist may change periodically, the network administrator should regularly synchronize these settings to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. For details, see <a href="#XREF_62861_Configuring"><span class="FM_PMS646">“Configuring Networks with a Backup Master Controller” </span></a>.</p>
+ <p class="FM_Body">When you install a new backup cluster member, <span style="font-weight : bold; ">you must add it as a lower priority </span><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;than the existing primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. After you install the backup cluster member on the network, resynchronize the database from the existing primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the new backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to ensure that all certificates, keys and whitelist entries required for control plane security will be added to the new backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configuration. If you want the new <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to act as the primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can increase that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s priority <span style="font-style : italic; ">after</span> the settings have been resynchronized.</p>
+ <p class="FM_3Heading"><a name="TOC_Replacing_a_Cluster_Root"></a>Replacing a Cluster Root <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;with no Backup <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">If you replace a cluster root <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;that does not have a backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the new cluster root <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will create its own self-signed certificate. You will then need to reboot each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the hierarchy in a specific order to certify all APs with that new certificate.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Remove the old cluster root from the network.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Install and configure the new cluster root.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Connect the new cluster root to the network so it can access cluster masters and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If necessary, reconfigure the cluster masters and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;with their new cluster root IP and master IP addresses.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Reboot every cluster member <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The cluster member will begin using a new certificate signed by the cluster root.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Reboot every local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Each local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will begin using a new certificate signed by the cluster member. </p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Because the cluster root is new, it will not have a configured campus AP whitelist. Access the campus AP whitelist on any local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or cluster master and change all APs in a “certified” state to an “approved” state. The APs will get recertified, reboot and create new IPsec tunnels to their <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the new certificate key. <br /><br />If a cluster root <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;does not have any cluster master or local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, you must recreate the campus AP whitelist on the cluster root by turning on automatic certificate provisioning or manually reentering the campus AP whitelist entries.</p>
+ <p class="FM_3Heading"><a name="TOC_Replacing_a_Redundant2"></a>Replacing a Redundant Cluster Root <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends using a backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;with your cluster root <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If your cluster root has a backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can replace the backup cluster root without having to reboot all cluster master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, minimizing network disruptions.</p>
+ <p class="FM_Body">The control plane security feature requires you to synchronize databases from the primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;at least once after the network is up at running. This will ensure that all certificates, keys and whitelist entries are synchronized to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Since the AP whitelist may change periodically, the network administrator should regularly synchronize these settings to the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. For details, see <a href="#XREF_62861_Configuring"><span class="FM_PMS646">“Configuring Networks with a Backup Master Controller” </span></a>.</p>
+ <p class="FM_Body">When you install a new backup cluster root, <span style="font-weight : bold; ">you must add it as a lower priority </span><?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;than the existing primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. After you install the backup cluster root on the network, resynchronize the database from the existing primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the new backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to ensure that all certificates, keys and whitelist entries required for control plane security will be added to the new backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configuration. If you want the new <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to act as the primary <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can increase that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s priority <span style="font-style : italic; ">after</span> the settings have been resynchronized.</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Control1"></a><a name="XREF_90445_Configuring"></a>Configuring Control Plane Security after Upgrading</p>
+ <p class="FM_Body">When you initially deploy a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;running <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;6.0 or later, you will create your initial control plane security configuration using the initial setup wizard. However, if you are upgrading to <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;6.0 from <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;3.4.x or earlier releases, or if you are upgrading from <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 5.0<span style="font-style : italic; ">&#160;but did not yet have control plane security enabled before the upgrade,</span>&#160;then you can use the strategies described in <a href="#XREF_20424_Table_74_Control"></a>&#160;to enable and configure control plane security feature. For complete details on performing each of these individual steps, see <a href="#XREF_36485_Configuring"><span class="FM_PMS646">“Configuring Control Plane Security”</span></a> and “<a href="#XREF_61410_Whitelists_on"><span class="FM_PMS646">“Whitelists on Master and Local Controllers”</span></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 67.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">If you upgrade a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;running <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;5.0.x to <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;6.0 or later, then the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s control plane security settings will not change after the upgrade. If control plane security was already enabled, then it will remain enabled after the upgrade. If it was not enabled previously, but you wish to use the feature after upgrading, then it must be manually enabled.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"><a name="XREF_20424_Table_74_Control"></a></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.25pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 85 &#160;</span>Control Plane Security Upgrade Strategies<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 40.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Automatically send Certificates to Campus APs</p>
+</th>
+  <th style="width : 323.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Manually Certify Campus APs</p>
+</th>
+</tr>
+  <tr style=" height : 113.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1. Access the control plane security window and enable both the control plane security feature and the auto certificate provisioning option. Next, specify whether you want all associated campus APs to automatically receive a certificate, or if you want to certify only those APs within a defined range of IP addresses.</p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1. Identify the campus APs that should receive certificates by entering the campus APs’ MAC addresses in the campus AP whitelist.</p>
+</td>
+</tr>
+  <tr style=" height : 83.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">2. Once all APs have received their certificates, disable auto certificate provisioning to prevent certificates from being issued to any rogue APs that may appear on your network at a later time. </p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">2. If your network includes both master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, wait a few minutes, then verify that the campus AP whitelist has been propagated to all other <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;on the network. Access the WebUI of the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, navigate to <span style="font-weight : bold; ">Configuration&gt;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&gt;Control Plane Security</span>, then verify that the <span style="font-weight : bold; ">Current Sequence Number</span> field has the same value as the<span style="font-weight : bold; ">&#160;Sequence Number</span>&#160;entry for each local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the local switch whitelist. (For details, see <a href="#XREF_56921_Whitelist"><span class="FM_PMS646">“Verify Whitelist Synchronization” </span></a>.)</p>
+</td>
+</tr>
+  <tr style=" height : 113.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">3. If a valid AP did not receive a certificate during the initial certificate distribution, you can manually certify the AP by adding that AP’s MAC address to the campus AP whitelist. You can also use this whitelist to revoke certificates from APs that should not be allowed access to the secure network.</p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">3. Enable the control plane security feature.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 80.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconCaution"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">If you upgraded your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;from <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;5.0 or earlier and you want to use this feature for the first time, you must either add all valid APs to the campus AP whitelist or enable automatic certificate provisioning <span style="font-style : italic; ">before you enable the feature</span>. If you do not enable automatic certificate provisioning, only the APs currently approved in the campus AP whitelist will be allowed to communicate with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;over a secure channel. Any APs that do not receive a certificate will not be able to communicate with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> except to request a certificate.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_1Heading"><a name="TOC_Troubleshooting_Control"></a><a name="XREF_99308_Troubleshooting"></a>Troubleshooting Control Plane Security</p>
+ <p class="FM_2Heading"><a name="TOC_Certificate_Problems"></a>Certificate Problems</p>
+ <p class="FM_Body">If an AP has a problem with its certificate, check the state of the AP in the campus AP whitelist. If the AP is in either the<span style="font-weight : bold; "> certified-hold-factory-cert</span>&#160;or <span style="font-weight : bold; ">certified-hold-switch-cert</span>&#160;states, you may need to manually change the status of that AP before it can be certified. </p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">certified-hold-factory-cert</span>: An AP is put in this state when the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;thinks the AP has been certified with a factory certificate yet the AP requests to be certified again. Since this is not a normal condition, the AP will not be approved as a secure AP until a network administrator manually changes the status of the AP to verify that it is not compromised. If an AP is in this state due to connectivity problems, then the AP will recover and will be out of this hold state as soon as connectivity is restored.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">certified-hold-switch-cert</span>: An AP is put in this state when the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;thinks the AP has been certified with a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;certificate yet the AP requests to be certified again. Since this is not a normal condition, the AP will not be approved as a secure AP until a network administrator manually changes the status of the AP to verify that it is not compromised. If an AP is in this state due to connectivity problems, then the AP will recover and will be out of this hold state as soon as connectivity is restored.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Verifying_Certificates"></a>Verifying Certificates</p>
+ <p class="FM_Body">If you are unable to configure the control plane security feature on <?rh-udv_start name="600_Series_controller"  ?>600 Series<?rh-udv_end ?>, <?rh-udv_start name="M3"  ?>M3<?rh-udv_end ?>, or <?rh-udv_start name="3000MC_Series"  ?>3000 Series<?rh-udv_end ?>&#160;<?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, verify that its Trusted Platform Module (TPM) and factory-installed certificates are present and valid by accessing the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s command-line interface and issuing the command<span style="font-weight : bold; "> show tpm cert-info</span>. If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;has a valid certificate, the output of the command should appear similar to the output in the example below.</p>
+ <div align="left"><img alt="control_plane00073.jpg" id="image3" src="images/control_plane00073.jpg" />
+ </div>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;displays the following output, it may have a corrupted or missing TPM and factory certificates. Contact <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> technical support.</p>
+ <div align="left"><img alt="control_plane00076.jpg" id="image4" src="images/control_plane00076.jpg" />
+ </div>
+ <p class="FM_Body"><span style="font-family : HelveticaNeueLT Std; font-weight : bold; font-size  : 12.0pt; ">&#160;</span></p>
+ <p class="FM_2Heading"><a name="TOC_Disabling_Control_Plane"></a>Disabling Control Plane Security</p>
+ <p class="FM_Body">If you disable control plane security on a standalone or local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, all APs connected to that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will reboot then reconnect to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;over a clear channel. </p>
+ <p class="FM_Body">If your disable control plane security on a <span style="font-style : italic; ">master</span>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, APs directly connected to the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will reboot then reconnect to the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;over a clear channel. However, its local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;will continue to communicate with their APs over a secure channel until you save your configuration on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Once you save the configuration, the changes are pushed down to the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. At that point, any APs connected to the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;will also reboot and reconnect over a secure channel.</p>
+ <p class="FM_2Heading"><a name="TOC_Verify_Whitelist"></a>Verify <a name="XREF_56921_Whitelist"></a>Whitelist Synchronization</p>
+ <p class="FM_Body">To verify that a network of master and local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;are correctly sharing their campus AP whitelists, check the sequence numbers on the master and local switch whitelists.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The sequence number value on a master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;should be the same as the remote sequence number on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The sequence number value on a local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;should be the same as the remote sequence number on the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+ </ul>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 73 &#160;</span>Sequence numbers on Master and Local <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></p>
+ <div align="left"><img alt="control-plane-sequence-number.jpg" id="image5" src="images/control-plane-sequence-number.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_2Heading"><a name="TOC_Supported_APs"></a>Supported APs</p>
+ <p class="FM_Body">The control plane security feature is supported on Ortronics APs and AP models&#160;<?rh-udv_start name="60AP"  ?>AP-60<?rh-udv_end ?>, <?rh-udv_start name="61AP"  ?>AP-61<?rh-udv_end ?>, <?rh-udv_start name="65AP"  ?>AP-65<?rh-udv_end ?>, <?rh-udv_start name="70AP"  ?>AP-70<?rh-udv_end ?>, <?rh-udv_start name="85AP"  ?>AP-85<?rh-udv_end ?>, <?rh-udv_start name="105AP"  ?>AP-105<?rh-udv_end ?>,&#160;<?rh-udv_start name="120_AP_Series"  ?>AP-120 Series<?rh-udv_end ?>, <?rh-udv_start name="130AP_Series"  ?>AP-130 Series<?rh-udv_end ?>, and <?rh-udv_start name="175AP"  ?>AP-175<?rh-udv_end ?>. APs that do not support control plane security will not be able to connect to a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> enabled with this feature.</p>
+ <p class="FM_2Heading"><a name="TOC_Rogue_APs"></a>Rogue APs</p>
+ <p class="FM_Body">If you enable auto certificate provisioning enabled with the <span style="font-weight : bold; ">Auto Cert Allow All</span>&#160;option, any AP that appears on the network will receive a certificate. If you notice unwanted or rogue APs connecting to your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;via an IPsec tunnel, verify that automatic certificate provisioning has been disabled, then manually remove the unwanted APs by deleting their entries from the campus AP whitelist.</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

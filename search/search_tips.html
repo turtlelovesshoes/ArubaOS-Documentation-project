@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>KSearch 1.6 Search Tips</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<link rel="stylesheet" href="ks_images/style.css" type="text/css" />
+	<meta name="description" content="KSearch Search Tips and Help" />
+	<meta name="keywords" content="ksearch, advanced search tips, search tips" />
+</head>
+<body>
+	<div class="topbar"><a name="top"></a></div>
+
+<!-- Start Main Content -->
+<h1>KSearch v1.6 - <a href="http://www.kscripts.com/" onclick="window.open(this.href); return false;">Download it now!</a></h1>
+<h2>Search Tips <a href="http://www.kscripts.com"><img src="ks_images/KSlogo.gif" alt="KScripts - KSearch" /></a></h2>
+<div class="content">
+	<p><a href="../ArubaOS_61/ArubaOS_61_CLI/index.html">&larr;&larr;&larr; Return to Home</a></p>
+	<hr />
+	<div class="red_link">
+	<p><strong>Need more help?</strong> <a href="http://kscripts.com/forum/index.php">Discus it in our Forum</a></p>
+	</div>
+	<hr />
+	<h3>General Search Tips</h3>
+		<ul>
+			<li>Use double quotes around phrases to search.</li>
+			<li>Add + in front of terms/phrases that must appear in results.</li>
+			<li>Add - in front of terms/phrases that must not appear in results.</li>
+			<li>The + checkbox adds a plus in front of all terms/phrases for convenience.</li>
+			<li>The default search content is the body, title, and meta-description.</li>
+			<li>The score is the percentage of matching characters in a document.</li>
+			<li>ISO Latin-1 characters like äßçéñ..etc. are treated as english equivalents.</li>
+			<li>Special characters like #!$%|&amp;..etc. are allowed.</li>
+			<li>Stop-terms are common terms like "it and the that...".</li>
+		</ul>
+	<h3>Advanced Search Tips</h3>
+		<ul><li>Searching can be expanded with a wildcard (*).</li>
+			</ul>
+			<blockquote>
+				<p>Adding a * to the end of a term will match all endings. For example: 'test*' will 
+				match 'tests' 'tested' 'testing' etc.<br />Stop-terms are included in wildcard searches.</p>
+			</blockquote>
+		<ul><li>Weights can be applied by adding &lt;2-10000&gt; in front of terms or phrases.</li>
+			</ul>
+			<blockquote>
+				<p>For example:</p>
+				<p><input type="text" value="&lt;100&gt;term none &lt;500&gt;&quot;a phrase&quot;" size="40" readonly="readonly" /></p>
+				<p>The query above will weight scores 100 and 500 times greater for documents containing 'term' and 'a phrase', respectively.<br />
+				The scores for documents containing only 'none' will remain unchanged. The weight must be in the range of 2-10000.<br />
+				Add + (inclusion) in front of weights. The results will be sorted by weighted scores.</p>
+			</blockquote>
+		<ul><li>The following options can be placed in any order in front of the query:</li>
+			</ul>
+			<blockquote>
+				<p><strong>c:</strong> &nbsp; for a case sensitive search.<br />
+				<strong>w:</strong> &nbsp; to match whole words only.<br />
+				<strong>st:</strong> &nbsp; to include stop-terms.<br />
+				<strong>all:</strong> &nbsp; to add + in front of all terms/phrases.<br />
+				<strong>match: score: date: size: title:</strong> &nbsp; or &nbsp; <strong>name:</strong> &nbsp; for the sorting choice.<br />
+				<strong>5-100:</strong> &nbsp; for the number of results to display per page.<br />
+				<strong>b:</strong> &nbsp; to search the body (full text) of documents.<br />
+				<strong>t:</strong> &nbsp; to search the title of documents.<br />
+				<strong>u:</strong> &nbsp; to search the url of documents.<br />
+				<strong>alt:</strong> &nbsp; to search the alternate text in documents.<br />
+				<strong>l:</strong> &nbsp; to search the links in documents.<br />
+				<strong>d:</strong> &nbsp; to search the meta-description in documents.<br />
+				<strong>k"</strong> &nbsp; to search the meta-keywords in documents.<br />
+				<strong>au:</strong> &nbsp; to search the meta-author in documents.</p>
+				<p>For example:</p>
+				<p><input type="text" value="c:b:t:d:15:size:term &quot;a phrase&quot;" size="40" readonly="readonly" /></p>
+				<p>The query above will perform a case sensitive search for 'term' and 'a phrase' in the body, 
+				title, and<br />meta-description of documents. 15 results will be displayed per page and the results 
+				will be sorted by file size.</p>
+			</blockquote>
+	<hr />
+	<!-- Start Footer -->
+	<div class="footer">
+		<p><small>KScripts.com  &copy; Copyright 2011, All rights reserved.</small></p>
+	</div>
+	<!-- End Footer -->
+</div>
+<div class="bottombar"></div>
+</body>
+</html>

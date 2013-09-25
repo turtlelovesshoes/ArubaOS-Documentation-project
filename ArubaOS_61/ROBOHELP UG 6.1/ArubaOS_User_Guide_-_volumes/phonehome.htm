@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>phonehome</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\phonehome.fm" />
+ <meta name="keywords" content="phonehome, smtp server, phonehome automatic reporting feature, configuration file, maximum email size, phonehome data file attachment, maximum email size, hardware status, phonehome attachment, secure email, phonehome status, email server, small attachement, local network">
+  <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 32</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Automatic_Reporting"></a>Automatic Reporting</p>
+ <p class="FM_Body"><a name="IX_PhoneHome"></a><a name="IX_automatic_reporting_2"></a>The automatic reporting feature, also known as <span style="font-style : italic; ">PhoneHome</span>, allows a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to securely contact <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;support servers over the Internet to report events such as hardware failures, software malfunctions, and other critical events. When the PhoneHome automatic reporting feature is enabled, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;sends <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;support weekly reports about the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s configuration, licenses, software and hardware status, and any software malfunctions via a secure email. </p>
+ <p class="FM_Body">In the event that you need to contact <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;support with a question about your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, you can use this feature to generate and immediately send a status report, so that <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;support can diagnose the issue with the most current <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> data.</p>
+ <p class="FM_Body">,This chapter contains the following sections:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_69996_SMTP_Requirements"><span class="FM_PMS646">“SMTP Requirements” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_22998_Configuring_Weekly"><span class="FM_PMS646">“Configuring Weekly Automatic Reporting” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_16952_Sending_an"><span class="FM_PMS646">“Generating and Sending an Individual Report” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_77710_Viewing_Report"><span class="FM_PMS646">“Viewing Report Status”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_SMTP_Requirements"></a><a name="XREF_69996_SMTP_Requirements"></a>SMTP Requirements</p>
+ <p class="FM_Body">The content of the PhoneHome status reports is sent in an email, so this feature requires that your network has a local SMTP server capable of relaying email. When the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;generates the report email with the PhoneHome data file attachment, it forwards the email to the SMTP server configured on your local network, which then delivers the message to <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;technical support. If your email server requires the sender to be authenticated before message delivery, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can connect to the SMTP by supplying the sender’s user name and password.</p>
+ <p class="FM_Body">Each PhoneHome report attachment is encrypted before it is transmitted to the SMTP server, and is decrypted by <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;support when it is received. If the PhoneHome status report email is larger than the maximum email size supported by your SMTP server, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will divide the PhoneHome attachment into multiple smaller attachments and send the report to <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> in multiple emails.</p>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Weekly"></a><a name="XREF_22998_Configuring_Weekly"></a>Configuring Weekly Automatic Reporting</p>
+ <p class="FM_Body">You can configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to send weekly status reports using the WebUI or the command-line interface. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will send a weekly report if the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s configuration file has changed since the previous report was generated. If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s configuration file has not changed, no report will be sent.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI90"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span style="font-weight : bold; ">Maintenance&gt;File&gt;<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> TAC Server</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">enable</span>&#160;to enable this feature. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">SMTP</span>&#160;checkbox to allow the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to connect to your SMTP server.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Server IP Address</span>&#160;field, enter the IP address of your SMTP server. </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) In the <span style="font-weight : bold; ">Server Port</span>&#160;field, enter the port the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> should use to access the server.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Email ID field, enter the email address from which the reports should be sent.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) If your SMTP server requires the sender to be authenticated, enter a valid sender’s user name and password in the <span style="font-weight : bold; ">User Name</span>&#160;and <span style="font-weight : bold; ">Password</span> fields.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>(Optional) If your SMTP server has limits on email attachment sizes, enter this attachment size in the <span style="font-weight : bold; ">Max size of attachment</span>&#160;field. Any status reports larger than this size will be divided into multiple emails.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Auto Report</span>&#160;checkbox to enable automatic reporting and send weekly status reports to <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to save your settings.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 116 &#160;</span>Configuring Automatic Reporting</p>
+ <div align="left"><img alt="remoteconfig.jpg" id="image0" src="images/remoteconfig.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Body">You can disable automatic reporting at any time by returning to the <span style="font-weight : bold; ">Maintenance&gt;File&gt;<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;TAC Server</span>&#160;window and either unchecking the <span style="font-weight : bold; ">Auto Report</span>&#160;checkbox, or clicking the <span style="font-weight : bold; ">disable</span> button.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI91"></a>In the CLI</p>
+ <p class="FM_Body">To enable or disable weekly automatic reporting emails, or to identify the SMTP server you want to use to send these emails, access the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;command-line interface in config mode, and issue the following commands:</p>
+ <p class="FM_CLI">phonehome</p>
+ <p class="FM_CLI"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>auto-report</p>
+ <p class="FM_CLIIndented">enable|disable </p>
+ <p class="FM_CLIIndented">smtp &lt;server ip&gt; email &lt;from_addy&gt; [user &lt;username&gt; password &lt;password&gt;] [&lt;server port&gt;] [size &lt;max attachment size&gt;]</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Your SMTP server settings will be preserved even when automatic reporting is disabled.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_CLIIndented"></p>
+ <p class="FM_1Heading"><a name="TOC_Generating_and_Sending"></a><a name="XREF_16952_Sending_an"></a>Generating and Sending an Individual Report</p>
+ <p class="FM_Body">If you are currently experiencing a problem and have contacted <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;about the issue, <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;technical support may ask you to generate and send an individual report which describes the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s current status, and reports any software or hardware errors. Once this report has been successfully uploaded, you may receive an email that contains a unique reference number you can use to track your recently opened ticket. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">If you have not yet enabled automatic reporting feature or defined an SMTP server for this feature, follow steps 1-9 of the WebUI procedure described in <a href="#XREF_22998_Configuring_Weekly"><span class="FM_PMS646">“Configuring Weekly Automatic Reporting” </span></a></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI91"></a>In the WebUI</p>
+ <p class="FM_Body">To generate and send a PhoneHome status report using the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span style="font-weight : bold; ">Maintenance&gt;File&gt;<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> TAC Server</span>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Report Now</span> checkbox.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>&#160;to save your changes. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will generate a status report and use the defined SMTP server send it to <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> support in an email.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI92"></a>In the CLI</p>
+ <p class="FM_Body">To generate and send a PhoneHome status report using the command-line interface, access the CLI in enable mode and issue the following command:</p>
+ <p class="FM_CLI">phonehome now</p>
+ <p class="FM_1Heading"><a name="TOC_Viewing_Report_Status"></a><a name="XREF_77710_Viewing_Report"></a>Viewing Report Status</p>
+ <p class="FM_Body">Both the WebUI and CLI can show the status of the Automatic Report feature, including whether or not this feature is enabled or disabled, and the number of report messages that were sent successfully or failed to reach the SMTP server.</p>
+ <p class="FM_2Heading"><a name="TOC_In_the_WebUI92"></a>In the WebUI</p>
+ <p class="FM_Body">To view report status using the WebUI:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span style="font-weight : bold; ">Maintenance&gt;File&gt;<?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> TAC Server</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">View PhoneHome Report Status</span>&#160;checkbox to view statistics for sent reports in this window. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <span style="font-weight : bold; ">Statistics</span>&#160;and <span style="font-weight : bold; ">Status Reports</span> tables appear. These tables contain the following information:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 469.25pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 113 &#160;</span>PhoneHome Statistics<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Report Statistic</p>
+</th>
+  <th style="width : 325.251pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Transaction: Created <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 325.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of reports generated by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Post Success<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 325.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of reports successfully sent to the SMTP server.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Failed<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 325.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of reports that failed to reach the SMTP server after one or more retry attempts</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Retry<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+  <td style="width : 325.251pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Number of times the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;attempted to retry sending a report to the SMTP server.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_2Heading"><a name="TOC_In_the_CLI93"></a>In the CLI</p>
+ <p class="FM_Body">Use the following commands to display statistics for Automatic Reporting settings and report status</p>
+ <p class="FM_CLI">(host) (config) #show phonehome?</p>
+ <p class="FM_CLI">global &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Display Phonehome global settings</p>
+ <p class="FM_CLI">history &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Display a history of phonehome transactions</p>
+ <p class="FM_CLI">report-status &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Display status of reports uploaded to <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> TAC Server</p>
+ <p class="FM_CLI">starts &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;PhoneHome Statistics</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

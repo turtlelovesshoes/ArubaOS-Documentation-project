@@ -1,0 +1,638 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>New_Licenses</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="keywords" content="ip address, new licenses, licenses, add, gre tunnel, vlan interface, active standby topology, vlan bandwidth contract mac exception list, loopback interface address,"/>
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\New_Licenses.fm" />
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 35</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Software_Licenses"></a>Software Licenses<a name="XREF_98100_Title_of_Chapter"></a></p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;base features include sophisticated authentication and encryption, protection against rogue wireless APs, seamless mobility with fast roaming, the origination and termination of IPsec/L2TP/PPTP tunnels between <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>, clients, and other VPN gateways, adaptive RF management and analysis tools, centralized configuration, and location tracking.</p>
+ <p class="FM_Body">Optional add-on licenses provide advanced feature such as Wireless Intrusion Protection and Policy Enforcement Firewall. Evaluation licenses are available for some of these advanced features.</p>
+ <p class="FM_Body"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> licenses are detailed in the following sections:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_65840_Terminalogy"><span class="FM_PMS646">“Terminology” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_53372_Functional_License"><span class="FM_PMS646">“Licenses”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_99052_Multi_Controller"><span class="FM_PMS646">“Multi-Controller Network” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_72309_License_Usage"><span class="FM_PMS646">“License Usage” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_95805_License_Interaction"><span class="FM_PMS646">“Best Practices” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_20514_The_Software"><span class="FM_PMS646">“Installing a License” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_76264_Deleting_a_License"><span class="FM_PMS646">“Deleting a License” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_19266_Moving_Licenses"><span class="FM_PMS646">“Moving Licenses” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_84730_Resetting_the"><span class="FM_PMS646">“Resetting the Controller” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Terminology"></a><a name="XREF_65840_Terminalogy"></a>Terminology </p>
+ <p class="FM_Body">For clarity, the following terminology is used throughout this chapter.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Bundle—a cost effective way to purchase functionality that supports a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and <span style="font-style : italic; ">x</span>-number of APs. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Certificate ID—the identification number attached to the Software License Certificate. The Certificate ID is used in conjunction with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s (chassis or supervisor card) serial number to create the License Key. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Evaluation License—a license that allows you to evaluate a feature set (or module) for a maximum of 90 days. The evaluation licenses are uploaded in 30 day increments. Only modules that offer new and unique functionality support Evaluation Licenses.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">License Certificate—a certificate (soft copy) that contains license information including:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">License Description</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Quantity</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Part Number/Order Number</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Certificate ID</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">License Database—the licenses installed on your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">License Key—generated from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> serial number</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Permanent License—the opposite of an evaluation license. This license permanently installs the specific features represented by the license.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Upgrade License—a license that adds AP capacity to your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Note that Upgrade Licenses do not support an evaluation license.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Licenses"></a><a name="XREF_53372_Functional_License"></a>Licenses</p>
+ <p class="FM_Body">Each license refers to specific functionality (or module) that supports unique features. The licenses are:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Base OS—base operating functions including VPN and VIA clients.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">AP Capacity —capacity license for RAP indoor and outdoor Mesh APs. Campus, Remote, or Mesh APs can terminate on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> without the need for a separate license.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Advanced Cryptography (ACR)—this is required for the Suite B Cryptography in IPsec and 802.11 modes. License enforcement behavior controls the total number of concurrent connections (IPsec or 802.11) using Suite B Cryptography. Bundled with this license are the xSec license features. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Content Security Service (CSS)—enables the Cloud-based Content Security service on your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This license is administered based on the number of users.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Policy Enforcement Firewall Virtual Private Network (PEFV)—enables Policy Enforcement Firewall for VIA clients. This is a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> license.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Policy Enforcement Firewall Next Generation (PEFNG)—Wired, WLAN Licensed per AP numbers including user roles, access rights, Layers 4 through 7 traffic control, per-service prioritization/QoS, authentication/accounting APIs, External Service Interfaces (ESI), Voice and Video. This is an AP count license.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Public Access—reserved for future use.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">RFprotect—Wireless Intrusion Protection (WIPS) and Spectrum Analysis. This is an AP count license.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">xSec (Extreme Security) for Federal—Layer 2 VPN for wired or wireless using FIPS-approved algorithms. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Internal Test Functions—for internal use only.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_License_Types"></a><a name="XREF_29482_License_Types"></a>License Types</p>
+ <p class="FM_Body">These are the license categories available:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Permanent license</span>—This type of license permanently enables the desired software module on a specific <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You obtain permanent licenses through the sales order process only. Permanent software license keys are sent to you via email.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Evaluation license</span>—This type of license allows you to evaluate the unrestricted functionality of a software module on a specific <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for 90 days (in three 30-day increments).</p>
+</li>
+ </ul>
+ <p class="FM_BodyinBulletStep">An expired evaluation license will remain in the license database until the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is reset using the command <span style="font-weight : bold; ">write erase all</span>&#160;where all license keys are removed. An expired evaluation license has no impact on the normal operation of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. It is kept in the license database to prevent abuse.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconCaution"><img src="images/graphics/caution.jpg" width="56" height="57" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">When license keys are applied on a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, abnormal tampering of the device’s system clock (setting the system clock back) results in the disabling of software licensed modules and their supported features. This can affect network services.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_BodyinBulletStep"></p>
+ <p class="FM_BodyinBulletStep">To determine your time remaining on an evaluation license, a banner is displayed when you log in through the command line:</p>
+ <p class="FM_CLIIndented">NOTICE</p>
+ <p class="FM_CLIIndented">NOTICE -- This switch has active licenses that will expire in 29 days</p>
+ <p class="FM_CLIIndented">NOTICE</p>
+ <p class="FM_CLIIndented">NOTICE -- See 'show license' for details.</p>
+ <p class="FM_CLIIndented">NOTICE</p>
+ <p class="FM_BodyinBulletStep">From the WebUI, an “Alert” appears with information regarding the evaluation license status (see <a href="#XREF_22733_Figure_157_Alert"><span class="FM_PMS646">Figure 161</span></a>).</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 161 &#160;</span><a name="XREF_22733_Figure_157_Alert"></a>Alert Flag</p>
+ <div align="left"><img alt="Alert_Flag.jpg" id="image0" src="images/Alert_Flag.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_BodyinBulletStep">At the end of the 90-day period, you must apply for a permanent license to re-enable the features permanently on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Evaluation software license keys are only available in electronic form and are emailed to you.</p>
+ <p class="FM_BodyinBulletStep">When an evaluation period expires:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet2">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;automatically backs up the startup configuration and reboots itself at midnight (according to the system clock).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">All permanent licenses are unaffected. The expired evaluation licensed feature is no longer available and is displayed as <span class="FM_Bold" style="font-weight : bold; ">Expired</span> in the WebUI.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Upgrade license</span>—This license expands AP capacity. There are no Evaluation licenses available for Upgrade licenses.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Multi_Controller_Network"></a><a name="XREF_99052_Multi_Controller"></a>Multi-<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> Network</p>
+ <p class="FM_Body">In order to configure each feature on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the master <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>(s) must be licensed for each feature configured on the local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. If present, a backup master must be licensed with the same features as the Master. Backup <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;are “hot-standby”, that is, the backup <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;processes AP, traffic, etc. while standing by in backup mode.</p>
+ <p class="FM_Body">Best practices is to install the same set of feature licenses on every <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> in your network.</p>
+ <p class="FM_1Heading"><a name="TOC_License_Usage"></a><a name="XREF_72309_License_Usage"></a>License Usage</p>
+ <p class="FM_Body">Licenses are platform independent and can be installed on any <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Installation of the feature license unlocks that feature’s functionality for the maximum capacity of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The license limits are enforced until you reach the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;limit (see <a href="#XREF_25282_Table_92_License"><span class="FM_PMS646">Table 146</span></a>)</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">&#160;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> categories are based on architecture:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">MIPS <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>—<?rh-udv_start name="M3"  ?>M3<?rh-udv_end ?>, <?rh-udv_start name="3000MC_Series"  ?>3000 Series<?rh-udv_end ?>, <?rh-udv_start name="600_Series_controller"  ?>600 Series<?rh-udv_end ?></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">PPC <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>— <?rh-udv_start name="2400MC"  ?>2400<?rh-udv_end ?>&#160;and <?rh-udv_start name="SC1_SC2"  ?>SC1/SC2<?rh-udv_end ?>&#160;<?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+</li>
+ </ul>
+ <p class="FM_Body"><a href="#XREF_79607_Table_109"><span class="FM_PMS646">Table 145</span></a>&#160;list how licenses are consumed on the MIPS <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.31pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 145 &#160;</span>Usage per License<a name="XREF_79607_Table_109"></a><?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 124.560pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">License</p>
+</th>
+  <th style="width : 124.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Basis</p>
+</th>
+  <th style="width : 217.125pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">What Consumes One License</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 124.560pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">PEFNG</p>
+</td>
+  <td style="width : 124.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP</p>
+</td>
+  <td style="width : 217.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One operational AP</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 124.560pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">xSec</p>
+</td>
+  <td style="width : 124.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session</p>
+</td>
+  <td style="width : 217.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One active client termination</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 124.560pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">RFprotect</p>
+</td>
+  <td style="width : 124.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP</p>
+</td>
+  <td style="width : 217.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One operational AP</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 124.560pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP</p>
+</td>
+  <td style="width : 124.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">AP</p>
+</td>
+  <td style="width : 217.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One operational LAN-connected or mesh AP that is advertising at least one BSSID (virtual-AP) or RAP</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 124.560pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">ACR</p>
+</td>
+  <td style="width : 124.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Session</p>
+</td>
+  <td style="width : 217.125pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">One active client termination</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The MIPS <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;licenses are variable-capacity (see <a href="#XREF_25282_Table_92_License"><span class="FM_PMS646">Table 146</span></a>).</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">In <a href="#XREF_25282_Table_92_License"><span class="FM_PMS646">Table 146</span></a>, the Remote AP count is equal to the total AP count for all the <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>. The Campus AP count is 1/4 of the total AP count <span style="font-style : italic; ">except</span> for the M3 which is 1/2 the AP count.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 355.98pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 146 &#160;</span><a name="XREF_25282_Table_92_License"></a>MIPS <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> AP Capacity<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 89.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading"><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+</th>
+  <th style="width : 88.992pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Total AP Count</p>
+</th>
+  <th style="width : 88.992pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Campus APs</p>
+</th>
+  <th style="width : 88.992pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Remote APs</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 89.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="M3"  ?>M3<?rh-udv_end ?></p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1024</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">512</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">1024</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 89.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="3200MC"  ?>3200<?rh-udv_end ?></p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">128</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">32</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">128</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 89.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="3400MC"  ?>3400<?rh-udv_end ?></p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">256</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">64 </p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">256</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 89.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="3600MC"  ?>3600<?rh-udv_end ?></p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">512</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">128</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">512</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 89.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="620_controller_"  ?>620<?rh-udv_end ?></p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">32</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">8</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">32</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 89.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="650_controller"  ?>650<?rh-udv_end ?></p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">64</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">16</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">64</p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 89.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody"><?rh-udv_start name="651_controller"  ?>651<?rh-udv_end ?></p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">64</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">16</p>
+</td>
+  <td style="width : 88.992pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">64</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_1Heading"><a name="TOC_Interaction"></a>Interaction</p>
+ <p class="FM_Body">The various licenses do require some equality and other important interactions.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">AP/PEFNG and RFprotect must be equal</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">All active APs run AP/PEFNG and RFprotect services (if enabled). If they are not equal, the number of active APs are restricted to the minimum of the AP/PEFNG and RFprotect license count.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 40.00pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">It is not possible to designate specific APs for RFprotect/non-RFprotect operations.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet2"></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Mesh portals/mesh points, with no virtual-APs, do not consume a RFprotect license</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">If a Mesh node is also configured for client service (advertises a BSSID for example), it consumes one AP license</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">RAPs consume only AP licenses</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">ACR Interaction</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">On a platform that supports 2048 IPsec tunnels, the maximum number of Suite B IPsec tunnels supported is 2048, even if a larger capacity license is installed.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">The ACR license is cumulative. If you want to support 2048 Suite B connections, install two ACR licenses (LIC-ACR-1024).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">An evaluation ACR license is available (EVL-ACR-1024). You can install the ACR evaluation license with a higher capacity than the platform maximum. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">On a platform that supports 2048 IPsec tunnels, with a LIC-ACR-512 installed, only 512 IPsec tunnels can be terminated using Suite B encryption. An additional 1536 IPsec tunnels, using non-Suite B modes (e.g. AES-CBC), can still be supported.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">On a platform with LIC-ACR-512 installed, a mixture of IPsec and 802.11i Suite B connections can be supported. The combined number of these sessions may not exceed 512.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">A single client using both 802.11i Suite B and IPsec Suite B simultaneously will consume two ACR licenses.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Best_Practices1"></a><a name="XREF_95805_License_Interaction"></a><a name="XREF_24920_Licensing_Best"></a>Best Practices</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Back up the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s configuration (<span style="font-weight : bold; ">backup flash </span>command)<span style="font-weight : bold; ">&#160;</span>and back up the License database (<span style="font-weight : bold; ">license export </span><span style="font-style : italic; font-weight : bold; ">filename</span>) before making any changes. </p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">(host) #<span style="font-weight : bold; ">backup flash</span></p>
+ <p class="FM_CLIIndented">Please wait while we tar relevant files from flash...</p>
+ <p class="FM_CLIIndented">Please wait while we compress the tar file...</p>
+ <p class="FM_CLIIndented">Checking for free space on flash...</p>
+ <p class="FM_CLIIndented">Copying file to flash...</p>
+ <p class="FM_CLIIndented">File flashbackup.tar.gz created successfully on flash.</p>
+ <p class="FM_CLIIndented">Please copy it out of the switch and delete it when done.</p>
+ <p class="FM_CLIIndented">(host) #<span style="font-weight : bold; ">license export licensebackup.db</span></p>
+ <p class="FM_CLIIndented">Successfully exported 1 licenses from the License Database to licensebackup.db</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Allow for the maximum quantity required at any given time</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">When calculating AP licenses, determine the normal AP load of your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and add backup load for failure scenarios</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Use 20 users per AP as a reasonable estimate when calculating user licenses. Do not forget to consider occasional large assemblies or gatherings.</p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Installing_a_License"></a><a name="XREF_20514_The_Software"></a>Installing a License</p>
+ <p class="FM_Body">The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;licensing system is <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>-based. A license key is a unique alphanumerical string generated using the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s serial number and is valid only for that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;only. Licenses can be pre-installed at the factory so that all licensed features are available upon initial setup. Or you can install licenses features yourself</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote"><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;recommends that you obtain a user account on the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Software License Management website even if software license keys are pre-installed on your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body">.</p>
+ <p class="FM_2Heading"><a name="TOC_Enabling_a_new_license"></a>Enabling a new license on your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <p class="FM_Body">The basic steps to installing and enabling a new license feature are listed below along with a reference to a section in this document with more detailed information.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Obtain a valid <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;software license from your sales account manager or authorized reseller (see <a href="#XREF_73635_Obtaining_a"><span class="FM_PMS646">“Software License Email” </span></a>). </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Locate the system serial number of your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> or supervisor card&#160;(see <a href="#XREF_34935_Locating_the"><span class="FM_PMS646">“Locating the System Serial Number”</span></a>).</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Use your system’s serial number to obtain a software license key from the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Software License Management website at&#160;<span class="FM_PMS646">https://licensing.arubanetworks.com/<span class="FM_PMS646" style="">&#160;</span>(see <a href="#XREF_27741_Obtaining_a"><span class="FM_PMS646">“Obtaining a Software License Key” </span></a>). </span></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the software license key via the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s WebUI; navigate to <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; System Settings </span><span class="FM_Bold">page and select the </span><span class="FM_Bold" style="font-weight : bold; ">License</span><span class="FM_Bold"> tab</span><span class="FM_Button" style="font-family : Arial; font-weight : bold; ">. </span>Enter the software license key and click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>&#160;(see <a href="#XREF_32687_Applying_the"><span class="FM_PMS646">“Applying the Software License Key in the WebUI” </span></a>).</p>
+ <p class="FM_BodyinSubBulletSubStep">Or</p>
+ <p class="FM_BodyinBulletStep"><a name="IX_license_2"></a>Launch the License Wizard from the <span style="font-weight : bold; ">Configuration</span>&#160;tab and click the <span style="font-weight : bold; ">New</span>&#160;button. Enter the software license key in the space provided (see <a href="#XREF_60526_Applying_the"><span class="FM_PMS646">“Applying the Software License Key in the License Wizard” </span></a>). </p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Reboot your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to enable your new license and features.</p>
+ <p class="FM_2Heading"><a name="TOC_Software_License_Email"></a><a name="XREF_73635_Obtaining_a"></a>Software License Email</p>
+ <p class="FM_Body">To obtain either a permanent or evaluation software license, contact your sales account manager or authorized reseller. The license details are provided via email with an attached text file. Use the text file to cut and paste the licensing information into the WebUI or at the command line.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">Ensure that you have provided your sales person with a valid email address. </p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The email also includes:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The orderable part number for the license</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">A description of the software module type and <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> for which it is valid</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">A unique, 32-character alphanumerical string used to access the license management website and which, in conjunction with the serial number of your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, generates a unique software license key</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Locating_the_System"></a><a name="XREF_34935_Locating_the"></a>Locating the System Serial Number</p>
+ <p class="FM_Body">Each <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and supervisor card&#160;has unique serial numbers located at the rear of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> or on the&#160;supervisor card itself. The location of the serial number is:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">at the rear of an <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> chassis</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">on the supervisor card itself</p>
+</li>
+ </ul>
+ <p class="FM_Body">You can also find the serial numbers by navigating to the <span class="FM_Bold" style="font-weight : bold; "><?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; Inventory</span>&#160;page on the WebUI or by executing the <span style="font-weight : bold; ">show inventory</span> command from the CLI.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">To physically inspect the system serial number on a supervisor card, you need to remove the device from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> chassis, which may result in network down time.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Obtaining_a_Software"></a><a name="XREF_27741_Obtaining_a"></a>Obtaining a Software License Key</p>
+ <p class="FM_Body">To obtain a software license key, you must log in to the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> License Management website at:</p>
+ <p class="FM_Body"><span class="FM_PMS646">https://licensing.arubanetworks.com/</span></p>
+ <p class="FM_Body">If you are a first time user of the licensing site, you can use the software license certificate ID number to log in initially and request a user account. If you already have a user account, log in to the site.</p>
+ <p class="FM_Body">Once logged in, you are presented with several options:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Bold" style="font-weight : bold; ">Activate a certificate</span>: Activate a new certificate and create the software license key that you will apply to your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Bold" style="font-weight : bold; ">Transfer a certificate</span>: Transfer a software license certificate ID from one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to another (for example, transferring licenses to a spare system).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span style="font-weight : bold; ">Import preloaded certificates</span>: For <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>s on which licenses are pre-installed at the factory. transfer all software license certificate IDs used on the sales order to this user account.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_Bold" style="font-weight : bold; ">List your certificates</span>: View all currently available and active software license certificates for your account.</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_Creating_a_software"></a>Creating a software license key</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span class="FM_Bold" style="font-weight : bold; ">Activate a Certificate.</span></p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the certificate ID number and the system serial number of your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Review the license agreement and select <span class="FM_Bold" style="font-weight : bold; ">Yes</span> to accept the agreement.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Activate it</span>. A copy of the transaction and the software license key is emailed to you at the email address you entered for your user account</p>
+ <p class="FM_Anchor">.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The software license key is <span class="FM_Emphasis">only</span> valid for the system serial number for which you activated the certificate.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_2Heading"><a name="TOC_Applying_the_Software"></a><a name="XREF_32687_Applying_the"></a>Applying the Software License Key in the WebUI</p>
+ <p class="FM_Body">To enable the software module and functionality, you must apply the software license key to your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>: Log in to your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s WebUI.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; System Settings </span><span class="FM_Bold">page and select the </span><span class="FM_Bold" style="font-weight : bold; ">License</span><span class="FM_Bold"> tab</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Copy the software license key, from your email, and paste it into the <span class="FM_Bold" style="font-weight : bold; ">Add New License Key</span>&#160;field. Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Reboot your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to enable the new license feature. </p>
+ <p class="FM_2Heading"><a name="TOC_Applying_the_Software1"></a><a name="IX_license_3"></a><a name="XREF_60526_Applying_the"></a>Applying the Software License Key in the License Wizard</p>
+ <p class="FM_Body">Log in to your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s WebUI.</p>
+ <p class="FM_Step1st"><a name="IX_license_4"></a>1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Launch the License Wizard from the <span style="font-weight : bold; ">Configuration</span>&#160;tab and click the <span style="font-weight : bold; ">New</span>&#160;button. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The License Wizard will step you through the activation process. Click on the Help tab within the License Wizard for additional assistance. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Reboot your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to enable the new license feature. </p>
+ <p class="FM_1Heading"><a name="TOC_Deleting_a_License"></a><a name="XREF_76264_Deleting_a_License"></a>Deleting a License </p>
+ <p class="FM_Body">To remove a license from a system:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Network &gt; <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;&gt; System Settings </span><span class="FM_Bold">page and select the </span><span class="FM_Bold" style="font-weight : bold; ">License</span><span class="FM_Bold"> tab</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Scroll down to the <span style="font-weight : bold; ">License Table</span>&#160;and locate the license you want to delete. </p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Bold" style="font-weight : bold; ">Delete </span><span class="FM_Bold">button</span><span class="FM_Bold" style="font-weight : bold; ">&#160;</span><span class="FM_Bold">at the far right hand side of the license </span>to delete the license.</p>
+ <p class="FM_BodyinBulletStep">If a license feature is under an evaluation license, no key is generated when the feature is deleted. </p>
+ <p class="FM_1Heading"><a name="TOC_Moving_Licenses"></a><a name="XREF_19266_Moving_Licenses"></a>Moving Licenses</p>
+ <p class="FM_Body">It may become necessary to move licenses from one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to another or simply delete the license for future use. To move licenses, delete the license from the chassis as described in<a href="#XREF_76264_Deleting_a_License"><span class="FM_PMS646">“Deleting a License”</span></a>. Then install the license key on the new <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as described in <a href="#XREF_32687_Applying_the"><span class="FM_PMS646">“Applying the Software License Key in the WebUI” </span></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 67.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The ability to move a license from one <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to another is provided for maximum flexibility in managing an organization’s network and to minimize an RMA impact. <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;monitors and detects license fraud. Abnormally high volumes of license transfers for the same license certificate to multiple <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;can indicate breach of the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;end user software license agreement and will be investigated.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_1Heading"><a name="TOC_Resetting_the_Controller"></a><a name="XREF_84730_Resetting_the"></a>Resetting the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?></p>
+ <p class="FM_Body">Rebooting or resetting a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> has no effect on either permanent or evaluation licenses.</p>
+ <p class="FM_Body">Issuing the <span style="font-weight : bold; ">write erase</span>&#160;command on a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;running software licenses does <span class="FM_Emphasis">not</span>&#160;affect the license key management database on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">Issuing the<span class="FM_TypeThis" style="font-family : Courier New; font-weight : bold; ">&#160;</span><span style="font-weight : bold; ">write erase all</span>&#160;command resets the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to factory defaults, and deletes all databases on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;including the license key management database. You must reinstall all previously-installed license keys.</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

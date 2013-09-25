@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Internal_Captive_Portal</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\Internal_Captive_Portal.fm" />
+ <meta name="keywords" content="captive portal, page type, page text, captive portal page,">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_AppendixNumber" style="color   : #000000;">Appendix E<a name="XREF_39367_Appendix_1"></a></p>
+ <p class="FM_ChapterTitle"><a name="TOC_Internal_Captive_Portal"></a><a name="XREF_98100_Title_of_Chapter"></a>I<span style="color   : #000000; ">nternal Captive Portal</span></p>
+ <p class="FM_Body">You can customize the default captive portal page through the WebUI, as detailed in <a href="VirtualAPs.htm#XREF_15337_Access_Points"><span class="FM_PMS646">Chapter 15, “Captive Portal” </span></a>. This appendix discusses creating and installing a new internal captive portal page and other customization.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_58217_Creating_a_New"><span class="FM_PMS646">“Creating a New Internal Web Page” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_61000_Installing_a_New"><span class="FM_PMS646">“Installing a New Captive Portal Page”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_97504_Displaying"><span class="FM_PMS646">“Displaying Authentication Error Message”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_35852_Reverting_to_the"><span class="FM_PMS646">“Reverting to the Default Captive Portal”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_21407_Language"><span class="FM_PMS646">“Language Customization” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_39907_Customizing_the"><span class="FM_PMS646">“Customizing the Welcome Page” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_94694_Customizing_the"><span class="FM_PMS646">“Customizing the Pop-Up box” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_77278_Customizing_the"><span class="FM_PMS646">“Customizing the Logged Out Box” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Creating_a_New_Internal"></a><a name="XREF_58217_Creating_a_New"></a>Creating a New Internal Web Page</p>
+ <p class="FM_Body">You can also create your own internal web page. A custom web page must include an authentication form to authenticate a user. The authentication form can include any of the following variables listed in <a href="#XREF_99150_Table_104_Web_Page"><span class="FM_PMS646">Table 176</span></a>:</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 467.25pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 176 &#160;</span><a name="XREF_99150_Table_104_Web_Page"></a>Web Page Authentication Variables<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Variable</p>
+</th>
+  <th style="width : 323.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">user</p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">(Required) </p>
+</td>
+</tr>
+  <tr style=" height : 23.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">password</p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">(Required)</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 144.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">FQDN</p>
+</td>
+  <td style="width : 323.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">The fully-qualified domain name (this is dependent on the setting of the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and is supported only in Global Catalog Servers software.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">The form can use either the &quot;get&quot; or the &quot;post&quot; methods, but the &quot;post&quot; method is recommended. The form's action must absolutely or relatively reference <span class="FM_PMS646">https://&lt;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>_IP&gt;/auth/index.html/u</span>.</p>
+ <p class="FM_Body">You can construct an authentication form using the following HTML:</p>
+ <p class="FM_CLIIndented"><span class="FM_CLI">&lt;FORM method=&quot;post&quot; ACTION=&quot;/auth/index.html/u&quot;&gt;</span></p>
+ <p class="FM_CLIIndented"><span class="FM_CLI">...</span></p>
+ <p class="FM_CLIIndented"><span class="FM_CLI">&lt;/FORM&gt;</span></p>
+ <p class="FM_Body">A recommended option for the <span class="FM_CLI">&lt;FORM&gt;</span> element is:</p>
+ <p class="FM_CLIIndented"><span class="FM_CLI">autocomplete=&quot;off&quot;</span>&#160;</p>
+ <p class="FM_Body">This option prevents Internet Explorer from caching the form inputs. The form variables are input using any form control method available such as INPUT, SELECT, TEXTAREA and BUTTON. Example HTML code follows.</p>
+ <p class="FM_4Heading">Username:</p>
+ <p class="FM_Body">Minimal:</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&lt;INPUT type=&quot;text&quot; name=&quot;user&quot;&gt;</p>
+ <p class="FM_Body">Recommended Options:</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>accesskey=&quot;u&quot; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>Sets the keyboard shortcut to 'u'</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>SIZE=&quot;25<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;Sets the size of the input box to 25</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>VALUE=<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;&quot;Ensures no default value</p>
+ <p class="FM_Body"><span style="font-weight : bold; ">Password</span>:</p>
+ <p class="FM_Body">Minimal:</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&lt;INPUT type=&quot;password&quot; name=&quot;password&quot;&gt;</p>
+ <p class="FM_Body">Recommended Options:</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>accesskey=&quot;p&quot; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>Sets the keyboard shortcut to 'p'</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>SIZE=&quot;25<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;Sets the size of the input box to 25</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>VALUE=<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;&quot;Ensures no default value</p>
+ <p class="FM_Body"><span style="font-weight : bold; ">FQDN</span>:</p>
+ <p class="FM_Body">Minimal:</p>
+ <p class="FM_CLIIndented">&lt;SELECT name=fqdn&gt;</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&lt;OPTION value=&quot;fqdn1&quot; SELECTED&gt;</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&lt;OPTION value=&quot;fqdn2&quot;&gt;</p>
+ <p class="FM_CLIIndented">&lt;/SELECT&gt;</p>
+ <p class="FM_Body">Recommended Options:</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>None</p>
+ <p class="FM_Body">Finally, an HTML also requires an input button:</p>
+ <p class="FM_CLIIndented">&lt;INPUT type=&quot;submit&quot;&gt;</p>
+ <p class="FM_2Heading"><a name="TOC_Basic_HTML_Example"></a>Basic HTML Example</p>
+ <p class="FM_CLIIndented">&lt;HTML&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&lt;HEAD&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&lt;/HEAD&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&lt;BODY&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&lt;FORM method=&quot;post&quot; autocomplete=&quot;off&quot; ACTION=&quot;/auth/index.html/u&quot;&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;Username:&lt;BR&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&lt;INPUT type=&quot;text&quot; name=&quot;user&quot; accesskey=&quot;u&quot; SIZE=&quot;25&quot; VALUE=&quot;&quot;&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&lt;BR&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;Password:&lt;BR&gt;</p>
+ <p class="FM_CLIIndented">&#160;&#160;&#160;&#160;&lt;INPUT type=&quot;password&quot; name=&quot;password&quot; accesskey=&quot;p&quot; SIZE=&quot;25&quot; &#160;&#160;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;VALUE=&quot;&quot;&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&lt;BR&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&lt;INPUT type=&quot;submit&quot;&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&lt;/FORM&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&lt;/BODY&gt;</p>
+ <p class="FM_CLIIndented">&lt;/HTML&gt;</p>
+ <p class="FM_Body">You can find a more advanced example simply by using your browser’s &quot;view-source&quot; function while viewing the default captive portal page.</p>
+ <p class="FM_1Heading"><a name="TOC_Installing_a_New_Captive"></a><a name="XREF_61000_Installing_a_New"></a>Installing a New Captive Portal Page</p>
+ <p class="FM_Body">You can install the captive portal page by using the Maintenance function of the WebUI.</p>
+ <p class="FM_Body">Log into the WebUI and navigate to <span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt;Captive Portal &gt; <br />Upload Custom Login</span>&#160;<span style="font-weight : bold; ">Pages</span>.</p>
+ <p class="FM_Body">This page lets you upload your own files to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. There are different page types that you can choose:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Captive Portal Login (top level): This type uploads the file into the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and sets the captive portal page to reference the file that you are uploading. Use with caution on a production <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as this takes effect immediately.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Captive Portal Welcome Page: This type uploads the file that appears after logon and before redirection to the web URL. The display of the welcome page can be disabled or enabled in the captive portal profile.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Content: The content page type allows you to upload all miscellaneous files that you need to reference from your main captive portal login page. This can be used for images, CSS files, scripts or any other file that you need to reference. These files are uploaded into the same directory as the top level captive portal page and thus all files can be referenced relatively.</p>
+</li>
+ </ul>
+ <p class="FM_Body">Uploaded files can be referenced using:</p>
+ <p class="FM_CLIIndented">https://&lt;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>_IP&gt;/upload/custom/&lt;CP-Profile-Name&gt;/&lt;file&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_Displaying"></a><a name="XREF_97504_Displaying"></a>Displaying Authentication Error Message</p>
+ <p class="FM_Body">This section contains a script that performs the following tasks:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">When the user is redirected to the main captive portal login when there is authentication failure, the redirect URL includes a query parameter &quot;errmsg&quot; which java script can extract and display. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Store the originally requested URL in a cookie so that once the user has authenticated, they are automatically redirected to its original page. Note that for this feature to work, you need <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;release 2.4.2.0 or later. If you don't want this feature, delete the part of the script shown in red.</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">&lt;script&gt;</p>
+ <p class="FM_CLIIndented">{</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">function createCookie(name,value,days)</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">{</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (days)</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;var date = new Date();</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;date.setTime(date.getTime()+(days*24*60*60*1000));</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;var expires = &quot;; expires=&quot;+date.toGMTString();</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;else var expires = &quot;&quot;;</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;document.cookie = name+&quot;=&quot;+value+expires+&quot;; path=/&quot;;</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">}</p>
+ <p class="FM_CLIIndented"> &#160;var q = window.location.search;</p>
+ <p class="FM_CLIIndented"> &#160;var errmsg = null;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&#160;&#160;if (q &amp;&amp; q.length &gt; 1) {</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;q = q.substring(1).split(/[=&amp;]/);</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;for (var i = 0; i &lt; q.length - 1; i += 2) {</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;if (q[i] == &quot;errmsg&quot;) {</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;errmsg = unescape(q[i + 1]);</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;break;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;}</p>
+ <p class="FM_CLIIndented">&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (q[i] == &quot;host&quot;) { &#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;createCookie('url',unescape(q[i+1]),0)</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;}</p>
+ <p class="FM_CLIIndented"> &#160;}</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&#160;&#160;if (errmsg &amp;&amp; errmsg.length &gt; 0) {</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;errmsg = &quot;&lt;div id='errorbox'&gt;\n&quot; + errmsg + &quot;\n&lt;/div&gt;\n&quot;;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;document.write(errmsg);</p>
+ <p class="FM_CLIIndented"> &#160;}</p>
+ <p class="FM_CLIIndented">}</p>
+ <p class="FM_CLIIndented">&lt;/script&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_Reverting_to_the_Default"></a><a name="XREF_35852_Reverting_to_the"></a>Reverting to the Default Captive Portal</p>
+ <p class="FM_Body">You can reassign the default captive portal site using the &quot;Revert to factory default settings&quot; check box in the &quot;Upload Custom Login Pages&quot; section of the Maintenance tab in the WebUI. </p>
+ <p class="FM_1Heading"><a name="TOC_Language_Customization"></a><a name="XREF_21407_Language"></a>Language Customization</p>
+ <p class="FM_Body">The ability to customize the internal captive portal provides you with a very flexible interface to the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;captive portal system. However, other than posting site-specific messages onto the captive portal website, the most common type of customization is likely to be language localization. This section describes a simple method for creating a native language captive portal implementation using the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;internal captive portal system.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Customize the configurable parts of the captive portal settings to your liking. To do this, navigate to the <span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt; Captive Portal</span>&#160;&gt; <span style="font-weight : bold; ">Customize Login Page</span> in the WebUI:</p>
+ <p class="FM_BodyinBulletStep">For example, choose a page design, upload a custom logo and/or a custom background. Also include any page text and acceptable use policy that you would like to include. Put this in your target language or else you will need to translate this at a later time.</p>
+ <p class="FM_BodyinBulletStep">Ensure that Guest login is enabled or disabled as necessary by navigating to the <span style="font-weight : bold; ">Configuration &gt; Security &gt;&#160;Authentication &gt;&#160;L3 Authentication &gt; Captive Portal Authentication Profile</span>&#160;page to create or edit the captive portal profile. Select or deselect &quot;Guest Login&quot;.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Submit</span>&#160;and then click on <span style="font-weight : bold; ">View Captive Portal</span>. Check that your customization and text/html is correct, with the default interface still in English and the character set still autodetects to ISO-8859-1.</p>
+ <p class="FM_BodyinBulletStep">Repeat steps 1 and 2 until you are satisfied with your page.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a name="XREF_83225_3_Once_you_have_a"></a>Once you have a page you find acceptable, click on <span style="font-weight : bold; ">View Captive Portal</span>&#160;one more time to display your login page. From your browser, choose &quot;View-&gt;Source&quot; or its equivalent. Your system will display the HTML source for the captive portal page. Save this source as a file on your local system.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Open the file that you saved in <a href="#XREF_83225_3_Once_you_have_a"><span class="FM_PMS646">step&#160;3</span></a>, using a standard text editor, and make the following changes:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Fix the character set. The default &lt;HEAD&gt;...&lt;/HEAD&gt; section of the file will appear as:</p>
+ <p class="FM_CLIIndented">&lt;head&gt;</p>
+ <p class="FM_CLIIndented">&lt;title&gt;Portal Login&lt;/title&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&lt;link href=&quot;default1/styles.css&quot; rel=&quot;stylesheet&quot; media=&quot;screen&quot; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>type=&quot;text/css&quot; /&gt;</p>
+ <p class="FM_CLIIndented">&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>function showPolicy() {</p>
+ <p class="FM_CLIIndented">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>win = window.open(&quot;/auth/acceptableusepolicy.html&quot;, <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;policy&quot;, &quot;height=550,width=550,scrollbars=1&quot;);</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLIIndented">&lt;/script&gt;</p>
+ <p class="FM_CLIIndented">&lt;/head&gt;</p>
+ <p class="FM_BodyinSubBulletSubStep">In order to control the character set that the browser will use to show the text with, you will need to insert the following line inside the &lt;HEAD&gt;...&lt;/HEAD&gt; element:</p>
+ <p class="FM_CLIIndented" style="text-indent : 14.400pt;">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=Shift_JIS&quot;/&gt;</p>
+ <p class="FM_BodyinSubBulletSubStep">Replace the &quot;Shift_JIS&quot; part of the above line with the character set that is used by your system. In theory, any character encoding that has been registered with IANA can be used, but you must ensure that any text you enter uses this character set and that your target browsers support the required character set encoding. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The final &lt;HEAD&gt;...&lt;/HEAD&gt;  portion of the document should look similar to this:</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&lt;head&gt;</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=Shift_JIS&quot;/&gt;</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&lt;title&gt;Portal Login&lt;/title&gt;</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&nbsp;</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&lt;link href=&quot;default1/styles.css&quot; rel=&quot;stylesheet&quot; media=&quot;screen&quot; <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>type=&quot;text/css&quot; /&gt;</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>function showPolicy() {</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>win = window.open(&quot;/auth/acceptableusepolicy.html&quot;, <span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&quot;policy&quot;, &quot;height=550,width=550,scrollbars=1&quot;);</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>}</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&lt;/script&gt;</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&lt;/head&gt;</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Fix references: If you have used the built-in preferences, you will need to update the reference for the logo image and the CSS style sheet.</p>
+ <p class="FM_BodyinSubBulletSubStep">To update the CSS reference, search the text for &quot;&lt;link href&quot; and update the reference to include &quot;/auth/&quot; in front of the reference. The original link should look similar to the following:</p>
+ <p class="FM_CLIIndented" style="text-indent : 14.400pt;">&lt;link href=&quot;default1/styles.css&quot; rel=&quot;stylesheet&quot; media=&quot;screen&quot; type=&quot;text/css&quot; /&gt;</p>
+ <p class="FM_BodyinSubBulletSubStep">This should be replaced with a link like the following:</p>
+ <p class="FM_CLIIndented" style="text-indent : 14.400pt; margin-top  : 4.000pt; margin-bottom : 4.000pt;">&lt;link href=&quot;/auth/default1/styles.css&quot; rel=&quot;stylesheet&quot; media=&quot;screen&quot; type=&quot;text/css&quot; /&gt;</p>
+ <p class="FM_BodyinSubBulletSubStep">The easiest way to update the image reference is to search for &quot;src&quot; using your text editor and updating the reference to include &quot;/auth/&quot; in front of the image file. The original link should look similar to the following:</p>
+ <p class="FM_CLIIndented" style="text-indent : 14.400pt;">&lt;img src=&quot;default1/logo.gif&quot;/&gt;</p>
+ <p class="FM_BodyinSubBulletSubStep">This should be replaced with a link like this:</p>
+ <p class="FM_CLIIndented" style="text-indent : 14.400pt;">&lt;img src=&quot;/auth/default1/logo.gif&quot;/&gt;</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Insert javascript to handle error cases:</p>
+ <p class="FM_BodyinSubBulletSubStep">When the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> detects an error situation, it will pass the user's page a variable called &quot;errmsg&quot; with a value of what the error is in English. Currently, only &quot;Authentication Failed&quot; is supported as a valid error message.</p>
+ <p class="FM_BodyinSubBulletSubStep">To localize the authentication failure message, replace the following text (it is just a few lines below the &lt;body&gt; tag):</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&lt;div id=&quot;errorbox&quot; style=&quot;display: none;&quot;&gt;</p>
+ <p class="FM_CLIIndented" style="margin-left : 28.800pt; text-indent : 0.000pt;">&lt;/div&gt;</p>
+ <p class="FM_BodyinSubBulletSubStep">with the script below. You will need to translate the &quot;Authentication Failed&quot; error message into your local language and add it into the script below where it states: localized_msg=&quot;...&quot;:</p>
+ <p class="FM_CLIIndented">&lt;script&gt;</p>
+ <p class="FM_CLIIndented">{</p>
+ <p class="FM_CLIIndented"> &#160;var q = window.location.search;</p>
+ <p class="FM_CLIIndented"> &#160;var errmsg = null;</p>
+ <p class="FM_CLIIndented">&#160;&#160;if (q &amp;&amp; q.length &gt; 1) {</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;q = q.substring(1).split(/[=&amp;]/);</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;for (var i = 0; i &lt; q.length - 1; i += 2) {</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;if (q[i] == &quot;errmsg&quot;) {</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;errmsg = unescape(q[i + 1]);</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;break;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;}</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;}</p>
+ <p class="FM_CLIIndented"> &#160;}</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&#160;&#160;if (errmsg &amp;&amp; errmsg.length &gt; 0) {</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;switch(errmsg) {</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;case &quot;Authentication Failed&quot;:</p>
+ <p class="FM_CLIIndented">&#160;&#160;&#160;&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>localized_msg=&quot;Authentication Failed&quot;;</p>
+ <p class="FM_CLIIndented">&#160;&#160;&#160;&#160;<span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>break;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;default:</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;localised_msg=errmsg;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;break;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;}</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;errmsg = &quot;&lt;div id='errorbox'&gt;\n&quot; + localised_msg + &quot;\n&lt;/div&gt;\n&quot;;</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;document.write(errmsg);</p>
+ <p class="FM_CLIIndented"> &#160;};</p>
+ <p class="FM_CLIIndented">}</p>
+ <p class="FM_CLIIndented">&lt;/script&gt;</p>
+ <p class="FM_Body">&nbsp;</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Translate the web page text. Once you have made the changes as above, you only need to translate the rest of the text that appears on the page. The exact text that appears will depend on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;settings when you originally viewed the captive portal. You will need to translate all relevant text such as &quot;REGISTERED USER&quot;, &quot;USERNAME&quot;, &quot;PASSWORD&quot;, the value=&quot;&quot; part of the INPUT type=&quot;submit&quot; button and all other text. Ensure that the character set you use to translate into is the same as you have selected in part i) above.</p>
+ <p class="FM_BodyinSubBulletSubStep">Feel free to edit the HTML as you go if you are familiar with HTML.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>After saving the changes made in step 4 above, upload the file to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the <br /><span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt;Captive Portal &gt; Upload Custom Login Pages</span>&#160;section of the WebUI. </p>
+ <p class="FM_BodyinBulletStep">Choose the captive portal profile from the drop-down menu. Browse your local computer for the file you saved. For Page Type, select “Captive Portal Login”. Ensure that the &quot;Revert to factory default settings&quot; box is NOT checked and click <span style="font-weight : bold; ">Apply</span>. This will upload the file to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and set the captive portal profile to use this page as the redirection page.</p>
+ <p class="FM_BodyinBulletStep">In order to check that your site is operating correctly, go back to the &quot;Customize Login Page&quot; and click on &quot;View Captive Portal&quot; to view the page you have uploaded. Check that your browser has automatically detected the character set and that your text is not garbled.</p>
+ <p class="FM_BodyinBulletStep">To make any adjustments to your page, edit your file locally and simply re-upload to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in order to view the page again.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Finally, it is possible to customize the welcome page on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, however for language localization it is recommended to use an &quot;external welcome page&quot; instead. This can be a web site on an external server, or it can be a static page that is uploaded to a <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_BodyinBulletStep">You set the welcome page in the captive portal authentication profile. This is the page that the user will be redirected to after successful authentication.</p>
+ <p class="FM_BodyinBulletStep">If this is required to be a page on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, the user needs to create their own web page (using the charset meta attribute in step 4 above). Upload this page to the designated <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;in the same manner as uploading the captive portal login page under &quot;<span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt;Captive Portal &gt; Upload Custom Login Pages</span>. For Page Type, select “Captive Portal Welcome Page”.</p>
+ <p class="FM_BodyinBulletStep">Any required client side script (CSS) and media files can also be uploaded using the “Content” Page Type, however file space is limited (use the CLI command <span style="font-weight : bold; ">show storage</span>&#160;to see available space). Remember to leave ample room for system files.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 521.88pt;" cellspacing="0">
+  <tr style=" height : 67.50pt;">
+  <td style="width : 71.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">The &quot;Registered User&quot; and &quot;Guest User&quot; sections of the login page are implemented as graphics files, referenced by the default CSS styles. In order to change these, you will need to create new graphic files, download the CSS file, edit the reference to the graphics files, change the style reference in your index file and then upload all files as &quot;content&quot; to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_BodyinBulletStep"></p>
+ <p class="FM_Body">A sample of a translated page is displayed in <a href="#XREF_55516_Figure_1_Sample"><span class="FM_PMS646">Figure 214</span></a>.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 214 &#160;</span><a name="XREF_55516_Figure_1_Sample"></a>Sample Translated Page</p>
+ <div align="left"><img alt="WIRELESS_splash.jpg" id="image0" src="images/WIRELESS_splash.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_1Heading"><a name="TOC_Customizing_the_Welcome"></a><a name="XREF_39907_Customizing_the"></a>Customizing the Welcome Page</p>
+ <p class="FM_Body">Once a user is authenticated by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>, a Welcome page is launched. The default welcome page depends on your configuration, but will look similar to <a href="#XREF_98591_Figure_2_Default"><span class="FM_PMS646">Figure 215</span></a>:</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 215 &#160;</span><a name="XREF_98591_Figure_2_Default"></a></p>
+ <div align="left"><img alt="WIRELESS_welcomePage.jpg" id="image1" src="images/WIRELESS_welcomePage.jpg" />
+ </div>
+ <p class="FM_FigureTitle">Default Welcome Page</p>
+ <p class="FM_Body">You can customize this welcome page by building your own HTML page and uploading it to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. You upload it to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;by navigating to <span style="font-weight : bold; ">Management &gt;&#160;Captive Portal &gt; Upload Login Pages </span>and select “Captive Portal Welcome Page<span style="font-family : Times New Roman; font-size  : 12.0pt; ">” </span>from the Page Type drop-down menu. This file is stored in a directory called &quot;/upload/&quot; on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> using the file's original name.</p>
+ <p class="FM_Body">In order to actually use this file, you will need to configure the welcome page on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. To do this use the CLI command: &quot;aaa captive-portal welcome-page /upload/welc.html&quot; where &quot;welc.html&quot; is the name of the file that you uploaded, or you can change the Welcome page in the captive portal authentication profile in the WebUI.</p>
+ <p class="FM_Body">An example that will create the same page as displayed in <a href="#XREF_98591_Figure_2_Default"><span class="FM_PMS646">Figure 215</span></a>&#160;is shown below. The part in red will redirect the user to the web page you originally setup. For this to work, please follow the procedure described above in this document.</p>
+ <p class="FM_CLIIndented">:</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&lt;html&gt;</p>
+ <p class="FM_CLIIndented">&lt;head&gt;</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">&lt;script&gt;</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">{</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">&nbsp;</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">function readCookie(name)</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">{</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;var nameEQ = name + &quot;=&quot;;</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;var ca = document.cookie.split(';');</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;for(var i=0;i &lt; ca.length;i++)</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;var c = ca[i];</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;while (c.charAt(0)=='&#160;') c = c.substring(1,c.length);</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return null;</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">}</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">var cookieval = readCookie('url');</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if (cookieval.length&gt;0) document.write(&quot;&lt;meta http-equiv=\&quot;refresh\&quot; content=\&quot;2;url=http://&quot;+cookieval+&quot;\&quot;&quot;+&quot;&gt;&quot;);</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}</p>
+ <p class="FM_CLIIndented" style="color   : #cc1d00;">&lt;/script&gt;</p>
+ <p class="FM_CLIIndented">&lt;/head&gt;</p>
+ <p class="FM_CLIIndented">&lt;body bgcolor=white text=000000&gt;</p>
+ <p class="FM_CLIIndented">&lt;font face=&quot;Verdana, Arial, Helvetica, sans-serif&quot; size=+1&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&lt;b&gt;User Authenticated &lt;/b&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&lt;p&gt;In 2 seconds you will be automatically redirected to your original web page&lt;/p&gt;</p>
+ <p class="FM_CLIIndented">&lt;p&gt; Press control-d to bookmark this page.&lt;/p&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&lt;FORM ACTION=&quot;/auth/logout.html&quot;&gt;</p>
+ <p class="FM_CLIIndented"><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Times New Roman; font-size:7.0pt">&nbsp;&nbsp;&nbsp;</span>&lt;INPUT type=&quot;submit&quot; name=&quot;logout&quot; value=&quot;Logout&quot;&gt;</p>
+ <p class="FM_CLIIndented">&lt;/FORM&gt;</p>
+ <p class="FM_CLIIndented">&lt;/font&gt;</p>
+ <p class="FM_CLIIndented">&lt;/body&gt;</p>
+ <p class="FM_CLIIndented">&lt;/html&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_Customizing_the_Pop_Up"></a><a name="XREF_94694_Customizing_the"></a>Customizing the Pop-Up box</p>
+ <p class="FM_Body">In order to customize the Pop-Up box, you must first customize your Welcome page. Once you have customized your welcome page, then you can configure your custom page to use a pop-up box. The default HTML for the pop-up box is:</p>
+ <p class="FM_CLIIndented">&lt;html&gt;</p>
+ <p class="FM_CLIIndented">&lt;body bgcolor=white text=000000&gt;</p>
+ <p class="FM_CLIIndented">&lt;font face=&quot;Verdana, Arial, Helvetica, sans-serif&quot; size=+1&gt;</p>
+ <p class="FM_CLIIndented"> &lt;b&gt;Logout&lt;/b&gt;&lt;/font&gt;</p>
+ <p class="FM_CLIIndented"> &lt;p&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&lt;a href=&quot;/auth/logout.html&quot;&gt; Click to Logout &lt;/a&gt;</p>
+ <p class="FM_CLIIndented">&lt;/body&gt;</p>
+ <p class="FM_CLIIndented">&lt;/html&gt;</p>
+ <p class="FM_Body">If you wish your users to be able to logout using this pop-up box, then you must include a reference to /auth/logout.html Once a user accesses this URL then the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will log them out. It is easiest to simply edit the above HTML to suit your users and then upload the resulting file to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the WebUI under <span style="font-weight : bold; ">Configuration &gt;&#160;Management &gt;&#160;Captive Portal &gt; Upload custom pages </span>and choose &quot;content” as the page type.</p>
+ <p class="FM_Body">Once you have completed your HTML, then you must get the clients to create the pop-up box once they have logged into the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. This is done by inserting the following code into your welcome page text and re-uploading the welcome page text to your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">Common things to change:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">URL: set the URL to be the name of the pop-up HTML file that you created and uploaded. This should be preceded by &quot;/upload/&quot;</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Width: set w to be the required width of the pop-up box</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Height: set h to be the required height of the pop-up box</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Title: set the second parameter in the window.open command to be the title of the pop-up box. Be sure to include the quotes as shown:</p>
+</li>
+ </ul>
+ <p class="FM_CLIIndented">&lt;script language=&quot;JavaScript&quot;&gt;</p>
+ <p class="FM_CLIIndented"> var url=&quot;/upload/popup.html&quot;;</p>
+ <p class="FM_CLIIndented"> var w=210;</p>
+ <p class="FM_CLIIndented"> var h=80;</p>
+ <p class="FM_CLIIndented"> var x=window.screen.width - w - 20;</p>
+ <p class="FM_CLIIndented"> var y=window.screen.height - h - 60;</p>
+ <p class="FM_CLIIndented">&#160;window.open(url, 'logout', &quot;toolbar=no,location=no,width=&quot;+w+&quot;,height=&quot;+h+&quot;,top=&quot;+y+&quot;,left=&quot;+x+&quot;,screenX=&quot;+x+&quot;,screenY=&quot;+y);</p>
+ <p class="FM_CLIIndented">&lt;/script&gt;</p>
+ <p class="FM_1Heading"><a name="TOC_Customizing_the_Logged"></a><a name="XREF_77278_Customizing_the"></a>Customizing the Logged Out Box</p>
+ <p class="FM_Body">In order to customize the Logged Out box, you must first customize your Welcome page and also your Pop-Up box. To customize the message that occurs after you have logged out then you need to replace the URL that the pop-up box will access in order to log out with your own HTML file.</p>
+ <p class="FM_Body">First you must write the HTML web page that will actually log out the user and will also display page that you wish. An example page is shown below. The key part that must be included is the &lt;iframe&gt;..&lt;/iframe&gt; section. This is the part of the HTML that actually does the user logging out. The logout is always performed by the client accessing the /auth/logout.html file on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and so it is hidden in the html page here in order to get the client to access this page and for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to update its authentication status. If a client does not support the iframe tag, then the text between the &lt;iframe&gt; and the &lt;/iframe&gt; is used. This is simply a 0 pixel sized image file that references /auth/logout.html. Either method should allow the client to logout from the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+ <p class="FM_Body">Everything else can be customized.</p>
+ <p class="FM_CLIIndented">&lt;html&gt;</p>
+ <p class="FM_CLIIndented">&lt;body bgcolor=white text=000000&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&lt;iframe src='/auth/logout.html' width=0 height=0 frameborder=0&gt;&lt;img src=/auth/logout.html width=0 height=0&gt;&lt;/iframe&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&lt;P&gt;&lt;font face=&quot;Verdana, Arial, Helvetica, sans-serif&quot; size=+1&gt;</p>
+ <p class="FM_CLIIndented">You have now logged out.&lt;/font&gt;&lt;/P&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&lt;form&gt; &lt;input type=&quot;button&quot; onclick=&quot;window.close()&quot; name=&quot;close&quot; value=&quot;Close Window&quot;&gt;&lt;/form&gt;</p>
+ <p class="FM_CLIIndented">&nbsp;</p>
+ <p class="FM_CLIIndented">&lt;/body&gt;</p>
+ <p class="FM_CLIIndented">&lt;/html&gt;</p>
+ <p class="FM_Body">After writing your own HTML, then you need to ensure that your customized pop-up box will access your new logged out file. In the pop-up box example above, you simply replace the &quot;/auth/logout.html&quot; with your own file that you upload to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. For example, if your customized logout HTML is stored in a file called &quot;loggedout.html&quot; then your &quot;pop-up.html&quot; file should reference it like this:</p>
+ <p class="FM_CLIIndented">&lt;html&gt;</p>
+ <p class="FM_CLIIndented">&lt;body bgcolor=white text=000000&gt;</p>
+ <p class="FM_CLIIndented">&lt;font face=&quot;Verdana, Arial, Helvetica, sans-serif&quot; size=+1&gt;</p>
+ <p class="FM_CLIIndented"> &lt;b&gt;Logout&lt;/b&gt;&lt;/font&gt;</p>
+ <p class="FM_CLIIndented"> &lt;p&gt;</p>
+ <p class="FM_CLIIndented"> &#160;&lt;a href=&quot;/upload/loggedout.html&quot;&gt; Click to Logout &lt;/a&gt;</p>
+ <p class="FM_CLIIndented">&lt;/body&gt;</p>
+ <p class="FM_CLIIndented">&lt;/html&gt;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

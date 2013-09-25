@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>802.1x_XPClient_IAS_Config</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\802.1x_XPClient_IAS_Config.fm" />
+ <meta name="keywords" content="remote access,window opens,wireless network, wireless network,802.1x radius server, remote access policy, remote access permission, local certificate authority, green arrow icon">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_Anchor"><a name="XREF_98100_Title_of_Chapter"></a>&nbsp;</p>
+ <p class="FM_AppendixNumber" style="color   : #000000;"><a name="TOC_Appendix_D"></a>Appendix D</p>
+ <p class="FM_ChapterTitle" style="color   : #000000;"><a name="TOC_802_1x_Configuration_for"></a><a name="XREF_75322_802_1x"></a>802.1x Configuration for IAS and Windows Clients</p>
+ <p class="FM_Body">This appendix provides examples of how to configure a Microsoft Internet Authentication Server, and a Windows XP wireless client for 802.1x authentication with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;(see <a href="802.1x.htm"><span class="FM_PMS646"> “802.1x Authentication”</span></a><span class="FM_zblue" style="color   : #0000ff; ">&#160;</span>for information about configuring the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>).</p>
+ <p class="FM_Body">For more information about configuring computers in a Windows environment for PEAP-MS-CHAPv2 and EAP-TLS authentication, see the Microsoft document <span style="font-style : italic; ">Step-by-Step Guide for Setting Up Secure Wireless Access in a Test Lab</span><a href="www.microsoft.com/downloads">, available from Microsoft’s Download Center (at </a><span class="FM_PMS646">www.microsoft.com/downloads)</span><a href="http://www.microsoft.com/technet/prodtechnol/winxppro/maintain/wificomp.mspx#EQGAC">. Additional information on client configuration is available at </a><span class="FM_PMS646">http://www.microsoft.com/technet/prodtechnol/winxppro/maintain/wificomp.mspx#EQGAC</span>.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_14961_Configuring"><span class="FM_PMS646">“Configuring Microsoft IAS” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_28015_Configure"><span class="FM_PMS646">“Configure Management Authentication using IAS” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_42935_Microsoft_Active"><span class="FM_PMS646">“Window XP Wireless Client Example Configuration” </span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Configuring_Microsoft_IAS"></a><a name="XREF_14961_Configuring"></a>Configuring Microsoft IAS</p>
+ <p class="FM_Body">Microsoft Internet Authentication Server (IAS) provides authentication functions for the wireless network. IAS implements the RADIUS protocol, which is used between the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the server. IAS uses Active Directory as the database for looking up computers, users, passwords, and group information.</p>
+ <p class="FM_2Heading"><a name="TOC_RADIUS_Client"></a>RADIUS Client Configuration</p>
+ <p class="FM_Body">Each device in the network that needs to authenticate to a RADIUS server must be configured as a RADIUS client. You must configure the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;as a RADIUS client. </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The steps to perform this task may very depending on the version of Windows currently running on your server. For complete details on configuring Windows IAS, refer to the Windows documentation available <span style="color   : #000000; "><a href="www.microsoft.com/downloads">(at </span></a><span class="FM_PMS646">www.microsoft.com/downloads)</span>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Body">To configure a RADIUS client:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From your windows server, navigate to <span style="font-weight : bold; ">Start &gt;&#160;Settings &gt;&#160;Control Panel &gt; Administrative Tools&gt;Internet Authentication Service</span>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Internet Authentication Service window, select <span style="font-weight : bold; ">RADIUS Clients</span>.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 199 &#160;</span></p>
+ <div align="left"><img alt="IAS_RADIUS_Client.jpg" id="image0" src="images/IAS_RADIUS_Client.jpg" />
+ </div>
+ <p class="FM_FigureTitle">IAS RADIUS Clients</p>
+ <p class="FM_StepNext" style="margin-top  : 12.000pt;">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To configure a RADIUS client, select <span style="font-weight : bold; ">Action &gt; New RADIUS Client</span>&#160;from the menu at the top of the window.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">New RADIUS Client</span>&#160;dialog window, enter the name and IP address for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. Click <span style="font-weight : bold; ">Next</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the next window that appears, enter and confirm a shared secret. The shared secret is configured on both the RADIUS server and client, and ensures that an unauthorized client cannot perform authentication against the server.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Finish</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_Remote_Access_Policies"></a>Remote Access Policies</p>
+ <p class="FM_Body">The IAS policy configuration defines all policies related to wireless access, including time of day restrictions, session length, authentication type, and group-related policies. See Microsoft product documentation for detailed descriptions and explanations of IAS policy settings.</p>
+ <p class="FM_2Heading"><a name="TOC_Active_Directory_Database"></a>Active Directory Database</p>
+ <p class="FM_Body">The Active Directory database serves as the master authentication database for both the wired and wireless networks. The IAS authentication server bases all authentication decisions on information in the Active Directory database. IAS is normally used as an authentication server for remote access and thus looks to the Active Directory “Remote Access” property to determine whether authentication requests should be allowed or denied. This property is set on a per-user or per-computer basis. For a user or computer to be allowed access to the wireless network, the remote access property must be set to “Allow access”.</p>
+ <p class="FM_Body">The authentication policy configured in IAS depends on the group membership of the computer or user in Active Directory. These policies are responsible for passing group information back to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for use in assigning computers or users to the correct role, which determines their network access privileges. When the IAS server receives a request for authentication, it compares the request with the list of remote access policies. The first policy to match the request is executed; additional policies are not searched.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Policies"></a>Configuring Policies</p>
+ <p class="FM_Body">The policies in this 802.1x authentication example are designed to work by examining the username portion of the authentication request, searching the Active Directory database for a matching name, and then examining the group membership for a computer or user entry that matches. For example, the following policies would operate with the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;configuration shown in <a href="802.1x.htm#XREF_67860_Authentication"><span class="FM_PMS646">“Authentication with an 802.1x RADIUS Server”</span></a>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The Wireless-Computers policy matches the “Domain Computers” group. This group contains the list of all computers that are members of the domain. This group is used for all computers to authenticate to the network.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The Wireless-Student policy matches the “Student” group. This group is used for all student users.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The Wireless-Faculty policy matches the “Faculty” group. This group is used for all faculty users.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The Wireless-Sysadmin policy matches the “Sysadmin” group. This group is used for system administrators.</p>
+</li>
+ </ul>
+ <p class="FM_Body">In addition to matching the respective group, the policy also specifies that the request must be from an 802.11 wireless device. The policy instructs IAS to grant remote access permission if all the conditions specified in the policy match, a valid username/password is supplied, the user’s or computer’s remote access permission is set to “Allow”.</p>
+ <p class="FM_Body">To configure a policy:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Internet Authentication Service</span>&#160;window, select <span style="font-weight : bold; ">Remote Access Policies</span>.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 200 &#160;</span>IAS Remote Access Policies</p>
+ <div align="left"><img alt="IAS_RADIUS_Policy.jpg" id="image1" src="images/IAS_RADIUS_Policy.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext" style="margin-top  : 12.000pt;">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add a new policy, select <span style="font-weight : bold; ">Action &gt; New Remote Access Policy</span>. This launches a wizard that steps you through configuring the remote access policy.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Next</span> on the initial wizard window to proceed.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the name for the policy, for example, “Wireless Computers” and click <span style="font-weight : bold; ">Next</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Access Method </span>window, select the <span style="font-weight : bold; ">Wireless</span>&#160;option, then click <span style="font-weight : bold; ">Next</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>in the <span style="font-weight : bold; ">User or Group Access</span>&#160;window, select <span style="font-weight : bold; ">Group</span>&#160;and click <span style="font-weight : bold; ">Add</span>&#160;to add the group of users to which this policy applies (for example, “Domain Computers”). Click <span style="font-weight : bold; ">Next</span>.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>For Authentication Methods, select either <span style="font-weight : bold; ">Protected EAP (PEAP)</span>&#160;or <span style="font-weight : bold; ">Smart Card</span>&#160;or <span style="font-weight : bold; ">other certificate</span>. </p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Configure</span> to select additional properties.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 201 &#160;</span>Policy Configuration Wizard—Authentication Methods</p>
+ <div align="left"><img alt="IAS_Policy_Config_4.jpg" id="image2" src="images/IAS_Policy_Config_4.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select a server certificate. The list of available certificates is taken from the computer certificate store on which IAS is running. In this case, a self-signed certificate was generated by the local certificate authority and installed on the IAS system. On each wireless client device, the local certificate authority is added as a trusted certificate authority, thus allowing this certificate to be trusted.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 202 &#160;</span>Policy Configuration Wizard—PEAP Properties</p>
+ <div align="left"><img alt="IAS_Policy_Config_5.jpg" id="image3" src="images/IAS_Policy_Config_5.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>For PEAP, select the “inner” authentication method. The authentication method shown is MS-CHAPv2. (Because password authentication is being used on this network, this is the only EAP authentication type that should be selected.)</p>
+ <p class="FM_BodyinBulletStep">You can also enable fast reconnect in this screen. If you enable fast reconnect here and also on client devices, additional time can be saved when multiple authentications take place (such as when clients are roaming between APs frequently) because the server will keep the PEAP encrypted tunnel alive.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_RADIUS"></a>Configuring RADIUS Attributes</p>
+ <p class="FM_Body">In the configuration example for 802.1x, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;restricts network access privileges based on the group membership of the computer or user. In order for this to work, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;must be told to which group the user belongs. This is accomplished using RADIUS attributes returned by the authentication server.</p>
+ <p class="FM_Body">To configure RADIUS attributes:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Internet Authentication Service</span>&#160;window, select <span style="font-weight : bold; ">Remote Access Policies</span>.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Open the remote access policy you want to configure, and select the <span style="font-weight : bold; ">Advanced</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> to configure an attribute.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Class</span> attribute.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the value for this attribute. For example, for the <span style="font-weight : bold; ">Wireless-Computers</span>&#160;policy, the <span style="font-weight : bold; ">Class</span>&#160;attribute returned to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> should contain the value “computer”.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 203 &#160;</span>RADIUS class Attribute Configuration</p>
+ <div align="left"><img alt="IAS_Advanced_Attributes_Class_2.jpg" id="image4" src="images/IAS_Advanced_Attributes_Class_2.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">OK</span>.</p>
+ <p class="FM_Body">Another example of a Class attribute configuration is shown below for the “Wireless-Student” policy. This policy returns the RADIUS attribute Class with the value “student” upon successful completion.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 204 &#160;</span>Example RADIUS Class Attribute for “student” </p>
+ <div align="left"><img alt="IAS_Advanced_Attributes_Class_4.jpg" id="image5" src="images/IAS_Advanced_Attributes_Class_4.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_1Heading"><a name="TOC_Configure_Management"></a><a name="XREF_28015_Configure"></a>Configure Management Authentication using IAS</p>
+ <p class="FM_Body">Before you can configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for management authentication using Windows IAS, you must perform the following steps to configure a Windows IAS RADIUS server on your Windows client.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote" style="padding-top : 0.000pt; padding-left : 20.000pt; padding-right : 0.000pt; padding-bottom : 0.000pt;"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The steps to perform this task may very depending on the version of Windows currently running on your server. For complete details on configuring Windows IAS, refer to the Windows documentation available at <span class="FM_PMS646">www.microsoft.com/downloads</span>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From your windows server, navigate to <span style="font-weight : bold; ">Start &gt;&#160;Settings &gt;&#160;Control Panel &gt; Administrative Tools&gt;Internet Authentication Service</span>. &#160;The <span style="font-weight : bold; ">Internet Authentication Service</span> window opens.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Verify that the Internet Authentication Service is running. If it is running, &#160;a green arrow icon will appear at the top of this window. If it has stopped, a red stop icon will appear. If the service is not active, click the green arrow icon to restart the service.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the <span style="font-weight : bold; ">Internet Authentication Service</span>&#160;window, right click the <span style="font-weight : bold; ">Radius Clients</span>&#160;folder and select <span style="font-weight : bold; ">New Radius Client</span>. The <span style="font-weight : bold; ">New RADIUS Client</span>&#160;window opens. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Define a friendly name for the RADIUS client and enter the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s IP address or DNS name. Click <span style="font-weight : bold; ">Next</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter and confirm the Shared Secret key for the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;then click <span style="font-weight : bold; ">Finish</span>.</p>
+ <p class="FM_Body">Next, create a remote policy for your new RADIUS client.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>From the I<span style="font-weight : bold; ">nternet Authentication Service</span>&#160;window, right click the <span style="font-weight : bold; ">Remote Access Policies</span>&#160;folder and select <span style="font-weight : bold; ">New Remote Access Policy</span>. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>The <span style="font-weight : bold; ">New Remote Access Policy</span>&#160;Wizard opens. Click <span style="font-weight : bold; ">Next</span> on the first window to start the wizard.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Use the wizard to set up a typical Policy for a common scenario</span>&#160;and enter a name for the policy, e.g Remote-Policy. Click <span style="font-weight : bold; ">Next</span>.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Access Method </span>window of the wizard, select the method you will use to gain management access to the network. &#160;Click <span style="font-weight : bold; ">Next</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">User or Group Access</span>&#160;window of the wizard, select either <span style="font-weight : bold; ">user</span>&#160;or <span style="font-weight : bold; ">group</span>, depending upon how &#160;your user permissions are defined. Click <span style="font-weight : bold; ">Next</span>.</p>
+ <p class="FM_Body">6. In the A<span style="font-weight : bold; ">uthentication Method</span>&#160;window, click the <span style="font-weight : bold; ">Type</span>&#160;drop-down list and select <span style="font-weight : bold; ">Protected EAP (PEAP)</span>. Click <span style="font-weight : bold; ">Next</span>.</p>
+ <p class="FM_Body">7. Click <span style="font-weight : bold; ">Finish</span>.</p>
+ <p class="FM_Body">Now you must define properties for the remote policy you just created.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>1. In the <span style="font-weight : bold; ">Internet Authentication Service</span>&#160;window, click the <span style="font-weight : bold; ">Remote Access Policy</span>&#160;icon. All configured remote access policies will appear in the right window pane. </p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Right-click the policy you just created, and select <span style="font-weight : bold; ">Properties</span>. The <span style="font-weight : bold; ">Properties</span> window opens.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Grant remote access permission</span>&#160;radio button, and click <span style="font-weight : bold; ">Edit Profile</span>. The <span style="font-weight : bold; ">Edit Profile</span>&#160;window opens.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Authentication</span>&#160;tab and select the authentication methods that include <span style="font-weight : bold; ">MS-CHAP</span>, <span style="font-weight : bold; ">MS-CHAP</span>&#160;<span style="font-weight : bold; ">V2</span>&#160;and <span style="font-weight : bold; ">PAP</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Advanced</span> tab.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span>. The <span style="font-weight : bold; ">Add Attribute</span> window opens.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Scroll down the list of attributes and select <span style="font-weight : bold; ">Vendor-Specific</span>, then click <span style="font-weight : bold; ">Add</span>. The <span style="font-weight : bold; ">MultiValued Attribute Information</span> window appears.</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Add</span> again.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Enter the vendor code <span style="font-weight : bold; ">14823 </span>and select the option <span style="font-weight : bold; ">Yes, It conforms</span>. </p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Configure Attribute</span>. The <span style="font-weight : bold; ">Configure VSA </span>window opens.</p>
+ <p class="FM_StepNext">12.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the<span style="font-weight : bold; "> Vendor-assigned attribute number</span>&#160;field, enter <span style="font-weight : bold; ">3</span>.</p>
+ <p class="FM_StepNext">13.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the <span style="font-weight : bold; ">Attribute value</span>&#160;field, enter <span style="font-weight : bold; ">7</span>.</p>
+ <p class="FM_StepNext">14.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">OK</span> to save your settings.</p>
+ <p class="FM_StepNext">15.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_StepNext">16.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_Body">Now that you have defined your remote policy properties, you must create a user entry in the Windows active directory. The steps to complete this process will vary, depending on the version of Windows currently running on your server. The procedure below should be used only as a guideline.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Open the “Active Directory Users and Computers” tool on your Windows server.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Create a new user entry on the Windows Active directory.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Once you have created the new user, right-click the user name and select <span style="font-weight : bold; ">Properties</span>. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Dial-in</span>&#160;tab and select <span style="font-weight : bold; ">“Allow access”</span> for the user.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Ok </span>to save your settings.</p>
+ <p class="FM_2Heading"><a name="TOC_Configure_the_Controller"></a>Configure the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;to use IAS Management Authentication </p>
+ <p class="FM_Body">The following procedure describes the steps to configure the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to user IAS management authentication.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Access the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;WebUI and navigate to <span style="font-weight : bold; ">Configuration&gt;Authentication</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Servers</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">RADIUS</span> Server.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a name for the RADIUS server in the entry field in the right window pane, then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the RADIUS server you just created from the list of servers in the left window pane to display configuration details for that server.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 205 &#160;</span>Configuring a RADIUS Server for IAS Management Authentication</p>
+ <div align="left"><img alt="management_radius.jpg" id="image6" src="images/management_radius.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span style="font-weight : bold; ">Host</span>&#160;field, enter the IP address of the RADIUS server you want to use for Management Authentication.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter and then retype the shared key for the server.</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span></p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select <span style="font-weight : bold; ">Server Group</span> from the server list on the left window pane.</p>
+ <p class="FM_StepNext">10.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the entry blank on the right window pane, enter the name of a new server group (for example, “Management_group”), then click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">11.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply.</span></p>
+ <p class="FM_StepNext">12.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Select the server group you just created from the list of server groups in the left window pane.</p>
+ <p class="FM_StepNext">13.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>In the <span style="font-weight : bold; ">Servers</span>&#160;section, click <span style="font-weight : bold; ">New</span>.</p>
+ <p class="FM_StepNext">14.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click the <span style="font-weight : bold; ">Server Name</span> drop-down list and select your RADIUS server.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 206 &#160;</span>Configuring a Server Group for IAS Management Authentication</p>
+ <div align="left"><img alt="management_radius2.jpg" id="image7" src="images/management_radius2.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">15.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_2Heading"><a name="TOC_Verify_Communication"></a>Verify Communication between the <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?> and the RADIUS Server</p>
+ <p class="FM_Body">After you have configured your Windows Server and the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;<?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;for Windows IAS Management Authentication, you can verify that the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and server are communicating. </p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to <span style="font-weight : bold; ">Diagnostics&gt;AAA Test Server</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Server Name</span> drop-down list and select the RADIUS server.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select either <span style="font-weight : bold; ">MSCHAP-V2</span>&#160;or <span style="font-weight : bold; ">PAP</span> as the authentication method.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter the user name and password in the <span style="font-weight : bold; ">Username</span>&#160;and <span style="font-weight : bold; ">Password</span> fields.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Begin Test</span>.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;displays the words <span style="font-weight : bold; ">Authentication Successful</span>, then the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is able to communicate with the RADIUS server.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 207 &#160;</span>Testing a RADIUS Server </p>
+ <div align="left"><img alt="management_radius3.jpg" id="image8" src="images/management_radius3.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_1Heading"><a name="TOC_Window_XP_Wireless"></a><a name="XREF_42935_Microsoft_Active"></a><a name="XREF_13255_Window_XP_Wireless"></a>Window XP Wireless Client Example Configuration</p>
+ <p class="FM_Body">This section shows an example of how to configure a Windows XP wireless client using Windows XP’s Wireless Zero Configuration service.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 521.25pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 71.250pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-right:solid 1px black;">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">The following steps apply to a computer running Windows XP Professional Version 2002 with Service Pack 2. To configure a wireless client on other Windows platforms, see your Microsoft Windows documentation.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>On the desktop, right-click My Network Places and select <span style="font-weight : bold; ">Properties</span>.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Network Connections window, right-click on Wireless Network Connection and select <span style="font-weight : bold; ">Properties</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the <span style="font-weight : bold; ">Wireless Networks</span>&#160;tab. This screen displays the available wireless networks and the list of preferred networks. Windows connects to the preferred networks in the order in which they appear in the list. </p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 208 &#160;</span>Wireless Networks</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="Wireless_network_connections_dialogbox.jpg" id="image9" src="images/Wireless_network_connections_dialogbox.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Advanced</span> button to display the Networks to access window.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 209 &#160;</span>Networks to Access</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="Wireless_networks_to_access.jpg" id="image10" src="images/Wireless_networks_to_access.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_BodyinBulletStep">This window determines what types of wireless networks the client can access. By default, Windows connects to any type of wireless network. Make sure that the option Computer-to-computer (ad hoc) networks only is <span class="FM_Emphasis">not</span>&#160;selected. Click <span style="font-weight : bold; ">Close</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Wireless Networks tab, click <span style="font-weight : bold; ">Add</span> to add a wireless network.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Association</span> tab to enter the network properties for the SSID.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 521.88pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 71.875pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">This tab configures the authentication and encryption used between the wireless client and the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> user-centric network. Therefore, the settings for the SSID that you configure on the client must <span class="FM_Emphasis">match</span>&#160;the configuration for the SSID on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">For an SSID using dynamic WEP, enter the following:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Network Authentication: Open</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Data Encryption: WEP</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Select the option “The key is provided for me automatically”. Each client will use a dynamically-generated WEP key that is automatically derived during the 802.1x process.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">For an SSID using WPA, enter the following:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Network Authentication: WPA</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Data Encryption: TKIP</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">For an SSID using WPA-PSK, enter the following:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Network Authentication: WPA-PSK</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Data Encryption: TKIP</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Enter the preshared key.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">For an SSID using WPA2, enter the following:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Network Authentication: WPA2</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Data Encryption: AES</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">For an SSID using WPA2-PSK, enter the following:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Network Authentication: WPA2-PSK</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Data Encryption: AES</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2inSteps">Enter the preshared key</p>
+</li>
+ </ul>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 522.50pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.500pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 450.001pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zTextNote">Do <span class="FM_Emphasis">not</span>&#160;select the option “This is a computer-to-computer (ad hoc) network; wireless access points are not used”.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_Body"><a href="#XREF_19724_Figure_17"><span class="FM_PMS646">Figure 210</span></a>&#160;shows the configuration for the SSID WLAN-01 which uses WPA network authentication with TKIP data encryption.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 210 &#160;</span>Wireless Network Association <a name="XREF_19724_Figure_17"></a></p>
+ <div align="left"><img alt="client_dynamictkip.jpg" id="image11" src="images/client_dynamictkip.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span style="font-weight : bold; ">Authentication</span>&#160;tab to enter the 802.1x authentication parameters for the SSID. This tab configures the EAP type used between the wireless client and the authentication server.</p>
+ <p class="FM_BodyinBulletStep">Configure the following, as shown in <a href="#XREF_30582_Figure_18"><span class="FM_PMS646">Figure 211</span></a>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">Select Enable IEEE 802.1x authentication for this network.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Select Protected EAP (PEAP) for the EAP type.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Select Authenticate as computer when computer information is available. The client will perform computer authentication when a user is not logged in.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Do not select Authenticate as guest when user or computer information is unavailable. The client will not attempt to authenticate as a guest.</p>
+</li>
+ </ul>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 211 &#160;</span>Wireless Network Authentication <a name="XREF_30582_Figure_18"></a></p>
+ <div align="left"><img alt="Wireless_network_authentication.jpg" id="image12" src="images/Wireless_network_authentication.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under EAP type, select <span style="font-weight : bold; ">Properties</span>&#160;to display the Protected EAP Properties window. Configure the client PEAP properties, as shown in <a href="#XREF_57579_Figure_19"><span class="FM_PMS646">Figure 212</span></a>:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_BulletinSteps">Select Validate server certificate. This instructs the client to check the validity of the server certificate from an expiration, identity, and trust perspective.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Select the trusted Certification Authority (CA) that can issue server certificates for the network.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Select Secured password (EAP-MSCHAP v2) — the PEAP “inner authentication” mechanism will be an MS-CHAPv2 password.</p>
+</li>
+  <li style="">
+  <p class="FM_BulletinSteps">Select Enable Fast Reconnect to speed up authentication in some cases.</p>
+</li>
+ </ul>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 212 &#160;</span><a name="XREF_57579_Figure_19"></a></p>
+ <div align="left"><img alt="Wireless_protected_EAP_Props.jpg" id="image13" src="images/Wireless_protected_EAP_Props.jpg" />
+ </div>
+ <p class="FM_FigureTitle">Protected EAP Properties</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Under Select Authentication Method, click <span style="font-weight : bold; ">Configure</span>&#160;to display the EAP-MSCHAPv2 Properties window. Select the option Automatically use my Windows logon name and password (and domain if any). This option specifies that the user’s Windows logon information is used for authentication to the wireless network. This option allows the same logon credentials to be used for access to the Windows domain as well as the wireless network.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 213 &#160;</span></p>
+ <div align="left"><img alt="Wireless_Protected_EAP_Props2.jpg" id="image14" src="images/Wireless_Protected_EAP_Props2.jpg" />
+ </div>
+ <p class="FM_FigureTitle">EAP MSCHAPv2 Properties</p>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

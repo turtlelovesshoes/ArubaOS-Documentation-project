@@ -1,0 +1,1490 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>ESI</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\ESI.fm" />
+ <meta name="keywords" content="avf server device, syslog message, avf server, esi parser domain, parser rule test, parser rule test,web-based user interface, 17-character mac address,">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 38</p>
+ <p class="FM_ChapterTitle"><a name="TOC_External_Services"></a><a name="XREF_38330_External_Services"></a>External Services Interface</p>
+ <p class="FM_Body"><a name="IX_configuring_45"></a><a name="XREF_92973_Getting_Started"></a>The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;External Services Interface (ESI) provides an open interface that is used to integrate security solutions that solve interior network problems such as viruses, worms, spyware, and corporate compliance. ESI allows selective redirection of traffic to external service appliances such as anti-virus gateways, content filters, and intrusion detection systems. When “interesting” traffic is detected by these external devices, it can be dropped, logged, modified, or transformed according to the rules of the device. ESI also permits configuration of different server groups—with each group potentially performing a different action on the traffic.</p>
+ <p class="FM_Body">You can configure ESI to do one or more of the following for each group:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Redirect specified types of traffic to the server</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Perform health checks on each of the servers in the group</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Perform per-session load balancing between the servers in each group</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Provide an interface for the server to return information about the client that can place the client in special roles such as “quarantine”</p>
+</li>
+ </ul>
+ <p class="FM_Body">ESI also provides the ESI syslog parser, which is a mechanism for interpreting syslog messages from third-party appliances such as anti-virus gateways, content filters, and intrusion detection systems. The ESI syslog parser is a generic syslog parser that accepts syslog messages from external devices, processes them according to user-defined rules, and then takes configurable actions on system users.</p>
+ <p class="FM_Body">This chapter describes the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_96216_Understanding_ESI"><span class="FM_PMS646">“Understanding ESI” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_80616_Understanding_the"><span class="FM_PMS646">“Understanding the ESI Syslog Parser” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_84662_ESI_Configuration"><span class="FM_PMS646">“ESI Configuration Overview” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_41689_Example_Routed_ESI"><span class="FM_PMS646">“Example Route-mode ESI Topology” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_20533_Example_NAT_mode"><span class="FM_PMS646">“Example NAT-mode ESI Topology” </span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_90770_Basic_Regular"><span class="FM_PMS646">“Basic Regular Expression Syntax”</span></a></p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 40.00pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">The ESI feature requires the Policy Enforcement Firewall Next Generation (PEFNG) license installed on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Understanding_ESI"></a><a name="XREF_96216_Understanding_ESI"></a>Understanding ESI</p>
+ <p class="FM_Body">In the example shown in this section, ESI is used to provide an interface to the AntiVirusFirewall (AVF) server device for providing virus inspection services. An AVF server device is one of many different types of services supported in the ESI.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">In <?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?> 3.x, the only AVF server supported is Fortinet.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_FigureTitle"><a name="IX_Fortinet_topology"></a><span class="FM_zTitleNo">Figure 186 &#160;</span>ESI-Fortinet Topology</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="ESI00158.jpg" id="image0" src="images/ESI00158.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Anchor">&nbsp;</p>
+<p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body"><a name="XREF_53959_Figure21_39_The"></a>In the ESI–Fortnet topology <a href="#XREF_53959_Figure21_39_The"></a>, the clients connect to access points (both wireless and wired). The wired access points tunnel all traffic back to the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> over the existing network.</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> receives the traffic and redirects relevant traffic (including but not limited to all HTTP/HTTPS and email protocols such as SMTP and POP3) to the AVF server device to provide services such as anti-virus scanning, email scanning, web content inspection, etc. This traffic is redirected on the “untrusted” interface between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the AVF server device. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;also redirects the traffic intended for the clients coming from either the Internet or the internal network. This traffic is redirected on the “trusted” interface between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the AVF server device. The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;forwards all other traffic (for which the AVF server does not perform any of the required operations such as AV scanning). An example of such traffic would be database traffic running from a client to an internal server.</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can also be configured to redirect traffic only from clients in a particular role such as “guest” or “non-remediated client” to the AVF server device. This might be done to reduce the load on the AVF server device if there is a different mechanism such as the <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>-Sygate integrated solution to enforce client policies on the clients that are under the control of the IT department. These policies can be used to ensure that an anti-virus agent runs on the clients and the client can get access to the network only if this agent reports a “healthy” status for the client. Refer to the paper (available from Sygate) on Sygate integrated solutions for more details on this solution.</p>
+ <p class="FM_Body">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is also capable of load balancing between multiple external server appliances. This provides more scalability as well as redundancy by using multiple external server appliances. Also, the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can be configured to have multiple groups of external server devices and different kinds of traffic can be redirected to different groups of devices with load balancing occurring within each group (see <a href="#XREF_43843_Figure21_40_Load"><span class="FM_PMS646">Figure 188</span></a>&#160;for an example).</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 188 &#160;</span>Load Balancing Groups<a name="XREF_43843_Figure21_40_Load"></a></p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="ESI00160.jpg" id="image2" src="images/ESI00160.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_1Heading"><a name="TOC_Understanding_the_ESI"></a><a name="IX_syslog_parser"></a><a name="XREF_80616_Understanding_the"></a>Understanding the ESI Syslog Parser</p>
+ <p class="FM_Body">The ESI syslog parser adds a UNIX-style regular expression engine for parsing relevant fields in messages from third-party appliances such as anti-virus gateways, content filters, and intrusion detection systems.</p>
+ <p class="FM_Body"><a name="IX_syslog_parser_1"></a>The user creates a list of rules that identify the type of message, the username to which this message pertains, and the action to be taken when there is a match on the condition.</p>
+ <p class="FM_2Heading"><a name="TOC_ESI_Parser_Domains"></a>ESI Parser Domains</p>
+ <p class="FM_Body">The ESI servers are configured into ESI parser domains (see <a href="#XREF_24710_Figure21_41_ESI"><span class="FM_PMS646">Figure 189</span></a>) to which the rules will be applied. This condition ensures that only messages coming from configured ESI parser domains are accepted, and reduces the number of rules that must be examined before a match is detected (<a href="#XREF_32667_Managing_Syslog"><span class="FM_PMS646">“Syslog Parser Rules”</span></a>). messages.When a syslog message is received, it is checked against the list of defined ESI servers. If a server match is found, the message is then tested against the list of predefined rules.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 189 &#160;</span>ESI Parser Domains<a name="XREF_24710_Figure21_41_ESI"></a></p>
+ <div align="left"><img alt="ESI00161.jpg" id="image3" src="images/ESI00161.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Body"><span style="font-family : HelveticaNeueLT Std; font-style : italic; ">The ESI syslog parser begins with a list of configured IP interfaces which listen for ESI messages. When a syslog message is received, it is checked against the list of defined ESI servers. If a server match is found, the message is then tested against the list of predefined rules.</span></p>
+ <p class="FM_Body">Within the rule-checking process, the incoming message is checked against the list of rules to search first for a condition match (see <a href="#XREF_32667_Managing_Syslog"><span class="FM_PMS646">“Syslog Parser Rules”</span></a>). If a condition match is made, and the user name can be extracted from the syslog message, the resulting user action is processed by first attempting to look up the user in the local user table. If the user is found, the appropriate action is taken on the user. The default behavior is to look for users only on the local <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. If the user is not found, the event is meaningless and is ignored. This is the typical situation when a single <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is connected to a dedicated ESI server.</p>
+ <p class="FM_2Heading"><a name="TOC_Peer_Controllers"></a><a name="XREF_75016_Peer_Controllers"></a>Peer <?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></p>
+ <p class="FM_Body">As an alternative, consider a topology where multiple <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> share one or more ESI servers.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 190 &#160;</span><a name="XREF_29667_Figure_192_ESI"></a>ESI Peer Controllers</p>
+ <p class="FM_Anchor"></p>
+ <div align="left"><img alt="ESI00162.jpg" id="image4" src="images/ESI00162.jpg" />
+ </div>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body"><span style="font-family : HelveticaNeueLT Std; font-style : italic; ">In this scenario, several <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;(master and local) are defined in the same syslog parser domain to act as <span class="FM_Emphasis">peers</span>. From the standpoint of the ESI servers, because there is no accurate way of determining from which <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;a given user came. Thus, the event is flooded out to all <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;defined as peers within this ESI parser domain. The corresponding <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;holding the user entry acts on the event, while other <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?> ignore the event.</span></p>
+ <p class="FM_2Heading"><a name="TOC_Syslog_Parser_Rules"></a><a name="XREF_32667_Managing_Syslog"></a>Syslog Parser Rules</p>
+ <p class="FM_Body">The user creates an ESI rule by using characters and special operators to specify a pattern (regular expression) that uniquely identifies a certain amount of text within a syslog message. (Regular expression syntax is described in <a href="#XREF_90770_Basic_Regular"><span class="FM_PMS646">“Basic Regular Expression Syntax”</span></a>.) This “condition” defines the type of message and the ESI domain to which this message pertains. The rule contains three major fields:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Condition: The pattern that uniquely identifies the syslog message type.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">User: The username identifier. It can be in the form of a name, MAC address, or IP address.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Action: The action to take when a rule match occurs.</p>
+</li>
+ </ul>
+ <p class="FM_Body">Once a condition match has been made, no further rule-matching will be made. For the rule that matched, only one action can be defined.</p>
+ <p class="FM_Body">After a condition match has been made, the message is parsed for the user information. This is done by specifying the target region with the regular expression (REGEX) regex() block syntax. This syntax generates two blocks: The first block is the matched expression; the second block contains the value inside the parentheses. For username matching, the focus is on the second block, as it contains the username.</p>
+ <p class="FM_3Heading"><a name="TOC_Condition_Pattern"></a>Condition Pattern Matching</p>
+ <p class="FM_Body">The following description uses the Fortigate virus syslog message format as an example to describe condition pattern matching. The Fortigate virus syslog message takes the form:</p>
+ <p class="FM_CLI">Sep&nbsp;26&nbsp;18:30:02&nbsp;<span class="FM_Bold" style="font-weight : bold; ">log_id=0100030101</span>&nbsp;type=virus&nbsp;subtype=infected&nbsp;<span class="FM_Bold" style="font-weight : bold; ">src=1.2.3.4</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_Body">This message example contains the Fortigate virus log ID number 0100030101 (“log_id=0100030101”), which can be used as the condition—the pattern that uniquely identifies this syslog message.</p>
+ <p class="FM_Body">The parser expression that matches this condition is “log_id=0100030101”. This is a narrow match on the specific log ID number shown in the message, or “log_id=[0–9]{10}[&nbsp;]” ,which is a regular expression that matches any Fortigate log entry with a ten-digit log ID followed by a space.</p>
+ <p class="FM_3Heading"><a name="TOC_User_Pattern_Matching"></a>User Pattern Matching</p>
+ <p class="FM_Body">To extract the user identifier in the example Fortigate virus message shown above (“src=1.2.3.4”), use the following expression, “src=(.*)[&nbsp;]” to parse the user information contained between the parentheses. The () block specifies where the username will be extracted. Only the first block will be processed.</p>
+ <p class="FM_Body">More examples:</p>
+ <p class="FM_Body">Given a message wherein the username is a MAC address:</p>
+ <p class="FM_CLI">Sep&nbsp;26&nbsp;18:30:02&nbsp;log_id=0100030101&nbsp;type=virus&nbsp;subtype=infected&nbsp;<span class="FM_Bold" style="font-weight : bold; ">mac&nbsp;00:aa:bb:cc:dd:00</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_Body">The expression “mac[&nbsp;](.{17})” will match “mac&nbsp;00:aa:bb:cc:dd:00” in the example message.</p>
+ <p class="FM_Body">Given a message wherein the username is a user name:</p>
+ <p class="FM_CLI">Sep&nbsp;26&nbsp;18:30:02&nbsp;log_id=0100030101&nbsp;type=virus&nbsp;subtype=infected&nbsp;<span class="FM_Bold" style="font-weight : bold; ">user&lt;johndoe&gt;</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_Body">The expression “user&lt;(.*)&gt;” will match “user&lt;johndoe&gt;” in the example message.</p>
+ <p class="FM_1Heading"><a name="TOC_ESI_Configuration"></a><a name="XREF_84662_ESI_Configuration"></a>ESI Configuration Overview</p>
+ <p class="FM_Body">You can use the following interfaces to configure and manage ESI and ESI syslog parser behavior:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The Web user interface (WebUI), which is accessible through a standard Web browser from a remote management console or workstation.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The command line interface (CLI), which is accessible from a local console device connected to the serial port on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;or through a Telnet or Secure Shell (SSH) connection from a remote management console or workstation.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 67.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">By default, you can access the CLI only from the serial port or from an SSH session. To use the CLI in a Telnet session, you must explicitly enable Telnet on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The general configuration descriptions in the following sections include both the WebUI pages and the CLI configuration commands. The configuration overview section is followed by several examples that show specific configuration procedures.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Management System, which is a suite of applications for monitoring multiple master <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and their related local <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;and APs. Each application provides a Web-based user interface. The <?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Management System is available as an integrated appliance and as a software application that runs on a dedicated system. See the <span class="FM_Emphasis">Mobility</span>&#160;<span class="FM_Emphasis">Manager</span>&#160;<span class="FM_Emphasis">User</span>&#160;<span class="FM_Emphasis">Guide</span>&#160;for more information.</p>
+</li>
+ </ul>
+ <p class="FM_Body">In general, there are three ESI configuration “phases” on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> as a part of the solution:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The first phase configures the ESI <span class="FM_Emphasis">ping health-check method</span>, <span class="FM_Emphasis">servers</span>, and <span class="FM_Emphasis">server groups</span>.The term <span class="FM_Emphasis">server</span>&#160;here refers to external server devices, for example, an AVF.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The second phase configures the redirection policies instructing the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;how to redirect the different types of traffic to different server groups.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The final phase configures the ESI syslog parser domains and the rules that interpret and act on syslog message contents.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">The procedures shown in the following sections are general descriptions. Your application might be broader or narrower than this example, but the same general operations apply.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_Health_Check"></a>Configuring Health-Check Method, Groups, and Servers</p>
+ <p class="FM_Body">To configure the ESI health-check method, servers, and server groups, navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt; Advanced Services &gt; External Services</span> view on the WebUI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI132"></a><a name="XREF_62224_Figure_103"></a>In the WebUI</p>
+ <p class="FM_Body">To configure a health check profile:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; External Services</span> page on the WebUI.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Health Check Configuration </span>section.</p>
+ <p class="FM_BodyinBulletStep">(To change an existing profile, click <span class="FM_Bold" style="font-weight : bold; ">Edit</span>.)</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a <span class="FM_Bold" style="font-weight : bold; ">Profile Name.</span>&#160;</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight : bold; ">Frequency (secs)</span>—Indicates how often the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;checks to see if the server is up and running. Default: 5 seconds.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight : bold; ">Timeout (secs)</span>—Indicates the number of seconds the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;waits for a response to its health check query before marking the health check as failed. Default: 2 seconds.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight : bold; ">Retry count</span>—Is the number of failed health checks after which the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;marks the server as being down. Default: 2.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI135"></a>In the CLI</p>
+ <p class="FM_Body">Use these CLI commands to configure a health-check method:</p>
+ <p class="FM_CLI">esi&nbsp;ping&nbsp;<span class="FM_Emphasis">profile_name</span></p>
+ <p class="FM_CLIIndented">frequency&nbsp;<span class="FM_Emphasis">seconds</span></p>
+ <p class="FM_CLIIndented">retry-count&nbsp;<span class="FM_Emphasis">count</span></p>
+ <p class="FM_CLIIndented">timeout&nbsp;<span class="FM_Emphasis">seconds</span></p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">esi&nbsp;ping&nbsp;default</p>
+ <p class="FM_CLIIndented">frequency&nbsp;5</p>
+ <p class="FM_CLIIndented">retry-count&nbsp;2</p>
+ <p class="FM_2Heading"><a name="TOC_Defining_the_ESI_Server"></a>Defining the ESI Server</p>
+ <p class="FM_Body">The following sections describe how to configure an ESI server using the WebUI and CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI133"></a>In the WebUI</p>
+ <p class="FM_Body">To configure an ESI server:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; External Services</span> page on the WebUI.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">External Servers</span> section.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Server Name</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Server Group</span>. Use the drop-down list to assign this server to a group from the existing configured groups.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Server Mode</span>. Use the drop-down list to choose the mode (bridge, nat, or route) your topology requires. Refer to the description above to understand the differences between these modes.</p>
+ <p class="FM_BodyinSubBulletSubStep">For <span class="FM_Bold" style="font-weight : bold; ">routed</span>&#160;mode, enter the <span class="FM_Bold" style="font-weight : bold; ">Trusted IP Address (</span>the IP address of the trusted interface on the external server device) and the <span class="FM_Bold" style="font-weight : bold; ">Untrusted IP Address</span>&#160;(the IP address of the untrusted interface on the external server device). (You can also choose to enable a health check on either or both of these interfaces.)</p>
+ <p class="FM_BodyinSubBulletSubStep">For <span class="FM_Bold" style="font-weight : bold; ">bridged</span>&#160;mode, enter the <span class="FM_Bold" style="font-weight : bold; ">Trusted</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Port</span>&#160;number (the port connected to the trusted side of the ESI server) and the <span class="FM_Bold" style="font-weight : bold; ">Untrusted</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Port</span> number (the port connected to the untrusted side of the ESI server).</p>
+ <p class="FM_BodyinSubBulletSubStep">For <span class="FM_Bold" style="font-weight : bold; ">NAT</span>&#160;mode, enter the <span class="FM_Bold" style="font-weight : bold; ">Trusted IP Address</span>&#160;(the trusted interface on the external server) and the <span class="FM_Bold" style="font-weight : bold; ">NAT</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Destination</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Port</span>&#160;number (the port a packet is redirected to rather than the original destination port in the packet). You can also choose to enable a health check on the trusted IP address interface.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes..</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI136"></a>In the CLI</p>
+ <p class="FM_Body">Use these CLI commands to configure an ESI server and identify its associated attributes:</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;<span class="FM_Emphasis">server_identity</span></p>
+ <p class="FM_CLIIndented">dport&nbsp;<span class="FM_Emphasis">destination_tcp/udp_port</span></p>
+ <p class="FM_CLIIndented">mode&nbsp;{bridge&nbsp;|&nbsp;nat&nbsp;|&nbsp;route}</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;<span class="FM_Emphasis">ip-addr</span>&nbsp;[health-check]</p>
+ <p class="FM_CLIIndented">trusted-port&nbsp;<span class="FM_Emphasis">slot</span>/<span class="FM_Emphasis">port</span></p>
+ <p class="FM_CLIIndented">untrusted-ip-addr&nbsp;<span class="FM_Emphasis">ip-addr</span>&nbsp;[health-check]</p>
+ <p class="FM_CLIIndented">untrusted-port&nbsp;<span class="FM_Emphasis">slot</span>/<span class="FM_Emphasis">port</span></p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;forti_1</p>
+ <p class="FM_CLIIndented">mode&nbsp;route</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;10.168.172.3</p>
+ <p class="FM_CLIIndented">untrusted-ip-addr&nbsp;10.168.171.3</p>
+ <p class="FM_2Heading"><a name="TOC_Defining_the_ESI_Server1"></a>Defining the ESI Server Group</p>
+ <p class="FM_Body">The following sections describe how to configure an ESI server group using the WebUI and CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI134"></a>In the WebUI</p>
+ <p class="FM_Body">To configure an ESI server group on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; External Services</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Server Groups</span><span class="FM_Button" style="font-family : Arial; ">&#160;</span>section.</p>
+ <p class="FM_BodyinBulletStep">(To change an existing group, click <span class="FM_Bold" style="font-weight : bold; ">Edit</span>.)</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a <span style="font-weight : bold; ">Group Name. </span></p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down list, select a health check profile. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI137"></a>In the CLI</p>
+ <p class="FM_Body">Use these CLI commands to configure an ESI server group, identify its associated ping health-check method, and associate a server with this group:</p>
+ <p class="FM_CLI">esi&nbsp;group&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">ping&nbsp;<span class="FM_Emphasis">profile_name</span></p>
+ <p class="FM_CLIIndented">server&nbsp;<span class="FM_Emphasis">server_identity</span></p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">esi&nbsp;group&nbsp;fortinet</p>
+ <p class="FM_CLIIndented">ping&nbsp;default</p>
+ <p class="FM_CLIIndented">server&nbsp;forti_1</p>
+ <p class="FM_2Heading"><a name="TOC_Redirection_Policies_and"></a>Redirection Policies and User Role</p>
+ <p class="FM_Body">The following sections describe how to configure the redirection policies and user role using the WebUI and CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI135"></a>In the WebUI</p>
+ <p class="FM_Body">To configure user roles to redirect the required traffic to the server(s), navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt; Access Control &gt; User Roles</span> view.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a name="XREF_84018_Figure_104_User"></a>To add a new role, click <span class="FM_Bold" style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_BodyinBulletStep">To change an existing role, click <span class="FM_Bold" style="font-weight : bold; ">Edit</span>&#160;for the firewall policy to be changed. The WebUI displays the <span class="FM_Bold" style="font-weight : bold; ">User Roles</span> tab on top.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Role Name</span>. Enter the name for the role.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add a policy for the new role, click <span style="font-weight : bold; ">Add</span>&#160;in the Firewall Policies section. The WebUI expands the <span class="FM_Bold" style="font-weight : bold; ">Firewall Policies </span>section.</p>
+ <p class="FM_BodyinBulletStep">Choose from existing configured policies, create a new policy based on existing policies, or create a new policy.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If you elect to create a new policy, click on the radio button for <span class="FM_Bold" style="font-weight : bold; ">Create New Policy</span>&#160;and then click <span class="FM_Bold" style="font-weight : bold; ">Create</span>. The WebUI displays the <span class="FM_Bold" style="font-weight : bold; ">Policies </span>tab.<a name="XREF_64716_Figure_9_Firewall"></a></p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Policies tab:</p>
+ <p class="FM_BodyinSubBulletSubStep"><span class="FM_Bold" style="font-weight : bold; ">Policy Name</span>. Provide the policy name and select the IPv4 Session policy type from the drop-down list. The WebUI expands the <span class="FM_Bold" style="font-weight : bold; ">Policies </span>tab.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down lists, choose parameters such as source, destination, service in the same way as other firewall policy rules. For certain choices, the WebUI expands and adds drop-down lists.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Action drop-down menu, select the <span style="font-weight : bold; ">redirect to ESI group</span>&#160;option. </p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Action drop-down menu, select the appropriate ESI group.</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Select the traffic direction. <span style="font-weight : bold; ">Forward</span>&#160;refers to the direction of traffic from the (untrusted) client or user to the (trusted) server (such as the HTTP server or email server). </p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add this rule to the policy, click <span class="FM_Bold" style="font-family : Arial; font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">h.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Repeat the steps to configure additional rules.</p>
+ <p class="FM_StepSubNext">i.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span>&#160;to return to the <span class="FM_Bold" style="font-weight : bold; ">User</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Roles</span>&#160;tab. The WebUI returns to the <span class="FM_Bold" style="font-weight : bold; ">User</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Roles</span>&#160;tab. </p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Refer to <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 12, “Roles and Policies” </span></a>, for directions on how to apply a policy to a user role.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI138"></a>In the CLI</p>
+ <p class="FM_Body">Use these commands to define the redirection filter for sending traffic to the ESI server and apply the firewall policy to a user role.</p>
+ <p class="FM_CLI">ip access-list&nbsp;session&nbsp;<span class="FM_Emphasis">policy</span></p>
+ <p class="FM_CLIIndented">any&nbsp;any&nbsp;any&nbsp;redirect&nbsp;esi-group&nbsp;<span class="FM_Emphasis">group</span>&nbsp;direction&nbsp;both&nbsp;blacklist</p>
+ <p class="FM_CLIIndented">//For any incoming traffic, going to any destination,<br />//redirect the traffic to servers in the specified ESI group.</p>
+ <p class="FM_CLIIndented">any&nbsp;any&nbsp;any&nbsp;permit</p>
+ <p class="FM_CLIIndented">//For everything else, allow the traffic to flow normally.</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">user-role&nbsp;<span class="FM_Emphasis">role</span></p>
+ <p class="FM_CLIIndented">access-list&nbsp;{eth&nbsp;|&nbsp;mac&nbsp;|&nbsp;session}</p>
+ <p class="FM_CLIIndented">bandwidth-contract&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">captive-portal&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">dialer&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">pool {l2tp&nbsp;|&nbsp;pptp}</p>
+ <p class="FM_CLIIndented">reauthentication-interval&nbsp;<span class="FM_Emphasis">minutes</span></p>
+ <p class="FM_CLIIndented">session-acl&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">vlan&nbsp;<span class="FM_Emphasis">vlan_id</span></p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">ip access-list&nbsp;session&nbsp;fortinet</p>
+ <p class="FM_CLIIndented">any&nbsp;any&nbsp;svc-http&nbsp;redirect&nbsp;esi-group&nbsp;fortinet&nbsp;direction&nbsp;both&nbsp;blacklist</p>
+ <p class="FM_CLIIndented">any&nbsp;any&nbsp;any&nbsp;permit</p>
+ <p style="margin-top  : 0.000pt; margin-bottom : 0.000pt; font-family : Courier New; font-size  : 10.2pt; letter-spacing : -0.02em;">&nbsp;</p>
+ <p class="FM_CLI">user-role&nbsp;guest</p>
+ <p class="FM_CLIIndented">access-list&nbsp;session&nbsp;fortinet</p>
+ <p class="FM_2Heading"><a name="TOC_ESI_Syslog_Parser"></a>ESI Syslog Parser Domains and Rules</p>
+ <p class="FM_Body">To configure the ESI syslog parser, navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; External Services</span>&#160;view on the WebUI (see <a href="#XREF_62224_Figure_103"></a>).</p>
+ <p class="FM_Body">The following sections describe how to manage syslog parser domains using the WebUI and CLI.</p>
+ <p class="FM_2Heading"><a name="TOC_Managing_Syslog_Parser"></a>Managing Syslog Parser Domains in the WebUI</p>
+ <p class="FM_Body">Click on the <span class="FM_Bold" style="font-weight : bold; ">Syslog</span>&nbsp;<span class="FM_Bold" style="font-weight : bold; ">Parser</span>&nbsp;<span class="FM_Bold" style="font-weight : bold; ">Domains</span> tab to display the Syslog&nbsp;Parser Domains view.</p>
+ <p class="FM_Body"><a name="XREF_71851_Figure_13_Syslog"></a>This view lists all the domains by domain name and server IP address, and includes a list of peer <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;(when peer <?rh-udv_start name="C2-Controllers"  ?>controllers<?rh-udv_end ?>&#160;have been configured—as described in <a href="#XREF_75016_Peer_Controllers"><span class="FM_PMS646">“Peer Controllers” </span></a>).</p>
+ <p class="FM_3Heading"><a name="TOC_Adding_a_new_syslog"></a>Adding a new syslog parser domain</p>
+ <p class="FM_Body">To add a new syslog parser domain:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;Parser</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Domains</span> section. The system displays the add domain view.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Domain</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Name</span> text box, type the name of the domain to be added.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Server</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">IP Address</span> text box, type a valid IP address.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You must ensure that you type a valid IP address, because the IP address you type is not automatically validated against the list of external servers that has been configured.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Deleting_an_existing"></a>Deleting an existing syslog parser domain</p>
+ <p class="FM_Body">To delete an existing parser domain:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Identify the target parser domain in the list shown in the <span class="FM_Bold" style="font-weight : bold; ">Domain</span>&#160;section of the <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;Parser</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Domains</span> view.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Delete</span> on the same row in the Actions column.</p>
+ <p class="FM_3Heading"><a name="TOC_Editing_an_existing"></a>Editing an existing syslog parser domain</p>
+ <p class="FM_Body">To change an existing syslog parser domain:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Identify the target parser domain in the list shown in the <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;Parser</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Domains</span>&#160;view (see <a href="#XREF_71851_Figure_13_Syslog"><span class="FM_PMS646">&#160;Figure 13</span></a>).</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Edit</span>&#160;on the same row in the <span class="FM_Bold" style="font-weight : bold; ">Actions</span> column.The system displays the edit domain view<a name="XREF_37594_Figure21_53_The"></a>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You cannot modify the domain name when editing a parser domain.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To delete a server from the selected domain, highlight the server IP address and click <span class="FM_Bold" style="font-weight : bold; ">Delete</span>, then click <span class="FM_Bold" style="font-weight : bold; ">Apply</span> to commit the change.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add a server or a peer <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to the selected domain, type the server IP address into the text box next to the <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;button, click <span class="FM_Bold" style="font-weight : bold; ">Add</span>, then click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>&#160;to commit the change, or click <span class="FM_Bold" style="font-weight : bold; ">Cancel</span>&#160;to discard the changes you made and exit the parser domain editing process.</p>
+ <p class="FM_Body">When you make a change in the domain, you can click the <span class="FM_Bold" style="font-weight : bold; ">View</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Commands</span>&#160;link in the lower right corner of the window to see the CLI command that corresponds to the edit action you performed.</p>
+ <p class="FM_2Heading"><a name="TOC_Managing_Syslog_Parser1"></a>Managing Syslog Parser Domains in the CLI</p>
+ <p class="FM_Body">Use these CLI commands to manage syslog parser domains.</p>
+ <p class="FM_3Heading"><a name="TOC_Adding_a_new_syslog1"></a>Adding a new syslog parser domain</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;domain&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">peer&nbsp;<span class="FM_Emphasis">peer-ip</span></p>
+ <p class="FM_CLIIndented">server&nbsp;<span class="FM_Emphasis">ipaddr</span></p>
+ <p class="FM_3Heading"><a name="TOC_Showing_ESI_syslog"></a>Showing ESI syslog parser domain information</p>
+ <p class="FM_CLI">show&nbsp;esi&nbsp;parser&nbsp;domains</p>
+ <p class="FM_3Heading"><a name="TOC_Deleting_an_existing1"></a>Deleting an existing syslog parser domain</p>
+ <p class="FM_CLI">no&nbsp;esi&nbsp;parser&nbsp;domain&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_3Heading"><a name="TOC_Editing_an_existing1"></a>Editing an existing syslog parser domain</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;domain&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">no</p>
+ <p class="FM_CLIIndented">peer&nbsp;<span class="FM_Emphasis">peer-ip</span></p>
+ <p class="FM_CLIIndented">server&nbsp;<span class="FM_Emphasis">ipaddr</span></p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;domain&nbsp;forti_domain</p>
+ <p class="FM_CLIIndented">server&nbsp;30.0.0.1</p>
+ <p class="FM_CLIIndented">server&nbsp;30.0.0.2</p>
+ <p class="FM_CLIIndented">server&nbsp;30.0.0.3</p>
+ <p class="FM_CLIIndented">peer&nbsp;20.0.0.1</p>
+ <p class="FM_2Heading"><a name="TOC_Managing_Syslog_Parser2"></a>Managing Syslog Parser Rules</p>
+ <p class="FM_Body">The following sections describe how to manage syslog parser domains using the WebUI and CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI136"></a>In the WebUI</p>
+ <p class="FM_Body">Click on the <span class="FM_Bold" style="font-weight : bold; ">Syslog</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Parser</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Rules</span>&#160;tab to display the Syslog Parser Rules view.This view displays a table of rules with the following columns:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Name— rule name</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Ena—where “y” indicates the rule is enabled and “n” indicates the rule is disabled (not enabled)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Condition—Match condition (a regular expression)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Match—Match type (IP address, MAC address, or user)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">User—Match pattern (a regular expression)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Set—Set type (blacklist or role)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Value—Set value (role name)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Domain—Parser domain to which this rule is to be applied</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Actions—The actions that can be performed on each rule.</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_Adding_a_new_parser_rule"></a>Adding a new parser rule</p>
+ <p class="FM_Body">To add a new syslog parser rule:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;Parser</span>&nbsp;<span class="FM_Bold" style="font-weight : bold; ">Rules</span> view. The system displays the new rule view.</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Rule</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Name</span> text box, type the name of the rule you want to add.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Bold" style="font-weight : bold; ">Enable</span> checkbox to enable the rule.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Condition</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Pattern</span> text box, type the regular expression to be used as the condition pattern.</p>
+ <p class="FM_BodyinBulletStep">For example, “log_id=[0–9]{10}[&nbsp;]” to search for and match a 10-digit string preceded by “log_id=” and followed by one space.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Match</span> list, use the drop-down menu to select the match type (ipaddr, mac, or user).</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Match</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Pattern</span> text box, type the regular expression to be used as the match pattern.</p>
+ <p class="FM_BodyinBulletStep">For example, if you selected “mac” as the match type, type the regular expression to be used as the match pattern. You could use “mac[&nbsp;](.{17})” to search for and match a 17-character MAC address preceded by the word “mac” plus one space.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Set</span> list, select the set type (blacklist or role).</p>
+ <p class="FM_BodyinBulletStep">When you select <span class="FM_Bold" style="font-weight : bold; ">role</span>&#160;as the Set type, the system displays a second drop-down list. Click the list to display the possible choices and select the appropriate role value. Validation on the entered value will be based on the Set selection.</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Parser Group </span>list, select one of the configured parser domain names.</p>
+ <p class="FM_3Heading"><a name="TOC_Deleting_a_syslog_parser"></a>Deleting a syslog parser rule</p>
+ <p class="FM_Body">To delete an existing syslog parser rule:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Identify the target parser rule in the list shown in the <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;Parser</span>&nbsp;<span class="FM_Bold" style="font-weight : bold; ">Rules</span> view.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Delete</span> on the same row in the Actions column.</p>
+ <p class="FM_3Heading"><a name="TOC_Editing_an_existing2"></a>Editing an existing syslog parser rule</p>
+ <p class="FM_Body">To change an existing syslog parser rule:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Identify the target parser rule in the list shown in the <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;Parser</span>&nbsp;<span class="FM_Bold" style="font-weight : bold; ">Rules</span> view.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Edit</span>&#160;on the same row in the <span class="FM_Bold" style="font-weight : bold; ">Actions</span>&#160;column. The system displays the attributes for the selected rule </p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You cannot modify the rule name when editing a parser rule.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"><a name="XREF_74950_Figure21_56_The"></a></p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Change the other rule attributes as required:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Bold" style="font-weight : bold; ">Enable</span> checkbox to enable the rule.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Condition</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Pattern</span> text box, type the regular expression to be used as the condition pattern.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Match</span> list, select the match type (ipaddr, mac, or user).</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Match</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Pattern</span> text box, type the regular expression to be used as the match pattern.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Set</span> list, select the set type (blacklist or role).</p>
+ <p class="FM_StepSubNext">f.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>When you select <span class="FM_Bold" style="font-weight : bold; ">role</span>&#160;as the Set type, the system displays a second drop-down list. Click the list to display the possible choices and select the appropriate role value. Validation on the entered value will be based on the Set selection.</p>
+ <p class="FM_StepSubNext">g.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Parser Group </span>list, select one of the configured parser domain names.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">At this point, you can test the rule you just edited by using the Test section of the edit rule view. You can also test rules outside the add or edit processes by using the rule test in the Syslog&nbsp;Parser&nbsp;Test view (accessed from the External Services page by clicking the Syslog&nbsp;Parser&nbsp;Test tab, described in “Testing a Parser Rule” on page&nbsp;496.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepSubNext"></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes.</p>
+ <p class="FM_3Heading"><a name="TOC_Testing_a_Parser_Rule"></a><a name="XREF_40604_Testing_a_Parser"></a>Testing a Parser Rule</p>
+ <p class="FM_Body">You can test or validate enabled Syslog Parser rules against a sample syslog message, or against a syslog message file containing multiple syslog messages. Access the parser rules test from the <span class="FM_Bold" style="font-weight : bold; ">External</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Services</span>&#160;page by clicking the <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;Parser</span>&nbsp;<span class="FM_Bold" style="font-weight : bold; ">Test</span> tab, which displays the Syslog&nbsp;Parser Rule Test view.</p>
+ <p class="FM_Body">To test against a sample syslog message:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Test Type </span>list, select <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;message</span> as the test source type.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Message text box, type the syslog message text.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Test</span> to start the test.</p>
+ <p class="FM_BodyinSubBulletSubStep">The test results are displayed in a box in the area below the Test button. The test results contain information about the matching rule and match pattern.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">To test against a syslog message file:</p>
+</li>
+ </ul>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Test Type </span>list, select <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;file</span> as the test type.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Filename text box, type the syslog file name.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Test </span>to start the test.</p>
+ <p class="FM_BodyinSubBulletSubStep">The test results are displayed in a box in the area below the Test button. The test results contain information about the matching rule and match pattern.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI139"></a>In the CLI</p>
+ <p class="FM_Body">Use these CLI commands to manage syslog parser rules.</p>
+ <p class="FM_3Heading"><a name="TOC_Adding_a_new_parser_rule1"></a>Adding a new parser rule</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;rule&nbsp;<span class="FM_Emphasis">rule-name</span></p>
+ <p class="FM_CLIIndented">condition&nbsp;<span class="FM_Emphasis">expression</span></p>
+ <p class="FM_CLIIndented">domain&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">enable</p>
+ <p class="FM_CLIIndented">match&nbsp;{ipaddr&nbsp;<span class="FM_Emphasis">expression</span>&nbsp;|&nbsp;mac&nbsp;<span class="FM_Emphasis">expression</span>&nbsp;|&nbsp;user&nbsp;<span class="FM_Emphasis">expression</span>}</p>
+ <p class="FM_CLIIndented">position&nbsp;<span class="FM_Emphasis">position</span></p>
+ <p class="FM_CLIIndented">set&nbsp;{blacklist&nbsp;|&nbsp;role&nbsp;<span class="FM_Emphasis">role</span>}</p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;rule&nbsp;forti_virus</p>
+ <p class="FM_CLIIndented">condition&nbsp;“log_id=[0-9]{10}[&nbsp;]”</p>
+ <p class="FM_CLIIndented">match&nbsp;“src=(.*)[&nbsp;]”</p>
+ <p class="FM_CLIIndented">set&nbsp;blacklist</p>
+ <p class="FM_CLIIndented">enable</p>
+ <p class="FM_3Heading"><a name="TOC_Showing_ESI_syslog1"></a>Showing ESI syslog parser rule information:</p>
+ <p class="FM_CLI">show&nbsp;esi&nbsp;parser&nbsp;rules</p>
+ <p class="FM_3Heading"><a name="TOC_Deleting_a_syslog_parser1"></a>Deleting a syslog parser rule:</p>
+ <p class="FM_CLI">no&nbsp;esi&nbsp;parser&nbsp;rule&nbsp;<span class="FM_Emphasis">rule-name</span></p>
+ <p class="FM_3Heading"><a name="TOC_Editing_an_existing3"></a>Editing an existing syslog parser rule</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;rule&nbsp;<span class="FM_Emphasis">rule-name</span></p>
+ <p class="FM_CLIIndented">condition&nbsp;<span class="FM_Emphasis">expression</span></p>
+ <p class="FM_CLIIndented">domain&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">enable</p>
+ <p class="FM_CLIIndented">match&nbsp;{ipaddr&nbsp;<span class="FM_Emphasis">expression</span>&nbsp;|&nbsp;mac&nbsp;<span class="FM_Emphasis">expression</span>&nbsp;|&nbsp;user&nbsp;<span class="FM_Emphasis">expression</span>}</p>
+ <p class="FM_CLIIndented">no</p>
+ <p class="FM_CLIIndented">position&nbsp;<span class="FM_Emphasis">position</span></p>
+ <p class="FM_CLIIndented">set&nbsp;{blacklist&nbsp;|&nbsp;role&nbsp;<span class="FM_Emphasis">role</span>}</p>
+ <p class="FM_3Heading"><a name="TOC_Testing_a_parser_rule1"></a>Testing a parser rule</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;rule&nbsp;<span class="FM_Emphasis">rule-name</span></p>
+ <p class="FM_CLIIndented">test&nbsp;{file&nbsp;<span class="FM_Emphasis">filename</span>&nbsp;|&nbsp;msg&nbsp;<span class="FM_Emphasis">message</span>}</p>
+ <p class="FM_2Heading"><a name="TOC_Monitoring_Syslog_Parser"></a>Monitoring Syslog Parser Statistics</p>
+ <p class="FM_Body">The following sections describe how to monitor syslog parser statistics using the WebUI and CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI137"></a>In the WebUI</p>
+ <p class="FM_Body">You can monitor syslog parser statistics in the External Servers monitoring page, accessed by selecting <span class="FM_Bold" style="font-weight : bold; ">Monitoring&nbsp;&gt;&nbsp;Switch&nbsp;&gt; External&nbsp;Services&nbsp;Interface&nbsp;&gt;&nbsp;Syslog&nbsp;Parser&nbsp;Statistics</span>.</p>
+ <p class="FM_Body">The Syslog&nbsp;Parser&nbsp;Statistics view displays statistics such as the number of matches and number of users per rule, as well as the number of respective actions fired by the syslog parser.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The Syslog&nbsp;Parser&nbsp;Statistics view also displays the last refresh time stamp and includes a <span style="font-weight : bold; ">Refresh&nbsp;Now</span>&#160;button, to allow the statistics information to be refreshed manually. There is no automatic refresh on this page.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI140"></a>In the CLI</p>
+ <p class="FM_CLI">show&nbsp;esi&nbsp;parser&nbsp;stats</p>
+ <p class="FM_1Heading"><a name="TOC_Example_Route_mode_ESI"></a><a name="IX_route_mode_topology"></a><a name="XREF_41689_Example_Routed_ESI"></a>Example Route-mode ESI Topology</p>
+ <p class="FM_Body">This section introduces the configuration for a sample route-mode topology using the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and Fortinet Anti-Virus gateways. In route mode, the trusted and untrusted interfaces between the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and the Fortinet gateways are on different subnets. <a href="#XREF_74409_Figure_21_Example"></a>&#160;The following figure shows an example route-mode topology.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 40.00pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">ESI with Fortinet Anti-Virus gateways is supported only in route mode.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 191 &#160;</span>Example Route-Mode Topology</p>
+ <div align="left"><img alt="ESI00163.jpg" id="image5" src="images/ESI00163.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Anchor"><a name="XREF_74409_Figure_21_Example"></a>&nbsp;</p>
+ <p class="FM_Body"><span style="font-family : HelveticaNeueLT Std; font-style : italic; ">In the topology shown, the following configurations are entered on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and Fortinet gateway:</span></p>
+ <p class="FM_3Heading"><a name="TOC_ESI_server_configuration"></a>ESI server configuration on <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Trusted IP address = 10.168.172.3 (syslog source)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Untrusted IP address = 10.168.171.3</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Mode = route</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_IP_routing_configuration"></a>IP routing configuration on Fortinet gateway</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Default gateway (core router) = 10.168.172.1</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Static route for wireless user subnet (10.168.173.0/24) through the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> (10.168.171.2)</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_Example"></a><a name="XREF__Toc94325551"></a>Configuring the Example Routed ESI Topology</p>
+ <p class="FM_Body">This section describes how to implement the example routed ESI topology shown in <a href="#XREF_74409_Figure_21_Example"></a>. The description includes the relevant configuration—both the WebUI and the CLI configuration processes are described—required on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> to integrate with a AVF server appliance.</p>
+ <p class="FM_Body">The ESI configuration process will redirect all HTTP user traffic to the Fortinet server for examination, and any infected user will be blacklisted. The configuration process consists of these general tasks:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Defining the ESI server.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Defining the default ping health check method.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Defining the ESI group.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Defining the HTTP redirect filter for sending HTTP traffic to the ESI server.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Applying the firewall policy to the guest role.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Defining ESI parser domains and rules.</p>
+</li>
+ </ul>
+ <p class="FM_Body">There are three configuration “phases” on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> as a part of the solution.</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The first phase configures the ESI <span class="FM_Emphasis">ping health-check method</span>, <span class="FM_Emphasis">servers</span>, and <span class="FM_Emphasis">server groups</span>.The term <span class="FM_Emphasis">server</span>&#160;here refers to external AVF server devices.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">In the second phase of the configuration task, the user roles are configured with the redirection policies (session ACL definition) instructing the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;to redirect the different types of traffic to different server groups.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">In the final phase, the ESI parser domains and rules are configured.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote">The procedures shown in the following sections are based on the requirements in the example routed ESI topology. Your application might be broader or narrower than this example, but the same general operations apply.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Health_Check_Method"></a>Health-Check Method, Groups, and Servers</p>
+ <p class="FM_Body">To configure the ESI health-check method, servers, and server groups, navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt; Advanced Services &gt; External Services</span> view on the WebUI.</p>
+ <p class="FM_2Heading"><a name="TOC_Defining_the_Ping_Health"></a>Defining the Ping Health-Check Method</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI138"></a>In the WebUI</p>
+ <p class="FM_Body">To configure a health check profile:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; External Services</span> page on the WebUI.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Health Check Configuration </span>section.</p>
+ <p class="FM_BodyinBulletStep">To change an existing profile, click <span class="FM_Bold" style="font-weight : bold; ">Edit</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter enter the name <span class="FM_Bold" style="font-weight : bold; ">default for the Profile Name.</span></p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight : bold; ">Frequency (secs)</span>—Enter <span class="FM_Bold" style="font-weight : bold; ">5</span>.)</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight : bold; ">Timeout (secs)</span>—Indicates the number of seconds the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;waits for a response to its health check query before marking the health check as failed. Default: 2 seconds. (In this example, enter <span class="FM_Bold" style="font-weight : bold; ">3</span>.)</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight : bold; ">Retry count</span>—Is the number of failed health checks after which the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;marks the server as being down. Default: 2. (In this example, enter <span class="FM_Bold" style="font-weight : bold; ">3</span>.)</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span>. </p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI141"></a>In the CLI</p>
+ <p class="FM_Body">Use these CLI commands to configure a health-check method:</p>
+ <p class="FM_CLI">esi&nbsp;ping&nbsp;<span class="FM_Emphasis">profile_name</span></p>
+ <p class="FM_CLIIndented">frequency&nbsp;<span class="FM_Emphasis">seconds</span></p>
+ <p class="FM_CLIIndented">retry-count&nbsp;<span class="FM_Emphasis">count</span></p>
+ <p class="FM_CLIIndented">timeout&nbsp;<span class="FM_Emphasis">seconds</span></p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">esi&nbsp;ping&nbsp;default</p>
+ <p class="FM_CLIIndented">frequency&nbsp;5</p>
+ <p class="FM_CLIIndented">retry-count&nbsp;3</p>
+ <p class="FM_CLIIndented">timeout&nbsp;3</p>
+ <p class="FM_2Heading"><a name="TOC_Defining_the_ESI_Server2"></a>Defining the ESI Server</p>
+ <p class="FM_Body">The following sections describe how to configure an ESI server using the WebUI and CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI139"></a>In the WebUI</p>
+ <p class="FM_Body">To configure an ESI server:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; External Services</span> page on the WebUI.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">External Servers</span> section.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Server Name</span>. (This example uses the name <span class="FM_Bold" style="font-weight : bold; ">forti_1</span>.)</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Server Group</span>. Use the drop-down list to assign this server to a group from the existing configured groups. (This example uses <span class="FM_Bold" style="font-weight : bold; ">fortinet</span>.)</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Server Mode</span>. Use the drop-down list to choose the mode (bridge, nat, or route) your topology requires. Refer to the description above to understand the differences between the modes. (This example uses <span class="FM_Bold" style="font-weight : bold; ">route</span> mode.)</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Trusted IP Address</span>. Enter <span class="FM_Bold" style="font-weight : bold; ">10.168.172.3</span>.)</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Untrusted IP Address</span>. Enter <span class="FM_Bold" style="font-weight : bold; ">10.168.171.3</span>.)</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI142"></a>In the CLI</p>
+ <p class="FM_Body">Use these CLI commands to configure an ESI server and identify its associated attributes:</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;<span class="FM_Emphasis">server_identity</span></p>
+ <p class="FM_CLIIndented">dport&nbsp;<span class="FM_Emphasis">destination_tcp/udp_port</span></p>
+ <p class="FM_CLIIndented">mode&nbsp;{bridge&nbsp;|&nbsp;nat&nbsp;|&nbsp;route}</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;<span class="FM_Emphasis">ip-addr</span>&nbsp;[health-check]</p>
+ <p class="FM_CLIIndented">trusted-port&nbsp;<span class="FM_Emphasis">slot</span>/<span class="FM_Emphasis">port</span></p>
+ <p class="FM_CLIIndented">untrusted-ip-addr&nbsp;<span class="FM_Emphasis">ip-addr</span>&nbsp;[health-check]</p>
+ <p class="FM_CLIIndented">untrusted-port&nbsp;<span class="FM_Emphasis">slot</span>/<span class="FM_Emphasis">port</span></p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;forti_1</p>
+ <p class="FM_CLIIndented">mode&nbsp;route</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;10.168.172.3</p>
+ <p class="FM_CLIIndented">untrusted-ip-addr&nbsp;10.168.171.3</p>
+ <p class="FM_2Heading"><a name="TOC_Defining_the_ESI_Server3"></a>Defining the ESI Server Group</p>
+ <p class="FM_Body">The following sections describe how to configure an ESI server group using the WebUI and CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI140"></a>In the WebUI</p>
+ <p class="FM_Body">To configure an ESI server group on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; External Services</span> page.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Server Groups</span><span class="FM_Button" style="font-family : Arial; ">&#160;</span>section.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Enter a <span style="font-weight : bold; ">Group Name. </span>Enter <span class="FM_Bold" style="font-weight : bold; ">fortinet</span>.)</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down list, select <span class="FM_Bold" style="font-weight : bold; ">default</span> as the health check profile.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI143"></a>In the CLI</p>
+ <p class="FM_Body">Use these CLI commands to configure an ESI server group, identify its associated ping health-check method, and associate a server with this group:</p>
+ <p class="FM_CLI">esi&nbsp;group&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">ping&nbsp;<span class="FM_Emphasis">profile_name</span></p>
+ <p class="FM_CLIIndented">server&nbsp;<span class="FM_Emphasis">server_identity</span></p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">esi&nbsp;group&nbsp;fortinet</p>
+ <p class="FM_CLIIndented">ping&nbsp;default</p>
+ <p class="FM_CLIIndented">server&nbsp;forti_1</p>
+ <p class="FM_2Heading"><a name="TOC_Redirection_Policies_and1"></a><a name="XREF__Toc94325553"></a>Redirection Policies and User Role</p>
+ <p class="FM_Body">The following sections describe how to configure the redirection policies and user role using the WebUI and CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI141"></a>In the WebUI</p>
+ <p class="FM_Body">To configure user roles to redirect the required traffic to the server(s), navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt; Access Control &gt; User Roles</span>&#160;view (see <a href="#XREF_84018_Figure_104_User"><span class="FM_PMS646">1.</span></a>).</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add a new role, click <span class="FM_Bold" style="font-weight : bold; ">Add</span>.The WebUI displays the <span class="FM_Bold" style="font-weight : bold; ">Add Role</span>&#160;view. </p>
+ <p class="FM_BodyinBulletStep"><span class="FM_Bold" style="font-weight : bold; ">Role Name</span>. Enter “guest” as the name for the role.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>To add a policy for the new role, click <span style="font-weight : bold; ">Add</span>&#160;in the Firewall Policies section. The WebUI expands the <span class="FM_Bold" style="font-weight : bold; ">Firewall Policies </span>section.</p>
+ <p class="FM_BodyinBulletStep">Choose from existing configured policies, create a new policy based on existing policies, or create a new policy.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>If you elect to create a new policy, click on the radio button for <span class="FM_Bold" style="font-weight : bold; ">Create New Policy</span>&#160;and then click <span class="FM_Bold" style="font-weight : bold; ">Create</span>. The WebUI displays the <span class="FM_Bold" style="font-weight : bold; ">Policies </span>tab. </p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Policies tab:</p>
+ <p class="FM_BodyinSubBulletSubStep"><span class="FM_Bold" style="font-weight : bold; ">Policy Name</span>. Enter the policy name <span class="FM_Bold" style="font-weight : bold; ">fortinet</span>&#160;and the <span style="font-weight : bold; ">IPv4</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Session</span>&#160;policy type.) Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;to proceed. The WebUI expands the <span class="FM_Bold" style="font-weight : bold; ">Policies </span>tab. </p>
+ <p class="FM_BodyinSubBulletSubStep">In the drop-down lists, choose parameters such as source, destination, service in the same way as other firewall policy rules. This example uses <span class="FM_Bold" style="font-weight : bold; ">any</span>&#160;source, <span class="FM_Bold" style="font-weight : bold; ">any</span>&#160;destination, service type <span class="FM_Bold" style="font-weight : bold; ">svc-http (tcp 80)</span>. For certain choices, the WebUI expands and adds drop-down lists. </p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the Action drop-down menu, select the <span style="font-weight : bold; ">redirect to ESI group</span>&#160;option. </p>
+ <p class="FM_BodyinSubBulletSubStep">Select <span class="FM_Bold" style="font-weight : bold; ">fortinet</span> as the appropriate ESI group.</p>
+ <p class="FM_BodyinSubBulletSubStep">The three steps above translate to “for any incoming HTTP traffic, going to any destination, redirect the traffic to servers in the ESI group named fortinet.”)</p>
+ <p class="FM_BodyinSubBulletSubStep">Select <span class="FM_Bold" style="font-weight : bold; ">both</span>&#160;as the traffic direction. <span style="font-weight : bold; ">Forward</span>&#160;refers to the direction of traffic from the untrusted client or user to the trusted server, such as the HTTP server or email server. </p>
+ <p class="FM_BodyinSubBulletSubStep">To add this rule to the policy, click <span style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Repeat the steps to configure additional rules. This example adds a rule that specifies <span class="FM_Bold" style="font-weight : bold; ">any</span>,&nbsp;<span class="FM_Bold" style="font-weight : bold; ">any</span>,&nbsp;<span class="FM_Bold" style="font-weight : bold; ">any</span>,&nbsp;<span class="FM_Bold" style="font-weight : bold; ">permit</span>.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span>&#160;to return to the <span class="FM_Bold" style="font-weight : bold; ">User</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Roles</span> tab.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Refer to <a href="Mesh.htm#XREF_87519_Mesh_Radio_Profiles"><span class="FM_PMS646">Chapter 12, “Roles and Policies” </span></a>, for directions on how to apply a policy to a user role.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI144"></a>In the CLI</p>
+ <p class="FM_Body">Use these commands to define the redirection filter for sending traffic to the ESI server and apply the firewall policy to a user role in the route-mode ESI topology example.</p>
+ <p class="FM_CLI">ip access-list&nbsp;session&nbsp;<span class="FM_Emphasis">policy</span></p>
+ <p class="FM_CLIIndented">any&nbsp;any&nbsp;any&nbsp;redirect&nbsp;esi-group&nbsp;<span class="FM_Emphasis">group</span>&nbsp;direction&nbsp;both&nbsp;blacklist</p>
+ <p class="FM_CLIIndented">//For any incoming traffic, going to any destination,<br />//redirect the traffic to servers in the specified ESI group.</p>
+ <p class="FM_CLIIndented">any&nbsp;any&nbsp;any&nbsp;permit</p>
+ <p class="FM_CLIIndented">//For everything else, allow the traffic to flow normally.</p>
+ <p style="margin-top  : 0.000pt; margin-bottom : 0.000pt; font-family : Courier New; font-size  : 10.2pt; letter-spacing : -0.02em;">&nbsp;</p>
+ <p class="FM_CLI">user-role&nbsp;<span class="FM_Emphasis">role</span></p>
+ <p class="FM_CLIIndented">access-list&nbsp;{eth&nbsp;|&nbsp;mac&nbsp;|&nbsp;session}</p>
+ <p class="FM_CLIIndented">bandwidth-contract&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">captive-portal&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">dialer&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">pool {l2tp&nbsp;|&nbsp;pptp}</p>
+ <p class="FM_CLIIndented">reauthentication-interval&nbsp;<span class="FM_Emphasis">minutes</span></p>
+ <p class="FM_CLIIndented">session-acl&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">vlan&nbsp;<span class="FM_Emphasis">vlan_id</span></p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">ip access-list&nbsp;session&nbsp;fortinet</p>
+ <p class="FM_CLIIndented">any&nbsp;any&nbsp;svc-http&nbsp;redirect&nbsp;esi-group&nbsp;fortinet&nbsp;direction&nbsp;both&nbsp;blacklist</p>
+ <p class="FM_CLIIndented">any&nbsp;any&nbsp;any&nbsp;permit</p>
+ <p class="FM_CLI">user-role&nbsp;guest</p>
+ <p class="FM_CLIIndented">access-list&nbsp;session&nbsp;fortinet</p>
+ <p class="FM_2Heading"><a name="TOC_Syslog_Parser_Domain_and"></a>Syslog Parser Domain and Rules</p>
+ <p class="FM_Body">The following sections describe how to configure the syslog parser domain and rules for the route-mode example using the WebUI and CLI.</p>
+ <p class="FM_3Heading"><a name="TOC_Add_a_New_Syslog_Parser"></a>Add a New Syslog Parser Domain in the WebUI</p>
+ <p class="FM_Body">To add a new syslog parser domain for the routed example:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;Parser</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Domains</span> tab (<span class="FM_Bold" style="font-weight : bold; ">Advanced Services &gt;</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">External Services</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">&gt; Syslog Parser Domain</span>). </p>
+ <p class="FM_BodyinBulletStep">The system displays the new domain view.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Domain</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Name</span> text box, type the name of the domain to be added.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Server</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">(IP Address)</span> text box, type a valid IP address.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">You must ensure that you type a valid IP address, because the IP address you type is not automatically validated against the list of external servers that has been configured.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">&lt;&lt;&nbsp;Add</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_Adding_a_New_Parser_Rule2"></a>Adding a New Parser Rule in the WebUI</p>
+ <p class="FM_Body">To add a new syslog parser rule for the route-mode example:</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Syslog&nbsp;Parser</span>&nbsp;<span class="FM_Bold" style="font-weight : bold; ">Rules</span> tab (<span class="FM_Bold" style="font-weight : bold; ">Advanced Services &gt;</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">External Services</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">&gt; Syslog Parser Rule</span>).</p>
+ <p class="FM_BodyinBulletStep">The system displays the new rule view.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Rule</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Name</span> text box, type the name of the rule to be added (in this example, “forti_virus”).</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Bold" style="font-weight : bold; ">Enable</span> checkbox to enable the rule.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Condition</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Pattern</span>&#160;text box, type the regular expression to be used as the condition pattern. (In this example, the expression “log_id=[0–9]{10}[&nbsp;]” searches for and matches a 10-digit string preceded by “log_id=” and followed by one space.)</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Match</span> list, use the drop-down menu to select the match type (in this example, ipaddr).</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the <span class="FM_Bold" style="font-weight : bold; ">Match</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Pattern</span>&#160;text box, type the regular expression to be used as the match pattern (in this example, “src=(.*)[&nbsp;]”).</p>
+ <p class="FM_StepNext">7.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Set</span> list, select the set type (in this example, blacklist).</p>
+ <p class="FM_StepNext">8.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>In the drop-down <span class="FM_Bold" style="font-weight : bold; ">Parser Group </span>list, select one of the configured parser domain names (in this example, “forti_domain”).</p>
+ <p class="FM_StepNext">9.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>.</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_CLI145"></a>In the CLI</p>
+ <p class="FM_Body">Use these CLI commands to define a syslog parser domain and the rule to be applied in the route-mode example shown in <a href="#XREF_29667_Figure_192_ESI"><span class="FM_PMS646">Figure 190</span></a>.</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;domain&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">peer&nbsp;<span class="FM_Emphasis">peer-ip</span></p>
+ <p class="FM_CLIIndented">server&nbsp;<span class="FM_Emphasis">ipaddr</span></p>
+ <p style="margin-top  : 0.000pt; margin-bottom : 0.000pt; font-family : Courier New; font-size  : 10.2pt; letter-spacing : -0.02em;">&nbsp;</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;rule&nbsp;<span class="FM_Emphasis">rule-name</span></p>
+ <p class="FM_CLIIndented">condition&nbsp;<span class="FM_Emphasis">expression</span></p>
+ <p class="FM_CLIIndented">domain&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">enable</p>
+ <p class="FM_CLIIndented">match&nbsp;{ipaddr&nbsp;<span class="FM_Emphasis">expression</span>&nbsp;|&nbsp;mac&nbsp;<span class="FM_Emphasis">expression</span>&nbsp;|&nbsp;user&nbsp;<span class="FM_Emphasis">expression</span>&nbsp;}</p>
+ <p class="FM_CLIIndented">position&nbsp;<span class="FM_Emphasis">position</span></p>
+ <p class="FM_CLIIndented">set&nbsp;{blacklist&nbsp;|&nbsp;role&nbsp;<span class="FM_Emphasis">role</span>}</p>
+ <p class="FM_Body">For example:</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;domain&nbsp;forti_domain</p>
+ <p class="FM_CLIIndented">server&nbsp;10.168.172.3</p>
+ <p style="margin-top  : 0.000pt; margin-bottom : 0.000pt; font-family : Courier New; font-size  : 10.2pt; letter-spacing : -0.02em;">&nbsp;</p>
+ <p class="FM_CLI">esi&nbsp;parser&nbsp;rule&nbsp;forti_virus</p>
+ <p class="FM_CLIIndented">condition&nbsp;“log_id=[0-9]{10}[&nbsp;]”</p>
+ <p class="FM_CLIIndented">match&nbsp;ipaddr&nbsp;“src=(.*)[&nbsp;]”</p>
+ <p class="FM_CLIIndented">set&nbsp;blacklist</p>
+ <p class="FM_CLIIndented">enable</p>
+ <p class="FM_1Heading"><a name="TOC_Example_NAT_mode_ESI"></a><a name="XREF_20533_Example_NAT_mode"></a>Example NAT-mode ESI Topology</p>
+ <p class="FM_Body">This section describes the configuration for a sample NAT-mode topology using the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;and three external captive-portal servers. NAT mode uses a trusted interface for each external captive-portal server and a different destination port to redirect a packet to a port other than the original destination port in the packet. An example topology is shown below in <a href="#XREF_88548_Figure_106_Example"></a>.</p>
+ <p class="FM_FigureTitle"><span class="FM_zTitleNo">Figure 192 &#160;</span>Example NAT-Mode Topology</p>
+ <div align="left"><img alt="ESI00164.jpg" id="image6" src="images/ESI00164.jpg" />
+ </div>
+ <p class="FM_FigureTitle"></p>
+ <p class="FM_Anchor">&nbsp;</p>
+ <p class="FM_Body"><span style="font-family : HelveticaNeueLT Std; font-style : italic; "><span style="font-family : HelveticaNeueLT Std; font-style : italic; "><a name="XREF_88548_Figure_106_Example"></a></span>In this example, all HTTP traffic received by the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;is redirected to the external captive portal server group and load-balanced across the captive portal servers. All wireless client traffic with destination port 80 is redirected to the captive portal server group, with the new destination port 8080.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 41.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">The external servers do not necessarily have to be on the subnet as the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>. The policy that redirects traffic to the external servers for load balancing is routed to the external servers if they are on a different subnet.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></span></p>
+ <p class="FM_Body">In the topology shown, the following configurations are entered on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?> and external captive-portal servers:</p>
+ <p class="FM_3Heading"><a name="TOC_ESI_server_configuration1"></a>ESI server configuration on the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?></p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">External captive-portal server 1:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Name = external_cp1</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Mode = NAT</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Trusted IP address = 10.1.1.1</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Alternate destination port = 8080</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">External captive-portal server 2:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Name = external_cp2</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Mode = NAT</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Trusted IP address = 10.1.1.2</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">External captive-portal server 3:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Name = external_cp3</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Mode = NAT</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Trusted IP address = 10.1.1.3</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Health-check ping:</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Name = externalcp_ping</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Frequency = 30 seconds</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Retry-count = 2 attempts</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Timeout = 2 seconds (2 seconds is the default)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">ESI group = external_cps</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Session access control list (ACL)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Name = cp_redirect_acl</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet2">Session policy = user&nbsp;any&nbsp;svc-http&nbsp;redirect&nbsp;esi-group&nbsp;external_cps direction both</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_Example1"></a>Configuring the Example NAT-mode ESI Topology</p>
+ <p class="FM_Body">This section describes how to implement the example NAT-mode ESI topology shown in using both the WebUI, then the CLI.</p>
+ <p class="FM_Body">The configuration process consists of these general tasks:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Configuring captive portal (see the “Configuring Captive Portal” chapter).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configuring the health-check ping method.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configuring the ESI servers.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configuring the ESI group.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Defining the redirect filter for sending traffic to the ESI server.</p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_NAT_mode"></a>Configuring the NAT-mode ESI Example in the WebUI</p>
+ <p class="FM_Body">Navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt;&#160;Advanced Services &gt; External Services</span>&#160;view on the WebUI (see <a href="#XREF_62224_Figure_103"><span class="FM_PMS646">&#160;Figure 103</span></a>).</p>
+ <p class="FM_3Heading"><a name="TOC_In_the_WebUI142"></a>In the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Health-Check Configuration</span>&#160;section <span class="FM_Bold" style="font-weight : bold; ">External Services</span> view on the WebUI.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Profile</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Name</span>. This example uses <span class="FM_Bold" style="font-weight : bold; ">externalcp_ping</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Frequency</span>&#160;seconds. This example uses <span class="FM_Bold" style="font-weight : bold; ">30</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Retry Count</span>. This example uses <span class="FM_Bold" style="font-weight : bold; ">3</span>.</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">If you do not specify a value for a parameter, the WebUI assumes the default value. In this example, the desired timeout value is two seconds; therefore, not specifying the timeout causes the WebUI to use the default value of two seconds.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">To apply the configuration (changes), you must click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">External Services</span>&#160;view on the WebUI. In this example, you can wait until you finish configuring the servers and groups, or you can apply after each configuration portion.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_the_ESI"></a>Configuring the ESI Group in the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Server Groups</span>&#160;section <span class="FM_Bold" style="font-weight : bold; ">External Services</span> view on the WebUI.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Group Name</span>. This example uses <span class="FM_Bold" style="font-weight : bold; ">external_cps</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Health-Check Profile</span>. Select the health-check ping from the drop-down list. This example uses <span class="FM_Bold" style="font-weight : bold; ">externalcp_ping</span>.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">To apply the configuration (changes), you must click <span class="FM_Bold" style="font-weight : bold; ">Apply</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">External Services</span>&#160;view on the WebUI. In this example, you can wait until you finish configuring the servers and groups, or you can apply after each configuration portion.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_StepNext"></p>
+ <p class="FM_3Heading"><a name="TOC_Configure_the_ESI"></a>Configure the ESI Servers in the WebUI</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">External Servers</span> section.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Server Name</span>.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Server Group</span>. Use the drop-down list to assign this server to a group from the existing configured groups.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Server Mode</span>. Use the drop-down list to choose NAT mode.)</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Trusted IP Address</span>. For nat mode, enter the IP address of the trusted interface on the external captive portal server.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">NAT Destination Port</span>. Enter the port number (to redirect a packet to a port other than the original destination port in the packet).</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><a name="XREF_46900_3_Click_Done_when"></a>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Repeat Step 1 through Step 3 for the remaining external captive portal servers.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes.</p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_the6"></a>Configuring the Redirection Filter in the WebUI</p>
+ <p class="FM_Body">To redirect the required traffic to the server(s) using the WebUI, navigate to the <span class="FM_Bold" style="font-weight : bold; ">Configuration &gt; Access Control &gt; User Roles</span>&#160;view on the WebUI (see <a href="#XREF_84018_Figure_104_User"><span class="FM_PMS646">1. Figure 104</span></a>).</p>
+ <p class="FM_Step1st">1.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click the <span class="FM_Bold" style="font-weight : bold; ">Policies</span> tab.</p>
+ <p class="FM_StepNext">2.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Policies</span>&#160;section of the <span class="FM_Bold" style="font-weight : bold; ">Policies</span> view on the WebUI.</p>
+ <p class="FM_StepNext">3.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Provide the following details:</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Policy Name</span>. (This example uses <span class="FM_Bold" style="font-weight : bold; ">cp_redirect_acl</span>.)</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Policy Type</span>. Select <span style="font-weight : bold; ">IPv4</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">Session</span> from the drop-down list.</p>
+ <p class="FM_StepNext">4.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>&#160;in the <span class="FM_Bold" style="font-weight : bold; ">Rules</span>&#160;section of the <span class="FM_Bold" style="font-weight : bold; ">Policies</span> view.</p>
+ <p class="FM_StepSub1st">a.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Source</span>. Select <span class="FM_Bold" style="font-weight : bold; ">user</span> from the drop-down list.</p>
+ <p class="FM_StepSubNext">b.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Destination</span>. Accept <span class="FM_Bold" style="font-weight : bold; ">any</span>.</p>
+ <p class="FM_StepSubNext">c.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Service</span>. Select <span class="FM_Bold" style="font-weight : bold; ">service</span>&#160;from the drop-down list; select <span class="FM_Bold" style="font-weight : bold; ">svc-http (tcp&nbsp;80)</span> from the secondary drop-down list.</p>
+ <p class="FM_StepSubNext">d.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="FM_Bold" style="font-weight : bold; ">Action</span>. Select <span class="FM_Bold" style="font-weight : bold; ">redirect to ESI group</span>&#160;from the drop-down list; select <span class="FM_Bold" style="font-weight : bold; ">external_cps</span>&#160;from the secondary drop-down list; click <span class="FM_Bold" style="font-weight : bold; ">&lt;--</span> to add that group.</p>
+ <p class="FM_StepSubNext">e.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Add</span>.</p>
+ <p class="FM_StepNext">5.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span class="FM_Bold" style="font-weight : bold; ">Done</span> when you are finished.</p>
+ <p class="FM_StepNext">6.<span style='word-spacing:normal; font:6.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>Click <span style="font-weight : bold; ">Apply</span> to apply the configuration changes.</p>
+ <p class="FM_2Heading"><a name="TOC_Configuring_the_Example2"></a>Configuring the Example NAT-mode Topology in the CLI</p>
+ <p class="FM_Body">The CLI configuration process consists of these general tasks:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Configuring captive portal (see <a href="VirtualAPs.htm#XREF_15337_Access_Points"><span class="FM_PMS646">Chapter 15, “Captive Portal” </span></a>).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configuring the health-check ping method.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configuring the ESI servers.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configuring the ESI group.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Defining the redirect filter for sending traffic to the ESI server.</p>
+</li>
+ </ul>
+ <p class="FM_3Heading"><a name="TOC_Configuring_a_Health"></a>Configuring a Health-Check Ping</p>
+ <p class="FM_Body">The health-check ping will be associated with an ESI group, along with servers, so that <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;will send ICMP echo requests to each server in the group and mark the server down if the <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;does not hear from the server. The health-check parameters used in this example are:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Frequency—30 seconds. (The default is 5 seconds.)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Retry-count—3. (The default is 2.)</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Timeout—2 seconds. (The default is 2 seconds.)</p>
+</li>
+ </ul>
+ <p class="FM_Body">Use these CLI commands to configure a health-check ping method:</p>
+ <p class="FM_CLI">esi&nbsp;ping&nbsp;<span class="FM_Emphasis">profile_name</span></p>
+ <p class="FM_CLIIndented">frequency&nbsp;<span class="FM_Emphasis">seconds</span></p>
+ <p class="FM_CLIIndented">retry-count&nbsp;<span class="FM_Emphasis">count</span></p>
+ <p class="FM_CLIIndented">timeout&nbsp;<span class="FM_Emphasis">seconds</span></p>
+ <p class="FM_3Heading"><a name="TOC_Configuring_ESI_Servers"></a>Configuring ESI Servers</p>
+ <p class="FM_Body">Here are the ESI server CLI configuration tasks:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Configure server mode to be NAT.</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Configure the trusted IP address (the server IP address to which packets should be redirected).</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">To redirect to a different port than the original destination port in the packet, configure an alternate destination port.</p>
+</li>
+ </ul>
+ <p class="FM_Body">Use these CLI commands to configure an ESI server and identify its associated attributes:</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;<span class="FM_Emphasis">server_identity</span></p>
+ <p class="FM_CLIIndented">dport&nbsp;<span class="FM_Emphasis">destination_tcp/udp_port</span></p>
+ <p class="FM_CLIIndented">mode&nbsp;{bridge&nbsp;|&nbsp;nat&nbsp;|&nbsp;route}</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;<span class="FM_Emphasis">ip-addr</span>&nbsp;[health-check]</p>
+ <p class="FM_3Heading"><a name="TOC_Configure_an_ESI_Group"></a>Configure an ESI Group, Add the Health-Check Ping and ESI Servers</p>
+ <p class="FM_Body">Use these CLI commands to configure an ESI server group, identify its associated ping health-check method, and associate a server with this group:</p>
+ <p class="FM_CLI">esi&nbsp;group&nbsp;<span class="FM_Emphasis">name</span></p>
+ <p class="FM_CLIIndented">ping&nbsp;<span class="FM_Emphasis">profile_name</span></p>
+ <p class="FM_CLIIndented">server&nbsp;<span class="FM_Emphasis">server_identity</span></p>
+ <p class="FM_3Heading"><a name="TOC_Using_the_ESI_Group_in_a"></a>Using the ESI Group in a Session Access Control List</p>
+ <p class="FM_Body">Use these CLI commands to define the redirection filter for sending traffic to the ESI server.</p>
+ <p class="FM_CLI">ip access-list&nbsp;session&nbsp;<span class="FM_Emphasis">policy</span></p>
+ <p class="FM_CLIIndented">user&nbsp;any&nbsp;svc-http&nbsp;redirect&nbsp;esi-group&nbsp;<span class="FM_Emphasis">group</span>&nbsp;direction&nbsp;both</p>
+ <p class="FM_3Heading"><a name="TOC_CLI_Configuration"></a>CLI Configuration Example 1</p>
+ <p class="FM_CLI">esi&nbsp;ping&nbsp;externalcp_ping</p>
+ <p class="FM_CLIIndented">frequency&nbsp;30</p>
+ <p class="FM_CLIIndented">retry-count&nbsp;3</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;external_cp1</p>
+ <p class="FM_CLIIndented">dport&nbsp;8080</p>
+ <p class="FM_CLIIndented">mode&nbsp;nat</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;10.1.1.1</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;external_cp2</p>
+ <p class="FM_CLIIndented">dport&nbsp;8080</p>
+ <p class="FM_CLIIndented">mode&nbsp;nat</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;10.1.1.2</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;external_cp3</p>
+ <p class="FM_CLIIndented">dport&nbsp;8080</p>
+ <p class="FM_CLIIndented">mode&nbsp;nat</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;10.1.1.3</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">esi&nbsp;group&nbsp;external_cps</p>
+ <p class="FM_CLIIndented">ping&nbsp;externalcp_ping</p>
+ <p class="FM_CLIIndented">server&nbsp;external_cp1</p>
+ <p class="FM_CLIIndented">server&nbsp;external_cp2</p>
+ <p class="FM_CLIIndented">server&nbsp;external_cp3</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">ip access-list&nbsp;session&nbsp;cp_redirect_acl</p>
+ <p class="FM_CLIIndented">user&nbsp;any&nbsp;svc-http&nbsp;redirect&nbsp;esi-group&nbsp;external_cps&nbsp;direction&nbsp;both</p>
+ <p class="FM_3Heading"><a name="TOC_CLI_Configuration1"></a>CLI Configuration Example 2</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;https-proxy1</p>
+ <p class="FM_CLIIndented">dport&nbsp;44300</p>
+ <p class="FM_CLIIndented">mode&nbsp;nat</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;1.2.3.4</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">esi&nbsp;server&nbsp;https-proxy2</p>
+ <p class="FM_CLIIndented">dport&nbsp;44300</p>
+ <p class="FM_CLIIndented">mode&nbsp;nat</p>
+ <p class="FM_CLIIndented">trusted-ip-addr&nbsp;1.2.3.5</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">esi&nbsp;group&nbsp;https-proxies</p>
+ <p class="FM_CLIIndented">ping&nbsp;default</p>
+ <p class="FM_CLIIndented">server&nbsp;https-proxy1</p>
+ <p class="FM_CLIIndented">server&nbsp;https-proxy2</p>
+ <p class="FM_CLI">&nbsp;</p>
+ <p class="FM_CLI">ip access-list&nbsp;session&nbsp;https-proxy</p>
+ <p class="FM_CLIIndented">user&nbsp;any&nbsp;svc-https&nbsp;redirect&nbsp;esi-group&nbsp;https-proxies&nbsp;direction&nbsp;both</p>
+ <p class="FM_CLIIndented">any&nbsp;any&nbsp;permit</p>
+ <p class="FM_1Heading"><a name="TOC_Basic_Regular_Expression"></a><a name="IX_basic_regular_expression"></a><a name="XREF_90770_Basic_Regular"></a>Basic Regular Expression Syntax</p>
+ <p class="FM_Body">The ESI syslog parser supports regular expressions created using the Basic Regular Expression (BRE) syntax described in this section. BRE syntax consists of instructions—character-matching operators (described in <a href="#XREF_90771_Table_1_Character"><span class="FM_PMS646">Table 161</span></a>), repetition operators (described in <a href="#XREF_15423_Table_2_Regular"><span class="FM_PMS646">Table 162</span></a>), or expression anchors (described in <a href="#XREF_27839_Table_3_Regular"><span class="FM_PMS646">Table 163</span></a>)—used to defined the search or match target.</p>
+ <p class="FM_Body">This section contains the following topics:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_zblue"><a href="#XREF_76756_Character_Matching">“Character-Matching Operators”</a></span></p>
+  </li>
+  <li style="">
+    <p class="FM_Bullet1"><span class="FM_zblue"><a href="#XREF_95748_Regular_Expression">“Regular Expression Repetition Operators”</a></span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_zblue"><a href="#XREF_95748_Regular_Expression">“Regular Expression Anchors”</a></span></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><span class="FM_zblue"><a href="#XREF_50136_References">“References”</a></span></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Character_Matching"></a><a name="XREF_76756_Character_Matching"></a>Character-Matching Operators</p>
+ <p class="FM_Body"><span class="FM_Bold" style="font-weight : bold; ">Character-matching</span>&#160;<span class="FM_Bold" style="font-weight : bold; ">operators</span> define what the search will match.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 469.87pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 161 &#160;</span><a name="XREF_90771_Table_1_Character"></a>Character-matching operators in regular expressions<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 54.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Operator</p>
+</th>
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+  <th style="width : 126.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Sample</p>
+</th>
+  <th style="width : 145.875pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Result</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">.</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match any one character.</p>
+</td>
+  <td style="width : 126.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">grep&nbsp;.ord sample.txt</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">ford</span>, <span class="FM_Emphasis">lord</span>, <span class="FM_Emphasis">2ord</span>, etc. in the file sample.txt.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">[&nbsp;]</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match any one character listed between the brackets</p>
+</td>
+  <td style="width : 126.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">grep [cng]ord sample.txt</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches only <span class="FM_Emphasis">cord</span>, <span class="FM_Emphasis">nord</span>, and <span class="FM_Emphasis">gord</span></p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">[^]</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match any one character not listed between the brackets</p>
+</td>
+  <td style="width : 126.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">grep [^cn]ord sample.txt</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">lord</span>, <span class="FM_Emphasis">2ord</span>, etc., but not <span class="FM_Emphasis">cord</span>&#160;or <span class="FM_Emphasis">nord</span></p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 126.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">grep [a-zA-Z]ord sample.txt</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">aord</span>, <span class="FM_Emphasis">bord</span>, <span class="FM_Emphasis">Aord</span>, <span class="FM_Emphasis">Bord</span>, etc.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 126.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">grep [^0-9]ord sample.txt</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">Aord</span>, <span class="FM_Emphasis">aord</span>, etc., but not <span class="FM_Emphasis">2ord</span>, etc.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Regular_Expression"></a><a name="XREF_95748_Regular_Expression"></a>Regular Expression Repetition Operators</p>
+ <p class="FM_Body"><span class="FM_Bold" style="font-weight : bold; ">Repetition operators</span>&#160;are <span class="FM_Emphasis">quantifiers</span>&#160;that describe how many times to search for a specified string. Use them in conjunction with the character-matching operators in <a href="#XREF_15423_Table_2_Regular"><span class="FM_PMS646">Table 162</span></a> to search for multiple characters.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 466.88pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 162 &#160;</span><a name="XREF_15423_Table_2_Regular"></a>Regular expression repetition operators<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 54.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Operator</p>
+</th>
+  <th style="width : 134.250pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+  <th style="width : 132.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Sample</p>
+</th>
+  <th style="width : 146.625pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Result</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">?</p>
+</td>
+  <td style="width : 134.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match any character one time if it exists</p>
+</td>
+  <td style="width : 132.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “?erd” sample text</p>
+</td>
+  <td style="width : 146.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">berd</span>, <span class="FM_Emphasis">herd</span>, etc., <span class="FM_Emphasis">erd</span></p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">*</p>
+</td>
+  <td style="width : 134.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match declared element multiple times if it exists</p>
+</td>
+  <td style="width : 132.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “n.*rd” sample.txt</p>
+</td>
+  <td style="width : 146.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">nerd</span>, <span class="FM_Emphasis">nrd</span>, <span class="FM_Emphasis">neard</span>, etc.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">+</p>
+</td>
+  <td style="width : 134.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match declared element one or more times</p>
+</td>
+  <td style="width : 132.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “[n]+erd” sample.txt</p>
+</td>
+  <td style="width : 146.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">nerd</span>, <span class="FM_Emphasis">nnerd</span>, etc., but not <span class="FM_Emphasis">erd</span></p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">{n}</p>
+</td>
+  <td style="width : 134.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match declared element exactly <span class="FM_Emphasis">n</span> times</p>
+</td>
+  <td style="width : 132.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “[a-z]{2}erd” sample.txt</p>
+</td>
+  <td style="width : 146.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">cherd</span>, <span class="FM_Emphasis">blerd</span>, etc., but not <span class="FM_Emphasis">nerd</span>, <span class="FM_Emphasis">erd</span>, <span class="FM_Emphasis">buzzerd</span>, etc.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">{n,}</p>
+</td>
+  <td style="width : 134.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match declared element at least <span class="FM_Emphasis">n</span> times</p>
+</td>
+  <td style="width : 132.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “.{2,}erd” sample.txt</p>
+</td>
+  <td style="width : 146.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">cherd</span>&#160;and <span class="FM_Emphasis">buzzerd</span>, but not <span class="FM_Emphasis">nerd</span></p>
+</td>
+</tr>
+  <tr style=" height : 43.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">{n,N}</p>
+</td>
+  <td style="width : 134.250pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match declared element at least <span class="FM_Emphasis">n</span>&#160;times, but not more than <span class="FM_Emphasis">N</span> times</p>
+</td>
+  <td style="width : 132.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “n[e]{1,2}rd” sample.txt</p>
+</td>
+  <td style="width : 146.625pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">nerd</span>&#160;and <span class="FM_Emphasis">neerd</span></p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_Regular_Expression1"></a><a name="XREF_61209_Regular_Expression"></a>Regular Expression Anchors</p>
+ <p class="FM_Body"><span class="FM_Bold" style="font-weight : bold; ">Anchors</span>&#160;describe where to match the pattern, and are a handy tool for searching for common string combinations. Some of the anchor examples use the vi line editor command&nbsp;<span class="FM_Emphasis">:s</span>, which stands for <span class="FM_Emphasis">substitute</span>. That command uses the syntax: <span class="FM_Emphasis">s/pattern_to_match/pattern_to_substitute</span>.</p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0; padding-left: 4.00pt; padding-top: 7.00pt; padding-right: 4.00pt; padding-bottom: 7.00pt;float: alignleft;margin-bottom: 12.00pt; width: 424.87pt;" cellspacing="0">
+  <caption class="FM_TableTitle" align="left"><span class="FM_zTitleNo">Table 163 &#160;</span><a name="XREF_27839_Table_3_Regular"></a>Regular expression anchors<?rh-udv_start name="Table_Continuation"  ?> (Continued)<?rh-udv_end ?>
+  </caption>
+  <tr style=" height : 28.00pt;background : #548baf;">
+  <th style="width : 54.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Operator</p>
+</th>
+  <th style="width : 144.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Description</p>
+</th>
+  <th style="width : 81.000pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Sample</p>
+</th>
+  <th style="width : 145.875pt; background : #548baf;border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableHeading">Result</p>
+</th>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">^</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match at the beginning of a line</p>
+</td>
+  <td style="width : 81.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">s/^/blah&nbsp;/</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Inserts “blah” at the beginning of the line</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">$</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match at the end of a line</p>
+</td>
+  <td style="width : 81.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">s/$/&nbsp;blah/</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Inserts “&nbsp;blah” at the end of the line</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">\&lt;</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match at the beginning of a word</p>
+</td>
+  <td style="width : 81.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">s/\&lt;/blah/</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Inserts “blah” at the beginning of the word</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 81.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “\&lt;blah” sample.txt</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">blahfield</span>, etc.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">\&gt;</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match at the end of a word</p>
+</td>
+  <td style="width : 81.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">s/\&gt;/blah/</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Inserts “blah” at the end of the word</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">&nbsp;</p>
+</td>
+  <td style="width : 81.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “\&gt;blah” sample.txt</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">soupblah</span>, etc.</p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">\b</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match at the beginning or end of a word</p>
+</td>
+  <td style="width : 81.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “\bblah” sample.txt</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">blahcake</span>&#160;and <span class="FM_Emphasis">countblah</span></p>
+</td>
+</tr>
+  <tr style=" height : 33.00pt;">
+  <td style="width : 54.000pt; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">\B</p>
+</td>
+  <td style="width : 144.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Match in the middle of a word</p>
+</td>
+  <td style="width : 81.000pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">egrep “\Bblah” sample.txt</p>
+</td>
+  <td style="width : 145.875pt; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_TableBody">Matches <span class="FM_Emphasis">sublahper</span>, etc.</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Body"></p>
+ <p class="FM_2Heading"><a name="TOC_References"></a><a name="XREF_50136_References"></a>References</p>
+ <p class="FM_Body">This implementation is based, in part, on the following resources:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">Lonvick, C., “The BSD syslog Protocol”, RFC&nbsp;3164, August 2001</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Regular expression (regex) reference: http://en.wikipedia.org/wiki/Regular_expression</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Regex syntax summary: http://www.greenend.org.uk/rjk/2002/06/regexp.html</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Basic regular expression (BRE) syntax: http://builder.com.com/5100-6372-1050915.html</p>
+</li>
+ </ul>
+ <p class="FM_Body">&nbsp;</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>

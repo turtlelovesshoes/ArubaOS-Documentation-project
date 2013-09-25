@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>CSS</title>
+
+ <meta content="Aruba Networks Technical Publications" name="rh-authors">
+ <meta name="generator" content="Adobe RoboHelp 9 - from ImportMIF" />
+ <meta name="Originator" content="ImportMif" />
+ <meta name="OriginalFile" content="C:\p4data\techpub\ArubaOS\6.1\UG HTML\CSS.fm" />
+ <meta name="keyword" content="low-latency content security, virtual branch networking, virtual branch networking, remote access point">
+ <link rel="stylesheet" href="css/Full.css" type="text/css" />
+
+</head>
+
+<body>
+
+ <p class="FM_ChapterNumber">Chapter 40</p>
+ <p class="FM_ChapterTitle"><a name="TOC_Content_Security_Service"></a><a name="XREF_57957_Content_Security"></a>Content Security Service </p>
+ <p class="FM_Body">The Content Security Service (CSS) provides content security for branch offices and teleworkers. CSS is a key component of the Virtual Branch Networking (VBA) solution and integrates with the Remote Access Point (RAP) and Branch Office <?rh-udv_start name="C1_1-Controller_Uppercase"  ?>Controller<?rh-udv_end ?>&#160;product family to provide high-throughput, low-latency content security with centralized reporting and management. </p>
+ <p class="FM_Body">CSS provides complete protection including advanced URL filtering, P2P control, Anti-Virus/Anti-Malware, botnet detection, and data loss prevention.</p>
+ <p class="FM_Body">For more detailed information on the Content Security Service features, see the <span style="font-style : italic; "><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?>&#160;Content Security Guide</span>&#160;and the <span style="font-style : italic; "><?rh-udv_start name="CO1-CompanyShort"  ?>Aruba<?rh-udv_end ?> Content Security Release Notes.</span></p>
+ <p class="FM_Body">This chapter contains the following sections:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_40317_Redirecting_Traffic"><span class="FM_PMS646">“Redirecting Traffic”</span></a></p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1"><a href="#XREF_85907_Verifying_and"><span class="FM_PMS646">“Verifying and Debugging”</span></a></p>
+</li>
+ </ul>
+ <p class="FM_1Heading"><a name="TOC_Redirecting_Traffic"></a><a name="XREF_40317_Redirecting_Traffic"></a>Redirecting Traffic</p>
+ <p class="FM_Body">All the HTTP traffic is redirected (dst-nated) to the cloud service “gateway.css.arubanetworks.com” where security policies are enforced. Upon receipt of the dst-nated traffic, the cloud service prompts for user authentication before permitting the user to access the WWW resources. Generally the process is:</p>
+ <ul type="disc" style="">
+  <li style="">
+  <p class="FM_Bullet1">The <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>’s firewall is opened to allow user authentication from the cloud service</p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The user is authenticated using their corporate credentials with AD integration. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">Alternatively, you can create a cloud service “hosted” account for each employee/user. </p>
+</li>
+  <li style="">
+  <p class="FM_Bullet1">The cloud service installs a cookie on the user’s browser; the validity of the cookie provides authenticity for the user.</p>
+<?rh-align_start align="left"?>
+  <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+   <tr style=" height : 41.50pt;">
+   <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+   <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+   <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+   <p class="FM_zTextNote"><?rh-udv_start name="OS"  ?>ArubaOS<?rh-udv_end ?>&#160;infrastructure has the ability to dst-nat “ANY” traffic. We use dst-ant of HTTP protocol to convey the usage of this feature.</p>
+</td>
+</tr>
+  </table>
+<?rh-align_end ?>
+  <p class="FM_Bullet1"></p>
+</li>
+ </ul>
+ <p class="FM_2Heading"><a name="TOC_Administration"></a>Administration</p>
+ <p class="FM_Body">To redirect the HTTP traffic to an entity hosting the cloud service or a corporate data center, create an ACL session and dst-nat to the resource (name or IP). The PEFNG license is required to configure a session ACL</p>
+ <p class="FM_2Heading"><a name="TOC_Controllers"></a><?rh-udv_start name="C2_1-Controllers_Uppercase"  ?>Controllers<?rh-udv_end ?></p>
+ <p class="FM_3Heading"><a name="TOC_HTTP_dst_nat_to_Scanning"></a>HTTP dst-nat to Scanning Server in a Corporate Network</p>
+ <p class="FM_CLI">ip access-list session corp-scan-http-acl-server</p>
+ <p class="FM_CLIIndented">user any svc-http dst-nat name &quot;name-of-server&quot;</p>
+ <p class="FM_3Heading"><a name="TOC_HTTP_dst_nat_to_any"></a>HTTP dst-nat to any Static IP </p>
+ <p class="FM_CLI">ip access-list session corp-scan-http-acl-ip</p>
+ <p class="FM_CLIIndented">user any svc-http dst-nat ip x.x.x.x</p>
+ <p class="FM_2Heading"><a name="TOC_RAPs"></a>RAPs</p>
+ <p class="FM_3Heading"><a name="TOC_HTTP_Route_dst_nat_to"></a>HTTP Route dst-nat to Cloud Service</p>
+ <p class="FM_CLI">ip access-list session rap-scan-http-acl-server</p>
+ <p class="FM_CLIIndented">user any svc-http route dst-nat name gateway.css.arubanetworks.com 0</p>
+ <p class="FM_Anchor"></p>
+<?rh-align_start align="left"?>
+ <table style="border-spacing: 0;float: alignleft; width: 540.00pt;" cellspacing="0">
+  <tr style=" height : 54.50pt;">
+  <td style="width : 72.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt; ">
+  <p class="FM_zIconNote"><img src="images/graphics/note.jpg" width="42" height="54" /></p>
+</td>
+  <td style="width : 468.000pt; vertical-align : top;padding-left: 6.00pt; padding-top: 3.00pt;  border-top:grey solid 1px; border-bottom:grey solid 1px;">
+  <p class="FM_zTextNote">When you are redirecting to &quot;gateway.css.arubanetworks.com&quot; make sure your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;can reach &quot;gateway.css.arubanetworks.com&quot;. You need to add a DNS server to your <?rh-udv_start name="C1-Controller"  ?>controller<?rh-udv_end ?>&#160;using the command: (host) (config) #ip name-server a.b.c.d</p>
+</td>
+</tr>
+ </table>
+<?rh-align_end ?>
+ <p class="FM_Anchor"></p>
+ <p class="FM_3Heading"><a name="TOC_HTTP_Route_dst_nat_to1"></a>HTTP Route dst-nat to any Static IP </p>
+ <p class="FM_CLI">ip access-list session rap-scan-http-acl-ip</p>
+ <p class="FM_CLIIndented">user any svc-http route dst-nat ip x.x.x.x 0</p>
+ <p class="FM_2Heading"><a name="TOC_Example_Configuration3"></a>Example Configuration</p>
+ <p class="FM_Body">Corporate network destinations alias:</p>
+ <p class="FM_CLI">netdestination corp</p>
+ <p class="FM_CLIIndented"> &#160;network 10.1.0.0 255.255.0.0</p>
+ <p class="FM_CLIIndented"> &#160;network 10.17.0.0 255.255.0.0</p>
+ <p class="FM_CLIIndented"> &#160;network 10.100.0.0 255.255.0.0</p>
+ <p class="FM_CLI">!</p>
+ <p class="FM_Body">Corporate network session ACL:</p>
+ <p class="FM_CLI">ip access-list session allowed-corp-acl</p>
+ <p class="FM_CLIIndented">user any udp 68 deny </p>
+ <p class="FM_CLIIndented">any any svc-icmp permit </p>
+ <p class="FM_CLIIndented">any any svc-dns permit </p>
+ <p class="FM_CLIIndented">any any svc-dhcp permit </p>
+ <p class="FM_CLIIndented">any any svc-natt permit </p>
+ <p class="FM_CLIIndented">any alias corp any permit </p>
+ <p class="FM_CLI">!</p>
+ <p class="FM_Body">Split Non-Corporate; user drops off ACL:</p>
+ <p class="FM_CLI">ip access-list session split-traffic-acl</p>
+ <p class="FM_CLIIndented">&#160;&#160;&#160;&#160;&#160;&#160;&#160;user any any route src-nat </p>
+ <p class="FM_CLI">!</p>
+ <p class="FM_Body">Apply this to the user role:</p>
+ <p class="FM_CLI">user-role split-authenticated-role</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;session-acl allowed-corp-acl</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;session-acl scan-http-acl-server</p>
+ <p class="FM_CLIIndented"> &#160;&#160;&#160;&#160;&#160;&#160;session-acl split-traffic-acl</p>
+ <p class="FM_CLI">!</p>
+ <p class="FM_1Heading"><a name="TOC_Verifying_and_Debugging"></a><a name="XREF_85907_Verifying_and"></a>Verifying and Debugging</p>
+ <p class="FM_Body">Once the mapping of dst-nat to “name” or “ip” is made, an implicit NAT pool is created. You can verity the NAT pool:</p>
+ <p class="FM_CLI">show datapath nat</p>
+ <p class="FM_CLIIndented">show datapath nat ap-name &lt;apname&gt;</p>
+ <p class="FM_Body">For debugging, verify the contents of the following files on RAP’s</p>
+ <p class="FM_CLI">/tmp/web_security/domain_names.txt</p>
+ <p class="FM_CLI">/tmp/web_security/domain_results.txt</p>
+<p style="color:black; font-style:italic;">Note:this release has not been updated since the release of the pdf</p></body></html>
